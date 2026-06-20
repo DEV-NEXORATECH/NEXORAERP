@@ -36,12 +36,21 @@ class ExampleTest extends TestCase
 
         foreach ([
             '/projects',
+            '/modules',
+            '/modules/finance',
+            '/modules/sales',
+            '/approvals',
             '/projects/create',
             '/sales',
+            '/sales-crm',
             '/sales/proposals/create',
             '/hr',
+            '/hris',
             '/hr/salaries',
             '/finance',
+            '/finance-suite',
+            '/finance-advanced',
+            '/procurement',
             '/finance/reimbursements',
             '/finance/cashflows',
             '/reports',
@@ -52,6 +61,26 @@ class ExampleTest extends TestCase
             '/admin/audit',
         ] as $path) {
             $this->actingAs($user)->get($path)->assertStatus(200);
+        }
+    }
+
+    public function test_admin_can_open_custom_report_types(): void
+    {
+        $user = User::factory()->create(['role' => 'admin']);
+
+        foreach ([
+            'profit_loss',
+            'balance_sheet',
+            'cash_flow_statement',
+            'project_profitability',
+            'aging_ar',
+            'aging_ap',
+            'tax_summary',
+            'budget_vs_actual',
+            'transactions',
+            'bank_reconciliation',
+        ] as $report) {
+            $this->actingAs($user)->get('/reports?report='.$report)->assertStatus(200);
         }
     }
 }

@@ -23,29 +23,30 @@ class AdminController extends Controller
 
     public function usersPage(): View
     {
-        $users = User::orderBy('name')->get();
+        $users = User::orderBy('name')->paginate(15)->withQueryString();
         return view('erp.admin.users', compact('users'));
     }
 
     public function mastersPage(): View
     {
-        $clients          = \App\Models\Client::orderBy('name')->get();
-        $departments      = \App\Models\Department::orderBy('name')->get();
-        $jobPositions     = \App\Models\JobPosition::orderBy('name')->get();
-        $expenseCategories = \App\Models\ExpenseCategory::orderBy('name')->get();
-        $bankAccounts     = \App\Models\BankAccount::orderBy('name')->get();
+        $clients           = \App\Models\Client::orderBy('name')->paginate(8, ['*'], 'clients_page')->withQueryString();
+        $departments       = \App\Models\Department::orderBy('name')->paginate(8, ['*'], 'departments_page')->withQueryString();
+        $jobPositions      = \App\Models\JobPosition::orderBy('name')->paginate(8, ['*'], 'positions_page')->withQueryString();
+        $expenseCategories = \App\Models\ExpenseCategory::orderBy('name')->paginate(8, ['*'], 'categories_page')->withQueryString();
+        $bankAccounts      = \App\Models\BankAccount::orderBy('name')->paginate(8, ['*'], 'banks_page')->withQueryString();
         return view('erp.admin.masters', compact('clients', 'departments', 'jobPositions', 'expenseCategories', 'bankAccounts'));
     }
 
     public function trashPage(): View
     {
         $trash = [
-            'projects'  => \App\Models\Project::onlyTrashed()->get(),
-            'proposals' => \App\Models\Proposal::onlyTrashed()->get(),
-            'invoices'  => \App\Models\Invoice::onlyTrashed()->get(),
-            'users'     => User::onlyTrashed()->get(),
+            'projects'  => \App\Models\Project::onlyTrashed()->latest()->paginate(8, ['*'], 'projects_page')->withQueryString(),
+            'proposals' => \App\Models\Proposal::onlyTrashed()->latest()->paginate(8, ['*'], 'proposals_page')->withQueryString(),
+            'invoices'  => \App\Models\Invoice::onlyTrashed()->latest()->paginate(8, ['*'], 'invoices_page')->withQueryString(),
+            'users'     => User::onlyTrashed()->latest()->paginate(8, ['*'], 'users_page')->withQueryString(),
         ];
-        return view('erp.admin.trash', compact('trash'));
+        $hasTrash = collect($trash)->sum(fn ($items) => $items->total()) > 0;
+        return view('erp.admin.trash', compact('trash', 'hasTrash'));
     }
 
     public function auditPage(): View

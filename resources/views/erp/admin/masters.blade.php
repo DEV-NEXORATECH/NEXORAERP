@@ -11,7 +11,7 @@
             <input name="email" type="email" placeholder="Email">
             <button>Tambah Client</button>
         </form>
-        <details><summary>Client List ({{ $clients->count() }})</summary>
+        <details><summary>Client List ({{ $clients->total() }})</summary>
             <table>
                 @foreach($clients as $client)
                 <tr>
@@ -20,6 +20,7 @@
                 </tr>
                 @endforeach
             </table>
+            <div class="pager">{{ $clients->links() }}</div>
         </details>
     </div>
 
@@ -36,6 +37,12 @@
                 <tr><td>Pos: {{ $position->name }}</td><td><form class="inline" method="post" action="{{ route('masters.destroy', ['job_positions', $position->id]) }}">@csrf @method('delete')<button class="mini danger">Delete</button></form></td></tr>
                 @endforeach
             </table>
+            <div class="pager">
+                <span>Departments</span>{{ $departments->links() }}
+            </div>
+            <div class="pager">
+                <span>Positions</span>{{ $jobPositions->links() }}
+            </div>
         </details>
     </div>
 
@@ -64,6 +71,12 @@
                 <tr><td>{{ $category->name }}<br><span class="muted">{{ $category->type }}</span></td><td><form class="inline" method="post" action="{{ route('masters.destroy', ['expense_categories', $category->id]) }}">@csrf @method('delete')<button class="mini danger">Delete</button></form></td></tr>
                 @endforeach
             </table>
+            <div class="pager">
+                <span>Bank Accounts</span>{{ $bankAccounts->links() }}
+            </div>
+            <div class="pager">
+                <span>Expense Categories</span>{{ $expenseCategories->links() }}
+            </div>
         </details>
     </div>
 </section>

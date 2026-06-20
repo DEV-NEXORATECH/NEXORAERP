@@ -1,6 +1,4 @@
 <aside class="sidebar">
-
-    {{-- ── Brand header ──────────────────────────────────────────────── --}}
     <div class="sidebar-head">
         <div class="sidebar-brand">
             <div class="logo">NX</div>
@@ -11,120 +9,38 @@
         </div>
     </div>
 
-    {{-- ── Scrollable nav area ────────────────────────────────────────── --}}
     <div class="sidebar-scroll">
-
-        <div class="side-section">Main</div>
         <nav class="side-nav">
             <a class="{{ $isPage('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                 <span class="side-icon">{!! $icon('dashboard') !!}</span>
                 <span class="side-label">Dashboard</span>
             </a>
-        </nav>
-
-        @if($can('admin', 'sales'))
-            <div class="side-section">Sales</div>
-            <nav class="side-nav">
-                <a class="{{ $isPage('projects', 'project-create', 'project-edit') ? 'active' : '' }}"
-                   href="{{ route('projects.index') }}">
-                    <span class="side-icon">{!! $icon('projects') !!}</span>
-                    <span class="side-label">Projects</span>
-                </a>
-                <a class="{{ $isPage('sales', 'proposal-create', 'proposal-edit') ? 'active' : '' }}"
-                   href="{{ route('sales.index') }}">
-                    <span class="side-icon">{!! $icon('proposal') !!}</span>
-                    <span class="side-label">Proposals</span>
-                </a>
-            </nav>
-        @endif
-
-        @if($can('admin', 'hr'))
-            <div class="side-section">HR</div>
-            <nav class="side-nav">
-                <a class="{{ $isPage('employees', 'employee-create', 'employee-edit') ? 'active' : '' }}"
-                   href="{{ route('hr.index') }}">
-                    <span class="side-icon">{!! $icon('employees') !!}</span>
-                    <span class="side-label">Employees</span>
-                </a>
-                <a class="{{ $isPage('salaries', 'salary-create', 'salary-edit') ? 'active' : '' }}"
-                   href="{{ route('salaries.index-page') }}">
-                    <span class="side-icon">{!! $icon('salary') !!}</span>
-                    <span class="side-label">Salary</span>
-                </a>
-            </nav>
-        @endif
-
-        @if($can('admin', 'finance'))
-            <div class="side-section">Finance</div>
-            <nav class="side-nav">
-                <a class="{{ $isPage('reimbursements', 'reimbursement-create', 'reimbursement-edit') ? 'active' : '' }}"
-                   href="{{ route('reimbursements.index-page') }}">
-                    <span class="side-icon">{!! $icon('reimbursement') !!}</span>
-                    <span class="side-label">Reimbursements</span>
-                </a>
-                <a class="{{ $isPage('cashflows', 'cashflow-create', 'cashflow-edit') ? 'active' : '' }}"
-                   href="{{ route('cashflows.index-page') }}">
-                    <span class="side-icon">{!! $icon('cashflow') !!}</span>
-                    <span class="side-label">Cashflow</span>
-                </a>
-                <a class="{{ $isPage('invoices', 'invoice-create', 'invoice-edit', 'payment-create') ? 'active' : '' }}"
-                   href="{{ route('finance.index') }}">
-                    <span class="side-icon">{!! $icon('invoice') !!}</span>
-                    <span class="side-label">Invoices</span>
-                </a>
-            </nav>
-        @endif
-
-        @if($can('admin'))
-            <div class="side-section">Admin</div>
-            <nav class="side-nav">
-                <a class="{{ $isPage('company') ? 'active' : '' }}" href="{{ route('admin.index') }}">
-                    <span class="side-icon">{!! $icon('settings') !!}</span>
-                    <span class="side-label">Company Setting</span>
-                </a>
-                <a class="{{ $isPage('users') ? 'active' : '' }}" href="{{ route('admin.users') }}">
-                    <span class="side-icon">{!! $icon('users') !!}</span>
-                    <span class="side-label">Users</span>
-                </a>
-                <a class="{{ $isPage('masters') ? 'active' : '' }}" href="{{ route('admin.masters') }}">
-                    <span class="side-icon">{!! $icon('master') !!}</span>
-                    <span class="side-label">Master Data</span>
-                </a>
-                <a class="{{ $isPage('trash') ? 'active' : '' }}" href="{{ route('admin.trash') }}">
-                    <span class="side-icon">{!! $icon('trash') !!}</span>
-                    <span class="side-label">Trash</span>
-                </a>
-                <a class="{{ $isPage('audit') ? 'active' : '' }}" href="{{ route('admin.audit') }}">
-                    <span class="side-icon">{!! $icon('audit') !!}</span>
-                    <span class="side-label">Audit Log</span>
-                </a>
-            </nav>
-        @endif
-
-        <div class="side-section">Reports</div>
-        <nav class="side-nav">
+            <a class="{{ $isPage('modules', 'projects', 'project-create', 'project-edit', 'sales', 'sales-crm', 'sales-inquiries', 'sales-inquiries.create-page', 'sales-inquiries.edit-page', 'sales-leads', 'sales-leads.create-page', 'sales-leads.edit-page', 'sales-orders', 'sales-orders.create-page', 'sales-orders.edit-page', 'sales-targets', 'sales-targets.create-page', 'sales-targets.edit-page', 'sales-commissions', 'sales-commissions.create-page', 'sales-commissions.edit-page', 'client-contracts', 'client-contracts.create-page', 'client-contracts.edit-page', 'proposal-create', 'proposal-edit', 'employees', 'hris', 'employee-create', 'employee-edit', 'employee-skills', 'employee-skill-create', 'employee-skill-edit', 'attendances', 'attendance-create', 'attendance-edit', 'timesheets', 'timesheet-create', 'timesheet-edit', 'leave-requests', 'leave-request-create', 'leave-request-edit', 'performance-reviews', 'performance-review-create', 'performance-review-edit', 'payroll-benefits', 'payroll-benefit-create', 'payroll-benefit-edit', 'salaries', 'salary-create', 'salary-edit', 'reimbursements', 'reimbursement-create', 'reimbursement-edit', 'cashflows', 'cashflow-create', 'cashflow-edit', 'invoices', 'invoice-create', 'invoice-edit', 'payment-create', 'finance-suite', 'chart-accounts', 'chart-account-create', 'chart-account-edit', 'journal-entries', 'journal-entry-create', 'journal-entry-edit', 'recurring-billings', 'recurring-billing-create', 'recurring-billing-edit', 'payment-reminders', 'payment-reminder-create', 'payment-reminder-edit', 'vendor-bills', 'vendor-bill-create', 'vendor-bill-edit', 'vendor-payments', 'vendor-payment-create', 'vendor-payment-edit', 'budgets', 'budget-create', 'budget-edit', 'tax-rules', 'tax-rule-create', 'tax-rule-edit', 'fixed-assets', 'fixed-assets.create-page', 'fixed-assets.edit-page', 'currency-rates', 'currency-rates.create-page', 'currency-rates.edit-page', 'currency-variances', 'currency-variances.create-page', 'currency-variances.edit-page', 'revenue-schedules', 'revenue-schedules.create-page', 'revenue-schedules.edit-page', 'bank-reconciliation-items', 'bank-reconciliation-items.create-page', 'bank-reconciliation-items.edit-page', 'purchase-matches', 'purchase-matches.create-page', 'purchase-matches.edit-page', 'finance-advanced', 'vendors', 'vendor-create', 'vendor-edit', 'purchase-requisitions', 'purchase-requisition-create', 'purchase-requisition-edit', 'purchase-orders', 'purchase-order-create', 'purchase-order-edit', 'goods-receipts', 'goods-receipt-create', 'goods-receipt-edit', 'procurement-contracts', 'procurement-contract-create', 'procurement-contract-edit') ? 'active' : '' }}" href="{{ route('modules.index') }}">
+                <span class="side-icon">{!! $icon('list') !!}</span>
+                <span class="side-label">Module</span>
+            </a>
+            <a class="{{ $isPage('approvals') ? 'active' : '' }}" href="{{ route('approvals.index') }}">
+                <span class="side-icon">{!! $icon('audit') !!}</span>
+                <span class="side-label">Approval & Task</span>
+            </a>
             @if($can('admin', 'finance'))
                 <a class="{{ $isPage('reports') ? 'active' : '' }}" href="{{ route('reports.index') }}">
                     <span class="side-icon">{!! $icon('reports') !!}</span>
-                    <span class="side-label">Reports</span>
+                    <span class="side-label">Report & Analyst</span>
                 </a>
             @endif
             @if($can('admin'))
-                <a href="{{ route('backup.database') }}">
-                    <span class="side-icon">{!! $icon('backup') !!}</span>
-                    <span class="side-label">Backup Database</span>
+                <a class="{{ $isPage('company', 'users', 'masters', 'trash', 'audit') ? 'active' : '' }}" href="{{ route('settings-admin.index') }}">
+                    <span class="side-icon">{!! $icon('settings') !!}</span>
+                    <span class="side-label">Settings Admin</span>
                 </a>
             @endif
         </nav>
+    </div>
 
-    </div>{{-- /sidebar-scroll --}}
-
-    {{-- ── User info + logout (fixed bottom) ─────────────────────────── --}}
     <div class="side-footer hidden md:block">
         <div class="sidebar-user">
-            <div class="sidebar-user-avatar">
-                {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
-            </div>
+            <div class="sidebar-user-avatar">{{ strtoupper(substr(auth()->user()->name, 0, 2)) }}</div>
             <div class="sidebar-user-info">
                 <div class="sidebar-user-name">{{ auth()->user()->name }}</div>
                 <div class="sidebar-user-role">{{ strtoupper($role) }}</div>
@@ -141,5 +57,4 @@
             </form>
         </div>
     </div>
-
 </aside>

@@ -34,6 +34,10 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="pager">
+            <span>Menampilkan {{ $users->count() }} dari {{ $users->total() }} user</span>
+            {{ $users->links() }}
+        </div>
     </div>
 </section>
 @endsection

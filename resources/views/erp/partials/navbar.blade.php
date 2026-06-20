@@ -3,12 +3,14 @@
     $userRole   = auth()->user()->role;
 
     $pageIconKey = match(true) {
-        in_array($activePage, ['projects','project-create','project-edit'])                    => 'projects',
-        in_array($activePage, ['sales','proposal-create','proposal-edit'])                      => 'proposal',
-        in_array($activePage, ['employees','employee-create','employee-edit'])                  => 'employees',
+        $activePage === 'modules' || $activePage === 'all-menu' => 'dashboard',
+        $activePage === 'approvals' => 'audit',
+        in_array($activePage, ['projects','project-create','project-edit','procurement'])       => 'projects',
+        in_array($activePage, ['sales','sales-crm','proposal-create','proposal-edit'])          => 'proposal',
+        in_array($activePage, ['employees','hris','employee-create','employee-edit'])           => 'employees',
         in_array($activePage, ['salaries','salary-create','salary-edit'])                       => 'salary',
         in_array($activePage, ['reimbursements','reimbursement-create','reimbursement-edit'])   => 'reimbursement',
-        in_array($activePage, ['cashflows','cashflow-create','cashflow-edit'])                  => 'cashflow',
+        in_array($activePage, ['cashflows','cashflow-create','cashflow-edit','finance-suite','finance-advanced'])  => 'cashflow',
         in_array($activePage, ['invoices','invoice-create','invoice-edit','payment-create'])    => 'invoice',
         $activePage === 'reports'  => 'reports',
         $activePage === 'company'  => 'settings',
@@ -20,10 +22,13 @@
     };
 
     $pageSection = match(true) {
-        in_array($activePage, ['projects','project-create','project-edit','sales','proposal-create','proposal-edit']) => 'Sales',
-        in_array($activePage, ['employees','employee-create','employee-edit','salaries','salary-create','salary-edit']) => 'HR',
-        in_array($activePage, ['reimbursements','reimbursement-create','reimbursement-edit','cashflows','cashflow-create','cashflow-edit','invoices','invoice-create','invoice-edit','payment-create']) => 'Finance',
+        in_array($activePage, ['projects','project-create','project-edit','sales','sales-crm','proposal-create','proposal-edit']) => 'Sales',
+        in_array($activePage, ['employees','hris','employee-create','employee-edit','salaries','salary-create','salary-edit']) => 'HR',
+        in_array($activePage, ['procurement']) => 'Procurement',
+        in_array($activePage, ['reimbursements','reimbursement-create','reimbursement-edit','cashflows','cashflow-create','cashflow-edit','invoices','invoice-create','invoice-edit','payment-create','finance-suite','finance-advanced']) => 'Finance',
         $activePage === 'reports' => 'Reports',
+        $activePage === 'modules' || $activePage === 'all-menu' => 'Module',
+        $activePage === 'approvals' => 'Approval',
         in_array($activePage, ['company','users','masters','trash','audit']) => 'Admin',
         default => 'Main',
     };
@@ -122,24 +127,37 @@
                 @endif
             </button>
 
-            {{-- User chip --}}
-            <div class="hdr-user-chip">
+            {{-- User dropdown --}}
+            <details class="hdr-user-chip">
+                <summary class="hdr-user-summary">
                 <div class="hdr-user-avatar">{{ strtoupper(substr(auth()->user()->name, 0, 2)) }}</div>
                 <div class="hdr-user-meta">
                     <span class="hdr-user-name">{{ auth()->user()->name }}</span>
                     <span class="hdr-user-role">{{ strtoupper($userRole) }}</span>
                 </div>
-                <form method="post" action="{{ route('logout') }}" class="m-0">
+                    <svg class="hdr-user-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </summary>
+
+                <div class="hdr-user-menu">
+                    <div class="hdr-user-menu-head">
+                        <strong>{{ auth()->user()->name }}</strong>
+                        <span>{{ auth()->user()->email }}</span>
+                    </div>
+                    <form method="post" action="{{ route('logout') }}" class="m-0">
                     @csrf
-                    <button type="submit" class="hdr-logout-btn" title="Logout">
+                        <button type="submit" class="hdr-logout-menu-btn">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
                             <polyline points="16 17 21 12 16 7"/>
                             <line x1="21" y1="12" x2="9" y2="12"/>
                         </svg>
+                            Logout
                     </button>
                 </form>
-            </div>
+                </div>
+            </details>
 
         </div>
     </div>

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
 @import 'tailwindcss';
 
 @source '../**/*.blade.php';
@@ -6,13 +7,15 @@
 @source '../../routes/**/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-poppins: 'Poppins', sans-serif;
 }
 
 @layer base {
     body {
         @apply bg-[#f3f8fc] text-[#002F59] antialiased;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     input,
@@ -55,14 +58,17 @@
 
     h1 {
         @apply text-3xl font-black tracking-tight text-[#002F59];
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     h2 {
         @apply mb-5 text-xl font-black tracking-tight text-[#002F59];
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     h3 {
         @apply mb-3 text-base font-extrabold text-[#002F59];
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 }
 
@@ -78,6 +84,7 @@
     /* ── Sidebar shell ───────────────────────────────────────────── */
     .sidebar {
         @apply sticky top-0 flex h-screen flex-col overflow-hidden bg-[#002F59] text-white;
+        font-family: 'Poppins', sans-serif;
         border-right: 1px solid rgba(255,255,255,0.06);
         box-shadow: 4px 0 24px rgba(0,47,89,0.18);
     }
@@ -93,6 +100,7 @@
 
     .sidebar-title {
         @apply text-[15px] font-black tracking-tight;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .sidebar-subtitle {
@@ -135,6 +143,7 @@
     .side-nav a,
     .side-nav button {
         @apply flex w-full items-center justify-start gap-2.5 rounded-xl border border-transparent px-3 py-2.5 text-sm font-semibold text-white/80 no-underline transition hover:bg-white/8 hover:text-white;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .side-nav a.active {
@@ -184,9 +193,7 @@
     }
 
     .side-summary::after {
-        content: '';
-        @apply ml-auto h-3.5 w-3.5 shrink-0 transition-transform;
-        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+        display: none;
     }
 
     .side-summary.active {
@@ -194,7 +201,15 @@
     }
 
     .side-summary.active::after {
-        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.8)' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+        display: none;
+    }
+
+    .side-chevron {
+        @apply ml-auto h-5 w-5 shrink-0 text-slate-400 transition-transform;
+    }
+
+    .side-group[open] .side-chevron {
+        @apply rotate-180;
     }
 
     .side-summary.active .side-icon {
@@ -231,11 +246,11 @@
     }
 
     .sidebar-logout-btn {
-        @apply flex h-9 w-9 items-center justify-center rounded-lg bg-white/8 text-white/60 transition hover:bg-white/15 hover:text-white;
+        @apply flex h-12 w-12 items-center justify-center rounded-xl bg-white/8 text-white/60 transition hover:bg-white/15 hover:text-white;
     }
 
     .sidebar-logout-btn svg {
-        @apply h-5 w-5;
+        @apply h-8 w-8;
     }
 
     /* ── Collapsed sidebar ───────────────────────────────────────── */
@@ -319,6 +334,7 @@
 
     .hdr-page-title {
         @apply text-[15px] font-black leading-tight text-white;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .hdr-page-path {
@@ -956,6 +972,864 @@
 
         .auth-switch {
             @apply gap-2 text-base;
+        }
+    }
+
+    /* Moneyku-style ERP theme override */
+    body {
+        @apply bg-[#f6f7fb] text-slate-800;
+    }
+
+    .app-shell {
+        @apply grid-cols-[288px_minmax(0,1fr)] bg-[#f6f7fb];
+    }
+
+    .app-shell.sidebar-collapsed {
+        @apply grid-cols-[96px_minmax(0,1fr)];
+    }
+
+    .sidebar {
+        @apply sticky top-0 bg-white text-slate-700 shadow-sm shadow-slate-200/70;
+        font-family: 'Poppins', sans-serif;
+        border-right: 1px solid #e8edf5;
+    }
+
+    .sidebar-head {
+        @apply border-slate-100 bg-white px-5 py-5;
+    }
+
+    .sidebar .logo {
+        @apply rounded-2xl bg-[#0059A7] text-white shadow-lg shadow-[#0059A7]/20;
+    }
+
+    .sidebar-title {
+        @apply text-slate-900;
+    }
+
+    .sidebar-subtitle {
+        @apply text-slate-400;
+    }
+
+    .sidebar-scroll {
+        scrollbar-color: rgba(0,89,167,0.25) transparent;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+        background: rgba(0,89,167,0.25);
+    }
+
+    .side-section {
+        @apply text-slate-400;
+    }
+
+    .side-nav a,
+    .side-nav button,
+    .side-summary {
+        @apply rounded-2xl px-4 py-3 text-[15px] text-slate-600 hover:bg-[#e8f2fb] hover:text-[#0059A7];
+    }
+
+    .side-nav a.active,
+    .side-summary.active {
+        @apply border-[#cfe0f2] bg-[#e8f2fb] text-[#0059A7] shadow-none;
+    }
+
+    .side-icon {
+        @apply h-11 w-11 rounded-2xl bg-slate-50 text-slate-400;
+    }
+
+    .side-icon svg {
+        @apply h-6 w-6;
+    }
+
+    .side-nav a:hover .side-icon,
+    .side-summary:hover .side-icon,
+    .side-nav a.active .side-icon,
+    .side-summary.active .side-icon {
+        @apply bg-white text-[#0059A7];
+    }
+
+    .side-subs {
+        @apply border-[#cfe0f2];
+    }
+
+    .side-summary::after {
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='rgba(100,116,139,0.65)' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+
+    .side-summary.active::after {
+        display: none;
+    }
+
+    .side-footer {
+        @apply border-slate-100 bg-white;
+    }
+
+    .sidebar-user {
+        @apply rounded-2xl border border-slate-100 bg-slate-50 p-2;
+    }
+
+    .sidebar-user-avatar {
+        @apply bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .sidebar-user-name {
+        @apply text-slate-800;
+    }
+
+    .sidebar-user-role {
+        @apply text-slate-400;
+    }
+
+    .sidebar-logout-btn {
+        @apply bg-white text-slate-400 hover:bg-red-50 hover:text-red-600;
+    }
+
+    .app-header {
+        @apply sticky top-0 z-30 px-0 pb-4 pt-0;
+    }
+
+    .app-header-card {
+        @apply rounded-none border border-[#0059A7]/20 px-6 py-4;
+        background: linear-gradient(135deg, #0059A7 0%, #004b8d 55%, #002F59 100%);
+        box-shadow: 0 10px 26px rgba(0, 89, 167, 0.22);
+    }
+
+    .hdr-toggle,
+    .hdr-icon-btn {
+        @apply h-12 w-12 bg-white/10 text-white hover:bg-white/20 hover:text-white;
+    }
+
+    .hdr-toggle svg,
+    .hdr-icon-btn svg {
+        @apply h-7 w-7;
+    }
+
+    .hdr-sep {
+        @apply bg-white/25;
+    }
+
+    .hdr-page-icon,
+    .hdr-date,
+    .hdr-user-chip {
+        @apply bg-white/16;
+    }
+
+    .hdr-action-btn {
+        @apply bg-white text-[#0059A7] hover:bg-[#e8f2fb] hover:text-[#002F59];
+    }
+
+    .hdr-notif-badge {
+        @apply bg-white text-[#0059A7];
+    }
+
+    .hdr-user-chip {
+        @apply relative m-0 border-0 p-0 pt-0;
+    }
+
+    .hdr-user-summary {
+        @apply flex cursor-pointer list-none items-center gap-2 rounded-xl py-1.5 pl-1.5 pr-2 text-white;
+    }
+
+    .hdr-user-summary::-webkit-details-marker,
+    .hdr-user-summary::marker {
+        display: none;
+    }
+
+    .hdr-user-avatar {
+        @apply h-10 w-10 bg-white text-[#0059A7];
+    }
+
+    .hdr-page-icon {
+        @apply h-12 w-12;
+    }
+
+    .hdr-page-icon svg {
+        @apply h-7 w-7;
+    }
+
+    .hdr-user-chevron {
+        @apply h-4 w-4 text-white/75 transition;
+    }
+
+    .hdr-user-chip[open] .hdr-user-chevron {
+        @apply rotate-180;
+    }
+
+    .hdr-user-menu {
+        @apply absolute right-0 top-[calc(100%+10px)] z-40 w-64 rounded-2xl border border-slate-200 bg-white p-2 text-slate-700 shadow-xl shadow-slate-900/10;
+    }
+
+    .hdr-user-menu-head {
+        @apply border-b border-slate-100 px-3 py-3;
+    }
+
+    .hdr-user-menu-head strong {
+        @apply block truncate text-sm font-black text-slate-900;
+    }
+
+    .hdr-user-menu-head span {
+        @apply block truncate text-xs font-semibold text-slate-400;
+    }
+
+    .hdr-logout-menu-btn {
+        @apply mt-2 flex w-full justify-start gap-2 rounded-xl bg-transparent px-3 py-2.5 text-sm font-black text-red-600 shadow-none hover:bg-red-50 hover:text-red-700;
+    }
+
+    .hdr-logout-menu-btn svg {
+        @apply h-5 w-5;
+    }
+
+    .content-body {
+        @apply px-5 pb-8 pt-1 sm:px-6 lg:px-8;
+    }
+
+    h1,
+    h2,
+    h3 {
+        @apply text-slate-900;
+    }
+
+    .muted {
+        @apply text-slate-500;
+    }
+
+    .card,
+    .stat-card,
+    .chart-card,
+    .filter-panel {
+        @apply rounded-2xl border-slate-200 bg-white shadow-sm shadow-slate-200/80;
+    }
+
+    .card:hover,
+    .stat-card:hover {
+        @apply shadow-md shadow-[#0059A7]/10;
+    }
+
+    input,
+    select,
+    textarea {
+        @apply rounded-xl border-slate-200 text-slate-800 placeholder:text-slate-400 focus:border-[#0059A7] focus:ring-[#0059A7]/15;
+    }
+
+    label {
+        @apply text-slate-500;
+    }
+
+    button,
+    .button,
+    .auth-primary {
+        @apply bg-[#0059A7] text-white shadow-sm shadow-[#0059A7]/20 hover:bg-[#002F59];
+    }
+
+    .ghost {
+        @apply border border-slate-200 bg-white text-slate-600 shadow-none hover:bg-[#e8f2fb] hover:text-[#0059A7];
+    }
+
+    .danger {
+        @apply bg-red-50 text-red-600 shadow-none hover:bg-red-100 hover:text-red-700;
+    }
+
+    .success {
+        @apply bg-emerald-50 text-emerald-700 shadow-none hover:bg-emerald-100;
+    }
+
+    .good {
+        @apply text-emerald-600;
+    }
+
+    .bad {
+        @apply text-red-600;
+    }
+
+    .badge {
+        @apply bg-slate-100 text-slate-600;
+    }
+
+    .badge-active,
+    .badge-approved,
+    .badge-paid,
+    .badge-done,
+    .badge-income {
+        @apply bg-emerald-50 text-emerald-700;
+    }
+
+    .badge-pending,
+    .badge-sent,
+    .badge-partial,
+    .badge-hold,
+    .badge-planning {
+        @apply bg-amber-50 text-amber-700;
+    }
+
+    .badge-rejected,
+    .badge-void,
+    .badge-expense {
+        @apply bg-red-50 text-red-600;
+    }
+
+    table {
+        @apply border-separate border-spacing-0;
+    }
+
+    th {
+        @apply bg-slate-50 px-4 py-3 text-[11px] font-black uppercase tracking-wider text-slate-500;
+    }
+
+    td {
+        @apply border-b border-slate-100 px-4 py-4 text-slate-700;
+    }
+
+    tbody tr {
+        @apply transition hover:bg-[#e8f2fb]/70;
+    }
+
+    td:last-child,
+    th:last-child {
+        @apply text-right;
+    }
+
+    .actions {
+        @apply justify-end;
+    }
+
+    .metric,
+    .stat-card-metric,
+    .filter-chip-count,
+    .notif-count {
+        @apply text-slate-900;
+    }
+
+    .filter-chip {
+        @apply rounded-2xl border-slate-200 shadow-sm shadow-slate-200/70 hover:border-[#cfe0f2] hover:bg-[#e8f2fb]/50;
+    }
+
+    .filter-chip.active {
+        @apply border-[#0059A7]/30 bg-[#e8f2fb];
+    }
+
+    .filter-chip-icon,
+    .stat-card-icon,
+    .filter-panel-icon {
+        @apply bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .filter-chip.active .filter-chip-count,
+    .filter-chip.active .filter-chip-icon {
+        @apply text-[#0059A7];
+    }
+
+    .notice {
+        @apply border-[#cfe0f2] bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .pager a {
+        @apply text-[#0059A7] hover:bg-[#e8f2fb];
+    }
+
+    .pager span[aria-current="page"] span,
+    .pager [aria-current="page"] span {
+        @apply bg-[#0059A7] text-white;
+    }
+
+    @media (max-width: 1100px) {
+        .app-shell,
+        .app-shell.sidebar-collapsed {
+            @apply grid-cols-1;
+        }
+
+        .sidebar {
+            @apply fixed;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .content {
+            @apply px-0 py-0;
+        }
+
+        .app-header {
+            @apply px-0 pt-0;
+        }
+
+        .app-header-card {
+            @apply rounded-none px-3;
+        }
+
+        .hdr-user-menu {
+            @apply right-0 w-56;
+        }
+    }
+
+    .action-modal {
+        @apply invisible fixed inset-0 z-[100] grid place-items-center p-4 opacity-0 transition;
+    }
+
+    .action-modal.is-open {
+        @apply visible opacity-100;
+    }
+
+    .action-modal-backdrop {
+        @apply absolute inset-0 bg-slate-950/45 backdrop-blur-sm;
+    }
+
+    .action-modal-card {
+        @apply relative z-10 grid w-full max-w-md gap-4 rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-2xl shadow-slate-950/20;
+    }
+
+    .action-modal-icon {
+        @apply mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .action-modal-icon svg {
+        @apply h-8 w-8;
+    }
+
+    .action-modal-card h3 {
+        @apply mb-2 text-xl font-black text-slate-900;
+    }
+
+    .action-modal-card p {
+        @apply text-sm font-semibold text-slate-500;
+    }
+
+    .action-modal-actions {
+        @apply mt-2 grid grid-cols-2 gap-3;
+    }
+
+    .action-modal-confirm {
+        @apply bg-[#0059A7] hover:bg-[#002F59];
+    }
+
+    .process-hub-page {
+        @apply mt-6 overflow-hidden rounded-[2rem] border border-[#d7e3ef] bg-white p-0 shadow-xl shadow-[#002F59]/8;
+    }
+
+    .process-hub-heading {
+        @apply border-b border-slate-100 bg-gradient-to-br from-white via-[#f8fbff] to-[#eef6ff] px-5 py-7 text-center sm:px-6 sm:py-8;
+    }
+
+    .process-hub-heading span {
+        @apply mb-3 inline-flex rounded-full bg-[#e8f2fb] px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#0059A7];
+    }
+
+    .process-hub-heading h1 {
+        @apply text-2xl font-black tracking-tight text-[#002F59] sm:text-4xl;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .process-hub-heading p {
+        @apply mx-auto mt-3 max-w-2xl text-sm font-semibold leading-6 text-slate-500;
+    }
+
+    .process-hub {
+        @apply relative mx-auto grid max-w-6xl grid-cols-1 items-stretch gap-4 overflow-hidden bg-white px-4 py-5 sm:grid-cols-2 sm:px-6 sm:py-7 xl:min-h-[620px] xl:grid-cols-[minmax(220px,1fr)_240px_minmax(220px,1fr)] xl:grid-rows-3 xl:items-center xl:gap-x-10 xl:gap-y-8 xl:px-10 xl:py-10;
+        background: #ffffff;
+    }
+
+    .process-hub::before,
+    .process-hub::after {
+        display: none;
+    }
+
+    .process-hub::before {
+        @apply -left-24 top-20 h-72 w-72 bg-[#64c7f4]/10;
+    }
+
+    .process-hub::after {
+        @apply -bottom-24 right-10 h-80 w-80 bg-[#0059A7]/8;
+    }
+
+    .process-ring {
+        @apply pointer-events-none absolute inset-0 z-0 grid place-items-center opacity-95;
+    }
+
+    .process-ring svg {
+        @apply h-full max-h-[560px] w-full max-w-[820px];
+    }
+
+    .process-center {
+        @apply relative left-auto top-auto z-10 order-first grid min-h-36 w-full translate-x-0 translate-y-0 place-self-center rounded-3xl border border-[#d7e3ef] bg-white px-5 py-6 text-center shadow-lg shadow-slate-200/80 sm:col-span-2 xl:order-none xl:col-start-2 xl:row-start-2 xl:h-44 xl:w-44 xl:rounded-full xl:p-0;
+    }
+
+    .process-center span {
+        @apply text-xs font-black tracking-[0.24em] text-[#0059A7];
+    }
+
+    .process-center strong {
+        @apply text-xl font-black leading-tight text-slate-900 xl:text-2xl;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .process-center small {
+        @apply text-xs font-bold uppercase tracking-wider text-slate-400;
+    }
+
+    .process-node {
+        @apply relative z-20 w-full;
+    }
+
+    .process-node-card {
+        @apply flex min-h-[96px] w-full items-center gap-4 rounded-[1.35rem] border border-white/10 bg-[#002F59] p-4 text-white no-underline shadow-xl shadow-[#0059A7]/15 transition duration-300 hover:-translate-y-1 hover:bg-[#0059A7] hover:shadow-[#0059A7]/25 sm:p-5 xl:min-h-[104px];
+        backdrop-filter: blur(12px);
+    }
+
+    .process-node-icon {
+        @apply grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-[#0059A7] text-white shadow-lg shadow-black/10;
+    }
+
+    .process-node-icon svg {
+        @apply h-9 w-9;
+    }
+
+    .process-node-card h3 {
+        @apply mb-0 text-lg font-black leading-tight text-white;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .process-node-card p {
+        @apply mt-1 text-xs font-bold uppercase tracking-wide text-white/65;
+    }
+
+    .process-node-menu {
+        @apply hidden;
+    }
+
+    .process-node-menu a {
+        @apply flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-bold text-slate-600 no-underline transition hover:bg-[#e8f2fb] hover:text-[#0059A7];
+    }
+
+    .process-node-menu span {
+        @apply grid h-8 w-8 place-items-center rounded-lg bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .process-node-menu svg {
+        @apply h-4 w-4;
+    }
+
+    .module-detail-page {
+        @apply mt-6;
+    }
+
+    .module-detail-hero {
+        @apply relative overflow-hidden rounded-3xl border border-[#cfe0f2] bg-gradient-to-br from-white via-[#f7fbff] to-[#e8f2fb] p-5 text-center shadow-sm shadow-[#0059A7]/10 sm:p-8;
+    }
+
+    .module-detail-icon {
+        @apply mx-auto mb-4 grid h-20 w-20 place-items-center rounded-3xl bg-[#002F59] text-white shadow-xl shadow-[#0059A7]/20;
+    }
+
+    .module-detail-icon svg {
+        @apply h-10 w-10;
+    }
+
+    .module-detail-hero h1 {
+        @apply text-2xl font-black text-[#002F59] sm:text-4xl;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .module-detail-hero p {
+        @apply mx-auto mt-2 max-w-xl text-sm font-semibold text-slate-500;
+    }
+
+    .module-sub-card {
+        @apply flex min-h-28 items-center gap-4 rounded-3xl border border-slate-200 bg-white p-5 text-slate-700 no-underline shadow-sm shadow-slate-200/80 transition hover:-translate-y-1 hover:border-[#cfe0f2] hover:bg-[#f7fbff] hover:shadow-lg hover:shadow-[#0059A7]/10 sm:p-6;
+    }
+
+    .module-sub-card > span {
+        @apply grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .module-sub-card svg {
+        @apply h-7 w-7;
+    }
+
+    .module-sub-card h3 {
+        @apply mb-1 text-lg font-black text-slate-900;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .module-sub-card p {
+        @apply text-sm font-semibold text-slate-500;
+    }
+
+    .approval-page {
+        @apply mt-6 overflow-hidden rounded-[2rem] border border-[#d7e3ef] bg-white shadow-xl shadow-[#002F59]/8;
+    }
+
+    .approval-hero {
+        @apply flex flex-col gap-5 border-b border-[#d7e3ef] bg-gradient-to-br from-[#002F59] via-[#004a82] to-[#0059A7] p-6 text-white sm:p-8 lg:flex-row lg:items-center lg:justify-between;
+    }
+
+    .approval-hero span,
+    .task-panel-head span,
+    .ui-modal-head span {
+        @apply mb-2 inline-flex rounded-full bg-white/14 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-white/75;
+    }
+
+    .approval-hero h1 {
+        @apply text-2xl font-black text-white sm:text-4xl;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .approval-hero p {
+        @apply mt-2 max-w-2xl text-sm font-semibold leading-6 text-white/68;
+    }
+
+    .approval-hero-stat {
+        @apply flex min-w-44 items-center gap-4 rounded-3xl border border-white/14 bg-white/12 p-4 shadow-2xl shadow-black/10 backdrop-blur;
+    }
+
+    .approval-hero-stat strong {
+        @apply text-5xl font-black leading-none text-white;
+    }
+
+    .approval-hero-stat small {
+        @apply text-xs font-black uppercase tracking-wide text-white/60;
+    }
+
+    .approval-grid {
+        @apply grid gap-5 p-5 sm:grid-cols-2 sm:p-6 xl:grid-cols-4;
+    }
+
+    .approval-card {
+        @apply flex min-h-56 flex-col justify-between rounded-3xl border border-[#d7e3ef] bg-gradient-to-br from-white to-[#f6fbff] p-5 text-slate-700 no-underline shadow-sm shadow-slate-200/80 transition hover:-translate-y-1 hover:border-[#b9d4ee] hover:shadow-xl hover:shadow-[#0059A7]/10;
+    }
+
+    .approval-card-top,
+    .approval-card-foot,
+    .task-panel-head,
+    .ui-modal-head,
+    .ui-modal-actions {
+        @apply flex items-center justify-between gap-4;
+    }
+
+    .approval-icon {
+        @apply grid h-14 w-14 place-items-center rounded-2xl bg-[#e8f2fb] text-[#0059A7] shadow-inner shadow-white;
+    }
+
+    .approval-icon svg {
+        @apply h-7 w-7;
+    }
+
+    .approval-chip {
+        @apply rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black uppercase tracking-wide text-emerald-700;
+    }
+
+    .approval-card-body {
+        @apply mt-6 flex items-end justify-between gap-4;
+    }
+
+    .approval-card-body h3 {
+        @apply mb-2 text-base font-black text-[#002F59];
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .approval-card-body p {
+        @apply text-xs font-semibold leading-5 text-slate-500;
+    }
+
+    .approval-card-body strong {
+        @apply text-5xl font-black leading-none text-[#0059A7];
+    }
+
+    .approval-card-foot {
+        @apply mt-6 border-t border-slate-100 pt-4 text-xs font-black uppercase tracking-wide text-[#0059A7];
+    }
+
+    .approval-card-foot svg {
+        @apply h-5 w-5;
+    }
+
+    .task-panel {
+        @apply rounded-[2rem] border border-[#d7e3ef] bg-white p-5 shadow-xl shadow-[#002F59]/8 sm:p-6;
+    }
+
+    .task-panel-head {
+        @apply mb-5 flex-col items-start border-b border-[#d7e3ef] pb-5 sm:flex-row sm:items-center;
+    }
+
+    .task-panel-head span,
+    .ui-modal-head span {
+        @apply bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .task-panel-head h2 {
+        @apply mb-1 text-2xl;
+    }
+
+    .task-panel-head p {
+        @apply text-sm font-semibold text-slate-500;
+    }
+
+    .task-create-btn {
+        @apply inline-flex w-full items-center gap-2 rounded-2xl bg-[#0059A7] px-5 py-3 text-sm font-black text-white shadow-lg shadow-[#0059A7]/20 hover:bg-[#002F59] sm:w-auto;
+    }
+
+    .task-create-btn svg {
+        @apply h-5 w-5;
+    }
+
+    .task-board {
+        @apply grid gap-4 overflow-x-auto pb-2 lg:grid-cols-4;
+    }
+
+    .task-column {
+        @apply min-w-[280px] rounded-3xl border border-slate-200 bg-[#f8fbfe] p-4 shadow-sm shadow-slate-200/80;
+    }
+
+    .task-column-head {
+        @apply mb-4 flex items-center justify-between gap-3;
+    }
+
+    .task-column-head h3 {
+        @apply mb-0 text-base font-black text-slate-900;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .task-column-head span {
+        @apply grid h-8 min-w-8 place-items-center rounded-full bg-white px-2 text-xs font-black text-[#0059A7] shadow-sm;
+    }
+
+    .task-list {
+        @apply grid gap-3;
+    }
+
+    .task-card {
+        @apply rounded-2xl border border-slate-200 bg-white p-4 shadow-sm shadow-slate-200/80 transition hover:-translate-y-0.5 hover:border-[#b9d4ee] hover:shadow-lg hover:shadow-[#0059A7]/10;
+    }
+
+    .task-card h4 {
+        @apply mb-1 text-sm font-black text-slate-900;
+    }
+
+    .task-card p {
+        @apply line-clamp-3 text-xs font-semibold text-slate-500;
+    }
+
+    .task-priority {
+        @apply rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-slate-500;
+    }
+
+    .priority-high .task-priority,
+    .priority-urgent .task-priority {
+        @apply bg-red-50 text-red-600;
+    }
+
+    .priority-medium .task-priority {
+        @apply bg-amber-50 text-amber-700;
+    }
+
+    .priority-low .task-priority {
+        @apply bg-emerald-50 text-emerald-700;
+    }
+
+    .task-meta {
+        @apply mt-4 flex flex-wrap items-center gap-2 text-[11px] font-bold text-slate-400;
+    }
+
+    .task-meta span {
+        @apply rounded-full bg-slate-50 px-2.5 py-1;
+    }
+
+    .task-actions {
+        @apply mt-4 grid gap-2;
+    }
+
+    .task-actions form {
+        @apply flex items-center gap-2;
+    }
+
+    .task-empty {
+        @apply rounded-2xl border border-dashed border-slate-200 bg-white/70 p-6 text-center text-sm font-bold text-slate-400;
+    }
+
+    .ui-modal {
+        @apply fixed inset-0 z-[70] hidden items-center justify-center p-4;
+    }
+
+    .ui-modal.is-open {
+        @apply flex;
+    }
+
+    .ui-modal-backdrop {
+        @apply absolute inset-0 bg-[#002F59]/55 backdrop-blur-sm;
+    }
+
+    .ui-modal-card {
+        @apply relative z-10 max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-[2rem] border border-white/70 bg-white p-5 shadow-2xl shadow-[#002F59]/25 sm:p-6;
+    }
+
+    .ui-modal-head {
+        @apply mb-5 border-b border-[#d7e3ef] pb-5;
+    }
+
+    .ui-modal-head h2 {
+        @apply mb-1 text-2xl;
+    }
+
+    .ui-modal-head p {
+        @apply text-sm font-semibold text-slate-500;
+    }
+
+    .ui-modal-close {
+        @apply grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-[#e8f2fb] p-0 text-[#0059A7] shadow-none hover:bg-[#d7e3ef] hover:text-[#002F59];
+    }
+
+    .ui-modal-close svg {
+        @apply h-5 w-5;
+    }
+
+    .ui-modal-actions {
+        @apply justify-end border-t border-[#d7e3ef] pt-4;
+    }
+
+    .hub-top {
+        @apply xl:col-start-2 xl:row-start-1 xl:place-self-center;
+    }
+
+    .hub-top-right {
+        @apply xl:col-start-3 xl:row-start-1 xl:place-self-center;
+    }
+
+    .hub-right {
+        @apply xl:col-start-3 xl:row-start-2 xl:place-self-center;
+    }
+
+    .hub-bottom-right {
+        @apply xl:col-start-3 xl:row-start-3 xl:place-self-center;
+    }
+
+    .hub-bottom {
+        @apply xl:col-start-2 xl:row-start-3 xl:place-self-center;
+    }
+
+    .hub-bottom-left {
+        @apply xl:col-start-1 xl:row-start-3 xl:place-self-center;
+    }
+
+    .hub-left {
+        @apply xl:col-start-1 xl:row-start-2 xl:place-self-center;
+    }
+
+    .hub-top-left {
+        @apply xl:col-start-1 xl:row-start-1 xl:place-self-center;
+    }
+
+    @media (max-width: 1024px) {
+        .process-hub {
+            @apply min-h-0 grid-rows-none;
+        }
+
+        .process-ring {
+            @apply hidden;
+        }
+
+        .process-node {
+            @apply col-auto row-auto w-full translate-x-0;
+        }
+
+        .process-node-card {
+            @apply shadow-md;
         }
     }
 }

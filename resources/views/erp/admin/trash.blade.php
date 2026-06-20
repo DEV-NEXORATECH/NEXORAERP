@@ -9,7 +9,8 @@
     <table>
         <thead><tr><th>Tipe</th><th>Nama / ID</th><th>Aksi</th></tr></thead>
         <tbody>
-            @forelse($trash as $type => $items)
+            @if($hasTrash)
+            @foreach($trash as $type => $items)
                 @foreach($items as $item)
                     <tr>
                         <td><span class="badge">{{ $type }}</span></td>
@@ -22,10 +23,19 @@
                         </td>
                     </tr>
                 @endforeach
-            @empty
+            @endforeach
+            @else
                 <tr><td colspan="3" class="py-8 text-center text-slate-500">Trash kosong.</td></tr>
-            @endforelse
+            @endif
         </tbody>
     </table>
+    @foreach($trash as $type => $items)
+        @if($items->total() > 0)
+            <div class="pager">
+                <span>{{ ucfirst($type) }}: {{ $items->count() }} dari {{ $items->total() }}</span>
+                {{ $items->links() }}
+            </div>
+        @endif
+    @endforeach
 </section>
 @endsection
