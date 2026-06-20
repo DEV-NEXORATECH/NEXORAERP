@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\VendorBill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,11 +12,15 @@ use Illuminate\View\View;
 
 class VendorBillController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $vendorBills = VendorBill::with(['project:id,code'])->latest()->paginate(20);
+        $vendorBills = $this->applyListFilters(
+            VendorBill::with(['project:id,code'])->latest(),
+            $request,
+            ['vendor_name', 'bill_number', 'notes']
+        )->paginate(20)->withQueryString();
         $projects = \App\Models\Project::orderBy('code')->get(['id', 'code']);
         $bankAccounts = \App\Models\BankAccount::orderBy('name')->get();
         return view('erp.vendor-bills.index', compact('vendorBills', 'projects', 'bankAccounts'));

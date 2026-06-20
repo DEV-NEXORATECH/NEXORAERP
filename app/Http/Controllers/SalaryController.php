@@ -14,10 +14,23 @@ class SalaryController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $salariesPage = Salary::with(['employee:id,name', 'project:id,code'])->latest()->paginate(20);
-        return view('erp.salaries.index', compact('salariesPage'));
+        $query = Salary::with(['employee:id,name', 'project:id,code'])->latest();
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+        if ($request->filled('period')) {
+            $query->where('period', 'like', '%'.$request->input('period').'%');
+        }
+        if ($request->filled('employee_id')) {
+            $query->where('employee_id', $request->input('employee_id'));
+        }
+
+        $salariesPage = $query->paginate(20)->withQueryString();
+        $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
+        return view('erp.salaries.index', compact('salariesPage', 'employees'));
     }
 
     public function create(): View

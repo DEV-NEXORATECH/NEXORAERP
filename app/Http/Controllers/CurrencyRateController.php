@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\CurrencyRate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -10,11 +11,15 @@ use Illuminate\View\View;
 
 class CurrencyRateController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $rates = CurrencyRate::latest('rate_date')->paginate(20);
+        $rates = $this->applyListFilters(
+            CurrencyRate::latest('rate_date'),
+            $request,
+            ['from_currency', 'to_currency']
+        )->paginate(20)->withQueryString();
         return view('erp.currency-rates.index', compact('rates'));
     }
 

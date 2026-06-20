@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\GoodsReceipt;
 use App\Models\PurchaseMatch;
 use App\Models\PurchaseOrder;
@@ -13,11 +14,20 @@ use Illuminate\View\View;
 
 class PurchaseMatchController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $matches = PurchaseMatch::with('purchaseOrder', 'goodsReceipt')->latest()->paginate(20);
+        $matches = $this->applyListFilters(
+            PurchaseMatch::with('purchaseOrder', 'goodsReceipt')->latest(),
+            $request,
+            ['reference', 'notes']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('status') && in_array($request->input('status'), ['matched', 'unmatched', 'partial'])) {
+            $matches->where('match_status', $request->input('status'));
+        }
+
         return view('erp.purchase-matches.index', compact('matches'));
     }
 

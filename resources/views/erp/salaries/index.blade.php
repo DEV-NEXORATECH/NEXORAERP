@@ -11,6 +11,25 @@
         </a>
         @endif
     </div>
+    <form method="get" action="{{ route('salaries.index-page') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <select name="status" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+            <option value="">Semua Status</option>
+            <option value="draft" @selected(request('status')==='draft')>Draft</option>
+            <option value="approved" @selected(request('status')==='approved')>Approved</option>
+            <option value="paid" @selected(request('status')==='paid')>Paid</option>
+        </select>
+        <input type="text" name="period" placeholder="Cari Periode..." value="{{ request('period') }}" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 placeholder:text-slate-400 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <select name="employee_id" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+            <option value="">Semua Karyawan</option>
+            @foreach($employees as $employee)
+                <option value="{{ $employee->id }}" @selected(request('employee_id')==$employee->id)>{{ $employee->name }}</option>
+            @endforeach
+        </select>
+        <div class="flex gap-2 items-end">
+            <button class="rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#003d78]">Filter</button>
+            <a href="{{ route('salaries.index-page') }}" class="rounded-xl border border-[#d7e3ef] bg-white px-5 py-2.5 text-sm font-bold text-[#0059A7] hover:bg-[#f3f8fc]">Reset</a>
+        </div>
+    </form>
     <table>
         <thead><tr><th>Karyawan</th><th>Period</th><th>Status</th><th>Net Salary</th><th>Aksi</th></tr></thead>
         <tbody>
@@ -46,9 +65,9 @@
             @endforelse
         </tbody>
     </table>
-    @if($salariesPage->hasPages())
+    @if($salariesPage->hasPages() || $salariesPage->total() > 0)
         <div class="pager">
-            <div class="text-sm text-slate-500">{{ $salariesPage->firstItem() }}–{{ $salariesPage->lastItem() }} dari {{ $salariesPage->total() }}</div>
+            <span>Menampilkan {{ $salariesPage->firstItem() }}-{{ $salariesPage->lastItem() }} dari {{ $salariesPage->total() }}</span>
             {{ $salariesPage->links() }}
         </div>
     @endif

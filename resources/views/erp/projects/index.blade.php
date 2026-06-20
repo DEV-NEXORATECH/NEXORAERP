@@ -50,6 +50,20 @@
         </a>
         @endif
     </div>
+    <form method="get" action="{{ route('projects.index') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 placeholder:text-slate-400 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <select name="status" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+            <option value="">Semua Status</option>
+            <option value="planning" @selected(request('status')==='planning')>Planning</option>
+            <option value="active" @selected(request('status')==='active')>Active</option>
+            <option value="done" @selected(request('status')==='done')>Done</option>
+            <option value="hold" @selected(request('status')==='hold')>Hold</option>
+        </select>
+        <div class="flex gap-2 items-end">
+            <button class="rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#003d78]">Filter</button>
+            <a href="{{ route('projects.index') }}" class="rounded-xl border border-[#d7e3ef] bg-white px-5 py-2.5 text-sm font-bold text-[#0059A7] hover:bg-[#f3f8fc]">Reset</a>
+        </div>
+    </form>
     <table>
         <thead><tr><th>Project</th><th>Status</th><th>Kontrak / Budget</th><th>Aksi</th></tr></thead>
         <tbody>
@@ -75,9 +89,9 @@
             @endforelse
         </tbody>
     </table>
-    @if($projectsPage->hasPages())
+    @if($projectsPage->hasPages() || $projectsPage->total() > 0)
         <div class="pager">
-            <div class="text-sm text-slate-500">{{ $projectsPage->firstItem() }}–{{ $projectsPage->lastItem() }} dari {{ $projectsPage->total() }}</div>
+            <span>Menampilkan {{ $projectsPage->firstItem() }}-{{ $projectsPage->lastItem() }} dari {{ $projectsPage->total() }}</span>
             {{ $projectsPage->links() }}
         </div>
     @endif

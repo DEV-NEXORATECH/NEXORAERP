@@ -14,10 +14,14 @@ class PerformanceReviewController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $reviews = PerformanceReview::with('employee')->latest()->paginate(20);
-        return view('erp.performance-reviews.index', compact('reviews'));
+        $items = PerformanceReview::with('employee')
+            ->when($request->search, fn($q, $v) => $q->where('period', 'like', "%{$v}%"))
+            ->when($request->employee_id, fn($q, $v) => $q->where('employee_id', $v))
+            ->latest()->paginate(15)->withQueryString();
+        $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
+        return view('erp.performance-reviews.index', compact('items', 'employees'));
     }
 
     public function create(): View

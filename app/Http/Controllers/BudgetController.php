@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\Budget;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -10,11 +11,15 @@ use Illuminate\View\View;
 
 class BudgetController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $budgets = Budget::with(['project:id,code', 'account:id,code,name'])->latest()->paginate(20);
+        $budgets = $this->applyListFilters(
+            Budget::with(['project:id,code', 'account:id,code,name'])->latest(),
+            $request,
+            ['period', 'notes']
+        )->paginate(20)->withQueryString();
         $projects = \App\Models\Project::orderBy('code')->get(['id', 'code']);
         $coaOptions = \App\Models\ChartAccount::where('is_active', true)->orderBy('code')->get(['id', 'code', 'name', 'type']);
         return view('erp.budgets.index', compact('budgets', 'projects', 'coaOptions'));

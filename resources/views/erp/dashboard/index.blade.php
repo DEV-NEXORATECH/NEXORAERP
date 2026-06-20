@@ -2,9 +2,15 @@
 
 @section('content')
 <section class="dashboard-hero">
-    <div>
-        <span>NEXORA Command Center</span>
-        <h1>Dashboard</h1>
+    <div class="module-detail-copy">
+        <a class="module-back-link" href="{{ route('modules.index') }}">Module Hub</a>
+        <div class="module-title-row">
+            <span class="module-title-icon">{!! $icon('dashboard') !!}</span>
+            <div>
+                <span class="module-eyebrow">NEXORA Command Center</span>
+                <h1>Dashboard</h1>
+            </div>
+        </div>
         <p>Ringkasan revenue, expense, approval, cashflow, dan performa project dalam satu layar kerja.</p>
     </div>
     <div class="dashboard-hero-balance">

@@ -16,10 +16,14 @@ class SalesLeadController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $leads = SalesLead::latest()->paginate(20);
-        return view('erp.sales-leads.index', compact('leads'));
+        $items = SalesLead::latest()
+            ->when($request->search, fn($q, $v) => $q->where('title', 'like', "%{$v}%"))
+            ->when($request->stage, fn($q, $v) => $q->where('stage', $v))
+            ->when($request->status, fn($q, $v) => $q->where('status', $v))
+            ->paginate(15)->withQueryString();
+        return view('erp.sales-leads.index', compact('items'));
     }
 
     public function create(): View

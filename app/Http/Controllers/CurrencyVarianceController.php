@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\AppliesListFilters;
 use App\Http\Traits\LoadsErpData;
 use App\Models\CurrencyRate;
 use App\Models\CurrencyVariance;
@@ -11,11 +12,15 @@ use Illuminate\View\View;
 
 class CurrencyVarianceController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $variances = CurrencyVariance::with('rate')->latest()->paginate(20);
+        $variances = $this->applyListFilters(
+            CurrencyVariance::with('rate')->latest(),
+            $request,
+            ['notes', 'period']
+        )->paginate(20)->withQueryString();
         return view('erp.currency-variances.index', compact('variances'));
     }
 

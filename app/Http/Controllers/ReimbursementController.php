@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\Cashflow;
 use App\Models\Reimbursement;
 use Illuminate\Http\RedirectResponse;
@@ -12,12 +13,17 @@ use Illuminate\View\View;
 
 class ReimbursementController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $reimbursementsPage = Reimbursement::with(['employee:id,name', 'project:id,code'])->latest()->paginate(20);
-        return view('erp.reimbursements.index', compact('reimbursementsPage'));
+        $reimbursementsPage = $this->applyListFilters(
+            Reimbursement::with(['employee:id,name', 'project:id,code'])->latest(),
+            $request,
+            ['category', 'notes']
+        )->paginate(20)->withQueryString();
+        $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
+        return view('erp.reimbursements.index', compact('reimbursementsPage', 'employees'));
     }
 
     public function create(): View

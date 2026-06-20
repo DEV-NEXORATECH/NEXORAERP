@@ -308,11 +308,9 @@
         </table>
     </div>
 
-    @if($cashflowPages->hasPages())
+    @if($cashflowPages->hasPages() || $cashflowPages->total() > 0)
     <div class="pager">
-        <div class="text-sm text-slate-500">
-            {{ $cashflowPages->firstItem() }}–{{ $cashflowPages->lastItem() }} dari {{ $cashflowPages->total() }} transaksi
-        </div>
+        <span>Menampilkan {{ $cashflowPages->firstItem() }}-{{ $cashflowPages->lastItem() }} dari {{ $cashflowPages->total() }} transaksi</span>
         {{ $cashflowPages->links() }}
     </div>
     @endif

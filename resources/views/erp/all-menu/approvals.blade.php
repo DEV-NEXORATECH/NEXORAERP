@@ -3,9 +3,15 @@
 @section('content')
 <section class="approval-page">
     <div class="approval-hero">
-        <div>
-            <span>Workflow Control</span>
-            <h1>Approval & Task Center</h1>
+        <div class="module-detail-copy">
+            <a class="module-back-link" href="{{ route('dashboard') }}">Dashboard</a>
+            <div class="module-title-row">
+                <span class="module-title-icon">{!! $icon('audit') !!}</span>
+                <div>
+                    <span class="module-eyebrow">Workflow Control</span>
+                    <h1>Approval & Task Center</h1>
+                </div>
+            </div>
             <p>Kelola approval penting dan task harian team dari satu control center yang rapi.</p>
         </div>
         <div class="approval-hero-stat">

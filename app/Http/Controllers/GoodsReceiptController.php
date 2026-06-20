@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\AppliesListFilters;
 use App\Http\Traits\LoadsErpData;
 use App\Models\GoodsReceipt;
 use App\Models\PurchaseOrder;
@@ -12,11 +13,24 @@ use Illuminate\View\View;
 
 class GoodsReceiptController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $receipts = GoodsReceipt::latest()->paginate(20);
+        $receipts = $this->applyListFilters(
+            GoodsReceipt::with('purchaseOrder')->latest(),
+            $request,
+            ['notes']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('date_from')) {
+            $receipts->whereDate('receipt_date', '>=', $request->date('date_from')->toDateString());
+        }
+
+        if ($request->filled('date_to')) {
+            $receipts->whereDate('receipt_date', '<=', $request->date('date_to')->toDateString());
+        }
+
         return view('erp.goods-receipts.index', compact('receipts'));
     }
 

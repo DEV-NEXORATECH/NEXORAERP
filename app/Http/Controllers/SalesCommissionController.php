@@ -14,10 +14,15 @@ class SalesCommissionController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $commissions = SalesCommission::latest()->paginate(20);
-        return view('erp.sales-commissions.index', compact('commissions'));
+        $items = SalesCommission::latest()
+            ->when($request->search, fn($q, $v) => $q->where('period', 'like', "%{$v}%"))
+            ->when($request->status, fn($q, $v) => $q->where('status', $v))
+            ->when($request->user_id, fn($q, $v) => $q->where('user_id', $v))
+            ->paginate(15)->withQueryString();
+        $users = \App\Models\User::orderBy('name')->get(['id', 'name']);
+        return view('erp.sales-commissions.index', compact('items', 'users'));
     }
 
     public function create(): View

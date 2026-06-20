@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\PaymentReminder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,11 +12,19 @@ use Illuminate\View\View;
 
 class PaymentReminderController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $reminders = PaymentReminder::with('invoice:id,number,due_date')->latest()->paginate(20);
+        $reminders = $this->applyListFilters(
+            PaymentReminder::with('invoice:id,number,due_date')->latest(),
+            $request,
+            ['subject', 'message']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('channel') && in_array($request->input('channel'), ['email', 'whatsapp', 'phone'])) {
+            $reminders->where('channel', $request->input('channel'));
+        }
         $unpaidInvoices = \App\Models\Invoice::whereNotIn('status', ['paid', 'void'])->orderBy('due_date')->get(['id', 'number', 'due_date']);
         return view('erp.payment-reminders.index', compact('reminders', 'unpaidInvoices'));
     }

@@ -15,10 +15,16 @@ class TimesheetController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $timesheets = Timesheet::with('employee', 'project')->latest()->paginate(20);
-        return view('erp.timesheets.index', compact('timesheets'));
+        $items = Timesheet::with('employee', 'project')
+            ->when($request->date_from, fn($q, $v) => $q->whereDate('work_date', '>=', $v))
+            ->when($request->date_to, fn($q, $v) => $q->whereDate('work_date', '<=', $v))
+            ->when($request->employee_id, fn($q, $v) => $q->where('employee_id', $v))
+            ->when($request->status, fn($q, $v) => $q->where('status', $v))
+            ->latest()->paginate(15)->withQueryString();
+        $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
+        return view('erp.timesheets.index', compact('items', 'employees'));
     }
 
     public function create(): View

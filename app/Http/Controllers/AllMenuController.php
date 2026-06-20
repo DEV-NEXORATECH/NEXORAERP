@@ -13,6 +13,10 @@ class AllMenuController extends Controller
 
     public function show(string $section)
     {
+        if ($section === 'admin') {
+            return redirect()->route('admin.index');
+        }
+
         $menus = $this->menus();
         $sectionMap = collect(array_keys($menus))->mapWithKeys(fn ($key) => [str($key)->slug()->toString() => $key]);
         abort_unless($sectionMap->has($section), 404);
@@ -63,20 +67,20 @@ class AllMenuController extends Controller
             $menus['Finance'] = [
                 ['label' => 'Reimbursements',        'icon' => 'reimbursement', 'route' => 'reimbursements.index-page',      'can' => true],
                 ['label' => 'Cashflows',             'icon' => 'cashflow',      'route' => 'cashflows.index-page',           'can' => true],
-                ['label' => 'Invoices',              'icon' => 'invoice',       'route' => 'finance.index',                  'can' => true],
-                ['label' => 'Chart of Accounts',     'icon' => 'master',        'route' => 'chart-accounts.index',            'can' => true],
-                ['label' => 'Journal Entries',       'icon' => 'audit',         'route' => 'journal-entries.index',           'can' => true],
-                ['label' => 'Recurring Billings',    'icon' => 'cashflow',      'route' => 'recurring-billings.index',        'can' => true],
-                ['label' => 'Payment Reminders',     'icon' => 'reimbursement', 'route' => 'payment-reminders.index',         'can' => true],
-                ['label' => 'Vendor Bills',          'icon' => 'invoice',       'route' => 'vendor-bills.index',              'can' => true],
-                ['label' => 'Vendor Payments',       'icon' => 'salary',        'route' => 'vendor-payments.index',           'can' => true],
-                ['label' => 'Budgets & Forecasts',   'icon' => 'reports',       'route' => 'budgets.index',                   'can' => true],
-                ['label' => 'Tax Rules',             'icon' => 'settings',      'route' => 'tax-rules.index',                 'can' => true],
-                ['label' => 'Fixed Assets',          'icon' => 'cashflow',      'route' => 'fixed-assets.index',              'can' => true],
-                ['label' => 'Currency Rates',        'icon' => 'cashflow',      'route' => 'currency-rates.index',            'can' => true],
-                ['label' => 'Revenue Schedules',     'icon' => 'reports',       'route' => 'revenue-schedules.index',         'can' => true],
-                ['label' => 'Bank Reconciliations',  'icon' => 'audit',         'route' => 'bank-reconciliation-items.index', 'can' => true],
-                ['label' => 'Purchase Matches',      'icon' => 'master',        'route' => 'purchase-matches.index',          'can' => true],
+                ['label' => 'Invoices',              'icon' => 'invoice',       'route' => 'finance.invoices.index',              'can' => true],
+                ['label' => 'Chart of Accounts',     'icon' => 'master',        'route' => 'finance.chart-accounts.index',        'can' => true],
+                ['label' => 'Journal Entries',       'icon' => 'audit',         'route' => 'finance.journal-entries.index',       'can' => true],
+                ['label' => 'Recurring Billings',    'icon' => 'cashflow',      'route' => 'finance.recurring-billings.index',    'can' => true],
+                ['label' => 'Payment Reminders',     'icon' => 'reimbursement', 'route' => 'finance.payment-reminders.index',     'can' => true],
+                ['label' => 'Vendor Bills',          'icon' => 'invoice',       'route' => 'finance.vendor-bills.index',          'can' => true],
+                ['label' => 'Vendor Payments',       'icon' => 'salary',        'route' => 'finance.vendor-payments.index',       'can' => true],
+                ['label' => 'Budgets & Forecasts',   'icon' => 'reports',       'route' => 'finance.budgets.index',               'can' => true],
+                ['label' => 'Tax Rules',             'icon' => 'settings',      'route' => 'finance.tax-rules.index',             'can' => true],
+                ['label' => 'Fixed Assets',          'icon' => 'cashflow',      'route' => 'finance.fixed-assets.index',          'can' => true],
+                ['label' => 'Currency Rates',        'icon' => 'cashflow',      'route' => 'finance.currency-rates.index',        'can' => true],
+                ['label' => 'Revenue Schedules',     'icon' => 'reports',       'route' => 'finance.revenue-schedules.index',     'can' => true],
+                ['label' => 'Bank Reconciliations',  'icon' => 'audit',         'route' => 'finance.bank-reconciliations.index',  'can' => true],
+                ['label' => 'Purchase Matches',      'icon' => 'master',        'route' => 'finance.purchase-matches.index',      'can' => true],
             ];
 
             $menus['Procurement'] = [
@@ -88,22 +92,20 @@ class AllMenuController extends Controller
             ];
         }
 
-        if ($can('admin')) {
-            $menus['Admin'] = [
-                ['label' => 'Company Setting', 'icon' => 'settings', 'route' => 'admin.index',   'can' => true],
-                ['label' => 'Users',           'icon' => 'users',    'route' => 'admin.users',    'can' => true],
-                ['label' => 'Master Data',     'icon' => 'master',   'route' => 'admin.masters',  'can' => true],
-                ['label' => 'Trash',           'icon' => 'trash',    'route' => 'admin.trash',    'can' => true],
-                ['label' => 'Audit Log',       'icon' => 'audit',    'route' => 'admin.audit',    'can' => true],
-            ];
-        }
-
         $reports = [];
         if ($can('admin', 'finance')) {
-            $reports[] = ['label' => 'Reports',        'icon' => 'reports', 'route' => 'reports.index', 'can' => true];
+            $reports[] = ['label' => 'Report Dashboard', 'icon' => 'reports', 'route' => 'reports.index', 'can' => true];
+            $reports[] = ['label' => 'Profit & Loss', 'icon' => 'reports', 'route' => 'reports.profit-loss', 'can' => true];
+            $reports[] = ['label' => 'Balance Sheet', 'icon' => 'reports', 'route' => 'reports.balance-sheet', 'can' => true];
+            $reports[] = ['label' => 'Cash Flow', 'icon' => 'reports', 'route' => 'reports.cash-flow', 'can' => true];
+            $reports[] = ['label' => 'Project Profitability', 'icon' => 'list', 'route' => 'reports.project', 'can' => true];
+            $reports[] = ['label' => 'Tax Summary', 'icon' => 'reports', 'route' => 'reports.tax', 'can' => true];
+            $reports[] = ['label' => 'Budget vs Actual', 'icon' => 'reports', 'route' => 'reports.budget', 'can' => true];
+            $reports[] = ['label' => 'Transactions', 'icon' => 'cashflow', 'route' => 'reports.transactions', 'can' => true];
+            $reports[] = ['label' => 'Reconciliation', 'icon' => 'cashflow', 'route' => 'reports.reconciliation', 'can' => true];
         }
         if ($can('admin')) {
-            $reports[] = ['label' => 'Backup Database', 'icon' => 'backup',  'route' => 'backup.database', 'can' => true];
+            $reports[] = ['label' => 'Backup Database', 'icon' => 'backup',  'route' => 'backup.download', 'can' => true];
         }
         if ($reports) {
             $menus['Reports'] = $reports;

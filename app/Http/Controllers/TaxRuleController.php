@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\TaxRule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,11 +12,20 @@ use Illuminate\View\View;
 
 class TaxRuleController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $taxRules = TaxRule::orderBy('tax_type')->paginate(20);
+        $taxRules = $this->applyListFilters(
+            TaxRule::orderBy('tax_type'),
+            $request,
+            ['name']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('is_active')) {
+            $taxRules->where('is_active', $request->boolean('is_active'));
+        }
+
         return view('erp.tax-rules.index', compact('taxRules'));
     }
 

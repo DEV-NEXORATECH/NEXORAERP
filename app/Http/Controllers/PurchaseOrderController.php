@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\AppliesListFilters;
 use App\Http\Traits\LoadsErpData;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseRequisition;
@@ -13,12 +14,30 @@ use Illuminate\View\View;
 
 class PurchaseOrderController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $orders = PurchaseOrder::latest()->paginate(20);
-        return view('erp.purchase-orders.index', compact('orders'));
+        $orders = $this->applyListFilters(
+            PurchaseOrder::with('vendor')->latest(),
+            $request,
+            ['number']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('vendor_id')) {
+            $orders->where('vendor_id', $request->input('vendor_id'));
+        }
+
+        if ($request->filled('date_from')) {
+            $orders->whereDate('order_date', '>=', $request->date('date_from')->toDateString());
+        }
+
+        if ($request->filled('date_to')) {
+            $orders->whereDate('order_date', '<=', $request->date('date_to')->toDateString());
+        }
+
+        $vendors = Vendor::orderBy('name')->get(['id', 'name']);
+        return view('erp.purchase-orders.index', compact('orders', 'vendors'));
     }
 
     public function create(): View

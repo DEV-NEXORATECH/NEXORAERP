@@ -14,10 +14,16 @@ class AttendanceController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $attendances = Attendance::with('employee')->latest()->paginate(20);
-        return view('erp.attendances.index', compact('attendances'));
+        $items = Attendance::with('employee')
+            ->when($request->date_from, fn($q, $v) => $q->whereDate('work_date', '>=', $v))
+            ->when($request->date_to, fn($q, $v) => $q->whereDate('work_date', '<=', $v))
+            ->when($request->employee_id, fn($q, $v) => $q->where('employee_id', $v))
+            ->when($request->mode, fn($q, $v) => $q->where('work_mode', $v))
+            ->latest()->paginate(15)->withQueryString();
+        $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
+        return view('erp.attendances.index', compact('items', 'employees'));
     }
 
     public function create(): View

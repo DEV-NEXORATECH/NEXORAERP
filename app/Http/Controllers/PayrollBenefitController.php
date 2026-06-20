@@ -15,10 +15,14 @@ class PayrollBenefitController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $benefits = PayrollBenefit::with('employee', 'salary')->latest()->paginate(20);
-        return view('erp.payroll-benefits.index', compact('benefits'));
+        $items = PayrollBenefit::with('employee', 'salary')
+            ->when($request->search, fn($q, $v) => $q->where('period', 'like', "%{$v}%"))
+            ->when($request->employee_id, fn($q, $v) => $q->where('employee_id', $v))
+            ->latest()->paginate(15)->withQueryString();
+        $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
+        return view('erp.payroll-benefits.index', compact('items', 'employees'));
     }
 
     public function create(): View

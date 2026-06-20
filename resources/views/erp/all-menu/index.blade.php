@@ -2,12 +2,11 @@
 
 @section('content')
 @php
-    $hubOrder = ['Finance', 'HR', 'Procurement', 'Admin', 'Reports', 'Sales', 'Main'];
+    $hubOrder = ['Main', 'Reports', 'Finance', 'HR', 'Sales', 'Procurement'];
     $hubNames = [
         'Finance' => 'Finance Hub',
         'HR' => 'HR Hub',
         'Procurement' => 'Procurement Hub',
-        'Admin' => 'Admin Hub',
         'Reports' => 'Report Hub',
         'Sales' => 'Sales Hub',
         'Main' => 'Dashboard Hub',
@@ -16,19 +15,17 @@
         'Finance' => 'cashflow',
         'HR' => 'employees',
         'Procurement' => 'projects',
-        'Admin' => 'settings',
         'Reports' => 'reports',
         'Sales' => 'proposal',
         'Main' => 'dashboard',
     ];
     $positions = [
-        0 => 'hub-top-right',
-        1 => 'hub-right',
-        2 => 'hub-bottom-right',
-        3 => 'hub-bottom',
-        4 => 'hub-bottom-left',
-        5 => 'hub-left',
-        6 => 'hub-top-left',
+        'Main' => 'hub-top-left',
+        'Reports' => 'hub-top-center',
+        'Finance' => 'hub-top-right',
+        'Sales' => 'hub-bottom-left',
+        'HR' => 'hub-bottom-center',
+        'Procurement' => 'hub-bottom-right',
     ];
     $orderedMenus = collect($hubOrder)
         ->filter(fn ($section) => isset($menus[$section]))
@@ -37,23 +34,36 @@
 
 <section class="process-hub-page">
     <div class="process-hub-heading">
-        <span>ERP Workflow Map</span>
-        <h1>Company Process Hub</h1>
-        <p>Seluruh modul ERP NEXORA ditata sebagai alur kerja perusahaan yang saling terhubung.</p>
+        <div class="module-detail-copy">
+            <a class="module-back-link" href="{{ route('dashboard') }}">Dashboard</a>
+            <div class="module-title-row">
+                <span class="module-title-icon">{!! $icon('list') !!}</span>
+                <div>
+                    <span class="module-eyebrow">ERP Workflow Map</span>
+                    <h1>Company Process Hub</h1>
+                </div>
+            </div>
+            <p>Seluruh modul ERP NEXORA ditata sebagai alur kerja perusahaan yang saling terhubung.</p>
+        </div>
+        <div class="process-hub-count">
+            <strong>{{ $orderedMenus->count() }}</strong>
+            <span>Hub Module</span>
+        </div>
     </div>
 
-    <div class="process-hub">
+    <div class="module-sub-grid">
 
         @foreach($orderedMenus as $section => $items)
-            <div class="process-node {{ $positions[$loop->index] ?? '' }}">
-                <a href="{{ route('modules.show', str($section)->slug()) }}" class="process-node-card">
-                    <div class="process-node-icon">{!! $icon($hubIcons[$section] ?? 'dashboard') !!}</div>
+            <a href="{{ route('modules.show', str($section)->slug()) }}" class="module-sub-card">
+                <div class="module-sub-main">
+                    <span class="module-sub-icon">{!! $icon($hubIcons[$section] ?? 'dashboard') !!}</span>
                     <div>
                         <h3>{{ $hubNames[$section] ?? $section }}</h3>
-                        <p>{{ count($items) }} menu</p>
+                        <p>{{ count($items) }} menu tersedia di {{ $hubNames[$section] ?? $section }}.</p>
                     </div>
-                </a>
-            </div>
+                </div>
+                <span class="module-sub-action">Open</span>
+            </a>
         @endforeach
     </div>
 </section>

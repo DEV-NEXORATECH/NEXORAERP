@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\FixedAsset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,11 +12,20 @@ use Illuminate\View\View;
 
 class FixedAssetController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $assets = FixedAsset::latest()->paginate(20);
+        $assets = $this->applyListFilters(
+            FixedAsset::latest(),
+            $request,
+            ['name', 'asset_code', 'notes']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('category')) {
+            $assets->where('category', 'like', '%' . $request->input('category') . '%');
+        }
+
         return view('erp.fixed-assets.index', compact('assets'));
     }
 

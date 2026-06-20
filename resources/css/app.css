@@ -814,6 +814,48 @@
         @apply mt-3 flex items-center gap-2;
     }
 
+    .pagination-shell {
+        @apply mt-4 w-full;
+    }
+
+    .pagination-mobile {
+        @apply flex justify-between gap-3 sm:hidden;
+    }
+
+    .pagination-desktop {
+        @apply hidden items-center justify-between gap-4 rounded-2xl border border-[#d7e3ef] bg-white px-4 py-3 shadow-sm shadow-slate-200/70 sm:flex;
+    }
+
+    .pagination-meta {
+        @apply m-0 text-xs font-semibold text-slate-500;
+    }
+
+    .pagination-meta span {
+        @apply font-black text-[#002F59];
+    }
+
+    .pagination-list {
+        @apply flex items-center gap-1;
+    }
+
+    .pagination-btn,
+    .pagination-square {
+        @apply inline-flex min-h-10 items-center justify-center rounded-xl border border-[#d7e3ef] bg-white px-4 text-xs font-black text-[#0059A7] no-underline transition hover:border-[#0059A7] hover:bg-[#e8f2fb];
+    }
+
+    .pagination-square {
+        @apply h-10 min-w-10 px-3;
+    }
+
+    .pagination-square.active {
+        @apply border-[#0059A7] bg-[#0059A7] text-white;
+    }
+
+    .pagination-btn.disabled,
+    .pagination-square.disabled {
+        @apply cursor-not-allowed border-slate-100 bg-slate-50 text-slate-300 hover:border-slate-100 hover:bg-slate-50;
+    }
+
     /* ── Status badges with color variants ───────────────── */
     .badge-draft    { @apply bg-slate-100 text-slate-600; }
     .badge-sent     { @apply bg-blue-50 text-blue-700; }
@@ -901,6 +943,92 @@
     }
 
     /* ── Section title with action ───────────────────────── */
+    .dashboard-hero,
+    .report-hero {
+        @apply mt-6 flex flex-col gap-5 overflow-hidden rounded-[1.75rem] border border-[#0059A7] bg-[#0059A7] p-6 text-white shadow-sm shadow-[#0059A7]/20 sm:p-8 lg:flex-row lg:items-center lg:justify-between;
+    }
+
+    .dashboard-hero > div > span,
+    .report-hero > div > span {
+        @apply mb-3 inline-flex rounded-full bg-white/14 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.22em] text-white/75;
+    }
+
+    .dashboard-hero h1,
+    .report-hero h1 {
+        @apply text-3xl font-black text-white sm:text-5xl;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .dashboard-hero p,
+    .report-hero p {
+        @apply mt-3 max-w-3xl text-sm font-semibold leading-6 text-white/68;
+    }
+
+    .dashboard-hero-balance,
+    .report-hero-card {
+        @apply rounded-full border border-white/20 bg-white/12 px-5 py-4 shadow-sm shadow-black/10 backdrop-blur lg:min-w-72;
+    }
+
+    .dashboard-hero-balance small,
+    .report-hero-card small {
+        @apply block text-xs font-black uppercase tracking-wide text-white/55;
+    }
+
+    .dashboard-hero-balance strong,
+    .report-hero-card strong {
+        @apply mt-2 block text-2xl font-black leading-tight text-white sm:text-3xl;
+    }
+
+    .dashboard-hero-balance em {
+        @apply mt-2 block not-italic text-xs font-bold text-white/55;
+    }
+
+    .dashboard-alert-grid {
+        @apply mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4;
+    }
+
+    .dashboard-section-grid {
+        @apply mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4;
+    }
+
+    .dashboard-chart-grid {
+        @apply mt-6 grid grid-cols-1 gap-5 xl:grid-cols-2;
+    }
+
+    .dashboard-module-grid {
+        @apply mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6;
+    }
+
+    .dashboard-project-card {
+        @apply rounded-[2rem] border border-[#d7e3ef] bg-white p-5 shadow-xl shadow-[#002F59]/8 sm:p-6;
+    }
+
+    .report-filter {
+        @apply rounded-[2rem] p-5 sm:p-6;
+    }
+
+    .report-filter .filter-panel-header {
+        @apply mb-5 border-b border-slate-100 pb-4;
+    }
+
+    .report-filter .filter-panel-header h3 {
+        @apply text-base;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .report-filter .filter-actions {
+        @apply flex-col items-stretch sm:flex-row sm:items-center;
+    }
+
+    .report-filter .filter-actions button,
+    .report-filter .filter-actions .button {
+        @apply w-full sm:w-auto;
+    }
+
+    .report-summary-grid {
+        @apply grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4;
+    }
+
     .section-head {
         @apply mb-5 flex items-center justify-between gap-4;
     }
@@ -1401,29 +1529,38 @@
     }
 
     .process-hub-page {
-        @apply mt-6 overflow-hidden rounded-[2rem] border border-[#d7e3ef] bg-white p-0 shadow-xl shadow-[#002F59]/8;
+        @apply mt-4 overflow-visible rounded-none border-0 bg-transparent p-0 shadow-none;
     }
 
     .process-hub-heading {
-        @apply border-b border-slate-100 bg-gradient-to-br from-white via-[#f8fbff] to-[#eef6ff] px-5 py-7 text-center sm:px-6 sm:py-8;
-    }
-
-    .process-hub-heading span {
-        @apply mb-3 inline-flex rounded-full bg-[#e8f2fb] px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#0059A7];
+        @apply flex flex-col items-start gap-6 overflow-hidden rounded-[1.75rem] border border-[#0059A7] bg-[#0059A7] p-6 text-left text-white shadow-sm shadow-[#0059A7]/20 sm:p-7 lg:flex-row lg:items-center lg:justify-between;
     }
 
     .process-hub-heading h1 {
-        @apply text-2xl font-black tracking-tight text-[#002F59] sm:text-4xl;
+        @apply text-3xl font-black tracking-tight text-white sm:text-5xl;
         font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .process-hub-heading p {
-        @apply mx-auto mt-3 max-w-2xl text-sm font-semibold leading-6 text-slate-500;
+        @apply mt-3 max-w-3xl text-sm font-semibold leading-6 text-white/75;
+    }
+
+    .process-hub-count {
+        @apply flex w-fit flex-row items-center gap-3 self-start rounded-full border border-white/20 bg-white/12 px-5 py-3 text-white shadow-sm shadow-black/10 backdrop-blur lg:self-center;
+    }
+
+    .process-hub-count strong {
+        @apply text-2xl font-black leading-none text-white;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .process-hub-count span {
+        @apply m-0 bg-transparent p-0 text-xs font-black uppercase tracking-[0.14em] text-white/65;
     }
 
     .process-hub {
-        @apply relative mx-auto grid max-w-6xl grid-cols-1 items-stretch gap-4 overflow-hidden bg-white px-4 py-5 sm:grid-cols-2 sm:px-6 sm:py-7 xl:min-h-[620px] xl:grid-cols-[minmax(220px,1fr)_240px_minmax(220px,1fr)] xl:grid-rows-3 xl:items-center xl:gap-x-10 xl:gap-y-8 xl:px-10 xl:py-10;
-        background: #ffffff;
+        @apply relative mx-auto grid max-w-5xl grid-cols-1 items-stretch gap-4 overflow-visible bg-transparent px-3 py-5 sm:grid-cols-2 sm:px-6 xl:min-h-0 xl:grid-cols-3 xl:grid-rows-2 xl:items-center xl:gap-x-8 xl:gap-y-9 xl:px-0 xl:py-7;
+        background: transparent;
     }
 
     .process-hub::before,
@@ -1469,20 +1606,20 @@
     }
 
     .process-node-card {
-        @apply flex min-h-[96px] w-full items-center gap-4 rounded-[1.35rem] border border-white/10 bg-[#002F59] p-4 text-white no-underline shadow-xl shadow-[#0059A7]/15 transition duration-300 hover:-translate-y-1 hover:bg-[#0059A7] hover:shadow-[#0059A7]/25 sm:p-5 xl:min-h-[104px];
+        @apply flex min-h-[78px] w-full items-center gap-3 rounded-2xl border border-white/10 bg-[#002F59] p-4 text-white no-underline shadow-lg shadow-[#0059A7]/12 transition duration-300 hover:-translate-y-1 hover:bg-[#0059A7] hover:shadow-[#0059A7]/20 sm:p-4 xl:min-h-[82px];
         backdrop-filter: blur(12px);
     }
 
     .process-node-icon {
-        @apply grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-[#0059A7] text-white shadow-lg shadow-black/10;
+        @apply grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#0059A7] text-white shadow-lg shadow-black/10;
     }
 
     .process-node-icon svg {
-        @apply h-9 w-9;
+        @apply h-7 w-7;
     }
 
     .process-node-card h3 {
-        @apply mb-0 text-lg font-black leading-tight text-white;
+        @apply mb-0 text-base font-black leading-tight text-white;
         font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
@@ -1507,60 +1644,119 @@
     }
 
     .module-detail-page {
-        @apply mt-6;
+        @apply mt-5;
     }
 
     .module-detail-hero {
-        @apply relative overflow-hidden rounded-3xl border border-[#cfe0f2] bg-gradient-to-br from-white via-[#f7fbff] to-[#e8f2fb] p-5 text-center shadow-sm shadow-[#0059A7]/10 sm:p-8;
+        @apply flex flex-col items-start gap-6 overflow-hidden rounded-[1.75rem] border border-[#0059A7] bg-[#0059A7] p-6 text-left text-white shadow-sm shadow-[#0059A7]/20 sm:p-7 lg:flex-row lg:items-start lg:justify-between;
     }
 
-    .module-detail-icon {
-        @apply mx-auto mb-4 grid h-20 w-20 place-items-center rounded-3xl bg-[#002F59] text-white shadow-xl shadow-[#0059A7]/20;
+    .module-detail-hero::before {
+        @apply hidden;
     }
 
-    .module-detail-icon svg {
-        @apply h-10 w-10;
+    .module-detail-hero::after {
+        @apply hidden;
+    }
+
+    .module-detail-copy,
+    .module-count {
+        @apply relative;
+    }
+
+    .module-detail-copy {
+        @apply w-full max-w-3xl text-left;
+    }
+
+    .module-back-link {
+        @apply mb-6 inline-flex items-center rounded-full border border-white/20 bg-white/12 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white no-underline shadow-sm shadow-black/10 backdrop-blur transition hover:bg-white hover:text-[#0059A7];
+    }
+
+    .module-title-row {
+        @apply flex items-center justify-start gap-4;
+    }
+
+    .module-title-icon {
+        @apply grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/14 text-white shadow-lg shadow-black/10;
+    }
+
+    .module-title-icon svg {
+        @apply h-7 w-7;
+    }
+
+    .module-eyebrow {
+        @apply mb-2 block text-[10px] font-black uppercase tracking-[0.22em] text-white/65;
+    }
+
+    .module-count {
+        @apply flex w-fit flex-row items-center gap-3 self-start rounded-full border border-white/20 bg-white/12 px-5 py-3 text-white shadow-sm shadow-black/10 backdrop-blur lg:self-center;
+    }
+
+    .module-count strong {
+        @apply text-2xl font-black leading-none text-white;
+        font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .module-count span {
+        @apply text-xs font-black uppercase tracking-[0.14em] text-white/65;
     }
 
     .module-detail-hero h1 {
-        @apply text-2xl font-black text-[#002F59] sm:text-4xl;
+        @apply text-3xl font-black leading-tight text-white sm:text-5xl;
         font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .module-detail-hero p {
-        @apply mx-auto mt-2 max-w-xl text-sm font-semibold text-slate-500;
+        @apply mt-4 max-w-2xl text-sm font-semibold leading-6 text-white/75;
+    }
+
+    .module-sub-grid {
+        @apply mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3;
     }
 
     .module-sub-card {
-        @apply flex min-h-28 items-center gap-4 rounded-3xl border border-slate-200 bg-white p-5 text-slate-700 no-underline shadow-sm shadow-slate-200/80 transition hover:-translate-y-1 hover:border-[#cfe0f2] hover:bg-[#f7fbff] hover:shadow-lg hover:shadow-[#0059A7]/10 sm:p-6;
+        @apply flex min-h-28 items-center justify-between gap-5 rounded-2xl border border-[#d7e3ef] bg-white p-5 text-slate-700 no-underline shadow-sm shadow-slate-200/70 transition hover:-translate-y-0.5 hover:border-[#0059A7] hover:bg-[#f7fbff] hover:shadow-lg hover:shadow-[#0059A7]/10;
     }
 
-    .module-sub-card > span {
-        @apply grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#e8f2fb] text-[#0059A7];
+    .module-sub-main {
+        @apply flex min-w-0 items-center gap-4;
     }
 
-    .module-sub-card svg {
-        @apply h-7 w-7;
+    .module-sub-icon {
+        @apply grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#e8f2fb] text-[#0059A7] transition;
+    }
+
+    .module-sub-icon svg {
+        @apply h-6 w-6;
+    }
+
+    .module-sub-action {
+        @apply shrink-0 rounded-full bg-[#e8f2fb] px-4 py-2 text-xs font-black uppercase tracking-wide text-[#0059A7] transition;
+    }
+
+    .module-sub-card:hover .module-sub-icon,
+    .module-sub-card:hover .module-sub-action {
+        @apply bg-[#0059A7] text-white;
     }
 
     .module-sub-card h3 {
-        @apply mb-1 text-lg font-black text-slate-900;
+        @apply mb-1 text-base font-black text-[#002F59];
         font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .module-sub-card p {
-        @apply text-sm font-semibold text-slate-500;
+        @apply text-sm font-semibold leading-5 text-slate-500;
     }
 
     .approval-page {
-        @apply mt-6 overflow-hidden rounded-[2rem] border border-[#d7e3ef] bg-white shadow-xl shadow-[#002F59]/8;
+        @apply mt-6 overflow-visible rounded-none border-0 bg-transparent shadow-none;
     }
 
     .approval-hero {
-        @apply flex flex-col gap-5 border-b border-[#d7e3ef] bg-gradient-to-br from-[#002F59] via-[#004a82] to-[#0059A7] p-6 text-white sm:p-8 lg:flex-row lg:items-center lg:justify-between;
+        @apply flex flex-col gap-5 overflow-hidden rounded-[1.75rem] border border-[#0059A7] bg-[#0059A7] p-6 text-white shadow-sm shadow-[#0059A7]/20 sm:p-8 lg:flex-row lg:items-center lg:justify-between;
     }
 
-    .approval-hero span,
+    .approval-hero > div > span,
     .task-panel-head span,
     .ui-modal-head span {
         @apply mb-2 inline-flex rounded-full bg-white/14 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-white/75;
@@ -1576,7 +1772,7 @@
     }
 
     .approval-hero-stat {
-        @apply flex min-w-44 items-center gap-4 rounded-3xl border border-white/14 bg-white/12 p-4 shadow-2xl shadow-black/10 backdrop-blur;
+        @apply flex min-w-44 items-center gap-4 rounded-full border border-white/20 bg-white/12 px-5 py-4 shadow-sm shadow-black/10 backdrop-blur;
     }
 
     .approval-hero-stat strong {
@@ -1588,7 +1784,7 @@
     }
 
     .approval-grid {
-        @apply grid gap-5 p-5 sm:grid-cols-2 sm:p-6 xl:grid-cols-4;
+        @apply mt-6 grid gap-5 p-0 sm:grid-cols-2 xl:grid-cols-4;
     }
 
     .approval-card {
@@ -1787,6 +1983,10 @@
         @apply xl:col-start-2 xl:row-start-1 xl:place-self-center;
     }
 
+    .hub-top-center {
+        @apply xl:col-start-2 xl:row-start-1 xl:place-self-center;
+    }
+
     .hub-top-right {
         @apply xl:col-start-3 xl:row-start-1 xl:place-self-center;
     }
@@ -1796,15 +1996,19 @@
     }
 
     .hub-bottom-right {
-        @apply xl:col-start-3 xl:row-start-3 xl:place-self-center;
+        @apply xl:col-start-3 xl:row-start-2 xl:place-self-center;
     }
 
     .hub-bottom {
         @apply xl:col-start-2 xl:row-start-3 xl:place-self-center;
     }
 
+    .hub-bottom-center {
+        @apply xl:col-start-2 xl:row-start-2 xl:place-self-center;
+    }
+
     .hub-bottom-left {
-        @apply xl:col-start-1 xl:row-start-3 xl:place-self-center;
+        @apply xl:col-start-1 xl:row-start-2 xl:place-self-center;
     }
 
     .hub-left {

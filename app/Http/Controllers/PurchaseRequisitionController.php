@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\AppliesListFilters;
 use App\Http\Traits\LoadsErpData;
 use App\Models\Department;
 use App\Models\PurchaseRequisition;
@@ -13,11 +14,24 @@ use Illuminate\View\View;
 
 class PurchaseRequisitionController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $requisitions = PurchaseRequisition::latest()->paginate(20);
+        $requisitions = $this->applyListFilters(
+            PurchaseRequisition::with('requester', 'department')->latest(),
+            $request,
+            ['number', 'title']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('date_from')) {
+            $requisitions->whereDate('created_at', '>=', $request->date('date_from')->toDateString());
+        }
+
+        if ($request->filled('date_to')) {
+            $requisitions->whereDate('created_at', '<=', $request->date('date_to')->toDateString());
+        }
+
         return view('erp.purchase-requisitions.index', compact('requisitions'));
     }
 

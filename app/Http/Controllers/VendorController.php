@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\AppliesListFilters;
 use App\Http\Traits\LoadsErpData;
 use App\Models\Vendor;
 use Illuminate\Http\RedirectResponse;
@@ -11,11 +12,20 @@ use Illuminate\View\View;
 
 class VendorController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $vendors = Vendor::latest()->paginate(20);
+        $vendors = $this->applyListFilters(
+            Vendor::latest(),
+            $request,
+            ['name', 'contact_name', 'email']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('is_active')) {
+            $vendors->where('status', $request->boolean('is_active') ? 'active' : 'inactive');
+        }
+
         return view('erp.vendors.index', compact('vendors'));
     }
 

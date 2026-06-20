@@ -15,9 +15,22 @@ class ProjectController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $projectsPage   = Project::with(['clientRecord'])->latest()->paginate(15);
+        $query = Project::with(['clientRecord']);
+
+        if ($request->filled('search')) {
+            $search = $request->string('search')->toString();
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")->orWhere('code', 'like', "%{$search}%");
+            });
+        }
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        $projectsPage = $query->latest()->paginate(15)->withQueryString();
+
         $projectReports = Project::with(['cashflows', 'salaries', 'reimbursements', 'invoices'])->get()->map(fn ($p) => [
             'project'             => $p,
             'summary'             => $this->cashflowSummary($p->cashflows),

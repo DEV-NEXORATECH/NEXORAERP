@@ -13,9 +13,27 @@ class ProposalController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $proposalsPage = Proposal::with(['project:id,code,name'])->latest()->paginate(20);
+        $query = Proposal::with(['project:id,code,name'])->latest();
+
+        if ($request->filled('search')) {
+            $search = $request->string('search')->toString();
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%");
+            });
+        }
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date('date_from'));
+        }
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date('date_to'));
+        }
+
+        $proposalsPage = $query->paginate(20)->withQueryString();
         return view('erp.sales.index', compact('proposalsPage'));
     }
 

@@ -14,10 +14,27 @@ class EmployeeController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $employeesPage = Employee::latest()->paginate(20);
-        return view('erp.employees.index', compact('employeesPage'));
+        $query = Employee::latest();
+
+        if ($request->filled('search')) {
+            $search = $request->string('search')->toString();
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+            });
+        }
+        if ($request->filled('department_id')) {
+            $query->where('department_id', $request->input('department_id'));
+        }
+        if ($request->filled('job_position_id')) {
+            $query->where('job_position_id', $request->input('job_position_id'));
+        }
+
+        $employeesPage = $query->paginate(20)->withQueryString();
+        $departments = Department::orderBy('name')->get(['id', 'name']);
+        $jobPositions = JobPosition::orderBy('name')->get(['id', 'name']);
+        return view('erp.employees.index', compact('employeesPage', 'departments', 'jobPositions'));
     }
 
     public function create(): View

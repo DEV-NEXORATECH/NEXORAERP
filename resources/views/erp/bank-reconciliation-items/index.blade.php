@@ -1,16 +1,37 @@
 @extends('layouts.erp', ['activePage' => 'bank-reconciliation-items.index', 'pageTitle' => 'Bank Reconciliation'])
 
 @section('content')
-<section class="card section wide">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="bank-reconciliation-items">
     <div class="section-head">
         <h2>Bank Reconciliation Items</h2>
         @if($can('admin', 'finance'))
-        <a class="button ghost" href="{{ route('bank-reconciliation-items.create-page') }}">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        <a href="{{ route('bank-reconciliation-items.create-page') }}" class="button ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M12 5v14M5 12h14"/></svg>
             Tambah
         </a>
         @endif
     </div>
+
+    <form method="get" action="{{ route('bank-reconciliation-items.index') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        @if(isset($banks))
+        <select name="bank_account_id" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+            <option value="">Semua Bank</option>
+            @foreach($banks as $bank)
+            <option value="{{ $bank->id }}" @selected(request('bank_account_id') == $bank->id)>{{ $bank->name }}</option>
+            @endforeach
+        </select>
+        @endif
+        <select name="reconciled" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+            <option value="">Semua Status</option>
+            <option value="1" @selected(request('reconciled') == '1')>Reconciled</option>
+            <option value="0" @selected(request('reconciled') == '0')>Unreconciled</option>
+        </select>
+        <div class="flex gap-2 items-end">
+            <button class="rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#003d78]">Filter</button>
+            <a href="{{ route('bank-reconciliation-items.index') }}" class="rounded-xl border border-[#d7e3ef] bg-white px-5 py-2.5 text-sm font-bold text-[#0059A7] hover:bg-[#f3f8fc]">Reset</a>
+        </div>
+    </form>
+
     <table>
         <thead>
             <tr><th>Bank</th><th>Tanggal</th><th>Deskripsi</th><th>Amount</th><th>Tipe</th><th>Reconciled</th><th>Aksi</th></tr>
@@ -34,11 +55,12 @@
             @endforelse
         </tbody>
     </table>
+
     @if($reconciliations->hasPages())
-        <div class="pager">
-            <div class="text-sm text-slate-500">Menampilkan {{ $reconciliations->firstItem() }}–{{ $reconciliations->lastItem() }} dari {{ $reconciliations->total() }}</div>
-            {{ $reconciliations->links() }}
-        </div>
+    <div class="pager">
+        <span>Menampilkan {{ $reconciliations->firstItem() }}-{{ $reconciliations->lastItem() }} dari {{ $reconciliations->total() }}</span>
+        {{ $reconciliations->links() }}
+    </div>
     @endif
 </section>
 @endsection

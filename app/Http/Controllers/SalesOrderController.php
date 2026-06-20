@@ -15,10 +15,15 @@ class SalesOrderController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $orders = SalesOrder::latest()->paginate(20);
-        return view('erp.sales-orders.index', compact('orders'));
+        $items = SalesOrder::latest()
+            ->when($request->search, fn($q, $v) => $q->where('number', 'like', "%{$v}%"))
+            ->when($request->status, fn($q, $v) => $q->where('status', $v))
+            ->when($request->date_from, fn($q, $v) => $q->whereDate('order_date', '>=', $v))
+            ->when($request->date_to, fn($q, $v) => $q->whereDate('order_date', '<=', $v))
+            ->paginate(15)->withQueryString();
+        return view('erp.sales-orders.index', compact('items'));
     }
 
     public function create(): View

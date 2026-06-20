@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\ChartAccount;
 use App\Models\JournalEntry;
 use Illuminate\Http\RedirectResponse;
@@ -12,11 +13,15 @@ use Illuminate\View\View;
 
 class JournalEntryController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $journals = JournalEntry::with('lines.account:id,code,name')->latest('entry_date')->paginate(20);
+        $journals = $this->applyListFilters(
+            JournalEntry::with('lines.account:id,code,name')->latest('entry_date'),
+            $request,
+            ['reference', 'memo']
+        )->paginate(20)->withQueryString();
         return view('erp.journal-entries.index', compact('journals'));
     }
 

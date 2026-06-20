@@ -11,6 +11,25 @@
         </a>
         @endif
     </div>
+    <form method="get" action="{{ route('hr.index') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 placeholder:text-slate-400 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <select name="department_id" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+            <option value="">Semua Department</option>
+            @foreach($departments as $department)
+                <option value="{{ $department->id }}" @selected(request('department_id')==$department->id)>{{ $department->name }}</option>
+            @endforeach
+        </select>
+        <select name="job_position_id" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+            <option value="">Semua Posisi</option>
+            @foreach($jobPositions as $position)
+                <option value="{{ $position->id }}" @selected(request('job_position_id')==$position->id)>{{ $position->name }}</option>
+            @endforeach
+        </select>
+        <div class="flex gap-2 items-end">
+            <button class="rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#003d78]">Filter</button>
+            <a href="{{ route('hr.index') }}" class="rounded-xl border border-[#d7e3ef] bg-white px-5 py-2.5 text-sm font-bold text-[#0059A7] hover:bg-[#f3f8fc]">Reset</a>
+        </div>
+    </form>
     <table>
         <thead>
             <tr><th>Nama</th><th>Posisi</th><th>Department</th><th>Base Salary</th><th>Aksi</th></tr>
@@ -32,9 +51,9 @@
             @endforelse
         </tbody>
     </table>
-    @if($employeesPage->hasPages())
+    @if($employeesPage->hasPages() || $employeesPage->total() > 0)
         <div class="pager">
-            <div class="text-sm text-slate-500">Menampilkan {{ $employeesPage->firstItem() }}–{{ $employeesPage->lastItem() }} dari {{ $employeesPage->total() }}</div>
+            <span>Menampilkan {{ $employeesPage->firstItem() }}-{{ $employeesPage->lastItem() }} dari {{ $employeesPage->total() }}</span>
             {{ $employeesPage->links() }}
         </div>
     @endif

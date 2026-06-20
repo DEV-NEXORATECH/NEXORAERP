@@ -14,10 +14,14 @@ class EmployeeSkillController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $skills = EmployeeSkill::with('employee')->latest()->paginate(20);
-        return view('erp.employee-skills.index', compact('skills'));
+        $items = EmployeeSkill::with('employee')
+            ->when($request->search, fn($q, $v) => $q->where('skill', 'like', "%{$v}%"))
+            ->when($request->level, fn($q, $v) => $q->where('level', $v))
+            ->latest()->paginate(15)->withQueryString();
+        $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
+        return view('erp.employee-skills.index', compact('items', 'employees'));
     }
 
     public function create(): View

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\RecurringBilling;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,11 +12,15 @@ use Illuminate\View\View;
 
 class RecurringBillingController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $recurrings = RecurringBilling::with('client:id,name')->latest()->paginate(20);
+        $recurrings = $this->applyListFilters(
+            RecurringBilling::with('client:id,name')->latest(),
+            $request,
+            ['title', 'description']
+        )->paginate(20)->withQueryString();
         return view('erp.recurring-billings.index', compact('recurrings'));
     }
 

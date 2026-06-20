@@ -14,10 +14,13 @@ class SalesInquiryController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $inquiries = SalesInquiry::latest()->paginate(20);
-        return view('erp.sales-inquiries.index', compact('inquiries'));
+        $items = SalesInquiry::latest()
+            ->when($request->search, fn($q, $v) => $q->where('company_name', 'like', "%{$v}%"))
+            ->when($request->status, fn($q, $v) => $q->where('status', $v))
+            ->paginate(15)->withQueryString();
+        return view('erp.sales-inquiries.index', compact('items'));
     }
 
     public function create(): View

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\Cashflow;
 use App\Models\VendorBill;
 use App\Models\VendorPayment;
@@ -13,11 +14,15 @@ use Illuminate\View\View;
 
 class VendorPaymentController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $payments = VendorPayment::with(['vendorBill:id,bill_number,vendor_name,amount,paid_amount', 'bankAccount:id,name'])->latest()->paginate(20);
+        $payments = $this->applyListFilters(
+            VendorPayment::with(['vendorBill:id,bill_number,vendor_name,amount,paid_amount', 'bankAccount:id,name'])->latest(),
+            $request,
+            ['reference', 'notes']
+        )->paginate(20)->withQueryString();
         $unpaidVendorBills = VendorBill::whereIn('status', ['unpaid', 'partial'])->orderBy('due_date')->get();
         $bankAccounts = \App\Models\BankAccount::orderBy('name')->get();
         return view('erp.vendor-payments.index', compact('payments', 'unpaidVendorBills', 'bankAccounts'));

@@ -14,10 +14,15 @@ class LeaveRequestController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $leaves = LeaveRequest::with('employee')->latest()->paginate(20);
-        return view('erp.leave-requests.index', compact('leaves'));
+        $items = LeaveRequest::with('employee')
+            ->when($request->status, fn($q, $v) => $q->where('status', $v))
+            ->when($request->type, fn($q, $v) => $q->where('type', $v))
+            ->when($request->employee_id, fn($q, $v) => $q->where('employee_id', $v))
+            ->latest()->paginate(15)->withQueryString();
+        $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
+        return view('erp.leave-requests.index', compact('items', 'employees'));
     }
 
     public function create(): View

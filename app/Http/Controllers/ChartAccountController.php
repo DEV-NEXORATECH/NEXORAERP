@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\ChartAccount;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,11 +12,20 @@ use Illuminate\View\View;
 
 class ChartAccountController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $accounts = ChartAccount::with('parent:id,code,name')->orderBy('code')->paginate(20);
+        $accounts = $this->applyListFilters(
+            ChartAccount::with('parent:id,code,name')->orderBy('code'),
+            $request,
+            ['code', 'name']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('is_active')) {
+            $accounts->where('is_active', $request->boolean('is_active'));
+        }
+
         $coaOptions = ChartAccount::where('is_active', true)->orderBy('code')->get(['id', 'code', 'name', 'type']);
         return view('erp.chart-accounts.index', compact('accounts', 'coaOptions'));
     }

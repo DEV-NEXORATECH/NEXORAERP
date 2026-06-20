@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\BankAccount;
 use App\Models\BankReconciliationItem;
 use Illuminate\Http\RedirectResponse;
@@ -12,12 +13,22 @@ use Illuminate\View\View;
 
 class BankReconciliationItemController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $reconciliations = BankReconciliationItem::with('bankAccount')->latest()->paginate(20);
-        return view('erp.bank-reconciliation-items.index', compact('reconciliations'));
+        $reconciliations = $this->applyListFilters(
+            BankReconciliationItem::with('bankAccount')->latest(),
+            $request,
+            ['reference', 'notes']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('reconciled')) {
+            $reconciliations->where('reconciled', $request->boolean('reconciled'));
+        }
+
+        $banks = BankAccount::orderBy('name')->get(['id', 'name']);
+        return view('erp.bank-reconciliation-items.index', compact('reconciliations', 'banks'));
     }
 
     public function create(): View

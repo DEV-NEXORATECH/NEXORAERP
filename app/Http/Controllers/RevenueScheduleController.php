@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
+use App\Http\Traits\AppliesListFilters;
 use App\Models\Project;
 use App\Models\RevenueSchedule;
 use Illuminate\Http\RedirectResponse;
@@ -12,12 +13,17 @@ use Illuminate\View\View;
 
 class RevenueScheduleController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $schedules = RevenueSchedule::with('project')->latest()->paginate(20);
-        return view('erp.revenue-schedules.index', compact('schedules'));
+        $schedules = $this->applyListFilters(
+            RevenueSchedule::with('project')->latest(),
+            $request,
+            ['title', 'notes']
+        )->paginate(20)->withQueryString();
+        $projects = Project::orderByDesc('id')->get(['id', 'code', 'name']);
+        return view('erp.revenue-schedules.index', compact('schedules', 'projects'));
     }
 
     public function create(): View

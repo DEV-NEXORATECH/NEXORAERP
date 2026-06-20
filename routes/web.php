@@ -1,26 +1,35 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BackupController;
+use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\CashflowController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ClientContractController;
+use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AllMenuController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeSkillController;
+use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\BankReconciliationItemController;
 use App\Http\Controllers\CurrencyRateController;
 use App\Http\Controllers\CurrencyVarianceController;
 use App\Http\Controllers\FinanceAdvancedController;
 use App\Http\Controllers\FinanceSuiteController;
 use App\Http\Controllers\FixedAssetController;
+use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\PurchaseMatchController;
 use App\Http\Controllers\RevenueScheduleController;
 use App\Http\Controllers\ChartAccountController;
 use App\Http\Controllers\JournalEntryController;
 use App\Http\Controllers\RecurringBillingController;
 use App\Http\Controllers\PaymentReminderController;
+use App\Http\Controllers\TrashController;
+use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\VendorBillController;
 use App\Http\Controllers\VendorPaymentController;
 use App\Http\Controllers\BudgetController;
@@ -32,11 +41,21 @@ use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PayrollBenefitController;
 use App\Http\Controllers\PerformanceReviewController;
+use App\Http\Controllers\ProcurementController;
 use App\Http\Controllers\ProcurementContractController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\PurchaseRequisitionController;
 use App\Http\Controllers\ReimbursementController;
+use App\Http\Controllers\ReportAgingController;
+use App\Http\Controllers\ReportBalanceSheetController;
+use App\Http\Controllers\ReportBankReconciliationController;
+use App\Http\Controllers\ReportBudgetVsActualController;
+use App\Http\Controllers\ReportCashFlowController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReportProfitLossController;
+use App\Http\Controllers\ReportProjectProfitabilityController;
+use App\Http\Controllers\ReportTaxSummaryController;
+use App\Http\Controllers\ReportTransactionsController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SalesCommissionController;
 use App\Http\Controllers\SalesCrmController;
@@ -73,7 +92,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/modules', [\App\Http\Controllers\AllMenuController::class, 'index'])->name('modules.index');
     Route::get('/modules/{section}', [\App\Http\Controllers\AllMenuController::class, 'show'])->name('modules.show');
     Route::get('/approvals', [\App\Http\Controllers\AllMenuController::class, 'approvals'])->name('approvals.index');
-    Route::get('/settings-admin', [AdminController::class, 'companyPage'])->middleware('role:admin')->name('settings-admin.index');
+    Route::redirect('/settings-admin', '/admin')->name('settings-admin.index');
+    Route::get('/admin', [CompanySettingController::class, 'hub'])->middleware('role:admin')->name('admin.index');
+    Route::get('/admin/users', [UserManagementController::class, 'index'])->middleware('role:admin')->name('admin.users');
+    Route::get('/admin/masters', [ClientController::class, 'index'])->middleware('role:admin')->name('admin.masters');
+    Route::get('/admin/trash', [TrashController::class, 'index'])->middleware('role:admin')->name('admin.trash');
+    Route::get('/admin/audit', [AuditLogController::class, 'index'])->middleware('role:admin')->name('admin.audit');
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.status');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
@@ -156,6 +180,12 @@ Route::middleware('auth')->group(function () {
     // ── Employees / HR ────────────────────────────────────────────────────────
     Route::get('/hr',                                [EmployeeController::class, 'index'])->middleware('role:admin,hr')->name('hr.index');
     Route::get('/hris',                              [HrisController::class, 'index'])->middleware('role:admin,hr')->name('hris.index');
+    Route::post('/hris/skills',                      [HrisController::class, 'storeSkill'])->middleware('role:admin,hr')->name('hris.skills.store');
+    Route::post('/hris/attendances',                 [HrisController::class, 'storeAttendance'])->middleware('role:admin,hr')->name('hris.attendances.store');
+    Route::post('/hris/timesheets',                  [HrisController::class, 'storeTimesheet'])->middleware('role:admin,hr')->name('hris.timesheets.store');
+    Route::post('/hris/leaves',                      [HrisController::class, 'storeLeave'])->middleware('role:admin,hr')->name('hris.leaves.store');
+    Route::post('/hris/reviews',                     [HrisController::class, 'storeReview'])->middleware('role:admin,hr')->name('hris.reviews.store');
+    Route::post('/hris/benefits',                    [HrisController::class, 'storeBenefit'])->middleware('role:admin,hr')->name('hris.benefits.store');
     Route::get('/employees/create',                  [EmployeeController::class, 'create'])->middleware('role:admin,hr')->name('employees.create-page');
     Route::get('/employees/{employee}/edit',         [EmployeeController::class, 'edit'])->middleware('role:admin,hr')->name('employees.edit-page');
     Route::post('/employees',                        [EmployeeController::class, 'store'])->middleware('role:admin,hr')->name('employees.store');
@@ -251,6 +281,22 @@ Route::middleware('auth')->group(function () {
     Route::post('/payments',                         [PaymentController::class, 'store'])->middleware('role:admin,finance')->name('payments.store');
     Route::delete('/payments/{payment}',             [PaymentController::class, 'destroy'])->middleware('role:admin')->name('payments.destroy');
 
+    // Finance nested module aliases
+    Route::get('/finance/invoices',                  [InvoiceController::class, 'index'])->middleware('role:admin,finance')->name('finance.invoices.index');
+    Route::get('/finance/chart-accounts',            [ChartAccountController::class, 'index'])->middleware('role:admin,finance')->name('finance.chart-accounts.index');
+    Route::get('/finance/journal-entries',           [JournalEntryController::class, 'index'])->middleware('role:admin,finance')->name('finance.journal-entries.index');
+    Route::get('/finance/recurring-billings',        [RecurringBillingController::class, 'index'])->middleware('role:admin,finance')->name('finance.recurring-billings.index');
+    Route::get('/finance/payment-reminders',         [PaymentReminderController::class, 'index'])->middleware('role:admin,finance')->name('finance.payment-reminders.index');
+    Route::get('/finance/vendor-bills',              [VendorBillController::class, 'index'])->middleware('role:admin,finance')->name('finance.vendor-bills.index');
+    Route::get('/finance/vendor-payments',           [VendorPaymentController::class, 'index'])->middleware('role:admin,finance')->name('finance.vendor-payments.index');
+    Route::get('/finance/budgets',                   [BudgetController::class, 'index'])->middleware('role:admin,finance')->name('finance.budgets.index');
+    Route::get('/finance/tax-rules',                 [TaxRuleController::class, 'index'])->middleware('role:admin,finance')->name('finance.tax-rules.index');
+    Route::get('/finance/fixed-assets',              [FixedAssetController::class, 'index'])->middleware('role:admin,finance')->name('finance.fixed-assets.index');
+    Route::get('/finance/currency-rates',            [CurrencyRateController::class, 'index'])->middleware('role:admin,finance')->name('finance.currency-rates.index');
+    Route::get('/finance/revenue-schedules',         [RevenueScheduleController::class, 'index'])->middleware('role:admin,finance')->name('finance.revenue-schedules.index');
+    Route::get('/finance/bank-reconciliations',      [BankReconciliationItemController::class, 'index'])->middleware('role:admin,finance')->name('finance.bank-reconciliations.index');
+    Route::get('/finance/purchase-matches',          [PurchaseMatchController::class, 'index'])->middleware('role:admin,finance')->name('finance.purchase-matches.index');
+
     // Finance Suite
     Route::get('/finance-suite',                     [FinanceSuiteController::class, 'index'])->middleware('role:admin,finance')->name('finance-suite.index');
     Route::post('/finance-suite/coa',                [FinanceSuiteController::class, 'storeCoa'])->middleware('role:admin,finance')->name('finance-suite.coa.store');
@@ -333,6 +379,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/finance-advanced/revenues',        [FinanceAdvancedController::class, 'storeRevenue'])->middleware('role:admin,finance')->name('finance-advanced.revenues.store');
     Route::post('/finance-advanced/reconciliations', [FinanceAdvancedController::class, 'storeReconciliation'])->middleware('role:admin,finance')->name('finance-advanced.reconciliations.store');
     Route::post('/finance-advanced/matches',         [FinanceAdvancedController::class, 'storeMatch'])->middleware('role:admin,finance')->name('finance-advanced.matches.store');
+
+    Route::get('/procurement',                       [ProcurementController::class, 'index'])->middleware('role:admin,finance')->name('procurement.index');
+    Route::post('/procurement/vendors',              [ProcurementController::class, 'storeVendor'])->middleware('role:admin,finance')->name('procurement.vendors.store');
+    Route::post('/procurement/requisitions',         [ProcurementController::class, 'storeRequisition'])->middleware('role:admin,finance')->name('procurement.requisitions.store');
+    Route::post('/procurement/orders',               [ProcurementController::class, 'storeOrder'])->middleware('role:admin,finance')->name('procurement.orders.store');
+    Route::post('/procurement/receipts',             [ProcurementController::class, 'storeReceipt'])->middleware('role:admin,finance')->name('procurement.receipts.store');
+    Route::post('/procurement/contracts',            [ProcurementController::class, 'storeContract'])->middleware('role:admin,finance')->name('procurement.contracts.store');
 
     // ── Fixed Assets ──────────────────────────────────────────────────────────
     Route::get('/fixed-assets', [FixedAssetController::class, 'index'])->middleware('role:admin,finance')->name('fixed-assets.index');
@@ -423,25 +476,82 @@ Route::middleware('auth')->group(function () {
     Route::delete('/procurement-contracts/{contract}', [ProcurementContractController::class, 'destroy'])->middleware('role:admin')->name('procurement-contracts.destroy');
 
     // ── Reports & Exports ─────────────────────────────────────────────────────
-    Route::get('/reports',                           [ReportController::class, 'index'])->middleware('role:admin,finance')->name('reports.index');
+    Route::prefix('reports')->name('reports.')->middleware('role:admin,finance')->group(function () {
+        Route::get('/', [ReportController::class, 'index'])->name('index');
+        Route::get('/profit-loss', [ReportProfitLossController::class, 'index'])->name('profit-loss');
+        Route::get('/balance-sheet', [ReportBalanceSheetController::class, 'index'])->name('balance-sheet');
+        Route::get('/cash-flow', [ReportCashFlowController::class, 'index'])->name('cash-flow');
+        Route::get('/project', [ReportProjectProfitabilityController::class, 'index'])->name('project');
+        Route::get('/aging/{type}', [ReportAgingController::class, 'index'])->name('aging');
+        Route::get('/tax', [ReportTaxSummaryController::class, 'index'])->name('tax');
+        Route::get('/budget', [ReportBudgetVsActualController::class, 'index'])->name('budget');
+        Route::get('/transactions', [ReportTransactionsController::class, 'index'])->name('transactions');
+        Route::get('/reconciliation', [ReportBankReconciliationController::class, 'index'])->name('reconciliation');
+    });
     Route::get('/exports/cashflows',                 [ReportController::class, 'exportCashflows'])->middleware('role:admin,finance')->name('exports.cashflows');
     Route::get('/exports/project-finance',           [ReportController::class, 'exportProjectFinance'])->middleware('role:admin,finance')->name('exports.project-finance');
 
-    // ── Admin ─────────────────────────────────────────────────────────────────
-    Route::get('/admin',                             [AdminController::class, 'companyPage'])->middleware('role:admin')->name('admin.index');
-    Route::get('/admin/users',                       [AdminController::class, 'usersPage'])->middleware('role:admin')->name('admin.users');
-    Route::get('/admin/masters',                     [AdminController::class, 'mastersPage'])->middleware('role:admin')->name('admin.masters');
-    Route::get('/admin/trash',                       [AdminController::class, 'trashPage'])->middleware('role:admin')->name('admin.trash');
-    Route::get('/admin/audit',                       [AdminController::class, 'auditPage'])->middleware('role:admin')->name('admin.audit');
-    Route::get('/backup/database',                   [AdminController::class, 'backupDatabase'])->middleware('role:admin')->name('backup.database');
+    // ── Admin: Company Settings ────────────────────────────────────────────────
+    Route::get('/company-settings',                      [CompanySettingController::class, 'index'])->middleware('role:admin')->name('company-settings.index');
+    Route::put('/company-settings',                      [CompanySettingController::class, 'update'])->middleware('role:admin')->name('company-settings.update');
 
-    Route::post('/company-setting',                  [AdminController::class, 'updateCompanySetting'])->middleware('role:admin')->name('company-setting.update');
-    Route::post('/users',                            [AdminController::class, 'storeUser'])->middleware('role:admin')->name('users.store');
-    Route::put('/users/{user}',                      [AdminController::class, 'updateUser'])->middleware('role:admin')->name('users.update');
-    Route::patch('/users/{user}/reset-password',     [AdminController::class, 'resetUserPassword'])->middleware('role:admin')->name('users.reset-password');
-    Route::delete('/users/{user}',                   [AdminController::class, 'destroyUser'])->middleware('role:admin')->name('users.destroy');
-    Route::post('/masters/{type}',                   [AdminController::class, 'storeMaster'])->middleware('role:admin')->name('masters.store');
-    Route::delete('/masters/{type}/{id}',            [AdminController::class, 'destroyMaster'])->middleware('role:admin')->name('masters.destroy');
-    Route::patch('/trash/{type}/{id}/restore',       [AdminController::class, 'restoreTrash'])->middleware('role:admin')->name('trash.restore');
+    // ── Admin: User Management ─────────────────────────────────────────────────
+    Route::get('/user-management',                       [UserManagementController::class, 'index'])->middleware('role:admin')->name('user-management.index');
+    Route::get('/user-management/create',                [UserManagementController::class, 'create'])->middleware('role:admin')->name('user-management.create-page');
+    Route::get('/user-management/{user}/edit',           [UserManagementController::class, 'edit'])->middleware('role:admin')->name('user-management.edit-page');
+    Route::post('/user-management',                      [UserManagementController::class, 'store'])->middleware('role:admin')->name('user-management.store');
+    Route::put('/user-management/{user}',                [UserManagementController::class, 'update'])->middleware('role:admin')->name('user-management.update');
+    Route::delete('/user-management/{user}',             [UserManagementController::class, 'destroy'])->middleware('role:admin')->name('user-management.destroy');
+    Route::patch('/user-management/{user}/reset-password', [UserManagementController::class, 'resetPassword'])->middleware('role:admin')->name('user-management.reset-password');
+
+    // ── Admin: Clients ─────────────────────────────────────────────────────────
+    Route::get('/clients',                               [ClientController::class, 'index'])->middleware('role:admin')->name('clients.index');
+    Route::get('/clients/create',                        [ClientController::class, 'create'])->middleware('role:admin')->name('clients.create-page');
+    Route::get('/clients/{client}/edit',                 [ClientController::class, 'edit'])->middleware('role:admin')->name('clients.edit-page');
+    Route::post('/clients',                              [ClientController::class, 'store'])->middleware('role:admin')->name('clients.store');
+    Route::put('/clients/{client}',                      [ClientController::class, 'update'])->middleware('role:admin')->name('clients.update');
+    Route::delete('/clients/{client}',                   [ClientController::class, 'destroy'])->middleware('role:admin')->name('clients.destroy');
+
+    // ── Admin: Departments ─────────────────────────────────────────────────────
+    Route::get('/departments',                           [DepartmentController::class, 'index'])->middleware('role:admin')->name('departments.index');
+    Route::get('/departments/create',                    [DepartmentController::class, 'create'])->middleware('role:admin')->name('departments.create-page');
+    Route::get('/departments/{department}/edit',         [DepartmentController::class, 'edit'])->middleware('role:admin')->name('departments.edit-page');
+    Route::post('/departments',                          [DepartmentController::class, 'store'])->middleware('role:admin')->name('departments.store');
+    Route::put('/departments/{department}',              [DepartmentController::class, 'update'])->middleware('role:admin')->name('departments.update');
+    Route::delete('/departments/{department}',           [DepartmentController::class, 'destroy'])->middleware('role:admin')->name('departments.destroy');
+
+    // ── Admin: Job Positions ───────────────────────────────────────────────────
+    Route::get('/job-positions',                         [JobPositionController::class, 'index'])->middleware('role:admin')->name('job-positions.index');
+    Route::get('/job-positions/create',                  [JobPositionController::class, 'create'])->middleware('role:admin')->name('job-positions.create-page');
+    Route::get('/job-positions/{jobPosition}/edit',      [JobPositionController::class, 'edit'])->middleware('role:admin')->name('job-positions.edit-page');
+    Route::post('/job-positions',                        [JobPositionController::class, 'store'])->middleware('role:admin')->name('job-positions.store');
+    Route::put('/job-positions/{jobPosition}',           [JobPositionController::class, 'update'])->middleware('role:admin')->name('job-positions.update');
+    Route::delete('/job-positions/{jobPosition}',        [JobPositionController::class, 'destroy'])->middleware('role:admin')->name('job-positions.destroy');
+
+    // ── Admin: Expense Categories ──────────────────────────────────────────────
+    Route::get('/expense-categories',                    [ExpenseCategoryController::class, 'index'])->middleware('role:admin')->name('expense-categories.index');
+    Route::get('/expense-categories/create',             [ExpenseCategoryController::class, 'create'])->middleware('role:admin')->name('expense-categories.create-page');
+    Route::get('/expense-categories/{expenseCategory}/edit', [ExpenseCategoryController::class, 'edit'])->middleware('role:admin')->name('expense-categories.edit-page');
+    Route::post('/expense-categories',                   [ExpenseCategoryController::class, 'store'])->middleware('role:admin')->name('expense-categories.store');
+    Route::put('/expense-categories/{expenseCategory}',  [ExpenseCategoryController::class, 'update'])->middleware('role:admin')->name('expense-categories.update');
+    Route::delete('/expense-categories/{expenseCategory}', [ExpenseCategoryController::class, 'destroy'])->middleware('role:admin')->name('expense-categories.destroy');
+
+    // ── Admin: Bank Accounts ───────────────────────────────────────────────────
+    Route::get('/bank-accounts',                         [BankAccountController::class, 'index'])->middleware('role:admin')->name('bank-accounts.index');
+    Route::get('/bank-accounts/create',                  [BankAccountController::class, 'create'])->middleware('role:admin')->name('bank-accounts.create-page');
+    Route::get('/bank-accounts/{bankAccount}/edit',      [BankAccountController::class, 'edit'])->middleware('role:admin')->name('bank-accounts.edit-page');
+    Route::post('/bank-accounts',                        [BankAccountController::class, 'store'])->middleware('role:admin')->name('bank-accounts.store');
+    Route::put('/bank-accounts/{bankAccount}',           [BankAccountController::class, 'update'])->middleware('role:admin')->name('bank-accounts.update');
+    Route::delete('/bank-accounts/{bankAccount}',        [BankAccountController::class, 'destroy'])->middleware('role:admin')->name('bank-accounts.destroy');
+
+    // ── Admin: Audit Log ───────────────────────────────────────────────────────
+    Route::get('/audit-logs',                            [AuditLogController::class, 'index'])->middleware('role:admin')->name('audit-logs.index');
+
+    // ── Admin: Trash ───────────────────────────────────────────────────────────
+    Route::get('/trash',                                 [TrashController::class, 'index'])->middleware('role:admin')->name('trash.index');
+    Route::patch('/trash/{type}/{id}/restore',           [TrashController::class, 'restore'])->middleware('role:admin')->name('trash.restore');
+
+    // ── Admin: Backup ──────────────────────────────────────────────────────────
+    Route::get('/backup/database',                       [BackupController::class, 'download'])->middleware('role:admin')->name('backup.download');
 
 });

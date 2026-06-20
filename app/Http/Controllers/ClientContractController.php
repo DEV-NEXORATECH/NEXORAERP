@@ -14,10 +14,15 @@ class ClientContractController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $contracts = ClientContract::latest()->paginate(20);
-        return view('erp.client-contracts.index', compact('contracts'));
+        $items = ClientContract::latest()
+            ->when($request->search, fn($q, $v) => $q->where('title', 'like', "%{$v}%"))
+            ->when($request->status, fn($q, $v) => $q->where('status', $v))
+            ->when($request->client_id, fn($q, $v) => $q->where('client_id', $v))
+            ->paginate(15)->withQueryString();
+        $clients = \App\Models\Client::orderBy('name')->get(['id', 'name']);
+        return view('erp.client-contracts.index', compact('items', 'clients'));
     }
 
     public function create(): View

@@ -17,6 +17,23 @@
         </div>
         @endif
     </div>
+    <form method="get" action="{{ route('finance.index') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 placeholder:text-slate-400 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <select name="status" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+            <option value="">Semua Status</option>
+            <option value="draft" @selected(request('status')==='draft')>Draft</option>
+            <option value="sent" @selected(request('status')==='sent')>Sent</option>
+            <option value="partial" @selected(request('status')==='partial')>Partial</option>
+            <option value="paid" @selected(request('status')==='paid')>Paid</option>
+            <option value="void" @selected(request('status')==='void')>Void</option>
+        </select>
+        <input type="date" name="date_from" value="{{ request('date_from') }}" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <input type="date" name="date_to" value="{{ request('date_to') }}" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <div class="flex gap-2 items-end">
+            <button class="rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#003d78]">Filter</button>
+            <a href="{{ route('finance.index') }}" class="rounded-xl border border-[#d7e3ef] bg-white px-5 py-2.5 text-sm font-bold text-[#0059A7] hover:bg-[#f3f8fc]">Reset</a>
+        </div>
+    </form>
     <table>
         <thead><tr><th>Invoice</th><th>Status</th><th>Terbayar / Total</th><th>Aksi</th></tr></thead>
         <tbody>
@@ -42,9 +59,9 @@
             @endforelse
         </tbody>
     </table>
-    @if($invoicesPage->hasPages())
+    @if($invoicesPage->hasPages() || $invoicesPage->total() > 0)
         <div class="pager">
-            <div class="text-sm text-slate-500">{{ $invoicesPage->firstItem() }}–{{ $invoicesPage->lastItem() }} dari {{ $invoicesPage->total() }}</div>
+            <span>Menampilkan {{ $invoicesPage->firstItem() }}-{{ $invoicesPage->lastItem() }} dari {{ $invoicesPage->total() }}</span>
             {{ $invoicesPage->links() }}
         </div>
     @endif
@@ -66,9 +83,9 @@
             @endforelse
         </tbody>
     </table>
-    @if($payments->hasPages())
+    @if($payments->hasPages() || $payments->total() > 0)
         <div class="pager">
-            <div class="text-sm text-slate-500">{{ $payments->firstItem() }}–{{ $payments->lastItem() }} dari {{ $payments->total() }}</div>
+            <span>Menampilkan {{ $payments->firstItem() }}-{{ $payments->lastItem() }} dari {{ $payments->total() }}</span>
             {{ $payments->links() }}
         </div>
     @endif

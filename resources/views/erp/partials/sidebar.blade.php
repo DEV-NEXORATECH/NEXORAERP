@@ -1,3 +1,54 @@
+@php
+    $modulePages = [
+        'modules',
+        'projects', 'project-create', 'project-edit',
+        'sales', 'sales-crm', 'sales-inquiries', 'sales-leads', 'sales-orders', 'sales-targets', 'sales-commissions', 'client-contracts',
+        'proposal-create', 'proposal-edit',
+        'employees', 'hris', 'employee-create', 'employee-edit',
+        'employee-skills', 'attendances', 'timesheets', 'leave-requests', 'performance-reviews', 'payroll-benefits',
+        'salaries', 'salary-create', 'salary-edit',
+        'reimbursements', 'reimbursement-create', 'reimbursement-edit',
+        'cashflows', 'cashflow-create', 'cashflow-edit',
+        'invoices', 'invoice-create', 'invoice-edit', 'payment-create',
+        'finance-suite', 'finance-advanced',
+        'chart-accounts', 'journal-entries', 'recurring-billings', 'payment-reminders', 'vendor-bills', 'vendor-payments',
+        'budgets', 'tax-rules', 'fixed-assets', 'currency-rates', 'currency-variances', 'revenue-schedules',
+        'bank-reconciliation-items', 'purchase-matches',
+        'vendors', 'purchase-requisitions', 'purchase-orders', 'goods-receipts', 'procurement-contracts', 'procurement',
+    ];
+
+    $reportPages = [
+        'reports',
+        'reports-profit-loss',
+        'reports-balance-sheet',
+        'reports-cash-flow',
+        'reports-project',
+        'reports-aging',
+        'reports-tax',
+        'reports-budget',
+        'reports-transactions',
+        'reports-reconciliation',
+    ];
+
+    $settingsPages = [
+        'company-settings',
+        'user-management',
+        'user-management.create-page',
+        'user-management.edit-page',
+        'clients',
+        'departments',
+        'job-positions',
+        'expense-categories',
+        'bank-accounts',
+        'audit-logs',
+        'trash',
+    ];
+
+    $onReportsHub = request()->routeIs('modules.show') && request()->route('section') === 'reports';
+    $onAdminHub = request()->routeIs('modules.show') && request()->route('section') === 'admin';
+    $onModuleHub = request()->routeIs('modules.index') || (request()->routeIs('modules.show') && ! in_array(request()->route('section'), ['reports', 'admin'], true));
+@endphp
+
 <aside class="sidebar">
     <div class="sidebar-head">
         <div class="sidebar-brand">
@@ -15,22 +66,26 @@
                 <span class="side-icon">{!! $icon('dashboard') !!}</span>
                 <span class="side-label">Dashboard</span>
             </a>
-            <a class="{{ $isPage('modules', 'projects', 'project-create', 'project-edit', 'sales', 'sales-crm', 'sales-inquiries', 'sales-inquiries.create-page', 'sales-inquiries.edit-page', 'sales-leads', 'sales-leads.create-page', 'sales-leads.edit-page', 'sales-orders', 'sales-orders.create-page', 'sales-orders.edit-page', 'sales-targets', 'sales-targets.create-page', 'sales-targets.edit-page', 'sales-commissions', 'sales-commissions.create-page', 'sales-commissions.edit-page', 'client-contracts', 'client-contracts.create-page', 'client-contracts.edit-page', 'proposal-create', 'proposal-edit', 'employees', 'hris', 'employee-create', 'employee-edit', 'employee-skills', 'employee-skill-create', 'employee-skill-edit', 'attendances', 'attendance-create', 'attendance-edit', 'timesheets', 'timesheet-create', 'timesheet-edit', 'leave-requests', 'leave-request-create', 'leave-request-edit', 'performance-reviews', 'performance-review-create', 'performance-review-edit', 'payroll-benefits', 'payroll-benefit-create', 'payroll-benefit-edit', 'salaries', 'salary-create', 'salary-edit', 'reimbursements', 'reimbursement-create', 'reimbursement-edit', 'cashflows', 'cashflow-create', 'cashflow-edit', 'invoices', 'invoice-create', 'invoice-edit', 'payment-create', 'finance-suite', 'chart-accounts', 'chart-account-create', 'chart-account-edit', 'journal-entries', 'journal-entry-create', 'journal-entry-edit', 'recurring-billings', 'recurring-billing-create', 'recurring-billing-edit', 'payment-reminders', 'payment-reminder-create', 'payment-reminder-edit', 'vendor-bills', 'vendor-bill-create', 'vendor-bill-edit', 'vendor-payments', 'vendor-payment-create', 'vendor-payment-edit', 'budgets', 'budget-create', 'budget-edit', 'tax-rules', 'tax-rule-create', 'tax-rule-edit', 'fixed-assets', 'fixed-assets.create-page', 'fixed-assets.edit-page', 'currency-rates', 'currency-rates.create-page', 'currency-rates.edit-page', 'currency-variances', 'currency-variances.create-page', 'currency-variances.edit-page', 'revenue-schedules', 'revenue-schedules.create-page', 'revenue-schedules.edit-page', 'bank-reconciliation-items', 'bank-reconciliation-items.create-page', 'bank-reconciliation-items.edit-page', 'purchase-matches', 'purchase-matches.create-page', 'purchase-matches.edit-page', 'finance-advanced', 'vendors', 'vendor-create', 'vendor-edit', 'purchase-requisitions', 'purchase-requisition-create', 'purchase-requisition-edit', 'purchase-orders', 'purchase-order-create', 'purchase-order-edit', 'goods-receipts', 'goods-receipt-create', 'goods-receipt-edit', 'procurement-contracts', 'procurement-contract-create', 'procurement-contract-edit') ? 'active' : '' }}" href="{{ route('modules.index') }}">
+
+            <a class="{{ ($onModuleHub || $isPage(...$modulePages)) && ! $onReportsHub && ! $onAdminHub && ! $isPage(...$reportPages) && ! $isPage(...$settingsPages) ? 'active' : '' }}" href="{{ route('modules.index') }}">
                 <span class="side-icon">{!! $icon('list') !!}</span>
                 <span class="side-label">Module</span>
             </a>
+
             <a class="{{ $isPage('approvals') ? 'active' : '' }}" href="{{ route('approvals.index') }}">
                 <span class="side-icon">{!! $icon('audit') !!}</span>
                 <span class="side-label">Approval & Task</span>
             </a>
+
             @if($can('admin', 'finance'))
-                <a class="{{ $isPage('reports') ? 'active' : '' }}" href="{{ route('reports.index') }}">
+                <a class="{{ $onReportsHub || $isPage(...$reportPages) ? 'active' : '' }}" href="{{ route('modules.show', 'reports') }}">
                     <span class="side-icon">{!! $icon('reports') !!}</span>
                     <span class="side-label">Report & Analyst</span>
                 </a>
             @endif
+
             @if($can('admin'))
-                <a class="{{ $isPage('company', 'users', 'masters', 'trash', 'audit') ? 'active' : '' }}" href="{{ route('settings-admin.index') }}">
+                <a class="{{ $onAdminHub || $isPage(...$settingsPages) ? 'active' : '' }}" href="{{ route('admin.index') }}">
                     <span class="side-icon">{!! $icon('settings') !!}</span>
                     <span class="side-label">Settings Admin</span>
                 </a>

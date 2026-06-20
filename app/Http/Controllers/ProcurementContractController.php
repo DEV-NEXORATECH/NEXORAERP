@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\AppliesListFilters;
 use App\Http\Traits\LoadsErpData;
 use App\Models\ProcurementContract;
 use App\Models\Vendor;
@@ -12,12 +13,22 @@ use Illuminate\View\View;
 
 class ProcurementContractController extends Controller
 {
-    use LoadsErpData;
+    use LoadsErpData, AppliesListFilters;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $contracts = ProcurementContract::latest()->paginate(20);
-        return view('erp.procurement-contracts.index', compact('contracts'));
+        $contracts = $this->applyListFilters(
+            ProcurementContract::with('vendor')->latest(),
+            $request,
+            ['contract_number', 'title']
+        )->paginate(20)->withQueryString();
+
+        if ($request->filled('vendor_id')) {
+            $contracts->where('vendor_id', $request->input('vendor_id'));
+        }
+
+        $vendors = Vendor::orderBy('name')->get(['id', 'name']);
+        return view('erp.procurement-contracts.index', compact('contracts', 'vendors'));
     }
 
     public function create(): View

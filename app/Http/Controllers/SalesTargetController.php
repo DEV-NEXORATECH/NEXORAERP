@@ -13,10 +13,14 @@ class SalesTargetController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $targets = SalesTarget::latest()->paginate(20);
-        return view('erp.sales-targets.index', compact('targets'));
+        $items = SalesTarget::latest()
+            ->when($request->search, fn($q, $v) => $q->where('period', 'like', "%{$v}%"))
+            ->when($request->user_id, fn($q, $v) => $q->where('user_id', $v))
+            ->paginate(15)->withQueryString();
+        $users = \App\Models\User::orderBy('name')->get(['id', 'name']);
+        return view('erp.sales-targets.index', compact('items', 'users'));
     }
 
     public function create(): View
