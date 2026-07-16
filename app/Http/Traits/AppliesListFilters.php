@@ -2,9 +2,11 @@
 
 namespace App\Http\Traits;
 
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\ValidationException;
 
 trait AppliesListFilters
 {
@@ -14,6 +16,10 @@ trait AppliesListFilters
         $table = $model->getTable();
         $columns = Schema::getColumnListing($table);
         $has = fn (string $column) => in_array($column, $columns, true);
+
+        if ($has('company_id') && $companyId = $this->companyFilterId($request)) {
+            $query->where($table . '.company_id', $companyId);
+        }
 
         if ($request->filled('search') && $searchColumns) {
             $search = $request->string('search')->toString();
@@ -56,5 +62,34 @@ trait AppliesListFilters
         }
 
         return $query;
+    }
+
+    private function companyFilterId(Request $request): ?int
+    {
+        $user = $request->user()?->loadMissing('company');
+        if (!$user?->company_id || $user->company?->access_type !== 'internal') {
+            return null;
+        }
+
+        if ($request->filled('company_id')) {
+            return (int) $request->input('company_id');
+        }
+
+        if (!$request->filled('company_code')) {
+            return null;
+        }
+
+        $company = Company::query()
+            ->whereRaw('UPPER(code) = ?', [strtoupper(trim((string) $request->input('company_code')))])
+            ->where('is_active', true)
+            ->first();
+
+        if (!$company) {
+            throw ValidationException::withMessages([
+                'company_code' => ['Company code is invalid or inactive.'],
+            ]);
+        }
+
+        return (int) $company->id;
     }
 }

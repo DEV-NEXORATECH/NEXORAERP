@@ -21,7 +21,7 @@ class ReportProfitLossController extends Controller
         $projectId = $request->integer('project_id') ?: null;
         $bankAccountId = $request->integer('bank_account_id') ?: null;
 
-        $cashflows = Cashflow::with(['project:id,code,name', 'bankAccount:id,name'])
+        $cashflows = $this->applyCompanyContext($request, Cashflow::with(['project:id,code,name', 'bankAccount:id,name']))
             ->when($dateFrom, fn ($q) => $q->whereDate('transaction_date', '>=', $dateFrom))
             ->when($dateTo, fn ($q) => $q->whereDate('transaction_date', '<=', $dateTo))
             ->when($projectId, fn ($q) => $q->where('project_id', $projectId))
@@ -38,8 +38,8 @@ class ReportProfitLossController extends Controller
             'revenue_by_category' => $cashflows->where('type', 'income')->groupBy('category')->map->sum('amount'),
         ];
 
-        $projects = Project::orderBy('code')->get(['id', 'code', 'name']);
-        $bankAccounts = BankAccount::orderBy('name')->get();
+        $projects = $this->applyCompanyContext($request, Project::query())->orderBy('code')->get(['id', 'code', 'name']);
+        $bankAccounts = $this->applyCompanyContext($request, BankAccount::query())->orderBy('name')->get();
 
         return view('erp.reports.profit-loss', compact('profitLoss', 'projects', 'bankAccounts'));
     }

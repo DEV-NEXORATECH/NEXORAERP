@@ -3,9 +3,11 @@
 namespace App\Http\Traits;
 
 use App\Models\AuditLog;
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 trait LoadsErpData
@@ -22,7 +24,7 @@ trait LoadsErpData
     {
         AuditLog::create([
             'user_id'        => auth()->id(),
-            'company_id'     => auth()->user()?->company_id,
+            'company_id'     => $model->company_id ?? auth()->user()?->company_id,
             'action'         => $action,
             'auditable_type' => class_basename($model),
             'auditable_id'   => $model->getKey(),
@@ -54,6 +56,47 @@ trait LoadsErpData
             'expense_categories' => \App\Models\ExpenseCategory::class,
             'bank_accounts'      => \App\Models\BankAccount::class,
         ];
+    }
+
+    protected function companyContextId(Request $request): ?int
+    {
+        $user = $request->user()?->loadMissing('company');
+        if (!$user?->company_id || $user->company?->access_type !== 'internal') {
+            return null;
+        }
+
+        if ($request->filled('company_id')) {
+            return (int) $request->input('company_id');
+        }
+
+        if (!$request->filled('company_code')) {
+            return null;
+        }
+
+        $company = Company::query()
+            ->whereRaw('UPPER(code) = ?', [strtoupper(trim((string) $request->input('company_code')))])
+            ->where('is_active', true)
+            ->first();
+
+        if (!$company) {
+            throw ValidationException::withMessages([
+                'company_code' => ['Company code is invalid or inactive.'],
+            ]);
+        }
+
+        return (int) $company->id;
+    }
+
+    protected function applyCompanyContext(Request $request, $query)
+    {
+        $companyId = $this->companyContextId($request);
+        $model = $query->getModel();
+
+        if ($companyId && in_array('company_id', $model->getFillable(), true)) {
+            $query->where($model->getTable() . '.company_id', $companyId);
+        }
+
+        return $query;
     }
 
     protected function csv(string $filename, array $header, Collection $rows): StreamedResponse

@@ -8,6 +8,7 @@ use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\CashflowController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ClientContractController;
+use App\Http\Controllers\CmsController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AllMenuController;
@@ -70,6 +71,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProposalController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('home');
+
 // ── Auth ─────────────────────────────────────────────────────────────────────
 Route::get('/login',           [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login',          [AuthController::class, 'login'])->name('login.store');
@@ -85,7 +88,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/change-password', [AuthController::class, 'changePassword'])->name('password.change.store');
 
     // ── Dashboard ─────────────────────────────────────────────────────────────
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // ── All Menu ──────────────────────────────────────────────────────────────
     Route::get('/all-menu', [\App\Http\Controllers\AllMenuController::class, 'index'])->name('all-menu');
@@ -98,6 +101,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/masters', [ClientController::class, 'index'])->middleware('role:admin')->name('admin.masters');
     Route::get('/admin/trash', [TrashController::class, 'index'])->middleware('role:admin')->name('admin.trash');
     Route::get('/admin/audit', [AuditLogController::class, 'index'])->middleware('role:admin')->name('admin.audit');
+    Route::get('/cms', [CmsController::class, 'index'])->middleware('role:admin')->name('cms.index');
+    Route::put('/cms/sections/{section}', [CmsController::class, 'updateSection'])->middleware('role:admin')->name('cms.sections.update');
+    Route::post('/cms/blog', [CmsController::class, 'storePost'])->middleware('role:admin')->name('cms.blog.store');
+    Route::put('/cms/blog/{post}', [CmsController::class, 'updatePost'])->middleware('role:admin')->name('cms.blog.update');
+    Route::delete('/cms/blog/{post}', [CmsController::class, 'destroyPost'])->middleware('role:admin')->name('cms.blog.destroy');
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.status');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');

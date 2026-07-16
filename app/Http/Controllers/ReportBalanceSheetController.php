@@ -16,8 +16,8 @@ class ReportBalanceSheetController extends Controller
     public function index(Request $request): View
     {
         $balanceSheet = $this->balanceSheet();
-        $projects = Project::orderBy('code')->get(['id', 'code', 'name']);
-        $bankAccounts = BankAccount::orderBy('name')->get();
+        $projects = $this->applyCompanyContext($request, Project::query())->orderBy('code')->get(['id', 'code', 'name']);
+        $bankAccounts = $this->applyCompanyContext($request, BankAccount::query())->orderBy('name')->get();
 
         return view('erp.reports.balance-sheet', compact('balanceSheet', 'projects', 'bankAccounts'));
     }

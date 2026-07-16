@@ -18,6 +18,12 @@ class CompanySettingController extends Controller
     {
         $items = [
             [
+                'label' => 'CMS Konten & Blog',
+                'desc' => 'Kelola section konten, CTA, dan artikel blog untuk dipakai lewat API.',
+                'icon' => 'list',
+                'route' => 'cms.index',
+            ],
+            [
                 'label' => 'Company Setting',
                 'desc' => 'Identitas perusahaan, logo, NPWP, rekening default, dan tanda tangan.',
                 'icon' => 'settings',

@@ -21,8 +21,8 @@ class ReportTaxSummaryController extends Controller
 
         $taxSummary = $this->taxSummary($dateFrom, $dateTo);
 
-        $projects = Project::orderBy('code')->get(['id', 'code', 'name']);
-        $bankAccounts = BankAccount::orderBy('name')->get();
+        $projects = $this->applyCompanyContext($request, Project::query())->orderBy('code')->get(['id', 'code', 'name']);
+        $bankAccounts = $this->applyCompanyContext($request, BankAccount::query())->orderBy('name')->get();
 
         return view('erp.reports.tax', compact('taxSummary', 'projects', 'bankAccounts'));
     }

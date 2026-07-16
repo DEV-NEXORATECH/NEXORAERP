@@ -24,9 +24,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+            return response()->json(['message' => 'The provided credentials are incorrect.'], 401);
         }
 
         if (!$user->is_active) {
@@ -35,7 +33,7 @@ class AuthController extends Controller
 
         $token = $user->createToken($request->device_name ?? 'api-token')->plainTextToken;
 
-        return response()->json([
+        return $this->respond([
             'token' => $token,
             'user' => $this->userPayload($user),
         ]);
@@ -82,11 +80,11 @@ class AuthController extends Controller
 
         $token = $user->createToken($request->device_name ?? 'api-token')->plainTextToken;
 
-        return response()->json([
+        return $this->respond([
             'message' => 'Registered successfully.',
             'token' => $token,
             'user' => $this->userPayload($user->load('company')),
-        ], 201);
+        ], 'Registered successfully.', 201);
     }
 
     public function logout(Request $request): JsonResponse
@@ -98,8 +96,8 @@ class AuthController extends Controller
 
     public function user(Request $request): JsonResponse
     {
-        return response()->json([
-            'user' => $request->user()->load('company'),
+        return $this->respond([
+            'user' => $this->userPayload($request->user()),
         ]);
     }
 

@@ -18,15 +18,15 @@ class DashboardController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View|JsonResponse
+    public function index(Request $request): View|JsonResponse
     {
-        $cashflows      = Cashflow::with(['project:id,code'])->get();
-        $projects       = Project::with(['cashflows', 'salaries', 'reimbursements', 'invoices'])->latest()->get();
-        $invoices       = Invoice::all();
-        $salaries       = Salary::all();
-        $reimbursements = Reimbursement::all();
-        $proposals      = Proposal::all();
-        $employees      = Employee::all();
+        $cashflows      = $this->applyCompanyContext($request, Cashflow::with(['project:id,code']))->get();
+        $projects       = $this->applyCompanyContext($request, Project::with(['cashflows', 'salaries', 'reimbursements', 'invoices']))->latest()->get();
+        $invoices       = $this->applyCompanyContext($request, Invoice::query())->get();
+        $salaries       = $this->applyCompanyContext($request, Salary::query())->get();
+        $reimbursements = $this->applyCompanyContext($request, Reimbursement::query())->get();
+        $proposals      = $this->applyCompanyContext($request, Proposal::query())->get();
+        $employees      = $this->applyCompanyContext($request, Employee::query())->get();
 
         $summary = $this->cashflowSummary($cashflows);
 

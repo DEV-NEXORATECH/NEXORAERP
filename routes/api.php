@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CmsApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -11,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
+    Route::get('/cms/content', [CmsApiController::class, 'content'])->name('api.cms.content');
+    Route::get('/cms/blog', [CmsApiController::class, 'blog'])->name('api.cms.blog');
+    Route::get('/cms/blog/{slug}', [CmsApiController::class, 'showBlog'])->name('api.cms.blog.show');
+
     // ── Auth ────────────────────────────────────────────────────────────────
     Route::post('/auth/login', [AuthController::class, 'login'])->name('api.auth.login');
     Route::post('/auth/register', [AuthController::class, 'register'])->name('api.auth.register');
@@ -18,7 +23,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/auth/me', [AuthController::class, 'user'])->middleware('auth:sanctum')->name('api.auth.me');
 
     // ── Authenticated API Routes ────────────────────────────────────────────
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('auth:sanctum')->as('api.')->group(function () {
 
         // ── Dashboard ───────────────────────────────────────────────────────
         Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
@@ -91,6 +96,12 @@ Route::prefix('v1')->group(function () {
         Route::get('/companies', [\App\Http\Controllers\Api\CompanyApiController::class, 'index']);
         Route::get('/company-settings', [\App\Http\Controllers\CompanySettingController::class, 'index']);
         Route::put('/company-settings', [\App\Http\Controllers\CompanySettingController::class, 'update']);
+        Route::get('/cms/sections', [CmsApiController::class, 'sections']);
+        Route::put('/cms/sections/{section}', [CmsApiController::class, 'updateSection']);
+        Route::get('/cms/blog-posts', [CmsApiController::class, 'blog']);
+        Route::post('/cms/blog', [CmsApiController::class, 'storeBlog']);
+        Route::put('/cms/blog/{post}', [CmsApiController::class, 'updateBlog']);
+        Route::delete('/cms/blog/{post}', [CmsApiController::class, 'destroyBlog']);
 
         Route::apiResource('users', \App\Http\Controllers\Api\UserApiController::class);
         Route::patch('/users/{user}/reset-password', [\App\Http\Controllers\UserManagementController::class, 'resetPassword']);

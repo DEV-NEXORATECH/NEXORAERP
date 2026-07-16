@@ -19,12 +19,12 @@ class ReportBankReconciliationController extends Controller
         $dateTo = $request->date('date_to')?->endOfDay();
         $bankAccountId = $request->integer('bank_account_id') ?: null;
 
-        $projects = Project::orderBy('code')->get(['id', 'code', 'name']);
-        $bankAccounts = BankAccount::orderBy('name')->get();
+        $projects = $this->applyCompanyContext($request, Project::query())->orderBy('code')->get(['id', 'code', 'name']);
+        $bankAccounts = $this->applyCompanyContext($request, BankAccount::query())->orderBy('name')->get();
 
         $bankReconciliation = $bankAccounts->when($bankAccountId, fn ($c) => $c->where('id', $bankAccountId))
             ->map(function (BankAccount $bank) use ($dateFrom, $dateTo) {
-                $flows = Cashflow::where('bank_account_id', $bank->id)
+                $flows = $this->applyCompanyContext(request(), Cashflow::where('bank_account_id', $bank->id))
                     ->when($dateFrom, fn ($q) => $q->whereDate('transaction_date', '>=', $dateFrom))
                     ->when($dateTo, fn ($q) => $q->whereDate('transaction_date', '<=', $dateTo))
                     ->get();

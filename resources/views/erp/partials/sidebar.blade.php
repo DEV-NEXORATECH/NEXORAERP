@@ -31,6 +31,7 @@
     ];
 
     $settingsPages = [
+        'cms',
         'company-settings',
         'user-management',
         'user-management.create-page',
@@ -85,6 +86,11 @@
             @endif
 
             @if($can('admin'))
+                <a class="{{ $isPage('cms') ? 'active' : '' }}" href="{{ route('cms.index') }}">
+                    <span class="side-icon">{!! $icon('list') !!}</span>
+                    <span class="side-label">CMS</span>
+                </a>
+
                 <a class="{{ $onAdminHub || $isPage(...$settingsPages) ? 'active' : '' }}" href="{{ route('admin.index') }}">
                     <span class="side-icon">{!! $icon('settings') !!}</span>
                     <span class="side-label">Settings Admin</span>

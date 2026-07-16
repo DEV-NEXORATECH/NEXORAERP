@@ -16,11 +16,11 @@ class ReportBudgetVsActualController extends Controller
 
     public function index(Request $request): View
     {
-        $projects = Project::orderBy('code')->get(['id', 'code', 'name']);
-        $bankAccounts = BankAccount::orderBy('name')->get();
+        $projects = $this->applyCompanyContext($request, Project::query())->orderBy('code')->get(['id', 'code', 'name']);
+        $bankAccounts = $this->applyCompanyContext($request, BankAccount::query())->orderBy('name')->get();
 
-        $budgetVsActual = Budget::with(['project:id,code,name', 'account:id,code,name'])->latest()->get()->map(function (Budget $budget) {
-            $actual = Cashflow::query()
+        $budgetVsActual = $this->applyCompanyContext($request, Budget::with(['project:id,code,name', 'account:id,code,name']))->latest()->get()->map(function (Budget $budget) use ($request) {
+            $actual = $this->applyCompanyContext($request, Cashflow::query())
                 ->when($budget->project_id, fn ($q) => $q->where('project_id', $budget->project_id))
                 ->where('type', 'expense')
                 ->where('transaction_date', 'like', $budget->period . '%')

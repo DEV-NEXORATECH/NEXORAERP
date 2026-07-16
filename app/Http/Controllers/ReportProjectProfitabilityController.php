@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\LoadsErpData;
 use App\Models\BankAccount;
 use App\Models\Project;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,11 +13,11 @@ class ReportProjectProfitabilityController extends Controller
 {
     use LoadsErpData;
 
-    public function index(Request $request): View
+    public function index(Request $request): View|JsonResponse
     {
         $projectId = $request->integer('project_id') ?: null;
 
-        $projectReports = Project::with(['cashflows', 'salaries', 'reimbursements', 'invoices'])
+        $projectReports = $this->applyCompanyContext($request, Project::with(['cashflows', 'salaries', 'reimbursements', 'invoices']))
             ->when($projectId, fn ($q) => $q->whereKey($projectId))
             ->get()
             ->map(fn ($p) => [
@@ -28,8 +29,12 @@ class ReportProjectProfitabilityController extends Controller
                 'invoice_total'       => $p->invoices->sum('amount'),
             ]);
 
-        $projects = Project::orderBy('code')->get(['id', 'code', 'name']);
-        $bankAccounts = BankAccount::orderBy('name')->get();
+        $projects = $this->applyCompanyContext($request, Project::query())->orderBy('code')->get(['id', 'code', 'name']);
+        $bankAccounts = $this->applyCompanyContext($request, BankAccount::query())->orderBy('name')->get();
+
+        if ($this->isApi()) {
+            return $this->respond($projectReports);
+        }
 
         return view('erp.reports.project', compact('projectReports', 'projects', 'bankAccounts'));
     }

@@ -18,12 +18,12 @@ class ReportAgingController extends Controller
     public function index(Request $request, string $type = 'ar'): View
     {
         $aging = match ($type) {
-            'ap' => $this->aging(VendorBill::whereIn('status', ['unpaid', 'partial'])->get(), 'due_date'),
-            default => $this->aging(Invoice::whereNotIn('status', ['paid', 'void'])->get(), 'due_date'),
+            'ap' => $this->aging($this->applyCompanyContext($request, VendorBill::whereIn('status', ['unpaid', 'partial']))->get(), 'due_date'),
+            default => $this->aging($this->applyCompanyContext($request, Invoice::whereNotIn('status', ['paid', 'void']))->get(), 'due_date'),
         };
 
-        $projects = Project::orderBy('code')->get(['id', 'code', 'name']);
-        $bankAccounts = BankAccount::orderBy('name')->get();
+        $projects = $this->applyCompanyContext($request, Project::query())->orderBy('code')->get(['id', 'code', 'name']);
+        $bankAccounts = $this->applyCompanyContext($request, BankAccount::query())->orderBy('name')->get();
 
         return view('erp.reports.aging', compact('aging', 'type', 'projects', 'bankAccounts'));
     }

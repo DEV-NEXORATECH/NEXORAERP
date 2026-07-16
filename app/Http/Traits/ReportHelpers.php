@@ -13,7 +13,7 @@ trait ReportHelpers
 {
     private function balanceSheet(): array
     {
-        $lines = JournalLine::with('account:id,code,name,type')->get();
+        $lines = $this->applyCompanyContext(request(), JournalLine::with('account:id,code,name,type'))->get();
         $groups = ['asset' => collect(), 'liability' => collect(), 'equity' => collect()];
 
         foreach ($lines->groupBy('chart_account_id') as $accountId => $rows) {
@@ -61,12 +61,12 @@ trait ReportHelpers
 
     private function taxSummary(?Carbon $dateFrom, ?Carbon $dateTo): array
     {
-        $invoiceTax = Invoice::query()
+        $invoiceTax = $this->applyCompanyContext(request(), Invoice::query())
             ->when($dateFrom, fn ($query) => $query->whereDate('issue_date', '>=', $dateFrom))
             ->when($dateTo, fn ($query) => $query->whereDate('issue_date', '<=', $dateTo))
             ->get()
             ->sum(fn (Invoice $invoice) => $invoice->amount * ($invoice->tax_rate / 100));
-        $vendorTax = VendorBill::query()
+        $vendorTax = $this->applyCompanyContext(request(), VendorBill::query())
             ->when($dateFrom, fn ($query) => $query->whereDate('bill_date', '>=', $dateFrom))
             ->when($dateTo, fn ($query) => $query->whereDate('bill_date', '<=', $dateTo))
             ->get()
@@ -76,7 +76,7 @@ trait ReportHelpers
             'invoice_tax' => $invoiceTax,
             'vendor_tax' => $vendorTax,
             'net_tax' => $invoiceTax - $vendorTax,
-            'rules' => TaxRule::where('is_active', true)->orderBy('tax_type')->get(),
+            'rules' => $this->applyCompanyContext(request(), TaxRule::where('is_active', true))->orderBy('tax_type')->get(),
         ];
     }
 }

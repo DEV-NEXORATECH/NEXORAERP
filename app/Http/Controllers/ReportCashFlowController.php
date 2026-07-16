@@ -21,7 +21,7 @@ class ReportCashFlowController extends Controller
         $projectId = $request->integer('project_id') ?: null;
         $bankAccountId = $request->integer('bank_account_id') ?: null;
 
-        $cashflows = Cashflow::with(['project:id,code,name', 'bankAccount:id,name'])
+        $cashflows = $this->applyCompanyContext($request, Cashflow::with(['project:id,code,name', 'bankAccount:id,name']))
             ->when($dateFrom, fn ($q) => $q->whereDate('transaction_date', '>=', $dateFrom))
             ->when($dateTo, fn ($q) => $q->whereDate('transaction_date', '<=', $dateTo))
             ->when($projectId, fn ($q) => $q->where('project_id', $projectId))
@@ -37,8 +37,8 @@ class ReportCashFlowController extends Controller
             'by_month' => $cashflows->groupBy(fn ($flow) => Carbon::parse($flow->transaction_date)->format('Y-m'))->map(fn ($rows) => $this->cashflowSummary($rows)),
         ];
 
-        $projects = Project::orderBy('code')->get(['id', 'code', 'name']);
-        $bankAccounts = BankAccount::orderBy('name')->get();
+        $projects = $this->applyCompanyContext($request, Project::query())->orderBy('code')->get(['id', 'code', 'name']);
+        $bankAccounts = $this->applyCompanyContext($request, BankAccount::query())->orderBy('name')->get();
 
         return view('erp.reports.cash-flow', compact('cashFlowStatement', 'projects', 'bankAccounts'));
     }

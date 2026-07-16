@@ -1,0 +1,392 @@
+{
+  "info": {
+    "name": "NEXORA ERP API",
+    "description": "Complete API collection for NEXORA ERP. Base URL: http://localhost:8000/api/v1\n\nAuth: POST /auth/login returns {token} — set {{token}} variable manually after login.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000/api/v1" },
+    { "key": "token", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        { "name": "Login", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"email\":\"admin@nexora.com\",\"password\":\"password\",\"device_name\":\"integration\"}"}, "url":{"raw":"{{base_url}}/auth/login","host":["{{base_url}}"],"path":["auth","login"]} }, "response": [] },
+        { "name": "Register", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"User Name\",\"email\":\"user@example.com\",\"password\":\"password123\",\"company_code\":\"NX-001\",\"device_name\":\"my-app\"}"}, "url":{"raw":"{{base_url}}/auth/register","host":["{{base_url}}"],"path":["auth","register"]} }, "response": [] },
+        { "name": "Get Current User", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/auth/me","host":["{{base_url}}"],"path":["auth","me"]} }, "response": [] },
+        { "name": "Logout", "request": { "method": "POST", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/auth/logout","host":["{{base_url}}"],"path":["auth","logout"]} }, "response": [] }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        { "name": "Dashboard", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/dashboard","host":["{{base_url}}"],"path":["dashboard"]} }, "response": [] }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        { "name": "List Projects", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/projects?per_page=15&page=1","host":["{{base_url}}"],"path":["projects"],"query":[{"key":"per_page","value":"15"},{"key":"page","value":"1"}]} }, "response": [] },
+        { "name": "Create Project", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"Project Alpha\",\"client\":\"Client A\",\"budget\":50000000,\"contract_value\":75000000}"}, "url":{"raw":"{{base_url}}/projects","host":["{{base_url}}"],"path":["projects"]} }, "response": [] },
+        { "name": "Show Project", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/projects/1","host":["{{base_url}}"],"path":["projects","1"]} }, "response": [] },
+        { "name": "Update Project", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"Project Updated\",\"budget\":60000000}"}, "url":{"raw":"{{base_url}}/projects/1","host":["{{base_url}}"],"path":["projects","1"]} }, "response": [] },
+        { "name": "Delete Project", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/projects/1","host":["{{base_url}}"],"path":["projects","1"]} }, "response": [] }
+      ]
+    },
+    {
+      "name": "Proposals",
+      "item": [
+        { "name": "List Proposals", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/proposals?per_page=15","host":["{{base_url}}"],"path":["proposals"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+        { "name": "Create Proposal", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"project_id\":1,\"title\":\"Proposal for Project Alpha\",\"amount\":75000000}"}, "url":{"raw":"{{base_url}}/proposals","host":["{{base_url}}"],"path":["proposals"]} }, "response": [] },
+        { "name": "Show Proposal", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/proposals/1","host":["{{base_url}}"],"path":["proposals","1"]} }, "response": [] },
+        { "name": "Update Proposal", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"title\":\"Updated Proposal\",\"amount\":80000000}"}, "url":{"raw":"{{base_url}}/proposals/1","host":["{{base_url}}"],"path":["proposals","1"]} }, "response": [] },
+        { "name": "Update Proposal Status", "request": { "method": "PATCH", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"approved\"}"}, "url":{"raw":"{{base_url}}/proposals/1/status","host":["{{base_url}}"],"path":["proposals","1","status"]} }, "response": [] },
+        { "name": "Delete Proposal", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/proposals/1","host":["{{base_url}}"],"path":["proposals","1"]} }, "response": [] }
+      ]
+    },
+    {
+      "name": "Sales",
+      "item": [
+        {
+          "name": "Sales Inquiries",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-inquiries?per_page=15","host":["{{base_url}}"],"path":["sales-inquiries"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"company_name\":\"PT ABC\",\"contact_name\":\"John\",\"email\":\"john@abc.com\",\"need\":\"Consulting\",\"status\":\"new\"}"}, "url":{"raw":"{{base_url}}/sales-inquiries","host":["{{base_url}}"],"path":["sales-inquiries"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-inquiries/1","host":["{{base_url}}"],"path":["sales-inquiries","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"qualified\"}"}, "url":{"raw":"{{base_url}}/sales-inquiries/1","host":["{{base_url}}"],"path":["sales-inquiries","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-inquiries/1","host":["{{base_url}}"],"path":["sales-inquiries","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Sales Leads",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-leads?per_page=15","host":["{{base_url}}"],"path":["sales-leads"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"title\":\"Lead from ABC\",\"stage\":\"qualified\",\"value\":100000000,\"probability\":70}"}, "url":{"raw":"{{base_url}}/sales-leads","host":["{{base_url}}"],"path":["sales-leads"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-leads/1","host":["{{base_url}}"],"path":["sales-leads","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"stage\":\"negotiation\"}"}, "url":{"raw":"{{base_url}}/sales-leads/1","host":["{{base_url}}"],"path":["sales-leads","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-leads/1","host":["{{base_url}}"],"path":["sales-leads","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Sales Orders",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-orders?per_page=15","host":["{{base_url}}"],"path":["sales-orders"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"client_id\":1,\"title\":\"Order #1\",\"amount\":50000000}"}, "url":{"raw":"{{base_url}}/sales-orders","host":["{{base_url}}"],"path":["sales-orders"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-orders/1","host":["{{base_url}}"],"path":["sales-orders","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"confirmed\"}"}, "url":{"raw":"{{base_url}}/sales-orders/1","host":["{{base_url}}"],"path":["sales-orders","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-orders/1","host":["{{base_url}}"],"path":["sales-orders","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Sales Targets",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-targets?per_page=15","host":["{{base_url}}"],"path":["sales-targets"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"user_id\":1,\"period\":\"2026-07\",\"target_amount\":200000000}"}, "url":{"raw":"{{base_url}}/sales-targets","host":["{{base_url}}"],"path":["sales-targets"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-targets/1","host":["{{base_url}}"],"path":["sales-targets","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"achieved_amount\":150000000}"}, "url":{"raw":"{{base_url}}/sales-targets/1","host":["{{base_url}}"],"path":["sales-targets","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-targets/1","host":["{{base_url}}"],"path":["sales-targets","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Sales Commissions",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-commissions?per_page=15","host":["{{base_url}}"],"path":["sales-commissions"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"user_id\":1,\"base_amount\":100000000,\"rate\":2.5}"}, "url":{"raw":"{{base_url}}/sales-commissions","host":["{{base_url}}"],"path":["sales-commissions"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-commissions/1","host":["{{base_url}}"],"path":["sales-commissions","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"approved\"}"}, "url":{"raw":"{{base_url}}/sales-commissions/1","host":["{{base_url}}"],"path":["sales-commissions","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/sales-commissions/1","host":["{{base_url}}"],"path":["sales-commissions","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Client Contracts",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/client-contracts?per_page=15","host":["{{base_url}}"],"path":["client-contracts"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"client_id\":1,\"title\":\"Annual Contract\",\"amount\":120000000,\"start_date\":\"2026-01-01\",\"end_date\":\"2026-12-31\"}"}, "url":{"raw":"{{base_url}}/client-contracts","host":["{{base_url}}"],"path":["client-contracts"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/client-contracts/1","host":["{{base_url}}"],"path":["client-contracts","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"active\"}"}, "url":{"raw":"{{base_url}}/client-contracts/1","host":["{{base_url}}"],"path":["client-contracts","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/client-contracts/1","host":["{{base_url}}"],"path":["client-contracts","1"]} }, "response": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "HR",
+      "item": [
+        {
+          "name": "Employees",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/employees?per_page=15","host":["{{base_url}}"],"path":["employees"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"Budi Santoso\",\"position\":\"Developer\",\"base_salary\":8000000}"}, "url":{"raw":"{{base_url}}/employees","host":["{{base_url}}"],"path":["employees"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/employees/1","host":["{{base_url}}"],"path":["employees","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"position\":\"Senior Developer\",\"base_salary\":12000000}"}, "url":{"raw":"{{base_url}}/employees/1","host":["{{base_url}}"],"path":["employees","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/employees/1","host":["{{base_url}}"],"path":["employees","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Employee Skills",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/employee-skills?per_page=15","host":["{{base_url}}"],"path":["employee-skills"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"employee_id\":1,\"skill\":\"Laravel\",\"level\":\"advanced\"}"}, "url":{"raw":"{{base_url}}/employee-skills","host":["{{base_url}}"],"path":["employee-skills"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/employee-skills/1","host":["{{base_url}}"],"path":["employee-skills","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"level\":\"expert\"}"}, "url":{"raw":"{{base_url}}/employee-skills/1","host":["{{base_url}}"],"path":["employee-skills","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/employee-skills/1","host":["{{base_url}}"],"path":["employee-skills","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Attendances",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/attendances?per_page=15","host":["{{base_url}}"],"path":["attendances"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"employee_id\":1,\"work_date\":\"2026-07-15\",\"check_in\":\"08:00\",\"check_out\":\"17:00\"}"}, "url":{"raw":"{{base_url}}/attendances","host":["{{base_url}}"],"path":["attendances"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/attendances/1","host":["{{base_url}}"],"path":["attendances","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"check_out\":\"18:00\"}"}, "url":{"raw":"{{base_url}}/attendances/1","host":["{{base_url}}"],"path":["attendances","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/attendances/1","host":["{{base_url}}"],"path":["attendances","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Timesheets",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/timesheets?per_page=15","host":["{{base_url}}"],"path":["timesheets"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"employee_id\":1,\"project_id\":1,\"work_date\":\"2026-07-15\",\"hours\":8,\"description\":\"Frontend dev\"}"}, "url":{"raw":"{{base_url}}/timesheets","host":["{{base_url}}"],"path":["timesheets"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/timesheets/1","host":["{{base_url}}"],"path":["timesheets","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"hours\":7}"}, "url":{"raw":"{{base_url}}/timesheets/1","host":["{{base_url}}"],"path":["timesheets","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/timesheets/1","host":["{{base_url}}"],"path":["timesheets","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Leave Requests",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/leave-requests?per_page=15","host":["{{base_url}}"],"path":["leave-requests"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"employee_id\":1,\"type\":\"annual\",\"start_date\":\"2026-08-01\",\"end_date\":\"2026-08-05\",\"reason\":\"Vacation\"}"}, "url":{"raw":"{{base_url}}/leave-requests","host":["{{base_url}}"],"path":["leave-requests"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/leave-requests/1","host":["{{base_url}}"],"path":["leave-requests","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"approved\"}"}, "url":{"raw":"{{base_url}}/leave-requests/1","host":["{{base_url}}"],"path":["leave-requests","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/leave-requests/1","host":["{{base_url}}"],"path":["leave-requests","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Performance Reviews",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/performance-reviews?per_page=15","host":["{{base_url}}"],"path":["performance-reviews"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"employee_id\":1,\"period\":\"2026-Q2\",\"kpi_score\":85,\"okr_score\":90}"}, "url":{"raw":"{{base_url}}/performance-reviews","host":["{{base_url}}"],"path":["performance-reviews"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/performance-reviews/1","host":["{{base_url}}"],"path":["performance-reviews","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"rating\":\"exceeding\"}"}, "url":{"raw":"{{base_url}}/performance-reviews/1","host":["{{base_url}}"],"path":["performance-reviews","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/performance-reviews/1","host":["{{base_url}}"],"path":["performance-reviews","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Payroll Benefits",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/payroll-benefits?per_page=15","host":["{{base_url}}"],"path":["payroll-benefits"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"employee_id\":1,\"salary_id\":1,\"period\":\"2026-07\",\"bpjs_health\":150000,\"bpjs_employment\":200000}"}, "url":{"raw":"{{base_url}}/payroll-benefits","host":["{{base_url}}"],"path":["payroll-benefits"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/payroll-benefits/1","host":["{{base_url}}"],"path":["payroll-benefits","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"incentive\":500000}"}, "url":{"raw":"{{base_url}}/payroll-benefits/1","host":["{{base_url}}"],"path":["payroll-benefits","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/payroll-benefits/1","host":["{{base_url}}"],"path":["payroll-benefits","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Salaries",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/salaries?per_page=15","host":["{{base_url}}"],"path":["salaries"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"employee_id\":1,\"period\":\"2026-07\",\"base_salary\":8000000,\"allowance\":1000000,\"deduction\":500000}"}, "url":{"raw":"{{base_url}}/salaries","host":["{{base_url}}"],"path":["salaries"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/salaries/1","host":["{{base_url}}"],"path":["salaries","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"allowance\":1500000}"}, "url":{"raw":"{{base_url}}/salaries/1","host":["{{base_url}}"],"path":["salaries","1"]} }, "response": [] },
+            { "name": "Update Status", "request": { "method": "PATCH", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"paid\"}"}, "url":{"raw":"{{base_url}}/salaries/1/status","host":["{{base_url}}"],"path":["salaries","1","status"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/salaries/1","host":["{{base_url}}"],"path":["salaries","1"]} }, "response": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Finance",
+      "item": [
+        {
+          "name": "Reimbursements",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reimbursements?per_page=15","host":["{{base_url}}"],"path":["reimbursements"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"employee_id\":1,\"description\":\"Transport meeting\",\"amount\":250000,\"expense_date\":\"2026-07-14\"}"}, "url":{"raw":"{{base_url}}/reimbursements","host":["{{base_url}}"],"path":["reimbursements"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reimbursements/1","host":["{{base_url}}"],"path":["reimbursements","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"amount\":300000}"}, "url":{"raw":"{{base_url}}/reimbursements/1","host":["{{base_url}}"],"path":["reimbursements","1"]} }, "response": [] },
+            { "name": "Update Status", "request": { "method": "PATCH", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"approved\"}"}, "url":{"raw":"{{base_url}}/reimbursements/1/status","host":["{{base_url}}"],"path":["reimbursements","1","status"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reimbursements/1","host":["{{base_url}}"],"path":["reimbursements","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Cashflows",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/cashflows?per_page=15","host":["{{base_url}}"],"path":["cashflows"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"project_id\":1,\"type\":\"income\",\"amount\":50000000,\"transaction_date\":\"2026-07-15\",\"description\":\"Client payment\"}"}, "url":{"raw":"{{base_url}}/cashflows","host":["{{base_url}}"],"path":["cashflows"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/cashflows/1","host":["{{base_url}}"],"path":["cashflows","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"amount\":55000000}"}, "url":{"raw":"{{base_url}}/cashflows/1","host":["{{base_url}}"],"path":["cashflows","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/cashflows/1","host":["{{base_url}}"],"path":["cashflows","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Invoices",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/invoices?per_page=15","host":["{{base_url}}"],"path":["invoices"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"project_id\":1,\"amount\":50000000,\"issue_date\":\"2026-07-15\",\"due_date\":\"2026-08-15\",\"tax_rate\":11}"}, "url":{"raw":"{{base_url}}/invoices","host":["{{base_url}}"],"path":["invoices"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/invoices/1","host":["{{base_url}}"],"path":["invoices","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"sent\"}"}, "url":{"raw":"{{base_url}}/invoices/1","host":["{{base_url}}"],"path":["invoices","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/invoices/1","host":["{{base_url}}"],"path":["invoices","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Payments",
+          "item": [
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"invoice_id\":1,\"amount\":50000000,\"payment_date\":\"2026-07-15\",\"method\":\"transfer\",\"reference\":\"TRX001\"}"}, "url":{"raw":"{{base_url}}/payments","host":["{{base_url}}"],"path":["payments"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/payments/1","host":["{{base_url}}"],"path":["payments","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Finance Suite (COA, Journals, etc)",
+          "item": [
+            { "name": "Chart Accounts - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/chart-accounts?per_page=15","host":["{{base_url}}"],"path":["chart-accounts"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Chart Accounts - Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"code\":\"1-1000\",\"name\":\"Kas\",\"type\":\"asset\",\"is_active\":true}"}, "url":{"raw":"{{base_url}}/chart-accounts","host":["{{base_url}}"],"path":["chart-accounts"]} }, "response": [] },
+            { "name": "Journal Entries - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/journal-entries?per_page=15","host":["{{base_url}}"],"path":["journal-entries"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Journal Entries - Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"entry_date\":\"2026-07-15\",\"memo\":\"Adjustment entry\"}"}, "url":{"raw":"{{base_url}}/journal-entries","host":["{{base_url}}"],"path":["journal-entries"]} }, "response": [] },
+            { "name": "Recurring Billings - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/recurring-billings?per_page=15","host":["{{base_url}}"],"path":["recurring-billings"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Payment Reminders - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/payment-reminders?per_page=15","host":["{{base_url}}"],"path":["payment-reminders"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Vendor Bills - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/vendor-bills?per_page=15","host":["{{base_url}}"],"path":["vendor-bills"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Vendor Payments - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/vendor-payments?per_page=15","host":["{{base_url}}"],"path":["vendor-payments"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Budgets - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/budgets?per_page=15","host":["{{base_url}}"],"path":["budgets"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Tax Rules - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/tax-rules?per_page=15","host":["{{base_url}}"],"path":["tax-rules"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Fixed Assets - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/fixed-assets?per_page=15","host":["{{base_url}}"],"path":["fixed-assets"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Currency Rates - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/currency-rates?per_page=15","host":["{{base_url}}"],"path":["currency-rates"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Revenue Schedules - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/revenue-schedules?per_page=15","host":["{{base_url}}"],"path":["revenue-schedules"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Bank Recon Items - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/bank-reconciliation-items?per_page=15","host":["{{base_url}}"],"path":["bank-reconciliation-items"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Purchase Matches - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/purchase-matches?per_page=15","host":["{{base_url}}"],"path":["purchase-matches"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Procurement",
+      "item": [
+        {
+          "name": "Vendors",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/vendors?per_page=15","host":["{{base_url}}"],"path":["vendors"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"PT Supplier\",\"category\":\"Material\",\"payment_terms\":\"30 days\"}"}, "url":{"raw":"{{base_url}}/vendors","host":["{{base_url}}"],"path":["vendors"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/vendors/1","host":["{{base_url}}"],"path":["vendors","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"active\"}"}, "url":{"raw":"{{base_url}}/vendors/1","host":["{{base_url}}"],"path":["vendors","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/vendors/1","host":["{{base_url}}"],"path":["vendors","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Purchase Requisitions",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/purchase-requisitions?per_page=15","host":["{{base_url}}"],"path":["purchase-requisitions"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"title\":\"Server Hardware\",\"amount\":20000000,\"required_date\":\"2026-08-01\"}"}, "url":{"raw":"{{base_url}}/purchase-requisitions","host":["{{base_url}}"],"path":["purchase-requisitions"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/purchase-requisitions/1","host":["{{base_url}}"],"path":["purchase-requisitions","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"approved\"}"}, "url":{"raw":"{{base_url}}/purchase-requisitions/1","host":["{{base_url}}"],"path":["purchase-requisitions","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/purchase-requisitions/1","host":["{{base_url}}"],"path":["purchase-requisitions","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Purchase Orders",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/purchase-orders?per_page=15","host":["{{base_url}}"],"path":["purchase-orders"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"vendor_id\":1,\"amount\":18000000}"}, "url":{"raw":"{{base_url}}/purchase-orders","host":["{{base_url}}"],"path":["purchase-orders"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/purchase-orders/1","host":["{{base_url}}"],"path":["purchase-orders","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"received\"}"}, "url":{"raw":"{{base_url}}/purchase-orders/1","host":["{{base_url}}"],"path":["purchase-orders","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/purchase-orders/1","host":["{{base_url}}"],"path":["purchase-orders","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Goods Receipts",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/goods-receipts?per_page=15","host":["{{base_url}}"],"path":["goods-receipts"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"purchase_order_id\":1,\"receipt_date\":\"2026-07-20\"}"}, "url":{"raw":"{{base_url}}/goods-receipts","host":["{{base_url}}"],"path":["goods-receipts"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/goods-receipts/1","host":["{{base_url}}"],"path":["goods-receipts","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"received\"}"}, "url":{"raw":"{{base_url}}/goods-receipts/1","host":["{{base_url}}"],"path":["goods-receipts","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/goods-receipts/1","host":["{{base_url}}"],"path":["goods-receipts","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Procurement Contracts",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/procurement-contracts?per_page=15","host":["{{base_url}}"],"path":["procurement-contracts"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"vendor_id\":1,\"title\":\"Annual Supply Contract\",\"amount\":50000000,\"start_date\":\"2026-01-01\",\"end_date\":\"2026-12-31\"}"}, "url":{"raw":"{{base_url}}/procurement-contracts","host":["{{base_url}}"],"path":["procurement-contracts"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/procurement-contracts/1","host":["{{base_url}}"],"path":["procurement-contracts","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"active\"}"}, "url":{"raw":"{{base_url}}/procurement-contracts/1","host":["{{base_url}}"],"path":["procurement-contracts","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/procurement-contracts/1","host":["{{base_url}}"],"path":["procurement-contracts","1"]} }, "response": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        { "name": "Companies List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/companies","host":["{{base_url}}"],"path":["companies"]} }, "response": [] },
+        { "name": "Company Settings - Get", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/company-settings","host":["{{base_url}}"],"path":["company-settings"]} }, "response": [] },
+        { "name": "Company Settings - Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"company_name\":\"NEXORA ERP\",\"email\":\"admin@nexora.com\",\"phone\":\"021-12345678\"}"}, "url":{"raw":"{{base_url}}/company-settings","host":["{{base_url}}"],"path":["company-settings"]} }, "response": [] },
+        {
+          "name": "Users",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/users?per_page=15","host":["{{base_url}}"],"path":["users"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"New User\",\"email\":\"user@nexora.com\",\"role\":\"sales\",\"password\":\"password123\"}"}, "url":{"raw":"{{base_url}}/users","host":["{{base_url}}"],"path":["users"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/users/1","host":["{{base_url}}"],"path":["users","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"role\":\"finance\"}"}, "url":{"raw":"{{base_url}}/users/1","host":["{{base_url}}"],"path":["users","1"]} }, "response": [] },
+            { "name": "Reset Password", "request": { "method": "PATCH", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"password\":\"newpassword123\"}"}, "url":{"raw":"{{base_url}}/users/1/reset-password","host":["{{base_url}}"],"path":["users","1","reset-password"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/users/1","host":["{{base_url}}"],"path":["users","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Clients",
+          "item": [
+            { "name": "List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/clients?per_page=15","host":["{{base_url}}"],"path":["clients"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"PT Client\",\"email\":\"client@company.com\"}"}, "url":{"raw":"{{base_url}}/clients","host":["{{base_url}}"],"path":["clients"]} }, "response": [] },
+            { "name": "Show", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/clients/1","host":["{{base_url}}"],"path":["clients","1"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"contact_name\":\"John Doe\"}"}, "url":{"raw":"{{base_url}}/clients/1","host":["{{base_url}}"],"path":["clients","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/clients/1","host":["{{base_url}}"],"path":["clients","1"]} }, "response": [] }
+          ]
+        },
+        {
+          "name": "Master Data",
+          "item": [
+            { "name": "Departments - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/departments?per_page=15","host":["{{base_url}}"],"path":["departments"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Departments - Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"IT Department\"}"}, "url":{"raw":"{{base_url}}/departments","host":["{{base_url}}"],"path":["departments"]} }, "response": [] },
+            { "name": "Job Positions - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/job-positions?per_page=15","host":["{{base_url}}"],"path":["job-positions"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Job Positions - Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"Software Engineer\"}"}, "url":{"raw":"{{base_url}}/job-positions","host":["{{base_url}}"],"path":["job-positions"]} }, "response": [] },
+            { "name": "Expense Categories - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/expense-categories?per_page=15","host":["{{base_url}}"],"path":["expense-categories"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Expense Categories - Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"Transportation\",\"type\":\"operational\"}"}, "url":{"raw":"{{base_url}}/expense-categories","host":["{{base_url}}"],"path":["expense-categories"]} }, "response": [] },
+            { "name": "Bank Accounts - List", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/bank-accounts?per_page=15","host":["{{base_url}}"],"path":["bank-accounts"],"query":[{"key":"per_page","value":"15"}]} }, "response": [] },
+            { "name": "Bank Accounts - Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"name\":\"BCA Operational\",\"bank_name\":\"BCA\",\"account_number\":\"1234567890\",\"opening_balance\":100000000}"}, "url":{"raw":"{{base_url}}/bank-accounts","host":["{{base_url}}"],"path":["bank-accounts"]} }, "response": [] }
+          ]
+        },
+        { "name": "Audit Logs", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/audit-logs?per_page=50","host":["{{base_url}}"],"path":["audit-logs"],"query":[{"key":"per_page","value":"50"}]} }, "response": [] },
+        { "name": "Trash", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/trash?type=projects","host":["{{base_url}}"],"path":["trash"],"query":[{"key":"type","value":"projects"}]} }, "response": [] },
+        { "name": "Trash - Restore", "request": { "method": "PATCH", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/trash/projects/1/restore","host":["{{base_url}}"],"path":["trash","projects","1","restore"]} }, "response": [] },
+        {
+          "name": "Tasks",
+          "item": [
+            { "name": "Create", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"title\":\"Review proposal\",\"assigned_to\":2,\"priority\":\"high\"}"}, "url":{"raw":"{{base_url}}/tasks","host":["{{base_url}}"],"path":["tasks"]} }, "response": [] },
+            { "name": "Update Status", "request": { "method": "PATCH", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"status\":\"done\"}"}, "url":{"raw":"{{base_url}}/tasks/1/status","host":["{{base_url}}"],"path":["tasks","1","status"]} }, "response": [] },
+            { "name": "Update", "request": { "method": "PUT", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}], "body": {"mode":"raw","raw":"{\"title\":\"Review updated\"}"}, "url":{"raw":"{{base_url}}/tasks/1","host":["{{base_url}}"],"path":["tasks","1"]} }, "response": [] },
+            { "name": "Delete", "request": { "method": "DELETE", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/tasks/1","host":["{{base_url}}"],"path":["tasks","1"]} }, "response": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        { "name": "Report Hub", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports","host":["{{base_url}}"],"path":["reports"]} }, "response": [] },
+        { "name": "Profit & Loss", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports/profit-loss?date_from=2026-01-01&date_to=2026-12-31","host":["{{base_url}}"],"path":["reports","profit-loss"],"query":[{"key":"date_from","value":"2026-01-01"},{"key":"date_to","value":"2026-12-31"}]} }, "response": [] },
+        { "name": "Balance Sheet", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports/balance-sheet","host":["{{base_url}}"],"path":["reports","balance-sheet"]} }, "response": [] },
+        { "name": "Cash Flow", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports/cash-flow?year=2026","host":["{{base_url}}"],"path":["reports","cash-flow"],"query":[{"key":"year","value":"2026"}]} }, "response": [] },
+        { "name": "Project Profitability", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports/project","host":["{{base_url}}"],"path":["reports","project"]} }, "response": [] },
+        { "name": "Aging AR", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports/aging/ar","host":["{{base_url}}"],"path":["reports","aging","ar"]} }, "response": [] },
+        { "name": "Aging AP", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports/aging/ap","host":["{{base_url}}"],"path":["reports","aging","ap"]} }, "response": [] },
+        { "name": "Tax Summary", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports/tax?period=2026-07","host":["{{base_url}}"],"path":["reports","tax"],"query":[{"key":"period","value":"2026-07"}]} }, "response": [] },
+        { "name": "Budget vs Actual", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports/budget?period=2026-07","host":["{{base_url}}"],"path":["reports","budget"],"query":[{"key":"period","value":"2026-07"}]} }, "response": [] },
+        { "name": "Transactions", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports/transactions?date_from=2026-01-01&date_to=2026-12-31","host":["{{base_url}}"],"path":["reports","transactions"],"query":[{"key":"date_from","value":"2026-01-01"},{"key":"date_to","value":"2026-12-31"}]} }, "response": [] },
+        { "name": "Reconciliation", "request": { "method": "GET", "header": [{"key":"Accept","value":"application/json"}], "url":{"raw":"{{base_url}}/reports/reconciliation","host":["{{base_url}}"],"path":["reports","reconciliation"]} }, "response": [] }
+      ]
+    }
+  ]
+}

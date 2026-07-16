@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\LoadsErpData;
 use App\Models\Cashflow;
 use App\Models\Project;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -17,9 +18,9 @@ class ReportController extends Controller
         return view('erp.reports.index');
     }
 
-    public function exportCashflows(): StreamedResponse
+    public function exportCashflows(Request $request): StreamedResponse
     {
-        $rows = Cashflow::with('project')->orderBy('transaction_date')->get()->map(fn (Cashflow $flow) => [
+        $rows = $this->applyCompanyContext($request, Cashflow::with('project'))->orderBy('transaction_date')->get()->map(fn (Cashflow $flow) => [
             $flow->transaction_date,
             $flow->project?->code ?? 'Company',
             $flow->type,
@@ -32,9 +33,9 @@ class ReportController extends Controller
         return $this->csv('cashflows.csv', ['Tanggal', 'Project', 'Type', 'Category', 'Vendor', 'Amount', 'Description'], $rows);
     }
 
-    public function exportProjectFinance(): StreamedResponse
+    public function exportProjectFinance(Request $request): StreamedResponse
     {
-        $rows = Project::with('cashflows')->get()->map(function (Project $project) {
+        $rows = $this->applyCompanyContext($request, Project::with('cashflows'))->get()->map(function (Project $project) {
             $summary = $this->cashflowSummary($project->cashflows);
             $margin  = $summary['income'] > 0 ? round(($summary['balance'] / $summary['income']) * 100, 2) : 0;
 

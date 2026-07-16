@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AuditLog extends Model
 {
-    use BelongsToCompany, RecordsAudit;
+    use BelongsToCompany;
     protected $fillable = ['company_id',
         'user_id', 'action', 'auditable_type', 'auditable_id', 'description', 'changes'];
 
