@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\BankAccount;
+use App\Models\Company;
 use App\Models\CompanySetting;
 use App\Models\Department;
 use App\Models\ExpenseCategory;
@@ -18,6 +19,24 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        $company = Company::firstOrCreate(
+            ['code' => 'NX-001'],
+            ['name' => 'NEXORA', 'access_type' => 'internal', 'email' => 'hello@nexora.test', 'is_active' => true]
+        );
+        $company->update(['access_type' => 'internal']);
+
+        foreach ([
+            ['CLIENT-001', 'Demo Client Company', 'client@nexora.test'],
+            ['ASTRA-001', 'Astra Logistics', 'pic@astra.test'],
+            ['SAVANA-001', 'Savana Finance', 'pic@savana.test'],
+            ['KIRANA-001', 'Kirana Group', 'pic@kirana.test'],
+        ] as [$code, $name, $email]) {
+            Company::firstOrCreate(
+                ['code' => $code],
+                ['name' => $name, 'access_type' => 'external', 'email' => $email, 'is_active' => true]
+            );
+        }
+
         // ── Users ────────────────────────────────────────────────────────
         foreach ([
             ['Raul',  'raul@nexora.test',  'admin'],
@@ -27,6 +46,7 @@ class DatabaseSeeder extends Seeder
             User::updateOrCreate(
                 ['email' => $email],
                 [
+                    'company_id'            => $company->id,
                     'name'                 => $name,
                     'role'                 => $role,
                     'password'             => Hash::make('Nexora2026!'),

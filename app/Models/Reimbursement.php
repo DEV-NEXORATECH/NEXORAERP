@@ -3,14 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToCompany;
+use App\Models\Traits\RecordsAudit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reimbursement extends Model
 {
+    use BelongsToCompany, RecordsAudit;
     use SoftDeletes;
 
-    protected $fillable = [
+    protected $fillable = ['company_id',
         'employee_id',
         'project_id',
         'category',

@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToCompany;
+use App\Models\Traits\RecordsAudit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AuditLog extends Model
 {
-    protected $fillable = ['user_id', 'action', 'auditable_type', 'auditable_id', 'description', 'changes'];
+    use BelongsToCompany, RecordsAudit;
+    protected $fillable = ['company_id',
+        'user_id', 'action', 'auditable_type', 'auditable_id', 'description', 'changes'];
 
     protected function casts(): array
     {

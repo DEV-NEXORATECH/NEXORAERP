@@ -10,6 +10,7 @@ use App\Models\Project;
 use App\Models\Proposal;
 use App\Models\Reimbursement;
 use App\Models\Salary;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -17,7 +18,7 @@ class DashboardController extends Controller
 {
     use LoadsErpData;
 
-    public function index(): View
+    public function index(): View|JsonResponse
     {
         $cashflows      = Cashflow::with(['project:id,code'])->get();
         $projects       = Project::with(['cashflows', 'salaries', 'reimbursements', 'invoices'])->latest()->get();
@@ -84,6 +85,13 @@ class DashboardController extends Controller
             ['type' => 'Salary belum dibayar',   'count' => $salaries->where('status', 'approved')->count(), 'message' => 'Menunggu pembayaran.', 'danger' => false],
             ['type' => 'Proposal menunggu',      'count' => $proposals->where('status', 'sent')->count(), 'message' => 'Menunggu approval client.', 'danger' => false],
         ])->filter(fn ($item) => $item['count'] > 0);
+
+        if ($this->isApi()) {
+            return $this->respond(compact(
+                'summary', 'filterCounts', 'dashboard',
+                'monthlyChart', 'expenseBreakdown', 'projectChart', 'notifications'
+            ));
+        }
 
         return view('erp.dashboard.index', compact(
             'summary', 'filterCounts', 'dashboard',

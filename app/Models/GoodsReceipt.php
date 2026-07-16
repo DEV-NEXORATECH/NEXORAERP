@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToCompany;
+use App\Models\Traits\RecordsAudit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class GoodsReceipt extends Model
 {
-    protected $fillable = ['purchase_order_id', 'receipt_date', 'status', 'notes'];
+    use BelongsToCompany, RecordsAudit;
+    protected $fillable = ['company_id',
+        'purchase_order_id', 'receipt_date', 'status', 'notes'];
 
     public function purchaseOrder(): BelongsTo
     {

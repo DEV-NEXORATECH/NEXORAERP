@@ -22,6 +22,7 @@ trait LoadsErpData
     {
         AuditLog::create([
             'user_id'        => auth()->id(),
+            'company_id'     => auth()->user()?->company_id,
             'action'         => $action,
             'auditable_type' => class_basename($model),
             'auditable_id'   => $model->getKey(),

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\LoadsErpData;
 use App\Models\BankAccount;
 use App\Models\CompanySetting;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -81,14 +82,17 @@ class CompanySettingController extends Controller
         return view('erp.admin.index', compact('items'));
     }
 
-    public function index(): View
+    public function index(): View|JsonResponse
     {
         $companySetting = CompanySetting::firstOrCreate(['id' => 1], ['company_name' => 'NEXORA']);
         $bankAccounts   = BankAccount::orderBy('name')->get();
+        if ($this->isApi()) {
+            return $this->respond(['setting' => $companySetting, 'bank_accounts' => $bankAccounts]);
+        }
         return view('erp.company-settings.index', compact('companySetting', 'bankAccounts'));
     }
 
-    public function update(Request $request): RedirectResponse
+    public function update(Request $request): RedirectResponse|JsonResponse
     {
         $data = $request->validate([
             'company_name'            => ['required', 'max:255'],
@@ -108,6 +112,9 @@ class CompanySettingController extends Controller
         $setting->update($data);
         $this->audit('updated', $setting, 'Company setting diupdate');
 
+        if ($this->isApi()) {
+            return $this->respond($setting, 'Setting perusahaan berhasil disimpan.');
+        }
         return back()->with('status', 'Setting perusahaan berhasil disimpan.');
     }
 }

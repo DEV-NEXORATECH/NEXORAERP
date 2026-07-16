@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToCompany;
+use App\Models\Traits\RecordsAudit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SalesInquiry extends Model
 {
-    protected $fillable = ['company_name', 'contact_name', 'email', 'phone', 'source', 'need', 'status', 'owner_id', 'notes'];
+    use BelongsToCompany, RecordsAudit;
+    protected $fillable = ['company_id',
+        'company_name', 'contact_name', 'email', 'phone', 'source', 'need', 'status', 'owner_id', 'notes'];
 
     public function owner(): BelongsTo
     {

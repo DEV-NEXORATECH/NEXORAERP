@@ -3,8 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToCompany;
+use App\Models\Traits\RecordsAudit;
 
 class Vendor extends Model
 {
-    protected $fillable = ['name', 'category', 'contact_name', 'email', 'phone', 'payment_terms', 'status'];
+    use BelongsToCompany, RecordsAudit;
+    protected $fillable = ['company_id',
+        'name', 'category', 'contact_name', 'email', 'phone', 'payment_terms', 'status'];
 }

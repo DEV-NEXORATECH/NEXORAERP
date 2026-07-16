@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToCompany;
+use App\Models\Traits\RecordsAudit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class JournalLine extends Model
 {
+    use BelongsToCompany, RecordsAudit;
 
-    protected $fillable = ['journal_entry_id', 'chart_account_id', 'debit', 'credit', 'description'];
+    protected $fillable = ['company_id',
+        'journal_entry_id', 'chart_account_id', 'debit', 'credit', 'description'];
 
     public function journalEntry(): BelongsTo
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\LoadsErpData;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -12,7 +13,7 @@ class TrashController extends Controller
 {
     use LoadsErpData;
 
-    public function index(Request $request): View
+    public function index(Request $request): View|JsonResponse
     {
         $type = $request->input('type');
         $models = [
@@ -35,10 +36,13 @@ class TrashController extends Controller
             ];
         }
         $hasTrash = collect($trash)->sum(fn ($items) => $items->total()) > 0;
+        if ($this->isApi()) {
+            return $this->respond($trash);
+        }
         return view('erp.trash.index', compact('trash', 'hasTrash'));
     }
 
-    public function restore(string $type, int $id): RedirectResponse
+    public function restore(string $type, int $id): RedirectResponse|JsonResponse
     {
         $models = [
             'projects'  => \App\Models\Project::class,
@@ -52,6 +56,9 @@ class TrashController extends Controller
         $model->restore();
         $this->audit('restored', $model, 'Data ' . $type . ' direstore');
 
+        if ($this->isApi()) {
+            return $this->respond($model, 'Data berhasil direstore.');
+        }
         return back()->with('status', 'Data berhasil direstore.');
     }
 }

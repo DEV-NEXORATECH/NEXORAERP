@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToCompany;
+use App\Models\Traits\RecordsAudit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CompanySetting extends Model
 {
-    protected $fillable = [
+    use BelongsToCompany, RecordsAudit;
+    protected $fillable = ['company_id',
         'company_name',
         'address',
         'email',

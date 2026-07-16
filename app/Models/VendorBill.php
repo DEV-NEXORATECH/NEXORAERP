@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToCompany;
+use App\Models\Traits\RecordsAudit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class VendorBill extends Model
 {
+    use BelongsToCompany, RecordsAudit;
 
-    protected $fillable = ['project_id', 'bank_account_id', 'vendor_name', 'bill_number', 'bill_date', 'due_date', 'amount', 'paid_amount', 'tax_rate', 'status', 'notes'];
+    protected $fillable = ['company_id',
+        'project_id', 'bank_account_id', 'vendor_name', 'bill_number', 'bill_date', 'due_date', 'amount', 'paid_amount', 'tax_rate', 'status', 'notes'];
 
     public function project(): BelongsTo
     {

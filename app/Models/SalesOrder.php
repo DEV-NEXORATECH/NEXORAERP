@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToCompany;
+use App\Models\Traits\RecordsAudit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SalesOrder extends Model
 {
-    protected $fillable = ['proposal_id', 'client_id', 'number', 'title', 'amount', 'order_date', 'status', 'notes'];
+    use BelongsToCompany, RecordsAudit;
+    protected $fillable = ['company_id',
+        'proposal_id', 'client_id', 'number', 'title', 'amount', 'order_date', 'status', 'notes'];
 
     public function proposal(): BelongsTo
     {

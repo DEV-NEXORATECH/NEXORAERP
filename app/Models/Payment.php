@@ -3,14 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToCompany;
+use App\Models\Traits\RecordsAudit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Payment extends Model
 {
+    use BelongsToCompany, RecordsAudit;
     use SoftDeletes;
 
-    protected $fillable = ['invoice_id', 'bank_account_id', 'cashflow_id', 'amount', 'payment_date', 'method', 'reference', 'proof_file_path'];
+    protected $fillable = ['company_id',
+        'invoice_id', 'bank_account_id', 'cashflow_id', 'amount', 'payment_date', 'method', 'reference', 'proof_file_path'];
 
     public function invoice(): BelongsTo
     {
