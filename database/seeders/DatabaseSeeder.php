@@ -99,5 +99,7 @@ class DatabaseSeeder extends Seeder
         ] as [$name, $type]) {
             ExpenseCategory::updateOrCreate(['name' => $name], ['type' => $type]);
         }
+
+        $this->call(DemoCommandCenterSeeder::class);
     }
 }

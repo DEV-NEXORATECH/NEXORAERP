@@ -101,11 +101,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/masters', [ClientController::class, 'index'])->middleware('role:admin')->name('admin.masters');
     Route::get('/admin/trash', [TrashController::class, 'index'])->middleware('role:admin')->name('admin.trash');
     Route::get('/admin/audit', [AuditLogController::class, 'index'])->middleware('role:admin')->name('admin.audit');
-    Route::get('/cms', [CmsController::class, 'index'])->middleware('role:admin')->name('cms.index');
-    Route::put('/cms/sections/{section}', [CmsController::class, 'updateSection'])->middleware('role:admin')->name('cms.sections.update');
-    Route::post('/cms/blog', [CmsController::class, 'storePost'])->middleware('role:admin')->name('cms.blog.store');
-    Route::put('/cms/blog/{post}', [CmsController::class, 'updatePost'])->middleware('role:admin')->name('cms.blog.update');
-    Route::delete('/cms/blog/{post}', [CmsController::class, 'destroyPost'])->middleware('role:admin')->name('cms.blog.destroy');
+    Route::prefix('cms')->name('cms.')->middleware('role:admin')->group(function () {
+        Route::get('/', [CmsController::class, 'index'])->name('index');
+        Route::get('/sections', [CmsController::class, 'sections'])->name('sections.index');
+        Route::get('/sections/create', [CmsController::class, 'createSection'])->name('sections.create');
+        Route::post('/sections', [CmsController::class, 'storeSection'])->name('sections.store');
+        Route::get('/sections/{section}/edit', [CmsController::class, 'editSection'])->name('sections.edit');
+        Route::put('/sections/{section}', [CmsController::class, 'updateSection'])->name('sections.update');
+        Route::delete('/sections/{section}', [CmsController::class, 'destroySection'])->name('sections.destroy');
+        Route::get('/blog', [CmsController::class, 'blog'])->name('blog.index');
+        Route::get('/blog/create', [CmsController::class, 'createPost'])->name('blog.create');
+        Route::post('/blog', [CmsController::class, 'storePost'])->name('blog.store');
+        Route::get('/blog/{post}/edit', [CmsController::class, 'editPost'])->name('blog.edit');
+        Route::put('/blog/{post}', [CmsController::class, 'updatePost'])->name('blog.update');
+        Route::delete('/blog/{post}', [CmsController::class, 'destroyPost'])->name('blog.destroy');
+        Route::get('/api-settings', [CmsController::class, 'apiSettings'])->name('api-settings');
+    });
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.status');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');

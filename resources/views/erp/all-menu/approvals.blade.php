@@ -35,7 +35,7 @@
                     <strong>{{ $item['count'] }}</strong>
                 </div>
                 <div class="approval-card-foot">
-                    <span>Buka approval</span>
+                    <span>OPEN</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
                 </div>
             </a>

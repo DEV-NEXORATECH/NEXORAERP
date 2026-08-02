@@ -20,7 +20,7 @@ class CompanySettingController extends Controller
             [
                 'label' => 'CMS Konten & Blog',
                 'desc' => 'Kelola section konten, CTA, dan artikel blog untuk dipakai lewat API.',
-                'icon' => 'list',
+                'icon' => 'cms',
                 'route' => 'cms.index',
             ],
             [
@@ -50,19 +50,19 @@ class CompanySettingController extends Controller
             [
                 'label' => 'Job Positions',
                 'desc' => 'Master jabatan, posisi kerja, dan struktur role karyawan.',
-                'icon' => 'salary',
+                'icon' => 'contract',
                 'route' => 'job-positions.index',
             ],
             [
                 'label' => 'Expense Categories',
                 'desc' => 'Kategori biaya untuk reimbursement, cashflow, dan reporting.',
-                'icon' => 'cashflow',
+                'icon' => 'budget',
                 'route' => 'expense-categories.index',
             ],
             [
                 'label' => 'Bank Accounts',
                 'desc' => 'Kas, bank, rekening perusahaan, dan default payment account.',
-                'icon' => 'invoice',
+                'icon' => 'accounts',
                 'route' => 'bank-accounts.index',
             ],
             [

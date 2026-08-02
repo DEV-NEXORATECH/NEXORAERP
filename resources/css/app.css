@@ -945,42 +945,51 @@
     /* ── Section title with action ───────────────────────── */
     .dashboard-hero,
     .report-hero {
-        @apply mt-6 flex flex-col gap-5 overflow-hidden rounded-[1.75rem] border border-[#0059A7] bg-[#0059A7] p-6 text-white shadow-sm shadow-[#0059A7]/20 sm:p-8 lg:flex-row lg:items-center lg:justify-between;
+        @apply mt-5 flex flex-col gap-5 overflow-hidden rounded-2xl border border-[#d7e3ef] bg-white p-5 text-[#002F59] shadow-sm shadow-slate-200/80 sm:p-6 lg:flex-row lg:items-center lg:justify-between;
+        border-top: 4px solid #0059A7;
     }
 
     .dashboard-hero > div > span,
     .report-hero > div > span {
-        @apply mb-3 inline-flex rounded-full bg-white/14 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.22em] text-white/75;
+        @apply mb-3 inline-flex rounded-full bg-[#e8f2fb] px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.22em] text-[#0059A7];
     }
 
     .dashboard-hero h1,
     .report-hero h1 {
-        @apply text-3xl font-black text-white sm:text-5xl;
+        @apply text-3xl font-black text-[#002F59] sm:text-4xl;
         font-family: 'Horizon', 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .dashboard-hero p,
     .report-hero p {
-        @apply mt-3 max-w-3xl text-sm font-semibold leading-6 text-white/68;
+        @apply mt-3 max-w-3xl text-sm font-semibold leading-6 text-slate-500;
     }
 
     .dashboard-hero-balance,
     .report-hero-card {
-        @apply rounded-full border border-white/20 bg-white/12 px-5 py-4 shadow-sm shadow-black/10 backdrop-blur lg:min-w-72;
+        @apply rounded-2xl border border-[#d7e3ef] bg-[#f8fbfe] px-5 py-4 shadow-sm shadow-slate-200/70 lg:min-w-72;
     }
 
     .dashboard-hero-balance small,
     .report-hero-card small {
-        @apply block text-xs font-black uppercase tracking-wide text-white/55;
+        @apply block text-xs font-black uppercase tracking-wide text-slate-400;
     }
 
     .dashboard-hero-balance strong,
     .report-hero-card strong {
-        @apply mt-2 block text-2xl font-black leading-tight text-white sm:text-3xl;
+        @apply mt-2 block text-2xl font-black leading-tight text-[#002F59] sm:text-3xl;
     }
 
     .dashboard-hero-balance em {
-        @apply mt-2 block not-italic text-xs font-bold text-white/55;
+        @apply mt-2 block not-italic text-xs font-bold text-slate-500;
+    }
+
+    .dashboard-hero .module-back-link {
+        @apply mb-5 border border-[#d7e3ef] bg-white text-[#0059A7] shadow-sm shadow-slate-200/70 hover:border-[#0059A7] hover:bg-[#e8f2fb] hover:text-[#002F59];
+    }
+
+    .dashboard-hero .module-title-icon {
+        @apply bg-[#e8f2fb] text-[#0059A7] shadow-none;
     }
 
     .dashboard-alert-grid {
@@ -988,7 +997,7 @@
     }
 
     .dashboard-section-grid {
-        @apply mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4;
+        @apply mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-5;
     }
 
     .dashboard-chart-grid {
@@ -1748,6 +1757,234 @@
         @apply text-sm font-semibold leading-5 text-slate-500;
     }
 
+    .cms-grid {
+        @apply mt-6 grid grid-cols-1 gap-5 lg:grid-cols-3;
+    }
+
+    .cms-tile {
+        @apply relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white p-6 text-slate-700 no-underline shadow-sm shadow-slate-200/80 transition duration-300 hover:-translate-y-1 hover:border-[#0059A7]/30 hover:shadow-xl hover:shadow-[#0059A7]/10;
+    }
+
+    .cms-tile::before {
+        @apply pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#e8f2fb] transition duration-300 content-[''];
+    }
+
+    .cms-tile:hover::before {
+        @apply scale-125 bg-[#d7ecff];
+    }
+
+    .cms-tile-icon {
+        @apply relative z-10 mb-6 grid h-14 w-14 place-items-center rounded-2xl bg-[#0059A7] text-white shadow-lg shadow-[#0059A7]/20 transition group-hover:scale-105;
+    }
+
+    .cms-tile-icon svg {
+        @apply h-7 w-7;
+    }
+
+    .cms-tile h2 {
+        @apply relative z-10 mb-2 text-xl font-black text-slate-900;
+    }
+
+    .cms-tile p {
+        @apply relative z-10 text-sm font-semibold leading-6 text-slate-500;
+    }
+
+    .cms-tile-foot {
+        @apply relative z-10 mt-6 flex items-center justify-between gap-3 border-t border-slate-100 pt-4;
+    }
+
+    .cms-tile-count {
+        @apply rounded-full bg-slate-100 px-3 py-1 text-xs font-black uppercase tracking-wide text-slate-500;
+    }
+
+    .cms-tile-action {
+        @apply text-xs font-black uppercase tracking-wide text-[#0059A7];
+    }
+
+    .cms-panel {
+        @apply mt-6 overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/70;
+    }
+
+    .cms-panel-head {
+        @apply flex flex-col gap-4 border-b border-slate-100 bg-gradient-to-br from-white to-[#f7fbff] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6;
+    }
+
+    .cms-panel-head h2 {
+        @apply mb-1 text-2xl text-slate-900;
+    }
+
+    .cms-panel-head p {
+        @apply text-sm font-semibold text-slate-500;
+    }
+
+    .cms-list {
+        @apply grid gap-0 p-2 sm:p-3;
+    }
+
+    .cms-row {
+        @apply grid gap-4 rounded-2xl border border-transparent p-4 transition hover:border-[#d7e3ef] hover:bg-[#f8fbfe] md:grid-cols-[minmax(0,1fr)_auto] md:items-center;
+    }
+
+    .cms-row-main {
+        @apply min-w-0;
+    }
+
+    .cms-row-title {
+        @apply mb-2 flex flex-wrap items-center gap-2;
+    }
+
+    .cms-row-title h3 {
+        @apply mb-0 text-lg font-black text-slate-900;
+    }
+
+    .cms-row-meta {
+        @apply flex flex-wrap gap-2 text-xs font-bold text-slate-400;
+    }
+
+    .cms-row-meta span {
+        @apply rounded-full bg-slate-50 px-2.5 py-1;
+    }
+
+    .cms-row p {
+        @apply mt-3 text-sm font-semibold leading-6 text-slate-500;
+    }
+
+    .cms-row-actions {
+        @apply flex flex-wrap items-center gap-2 md:justify-end;
+    }
+
+    .cms-form-card {
+        @apply mt-6 overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/70;
+    }
+
+    .cms-form-section {
+        @apply grid gap-5 p-5 sm:p-6;
+    }
+
+    .cms-form-grid {
+        @apply grid grid-cols-1 gap-4 lg:grid-cols-3;
+    }
+
+    .cms-form-grid.two {
+        @apply lg:grid-cols-2;
+    }
+
+    .cms-json {
+        @apply min-h-64 font-mono text-xs leading-6;
+    }
+
+    .cms-endpoint {
+        @apply grid gap-4 rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-[#f8fbfe] p-5 transition hover:border-[#0059A7]/30 hover:shadow-lg hover:shadow-[#0059A7]/10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center;
+    }
+
+    .cms-method {
+        @apply inline-flex w-20 justify-center rounded-full px-3 py-1.5 text-xs font-black uppercase tracking-wide;
+    }
+
+    .cms-method-get {
+        @apply bg-emerald-50 text-emerald-700;
+    }
+
+    .cms-method-post {
+        @apply bg-blue-50 text-blue-700;
+    }
+
+    .cms-method-put {
+        @apply bg-amber-50 text-amber-700;
+    }
+
+    .cms-method-delete {
+        @apply bg-red-50 text-red-600;
+    }
+
+    .cms-path {
+        @apply font-mono text-sm font-bold text-slate-700;
+    }
+
+    .cms-page,
+    .cms-panel,
+    .cms-panel *,
+    .cms-section-card,
+    .cms-section-card * {
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .cms-page .module-detail-hero {
+        @apply rounded-[1.5rem] p-5 sm:p-6;
+    }
+
+    .cms-page .module-title-icon {
+        @apply h-11 w-11 rounded-xl;
+    }
+
+    .cms-page .module-title-icon svg {
+        @apply h-5 w-5;
+    }
+
+    .cms-page .module-detail-hero h1 {
+        @apply text-2xl font-extrabold sm:text-3xl;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .cms-page .module-detail-hero p {
+        @apply mt-2 text-xs leading-5 sm:text-sm;
+    }
+
+    .cms-page .module-eyebrow {
+        @apply mb-1 text-[10px];
+    }
+
+    .cms-card-grid {
+        @apply grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4;
+    }
+
+    .cms-section-card {
+        @apply flex min-h-64 flex-col rounded-[1.35rem] border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/70 transition duration-300 hover:-translate-y-1 hover:border-[#0059A7]/25 hover:shadow-xl hover:shadow-[#0059A7]/10;
+    }
+
+    .cms-section-card-top {
+        @apply mb-5 flex items-center justify-between gap-3;
+    }
+
+    .cms-section-icon {
+        @apply grid h-11 w-11 place-items-center rounded-2xl bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .cms-section-icon svg {
+        @apply h-5 w-5;
+    }
+
+    .cms-section-card-body {
+        @apply min-h-24 flex-1;
+    }
+
+    .cms-section-card-body h3 {
+        @apply mb-2 text-base font-bold leading-snug text-slate-900;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .cms-section-card-body p {
+        @apply text-sm font-medium leading-6 text-slate-500;
+    }
+
+    .cms-section-card .cms-row-meta {
+        @apply mt-4 gap-2;
+    }
+
+    .cms-section-card .cms-row-meta span {
+        @apply bg-[#f3f8fc] text-slate-500;
+    }
+
+    .cms-section-card-actions {
+        @apply mt-5 grid grid-cols-2 gap-2 border-t border-slate-100 pt-4;
+    }
+
+    .cms-section-card-actions form,
+    .cms-section-card-actions button,
+    .cms-section-card-actions .button {
+        @apply w-full;
+    }
+
     .approval-page {
         @apply mt-6 overflow-visible rounded-none border-0 bg-transparent shadow-none;
     }
@@ -2035,5 +2272,702 @@
         .process-node-card {
             @apply shadow-md;
         }
+    }
+
+    /* ── Global UI audit: font, sizing, and card consistency ───────────── */
+    body,
+    input,
+    select,
+    textarea,
+    button,
+    .button,
+    .sidebar,
+    .side-nav a,
+    .side-nav button,
+    .side-summary,
+    .hdr-page-title,
+    h1,
+    h2,
+    h3,
+    h4,
+    .module-detail-hero h1,
+    .process-hub-heading h1,
+    .approval-hero h1,
+    .cms-tile h2,
+    .cms-row-title h3,
+    .cms-section-card-body h3,
+    .approval-card-body h3,
+    .task-column-head h3,
+    .process-center strong,
+    .process-node-card h3,
+    .module-sub-card h3 {
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    h1 {
+        @apply text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-3xl;
+    }
+
+    h2 {
+        @apply mb-3 text-lg font-bold leading-tight tracking-tight text-slate-900 sm:text-xl;
+    }
+
+    h3 {
+        @apply mb-2 text-base font-bold leading-snug text-slate-900;
+    }
+
+    .module-detail-hero h1,
+    .process-hub-heading h1,
+    .approval-hero h1 {
+        @apply text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl;
+    }
+
+    .module-detail-hero p,
+    .process-hub-heading p,
+    .approval-hero p {
+        @apply mt-2 text-sm font-medium leading-6;
+    }
+
+    .module-detail-hero,
+    .process-hub-heading,
+    .approval-hero {
+        @apply rounded-[1.35rem] p-5 sm:p-6;
+    }
+
+    .card,
+    .stat-card,
+    .chart-card,
+    .filter-panel,
+    .cms-panel,
+    .cms-form-card,
+    .cms-tile,
+    .cms-section-card,
+    .cms-endpoint,
+    .approval-card,
+    .task-panel,
+    .task-column,
+    .task-card,
+    .ui-modal-card,
+    .module-sub-card,
+    .process-center {
+        @apply rounded-[1.35rem] border border-slate-200 bg-white shadow-sm shadow-slate-200/70;
+    }
+
+    .card:hover,
+    .cms-tile:hover,
+    .cms-section-card:hover,
+    .cms-endpoint:hover,
+    .approval-card:hover,
+    .task-card:hover,
+    .module-sub-card:hover {
+        @apply border-[#0059A7]/25 shadow-lg shadow-[#0059A7]/10;
+    }
+
+    button,
+    .button,
+    .ghost,
+    .danger,
+    .success,
+    .hdr-action-btn,
+    .task-create-btn {
+        @apply rounded-xl text-sm font-bold;
+    }
+
+    .badge,
+    .cms-tile-count,
+    .cms-method,
+    .approval-chip,
+    .task-priority {
+        @apply rounded-full text-[11px] font-bold tracking-wide;
+    }
+
+    .module-title-icon,
+    .cms-tile-icon,
+    .approval-icon,
+    .process-node-icon,
+    .module-sub-icon,
+    .filter-panel-icon,
+    .stat-card-icon,
+    .cms-section-icon {
+        @apply rounded-xl;
+    }
+
+    .module-count strong,
+    .process-hub-count strong,
+    .approval-hero-stat strong,
+    .approval-card-body strong,
+    .metric,
+    .stat-card-metric {
+        @apply text-2xl font-extrabold sm:text-3xl;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .topbar,
+    .cms-panel-head,
+    .task-panel-head,
+    .ui-modal-head {
+        @apply mb-4 gap-3;
+    }
+
+    .content-body {
+        @apply pt-4;
+    }
+
+    /* ── Make every hub card follow the CMS card language ──────────────── */
+    .module-sub-grid,
+    .approval-grid {
+        @apply mt-6 grid grid-cols-1 gap-5 lg:grid-cols-3;
+    }
+
+    .module-sub-card,
+    .approval-card {
+        @apply relative min-h-64 overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white p-6 text-slate-700 no-underline shadow-sm shadow-slate-200/80 transition duration-300 hover:-translate-y-1 hover:border-[#0059A7]/30 hover:shadow-xl hover:shadow-[#0059A7]/10;
+    }
+
+    .module-sub-card::before,
+    .approval-card::before {
+        @apply pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#e8f2fb] transition duration-300 content-[''];
+    }
+
+    .module-sub-card:hover::before,
+    .approval-card:hover::before {
+        @apply scale-125 bg-[#d7ecff];
+    }
+
+    .module-sub-main,
+    .approval-card-top,
+    .approval-card-body,
+    .approval-card-foot {
+        @apply relative z-10;
+    }
+
+    .module-sub-main {
+        @apply flex flex-col items-start gap-0;
+    }
+
+    .module-sub-icon,
+    .approval-icon {
+        @apply mb-6 grid h-14 w-14 place-items-center rounded-2xl bg-[#0059A7] text-white shadow-lg shadow-[#0059A7]/20 transition;
+    }
+
+    .module-sub-icon svg,
+    .approval-icon svg {
+        @apply h-7 w-7;
+    }
+
+    .module-sub-card:hover .module-sub-icon,
+    .approval-card:hover .approval-icon {
+        @apply scale-105 bg-[#0059A7] text-white;
+    }
+
+    .module-sub-card h3,
+    .approval-card-body h3 {
+        @apply mb-2 text-xl font-black text-slate-900;
+    }
+
+    .module-sub-card p,
+    .approval-card-body p {
+        @apply text-sm font-semibold leading-6 text-slate-500;
+    }
+
+    .module-sub-action,
+    .approval-card-foot {
+        @apply relative z-10 mt-6 flex items-center justify-between gap-3 border-t border-slate-100 bg-transparent px-0 pt-4 text-xs font-black uppercase tracking-wide text-[#0059A7];
+    }
+
+    .approval-card {
+        @apply flex flex-col justify-between;
+    }
+
+    .approval-card-top {
+        @apply mb-0 flex items-start justify-between gap-3;
+    }
+
+    .approval-card-body {
+        @apply mt-0 flex items-end justify-between gap-4;
+    }
+
+    .approval-card-body strong {
+        @apply text-3xl font-black leading-none text-[#0059A7];
+    }
+
+    .approval-chip {
+        @apply rounded-full bg-slate-100 px-3 py-1 text-xs font-black uppercase tracking-wide text-slate-500;
+    }
+
+    /* ── Compact scale pass: smaller fonts and cards everywhere ───────── */
+    body {
+        @apply text-[13px];
+    }
+
+    input,
+    select,
+    textarea {
+        @apply min-h-10 rounded-lg px-3 py-2.5 text-xs;
+    }
+
+    h1 {
+        @apply text-xl sm:text-2xl;
+    }
+
+    h2 {
+        @apply text-base sm:text-lg;
+    }
+
+    h3 {
+        @apply text-sm;
+    }
+
+    .module-detail-hero h1,
+    .process-hub-heading h1,
+    .approval-hero h1 {
+        @apply text-xl sm:text-2xl;
+    }
+
+    .module-detail-hero p,
+    .process-hub-heading p,
+    .approval-hero p,
+    .module-sub-card p,
+    .cms-tile p,
+    .cms-section-card-body p,
+    .approval-card-body p,
+    .task-card p,
+    .muted {
+        @apply text-xs leading-5;
+    }
+
+    .module-detail-hero,
+    .process-hub-heading,
+    .approval-hero {
+        @apply rounded-[1.15rem] p-4 sm:p-5;
+    }
+
+    .card,
+    .stat-card,
+    .chart-card,
+    .filter-panel,
+    .cms-panel,
+    .cms-form-card,
+    .cms-tile,
+    .cms-section-card,
+    .cms-endpoint,
+    .module-sub-card,
+    .approval-card,
+    .task-panel,
+    .task-column,
+    .task-card,
+    .ui-modal-card,
+    .process-center {
+        @apply rounded-[1.15rem] p-4;
+    }
+
+    .module-sub-grid,
+    .cms-grid,
+    .approval-grid {
+        @apply gap-4;
+    }
+
+    .module-sub-card,
+    .cms-tile,
+    .approval-card {
+        @apply min-h-52 p-4;
+    }
+
+    .module-sub-card::before,
+    .cms-tile::before,
+    .approval-card::before {
+        @apply -right-20 -top-20 h-36 w-36;
+    }
+
+    .module-sub-icon,
+    .cms-tile-icon,
+    .approval-icon,
+    .module-title-icon,
+    .cms-section-icon,
+    .process-node-icon,
+    .stat-card-icon,
+    .filter-panel-icon {
+        @apply h-10 w-10 rounded-xl;
+    }
+
+    .module-sub-icon svg,
+    .cms-tile-icon svg,
+    .approval-icon svg,
+    .module-title-icon svg,
+    .cms-section-icon svg,
+    .process-node-icon svg,
+    .stat-card-icon svg,
+    .filter-panel-icon svg {
+        @apply h-5 w-5;
+    }
+
+    .module-sub-card h3,
+    .cms-tile h2,
+    .cms-row-title h3,
+    .cms-section-card-body h3,
+    .approval-card-body h3,
+    .task-column-head h3 {
+        @apply text-sm font-bold;
+    }
+
+    .cms-tile-icon,
+    .module-sub-icon,
+    .approval-icon {
+        @apply mb-4;
+    }
+
+    .cms-tile-foot,
+    .module-sub-action,
+    .approval-card-foot,
+    .cms-section-card-actions {
+        @apply mt-4 pt-3 text-[10px];
+    }
+
+    button,
+    .button,
+    .ghost,
+    .danger,
+    .success,
+    .hdr-action-btn,
+    .task-create-btn {
+        @apply rounded-lg px-3 py-2 text-xs;
+    }
+
+    .badge,
+    .cms-tile-count,
+    .cms-method,
+    .approval-chip,
+    .task-priority {
+        @apply px-2.5 py-0.5 text-[10px];
+    }
+
+    .module-count,
+    .process-hub-count,
+    .approval-hero-stat {
+        @apply px-4 py-2;
+    }
+
+    .module-count strong,
+    .process-hub-count strong,
+    .approval-hero-stat strong,
+    .approval-card-body strong,
+    .metric,
+    .stat-card-metric {
+        @apply text-xl sm:text-2xl;
+    }
+
+    .cms-card-grid {
+        @apply gap-3 p-3;
+    }
+
+    .cms-section-card {
+        @apply min-h-52;
+    }
+
+    .cms-section-card-body {
+        @apply min-h-20;
+    }
+
+    .cms-panel-head,
+    .task-panel-head,
+    .ui-modal-head {
+        @apply p-4;
+    }
+
+    .content-body {
+        @apply px-4 pb-5;
+    }
+
+    /* ── Compact sidebar scale ─────────────────────────────────────────── */
+    .app-shell {
+        @apply grid-cols-[220px_minmax(0,1fr)];
+    }
+
+    .app-shell.sidebar-collapsed {
+        @apply grid-cols-[64px_minmax(0,1fr)];
+    }
+
+    .sidebar-head {
+        @apply px-3 py-3;
+    }
+
+    .sidebar-brand {
+        @apply gap-2.5;
+    }
+
+    .sidebar .logo {
+        @apply h-9 w-9 rounded-xl text-xs;
+    }
+
+    .sidebar-title {
+        @apply text-[12px] leading-tight;
+    }
+
+    .sidebar-subtitle {
+        @apply text-[9px] leading-tight;
+    }
+
+    .sidebar-scroll {
+        @apply px-2 py-2;
+    }
+
+    .side-nav {
+        @apply gap-0.5;
+    }
+
+    .side-nav a,
+    .side-nav button,
+    .side-summary {
+        @apply gap-2 rounded-xl px-2.5 py-2 text-xs font-semibold;
+    }
+
+    .side-icon {
+        @apply h-8 w-8 rounded-lg;
+    }
+
+    .side-icon svg {
+        @apply h-4 w-4;
+    }
+
+    .side-label {
+        @apply text-xs leading-tight;
+    }
+
+    .side-footer {
+        @apply px-2.5 py-2;
+    }
+
+    .sidebar-user {
+        @apply gap-2 rounded-2xl p-2;
+    }
+
+    .sidebar-user-avatar {
+        @apply h-8 w-8 rounded-lg text-[10px];
+    }
+
+    .sidebar-user-name {
+        @apply text-xs leading-tight;
+    }
+
+    .sidebar-user-role {
+        @apply text-[9px] leading-tight;
+    }
+
+    .sidebar-logout-btn {
+        @apply h-9 w-9 rounded-xl;
+    }
+
+    .sidebar-logout-btn svg {
+        @apply h-5 w-5;
+    }
+
+    /* ── Canonical hub card: CMS, Admin, Modules, Reports, Approvals ──── */
+    .cms-tile,
+    .module-sub-card,
+    .approval-card {
+        @apply relative flex min-h-52 flex-col items-start justify-between overflow-hidden rounded-[1.15rem] border border-slate-200 bg-white p-4 text-slate-700 no-underline shadow-sm shadow-slate-200/70 transition duration-300 hover:-translate-y-1 hover:border-[#0059A7]/30 hover:shadow-lg hover:shadow-[#0059A7]/10;
+    }
+
+    .cms-tile::before,
+    .module-sub-card::before,
+    .approval-card::before {
+        @apply pointer-events-none absolute -right-20 -top-20 h-36 w-36 rounded-full bg-[#e8f2fb] transition duration-300 content-[''];
+    }
+
+    .cms-tile:hover::before,
+    .module-sub-card:hover::before,
+    .approval-card:hover::before {
+        @apply scale-125 bg-[#d7ecff];
+    }
+
+    .cms-tile-icon,
+    .module-sub-icon,
+    .approval-icon {
+        @apply relative z-10 mb-4 grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#0059A7] text-white shadow-lg shadow-[#0059A7]/20 transition;
+    }
+
+    .cms-tile-icon svg,
+    .module-sub-icon svg,
+    .approval-icon svg {
+        @apply h-5 w-5;
+    }
+
+    .cms-tile:hover .cms-tile-icon,
+    .module-sub-card:hover .module-sub-icon,
+    .approval-card:hover .approval-icon {
+        @apply scale-105 bg-[#0059A7] text-white;
+    }
+
+    .module-sub-main {
+        @apply relative z-10 flex flex-col items-start gap-0;
+    }
+
+    .module-sub-main > div,
+    .approval-card-body > div {
+        @apply min-w-0;
+    }
+
+    .cms-tile h2,
+    .module-sub-card h3,
+    .approval-card-body h3 {
+        @apply relative z-10 mb-2 text-sm font-bold leading-snug text-slate-900;
+    }
+
+    .cms-tile p,
+    .module-sub-card p,
+    .approval-card-body p {
+        @apply relative z-10 text-xs font-semibold leading-5 text-slate-500;
+    }
+
+    .cms-tile-foot,
+    .module-sub-action,
+    .approval-card-foot {
+        @apply relative z-10 mt-4 flex w-full items-center justify-end gap-3 border-t border-slate-100 bg-transparent px-0 pt-3 text-[10px] font-black uppercase tracking-wide text-[#0059A7];
+    }
+
+    .cms-tile-count,
+    .approval-chip {
+        @apply mr-auto rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wide text-slate-500;
+    }
+
+    .approval-card-top {
+        @apply relative z-10 mb-4 flex w-full items-start justify-between gap-3;
+    }
+
+    .approval-card-body {
+        @apply relative z-10 mt-0 flex w-full items-start justify-between gap-4;
+    }
+
+    .approval-card-body strong {
+        @apply text-xl font-black leading-none text-[#0059A7];
+    }
+
+    .approval-card-foot svg {
+        @apply h-4 w-4;
+    }
+
+    /* ── Compact navbar + better hub action pill ──────────────────────── */
+    .app-header {
+        @apply px-0 pb-3 pt-0;
+    }
+
+    .app-header-card {
+        @apply gap-3 rounded-none px-4 py-2.5;
+    }
+
+    .app-header-left,
+    .app-header-right {
+        @apply gap-2;
+    }
+
+    .hdr-toggle,
+    .hdr-icon-btn {
+        @apply h-9 w-9 rounded-xl;
+    }
+
+    .hdr-toggle svg,
+    .hdr-icon-btn svg {
+        @apply h-5 w-5;
+    }
+
+    .hdr-sep {
+        @apply h-5;
+    }
+
+    .hdr-context {
+        @apply gap-2;
+    }
+
+    .hdr-page-icon {
+        @apply h-9 w-9 rounded-xl;
+    }
+
+    .hdr-page-icon svg {
+        @apply h-5 w-5;
+    }
+
+    .hdr-page-title {
+        @apply text-sm font-bold;
+    }
+
+    .hdr-page-path {
+        @apply text-[10px] font-semibold;
+    }
+
+    .hdr-date {
+        @apply rounded-xl px-2.5 py-1.5 text-[11px];
+    }
+
+    .hdr-date svg {
+        @apply h-3.5 w-3.5;
+    }
+
+    .hdr-user-summary {
+        @apply gap-2 rounded-xl py-1 pl-1 pr-2;
+    }
+
+    .hdr-user-avatar {
+        @apply h-8 w-8 rounded-lg text-[10px];
+    }
+
+    .hdr-user-name {
+        @apply text-xs font-bold;
+    }
+
+    .hdr-user-role {
+        @apply text-[9px];
+    }
+
+    .hdr-user-chevron {
+        @apply h-3.5 w-3.5;
+    }
+
+    .cms-tile-action,
+    .module-sub-action,
+    .approval-card-foot span {
+        @apply inline-flex items-center gap-1.5 rounded-full bg-[#e8f2fb] px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#0059A7] transition;
+    }
+
+    .cms-tile-action::after,
+    .module-sub-action::after,
+    .approval-card-foot span::after {
+        content: '→';
+        @apply text-xs leading-none;
+    }
+
+    .cms-tile:hover .cms-tile-action,
+    .module-sub-card:hover .module-sub-action,
+    .approval-card:hover .approval-card-foot span {
+        @apply bg-[#0059A7] text-white;
+    }
+
+    .approval-card-foot > svg {
+        @apply hidden;
+    }
+
+    /* ── Match all hub actions to CMS action style exactly ────────────── */
+    .cms-tile-action,
+    .module-sub-action,
+    .approval-card-foot span {
+        @apply inline-flex items-center gap-1 bg-transparent p-0 text-[10px] font-black uppercase tracking-wide text-[#0059A7];
+    }
+
+    .cms-tile-action::after,
+    .module-sub-action::after,
+    .approval-card-foot span::after {
+        content: '→';
+        @apply text-xs leading-none;
+    }
+
+    .cms-tile:hover .cms-tile-action,
+    .module-sub-card:hover .module-sub-action,
+    .approval-card:hover .approval-card-foot span {
+        @apply bg-transparent text-[#0059A7];
+    }
+
+    .approval-card,
+    .approval-card:hover {
+        @apply bg-white;
+        background-image: none;
     }
 }

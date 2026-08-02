@@ -31,7 +31,6 @@
     ];
 
     $settingsPages = [
-        'cms',
         'company-settings',
         'user-management',
         'user-management.create-page',
@@ -43,6 +42,13 @@
         'bank-accounts',
         'audit-logs',
         'trash',
+    ];
+
+    $cmsPages = [
+        'cms',
+        'cms-sections',
+        'cms-blog',
+        'cms-api-settings',
     ];
 
     $onReportsHub = request()->routeIs('modules.show') && request()->route('section') === 'reports';
@@ -86,8 +92,8 @@
             @endif
 
             @if($can('admin'))
-                <a class="{{ $isPage('cms') ? 'active' : '' }}" href="{{ route('cms.index') }}">
-                    <span class="side-icon">{!! $icon('list') !!}</span>
+                <a class="{{ $isPage(...$cmsPages) ? 'active' : '' }}" href="{{ route('cms.index') }}">
+                    <span class="side-icon">{!! $icon('cms') !!}</span>
                     <span class="side-label">CMS</span>
                 </a>
 

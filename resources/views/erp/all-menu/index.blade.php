@@ -14,7 +14,7 @@
     $hubIcons = [
         'Finance' => 'cashflow',
         'HR' => 'employees',
-        'Procurement' => 'projects',
+        'Procurement' => 'purchase',
         'Reports' => 'reports',
         'Sales' => 'proposal',
         'Main' => 'dashboard',
