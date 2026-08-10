@@ -15,7 +15,7 @@
             <div class="grid gap-1.5"><label>Parent</label><select name="parent_id"><option value="">Root account</option>@foreach($coaOptions as $account)<option value="{{ $account->id }}">{{ $account->code }} - {{ $account->name }}</option>@endforeach</select></div>
             <div class="grid gap-1.5"><label>Status</label><label class="flex items-center gap-2"><input type="checkbox" name="is_active" value="1" checked> Active</label></div>
             <div class="mt-4 flex items-center gap-3 md:col-span-2">
-                <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-black text-white shadow-sm transition hover:bg-[#002F59]">
+                <button class="btn">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Simpan CoA
                 </button>
                 <a class="button ghost" href="{{ route('chart-accounts.index') }}">

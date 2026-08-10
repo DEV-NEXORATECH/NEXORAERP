@@ -14,21 +14,21 @@
 
     <form method="get" action="{{ route('bank-reconciliation-items.index') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         @if(isset($banks))
-        <select name="bank_account_id" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <select name="bank_account_id" class="field-input">
             <option value="">Semua Bank</option>
             @foreach($banks as $bank)
             <option value="{{ $bank->id }}" @selected(request('bank_account_id') == $bank->id)>{{ $bank->name }}</option>
             @endforeach
         </select>
         @endif
-        <select name="reconciled" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <select name="reconciled" class="field-input">
             <option value="">Semua Status</option>
             <option value="1" @selected(request('reconciled') == '1')>Reconciled</option>
             <option value="0" @selected(request('reconciled') == '0')>Unreconciled</option>
         </select>
         <div class="flex gap-2 items-end">
-            <button class="rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#003d78]">Filter</button>
-            <a href="{{ route('bank-reconciliation-items.index') }}" class="rounded-xl border border-[#d7e3ef] bg-white px-5 py-2.5 text-sm font-bold text-[#0059A7] hover:bg-[#f3f8fc]">Reset</a>
+            <button class="filter-btn">Filter</button>
+            <a href="{{ route('bank-reconciliation-items.index') }}" class="btn-outline">Reset</a>
         </div>
     </form>
 

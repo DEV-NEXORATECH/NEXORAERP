@@ -13,7 +13,7 @@ class VendorBill extends Model
     use BelongsToCompany, RecordsAudit;
 
     protected $fillable = ['company_id',
-        'project_id', 'bank_account_id', 'vendor_name', 'bill_number', 'bill_date', 'due_date', 'amount', 'paid_amount', 'tax_rate', 'status', 'notes'];
+        'project_id', 'bank_account_id', 'vendor_name', 'bill_number', 'bill_date', 'due_date', 'amount', 'paid_amount', 'tax_rate', 'currency_id', 'exchange_rate', 'payment_term_id', 'status', 'notes'];
 
     public function project(): BelongsTo
     {
@@ -28,5 +28,15 @@ class VendorBill extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(VendorPayment::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
+    public function paymentTerm(): BelongsTo
+    {
+        return $this->belongsTo(PaymentTerm::class, 'payment_term_id');
     }
 }

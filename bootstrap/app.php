@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'feature' => \App\Http\Middleware\FeatureCheck::class,
         ]);
 
         $middleware->appendToGroup('web', \App\Http\Middleware\ShareViewHelpers::class);

@@ -13,7 +13,7 @@ class ChartAccount extends Model
     use BelongsToCompany, RecordsAudit;
 
     protected $fillable = ['company_id',
-        'code', 'name', 'type', 'parent_id', 'is_active'];
+        'code', 'name', 'type', 'account_group', 'parent_id', 'currency_id', 'is_active'];
 
     protected function casts(): array
     {
@@ -28,5 +28,10 @@ class ChartAccount extends Model
     public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 @php
-    $hubOrder = ['Main', 'Reports', 'Finance', 'HR', 'Sales', 'Procurement'];
+    $hubOrder = ['Main', 'Reports', 'Finance', 'HR', 'Sales', 'Procurement', 'Inventory'];
     $hubNames = [
         'Finance' => 'Finance Hub',
         'HR' => 'HR Hub',
@@ -10,6 +10,7 @@
         'Reports' => 'Report Hub',
         'Sales' => 'Sales Hub',
         'Main' => 'Dashboard Hub',
+        'Inventory' => 'Inventory Hub',
     ];
     $hubIcons = [
         'Finance' => 'cashflow',
@@ -18,6 +19,7 @@
         'Reports' => 'reports',
         'Sales' => 'proposal',
         'Main' => 'dashboard',
+        'Inventory' => 'box',
     ];
     $positions = [
         'Main' => 'hub-top-left',
@@ -26,6 +28,7 @@
         'Sales' => 'hub-bottom-left',
         'HR' => 'hub-bottom-center',
         'Procurement' => 'hub-bottom-right',
+        'Inventory' => 'hub-top-left',
     ];
     $orderedMenus = collect($hubOrder)
         ->filter(fn ($section) => isset($menus[$section]))

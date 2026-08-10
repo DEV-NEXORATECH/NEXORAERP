@@ -50,7 +50,7 @@
                     <form method="post" action="{{ route('cms.sections.destroy', $section) }}">
                         @csrf
                         @method('delete')
-                        <button class="danger" onclick="return confirm('Hapus section ini?')">Hapus</button>
+                        <button class="danger">Hapus</button>
                     </form>
                 </div>
             </div>

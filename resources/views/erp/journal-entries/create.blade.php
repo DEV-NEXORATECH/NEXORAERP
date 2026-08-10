@@ -29,7 +29,7 @@
                 <button type="button" class="button ghost text-sm" onclick="addJournalLine()">+ Tambah Line</button>
             </div>
             <div class="mt-4 flex items-center gap-3">
-                <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-black text-white shadow-sm transition hover:bg-[#002F59]">
+                <button class="btn">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Simpan Journal
                 </button>
                 <a class="button ghost" href="{{ route('journal-entries.index') }}">

@@ -49,7 +49,7 @@
                     <form method="post" action="{{ route('cms.blog.destroy', $post) }}">
                         @csrf
                         @method('delete')
-                        <button class="danger" onclick="return confirm('Hapus blog ini?')">Hapus</button>
+                        <button class="danger">Hapus</button>
                     </form>
                 </div>
             </div>

@@ -4,7 +4,7 @@
 <section class="grid two section" id="users">
     <div class="card">
         <h2>Tambah User</h2>
-        <form method="post" action="{{ route('users.store') }}" class="grid">
+        <form method="post" action="{{ route('user-management.store') }}" class="grid">
             @csrf
             <input name="name" placeholder="Nama" required>
             <input name="email" type="email" placeholder="Email" required>
@@ -27,8 +27,8 @@
                     <td><span class="badge">{{ $user->role }}</span></td>
                     <td><span class="badge badge-{{ $user->is_active ? 'active' : 'hold' }}">{{ $user->is_active ? 'active' : 'inactive' }}</span></td>
                     <td class="actions">
-                        <form method="post" action="{{ route('users.reset-password', $user) }}">@csrf @method('patch')<button class="mini ghost">Reset PW</button></form>
-                        <form method="post" action="{{ route('users.destroy', $user) }}">@csrf @method('delete')<button class="mini danger">Delete</button></form>
+                        <form method="post" action="{{ route('user-management.reset-password', $user) }}">@csrf @method('patch')<button class="mini ghost">Reset PW</button></form>
+                        <form method="post" action="{{ route('user-management.destroy', $user) }}">@csrf @method('delete')<button class="mini danger">Delete</button></form>
                     </td>
                 </tr>
                 @endforeach

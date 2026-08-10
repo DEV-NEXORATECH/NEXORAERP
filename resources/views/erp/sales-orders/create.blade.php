@@ -37,8 +37,42 @@
                 </select>
             </div>
             <div class="grid gap-1.5 md:col-span-2"><label>Notes</label><textarea name="notes" rows="3"></textarea></div>
+            <div class="md:col-span-2 grid gap-1.5">
+                <label>Item Produk</label>
+                <table class="w-full text-sm" id="items-table">
+                    <thead>
+                        <tr class="text-left text-xs uppercase text-[#002F59]/60">
+                            <th class="py-1 pr-2">Produk</th>
+                            <th class="py-1 pr-2 w-28">Qty</th>
+                            <th class="py-1 pr-2 w-40">Harga Satuan</th>
+                            <th class="py-1 pr-2 w-40">Subtotal</th>
+                            <th class="py-1 w-10"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-body">
+                        <tr class="item-row">
+                            <td class="py-1 pr-2">
+                                <select name="items[0][product_id]" class="item-product">
+                                    <option value="">— Pilih produk —</option>
+                                    @foreach($products as $product)
+                                        <option value="{{ $product->id }}" data-price="{{ $product->price }}">{{ $product->code }} - {{ $product->name }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td class="py-1 pr-2"><input type="number" step="any" min="0" class="item-qty" name="items[0][quantity]" value="1"></td>
+                            <td class="py-1 pr-2"><input type="number" step="any" min="0" class="item-price" name="items[0][unit_price]"></td>
+                            <td class="py-1 pr-2 item-subtotal">0</td>
+                            <td class="py-1"><button type="button" class="btn-remove-row text-red-600" title="Hapus baris">×</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-1 flex items-center justify-between">
+                    <button type="button" class="text-sm font-bold text-[#0059A7]" id="btn-add-row">+ Tambah Baris</button>
+                    <span class="text-sm font-black">Total: <span id="items-total">0</span></span>
+                </div>
+            </div>
             <div class="mt-4 flex items-center gap-3 md:col-span-2">
-                <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-black text-white shadow-sm transition hover:bg-[#002F59]">
+                <button class="btn">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Simpan Order
                 </button>
                 <a class="button ghost" href="{{ route('sales-orders.index') }}">
@@ -48,4 +82,75 @@
         </form>
     </div>
 </section>
+
+<script>
+(function () {
+    const body = document.getElementById('items-body');
+    const totalEl = document.getElementById('items-total');
+    const amountInput = document.querySelector('input[name="amount"]');
+    const productOptions = @json($productOptions);
+
+    function reindex() {
+        body.querySelectorAll('.item-row').forEach((row, i) => {
+            row.querySelector('.item-product').name = `items[${i}][product_id]`;
+            row.querySelector('.item-qty').name = `items[${i}][quantity]`;
+            row.querySelector('.item-price').name = `items[${i}][unit_price]`;
+        });
+    }
+
+    function subtotal(row) {
+        const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+        const price = parseFloat(row.querySelector('.item-price').value) || 0;
+        const sub = qty * price;
+        row.querySelector('.item-subtotal').textContent = sub.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+        return sub;
+    }
+
+    function recalc() {
+        let total = 0;
+        body.querySelectorAll('.item-row').forEach((row) => { total += subtotal(row); });
+        totalEl.textContent = total.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+        if (amountInput) amountInput.value = total ? total.toFixed(2) : '';
+    }
+
+    function newRow() {
+        const tpl = document.createElement('tr');
+        tpl.className = 'item-row';
+        tpl.innerHTML = `
+            <td class="py-1 pr-2"><select class="item-product">
+                <option value="">— Pilih produk —</option>
+                ${productOptions.map(p => `<option value="${p.id}" data-price="${p.price}">${p.code} - ${p.name}</option>`).join('')}
+            </select></td>
+            <td class="py-1 pr-2"><input type="number" step="any" min="0" class="item-qty" value="1"></td>
+            <td class="py-1 pr-2"><input type="number" step="any" min="0" class="item-price"></td>
+            <td class="py-1 pr-2 item-subtotal">0</td>
+            <td class="py-1"><button type="button" class="btn-remove-row text-red-600" title="Hapus baris">×</button></td>`;
+        body.appendChild(tpl);
+        reindex();
+    }
+
+    body.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-remove-row')) {
+            e.target.closest('.item-row').remove();
+            reindex();
+            recalc();
+        }
+    });
+
+    body.addEventListener('change', (e) => {
+        if (e.target.classList.contains('item-product')) {
+            const price = e.target.selectedOptions[0]?.dataset?.price || 0;
+            e.target.closest('.item-row').querySelector('.item-price').value = price;
+        }
+        recalc();
+    });
+
+    body.addEventListener('input', (e) => {
+        if (e.target.classList.contains('item-qty') || e.target.classList.contains('item-price')) recalc();
+    });
+
+    document.getElementById('btn-add-row').addEventListener('click', newRow);
+    recalc();
+})();
+</script>
 @endsection

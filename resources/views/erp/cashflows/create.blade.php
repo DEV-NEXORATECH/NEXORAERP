@@ -99,20 +99,9 @@
                 <input name="description" value="{{ old('description') }}" placeholder="Keterangan detail transaksi..." required maxlength="255">
             </div>
 
-            {{-- Errors --}}
-            @if ($errors->any())
-            <div class="md:col-span-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                <ul class="list-disc list-inside space-y-0.5">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-
             {{-- Actions --}}
             <div class="mt-4 flex flex-wrap items-center gap-3 md:col-span-2">
-                <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-black text-white shadow-sm transition hover:bg-[#002F59]">
+                <button type="submit" class="btn">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
                     Simpan Cashflow
                 </button>

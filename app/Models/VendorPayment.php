@@ -12,7 +12,7 @@ class VendorPayment extends Model
     use BelongsToCompany, RecordsAudit;
 
     protected $fillable = ['company_id',
-        'vendor_bill_id', 'bank_account_id', 'cashflow_id', 'amount', 'payment_date', 'reference'];
+        'vendor_bill_id', 'bank_account_id', 'cashflow_id', 'amount', 'payment_date', 'reference', 'currency_id', 'exchange_rate'];
 
     public function vendorBill(): BelongsTo
     {
@@ -27,5 +27,10 @@ class VendorPayment extends Model
     public function cashflow(): BelongsTo
     {
         return $this->belongsTo(Cashflow::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
     }
 }

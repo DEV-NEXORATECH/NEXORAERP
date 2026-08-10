@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AccountingJournalController;
 use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackupController;
@@ -12,10 +13,15 @@ use App\Http\Controllers\CmsController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AllMenuController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeSkillController;
 use App\Http\Controllers\ExpenseCategoryController;
+use App\Http\Controllers\FeatureFlagController;
+use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\FiscalPeriodController;
+use App\Http\Controllers\PaymentTermController;
 use App\Http\Controllers\BankReconciliationItemController;
 use App\Http\Controllers\CurrencyRateController;
 use App\Http\Controllers\CurrencyVarianceController;
@@ -44,6 +50,13 @@ use App\Http\Controllers\PayrollBenefitController;
 use App\Http\Controllers\PerformanceReviewController;
 use App\Http\Controllers\ProcurementController;
 use App\Http\Controllers\ProcurementContractController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockAdjustmentController;
+use App\Http\Controllers\StockLocationController;
+use App\Http\Controllers\StockMovementController;
+use App\Http\Controllers\UnitOfMeasureController;
+use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\PurchaseRequisitionController;
 use App\Http\Controllers\ReimbursementController;
@@ -57,6 +70,8 @@ use App\Http\Controllers\ReportProfitLossController;
 use App\Http\Controllers\ReportProjectProfitabilityController;
 use App\Http\Controllers\ReportTaxSummaryController;
 use App\Http\Controllers\ReportTransactionsController;
+use App\Http\Controllers\ReportTrialBalanceController;
+use App\Http\Controllers\ReportGeneralLedgerController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SalesCommissionController;
 use App\Http\Controllers\SalesCrmController;
@@ -81,7 +96,7 @@ Route::post('/register',       [AuthController::class, 'register'])->name('regis
 Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.forgot');
 Route::post('/forgot-password',[AuthController::class, 'forgotPassword'])->name('password.forgot.store');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->middleware('feature')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/change-password',  [AuthController::class, 'showChangePassword'])->name('password.change');
@@ -101,6 +116,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/masters', [ClientController::class, 'index'])->middleware('role:admin')->name('admin.masters');
     Route::get('/admin/trash', [TrashController::class, 'index'])->middleware('role:admin')->name('admin.trash');
     Route::get('/admin/audit', [AuditLogController::class, 'index'])->middleware('role:admin')->name('admin.audit');
+    Route::post('/masters/{type}', [AdminController::class, 'storeMaster'])->middleware('role:admin')->name('masters.store');
+    Route::delete('/masters/{type}/{id}', [AdminController::class, 'destroyMaster'])->middleware('role:admin')->name('masters.destroy');
+
+    // ── Feature Flags (Pengaturan Fitur) ─────────────────────────────────────
+    Route::get('/feature-flags', [FeatureFlagController::class, 'index'])->middleware('role:admin')->name('feature-flags.index');
+    Route::get('/feature-flags/create', [FeatureFlagController::class, 'create'])->middleware('role:admin')->name('feature-flags.create-page');
+    Route::get('/feature-flags/{flag}/edit', [FeatureFlagController::class, 'edit'])->middleware('role:admin')->name('feature-flags.edit-page');
+    Route::post('/feature-flags', [FeatureFlagController::class, 'store'])->middleware('role:admin')->name('feature-flags.store');
+    Route::post('/feature-flags/toggle', [FeatureFlagController::class, 'toggle'])->middleware('role:admin')->name('feature-flags.toggle');
+    Route::put('/feature-flags/{flag}', [FeatureFlagController::class, 'update'])->middleware('role:admin')->name('feature-flags.update');
+    Route::delete('/feature-flags/{flag}', [FeatureFlagController::class, 'destroy'])->middleware('role:admin')->name('feature-flags.destroy');
     Route::prefix('cms')->name('cms.')->middleware('role:admin')->group(function () {
         Route::get('/', [CmsController::class, 'index'])->name('index');
         Route::get('/sections', [CmsController::class, 'sections'])->name('sections.index');
@@ -335,6 +361,36 @@ Route::middleware('auth')->group(function () {
     Route::put('/chart-accounts/{chartAccount}',         [ChartAccountController::class, 'update'])->middleware('role:admin,finance')->name('chart-accounts.update');
     Route::delete('/chart-accounts/{chartAccount}',      [ChartAccountController::class, 'destroy'])->middleware('role:admin')->name('chart-accounts.destroy');
 
+    // ── Accounting Master: Journals / Payment Terms / Currencies / Fiscal Periods ──
+    Route::get('/accounting-journals',                    [AccountingJournalController::class, 'index'])->middleware('role:admin,finance')->name('accounting-journals.index');
+    Route::get('/accounting-journals/create',             [AccountingJournalController::class, 'create'])->middleware('role:admin,finance')->name('accounting-journals.create-page');
+    Route::get('/accounting-journals/{journal}/edit',     [AccountingJournalController::class, 'edit'])->middleware('role:admin,finance')->name('accounting-journals.edit-page');
+    Route::post('/accounting-journals',                   [AccountingJournalController::class, 'store'])->middleware('role:admin,finance')->name('accounting-journals.store');
+    Route::put('/accounting-journals/{journal}',          [AccountingJournalController::class, 'update'])->middleware('role:admin,finance')->name('accounting-journals.update');
+    Route::delete('/accounting-journals/{journal}',       [AccountingJournalController::class, 'destroy'])->middleware('role:admin')->name('accounting-journals.destroy');
+
+    Route::get('/payment-terms',                          [PaymentTermController::class, 'index'])->middleware('role:admin,finance')->name('payment-terms.index');
+    Route::get('/payment-terms/create',                   [PaymentTermController::class, 'create'])->middleware('role:admin,finance')->name('payment-terms.create-page');
+    Route::get('/payment-terms/{term}/edit',              [PaymentTermController::class, 'edit'])->middleware('role:admin,finance')->name('payment-terms.edit-page');
+    Route::post('/payment-terms',                         [PaymentTermController::class, 'store'])->middleware('role:admin,finance')->name('payment-terms.store');
+    Route::put('/payment-terms/{term}',                   [PaymentTermController::class, 'update'])->middleware('role:admin,finance')->name('payment-terms.update');
+    Route::delete('/payment-terms/{term}',                [PaymentTermController::class, 'destroy'])->middleware('role:admin')->name('payment-terms.destroy');
+
+    Route::get('/currencies',                             [CurrencyController::class, 'index'])->middleware('role:admin,finance')->name('currencies.index');
+    Route::get('/currencies/create',                      [CurrencyController::class, 'create'])->middleware('role:admin,finance')->name('currencies.create-page');
+    Route::get('/currencies/{currency}/edit',             [CurrencyController::class, 'edit'])->middleware('role:admin,finance')->name('currencies.edit-page');
+    Route::post('/currencies',                            [CurrencyController::class, 'store'])->middleware('role:admin,finance')->name('currencies.store');
+    Route::put('/currencies/{currency}',                  [CurrencyController::class, 'update'])->middleware('role:admin,finance')->name('currencies.update');
+    Route::delete('/currencies/{currency}',               [CurrencyController::class, 'destroy'])->middleware('role:admin')->name('currencies.destroy');
+
+    Route::get('/fiscal-periods',                         [FiscalPeriodController::class, 'index'])->middleware('role:admin,finance')->name('fiscal-periods.index');
+    Route::get('/fiscal-periods/create',                  [FiscalPeriodController::class, 'create'])->middleware('role:admin,finance')->name('fiscal-periods.create-page');
+    Route::get('/fiscal-periods/{period}/edit',           [FiscalPeriodController::class, 'edit'])->middleware('role:admin,finance')->name('fiscal-periods.edit-page');
+    Route::post('/fiscal-periods',                        [FiscalPeriodController::class, 'store'])->middleware('role:admin,finance')->name('fiscal-periods.store');
+    Route::put('/fiscal-periods/{period}',                [FiscalPeriodController::class, 'update'])->middleware('role:admin,finance')->name('fiscal-periods.update');
+    Route::patch('/fiscal-periods/{period}/toggle',       [FiscalPeriodController::class, 'toggle'])->middleware('role:admin,finance')->name('fiscal-periods.toggle');
+    Route::delete('/fiscal-periods/{period}',             [FiscalPeriodController::class, 'destroy'])->middleware('role:admin')->name('fiscal-periods.destroy');
+
     // ── Finance Suite: Journal Entries ──────────────────────────────────────────
     Route::get('/journal-entries',                       [JournalEntryController::class, 'index'])->middleware('role:admin,finance')->name('journal-entries.index');
     Route::get('/journal-entries/create',                [JournalEntryController::class, 'create'])->middleware('role:admin,finance')->name('journal-entries.create-page');
@@ -494,6 +550,59 @@ Route::middleware('auth')->group(function () {
     Route::put('/procurement-contracts/{contract}',  [ProcurementContractController::class, 'update'])->middleware('role:admin,finance')->name('procurement-contracts.update');
     Route::delete('/procurement-contracts/{contract}', [ProcurementContractController::class, 'destroy'])->middleware('role:admin')->name('procurement-contracts.destroy');
 
+    // ── Inventory: Products ──────────────────────────────────────────────────
+    Route::get('/products',                            [ProductController::class, 'index'])->middleware('role:admin,finance,sales')->name('products.index');
+    Route::get('/products/create',                     [ProductController::class, 'create'])->middleware('role:admin,finance,sales')->name('products.create-page');
+    Route::get('/products/{product}/edit',             [ProductController::class, 'edit'])->middleware('role:admin,finance,sales')->name('products.edit-page');
+    Route::post('/products',                           [ProductController::class, 'store'])->middleware('role:admin,finance,sales')->name('products.store');
+    Route::put('/products/{product}',                  [ProductController::class, 'update'])->middleware('role:admin,finance,sales')->name('products.update');
+    Route::delete('/products/{product}',               [ProductController::class, 'destroy'])->middleware('role:admin')->name('products.destroy');
+
+    // ── Inventory: Product Categories ────────────────────────────────────────
+    Route::get('/product-categories',                  [ProductCategoryController::class, 'index'])->middleware('role:admin,finance,sales')->name('product-categories.index');
+    Route::get('/product-categories/create',           [ProductCategoryController::class, 'create'])->middleware('role:admin,finance,sales')->name('product-categories.create-page');
+    Route::get('/product-categories/{category}/edit',  [ProductCategoryController::class, 'edit'])->middleware('role:admin,finance,sales')->name('product-categories.edit-page');
+    Route::post('/product-categories',                 [ProductCategoryController::class, 'store'])->middleware('role:admin,finance,sales')->name('product-categories.store');
+    Route::put('/product-categories/{category}',       [ProductCategoryController::class, 'update'])->middleware('role:admin,finance,sales')->name('product-categories.update');
+    Route::delete('/product-categories/{category}',    [ProductCategoryController::class, 'destroy'])->middleware('role:admin')->name('product-categories.destroy');
+
+    // ── Inventory: Units of Measure ──────────────────────────────────────────
+    Route::get('/product-units',                       [UnitOfMeasureController::class, 'index'])->middleware('role:admin,finance,sales')->name('product-units.index');
+    Route::get('/product-units/create',                [UnitOfMeasureController::class, 'create'])->middleware('role:admin,finance,sales')->name('product-units.create-page');
+    Route::get('/product-units/{unit}/edit',           [UnitOfMeasureController::class, 'edit'])->middleware('role:admin,finance,sales')->name('product-units.edit-page');
+    Route::post('/product-units',                      [UnitOfMeasureController::class, 'store'])->middleware('role:admin,finance,sales')->name('product-units.store');
+    Route::put('/product-units/{unit}',                [UnitOfMeasureController::class, 'update'])->middleware('role:admin,finance,sales')->name('product-units.update');
+    Route::delete('/product-units/{unit}',             [UnitOfMeasureController::class, 'destroy'])->middleware('role:admin')->name('product-units.destroy');
+
+    // ── Inventory: Warehouses ────────────────────────────────────────────────
+    Route::get('/warehouses',                          [WarehouseController::class, 'index'])->middleware('role:admin,finance,sales')->name('warehouses.index');
+    Route::get('/warehouses/create',                   [WarehouseController::class, 'create'])->middleware('role:admin,finance,sales')->name('warehouses.create-page');
+    Route::get('/warehouses/{warehouse}/edit',         [WarehouseController::class, 'edit'])->middleware('role:admin,finance,sales')->name('warehouses.edit-page');
+    Route::post('/warehouses',                         [WarehouseController::class, 'store'])->middleware('role:admin,finance,sales')->name('warehouses.store');
+    Route::put('/warehouses/{warehouse}',              [WarehouseController::class, 'update'])->middleware('role:admin,finance,sales')->name('warehouses.update');
+    Route::delete('/warehouses/{warehouse}',           [WarehouseController::class, 'destroy'])->middleware('role:admin')->name('warehouses.destroy');
+
+    // ── Inventory: Stock Locations ───────────────────────────────────────────
+    Route::get('/stock-locations',                     [StockLocationController::class, 'index'])->middleware('role:admin,finance,sales')->name('stock-locations.index');
+    Route::get('/stock-locations/create',              [StockLocationController::class, 'create'])->middleware('role:admin,finance,sales')->name('stock-locations.create-page');
+    Route::get('/stock-locations/{location}/edit',     [StockLocationController::class, 'edit'])->middleware('role:admin,finance,sales')->name('stock-locations.edit-page');
+    Route::post('/stock-locations',                    [StockLocationController::class, 'store'])->middleware('role:admin,finance,sales')->name('stock-locations.store');
+    Route::put('/stock-locations/{location}',          [StockLocationController::class, 'update'])->middleware('role:admin,finance,sales')->name('stock-locations.update');
+    Route::delete('/stock-locations/{location}',       [StockLocationController::class, 'destroy'])->middleware('role:admin')->name('stock-locations.destroy');
+
+    // ── Inventory: Stock Movements ───────────────────────────────────────────
+    Route::get('/stock-movements',                     [StockMovementController::class, 'index'])->middleware('role:admin,finance,sales')->name('stock-movements.index');
+    Route::get('/stock-movements/create',              [StockMovementController::class, 'create'])->middleware('role:admin,finance,sales')->name('stock-movements.create-page');
+    Route::post('/stock-movements',                    [StockMovementController::class, 'store'])->middleware('role:admin,finance,sales')->name('stock-movements.store');
+    Route::delete('/stock-movements/{movement}',       [StockMovementController::class, 'destroy'])->middleware('role:admin')->name('stock-movements.destroy');
+
+    // ── Inventory: Stock Adjustments ─────────────────────────────────────────
+    Route::get('/stock-adjustments',                   [StockAdjustmentController::class, 'index'])->middleware('role:admin,finance,sales')->name('stock-adjustments.index');
+    Route::get('/stock-adjustments/create',            [StockAdjustmentController::class, 'create'])->middleware('role:admin,finance,sales')->name('stock-adjustments.create-page');
+    Route::post('/stock-adjustments',                  [StockAdjustmentController::class, 'store'])->middleware('role:admin,finance,sales')->name('stock-adjustments.store');
+    Route::post('/stock-adjustments/{adjustment}/post', [StockAdjustmentController::class, 'post'])->middleware('role:admin,finance,sales')->name('stock-adjustments.post');
+    Route::delete('/stock-adjustments/{adjustment}',   [StockAdjustmentController::class, 'destroy'])->middleware('role:admin')->name('stock-adjustments.destroy');
+
     // ── Reports & Exports ─────────────────────────────────────────────────────
     Route::prefix('reports')->name('reports.')->middleware('role:admin,finance')->group(function () {
         Route::get('/', [ReportController::class, 'index'])->name('index');
@@ -506,6 +615,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/budget', [ReportBudgetVsActualController::class, 'index'])->name('budget');
         Route::get('/transactions', [ReportTransactionsController::class, 'index'])->name('transactions');
         Route::get('/reconciliation', [ReportBankReconciliationController::class, 'index'])->name('reconciliation');
+        Route::get('/trial-balance', [ReportTrialBalanceController::class, 'index'])->name('trial-balance');
+        Route::get('/general-ledger', [ReportGeneralLedgerController::class, 'index'])->name('general-ledger');
     });
     Route::get('/exports/cashflows',                 [ReportController::class, 'exportCashflows'])->middleware('role:admin,finance')->name('exports.cashflows');
     Route::get('/exports/project-finance',           [ReportController::class, 'exportProjectFinance'])->middleware('role:admin,finance')->name('exports.project-finance');

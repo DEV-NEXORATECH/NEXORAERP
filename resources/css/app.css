@@ -486,7 +486,7 @@
     }
 
     .bad {
-        @apply text-[#b42318];
+        @apply text-red-700;
     }
 
     .toolbar {
@@ -719,7 +719,7 @@
         @apply h-6 w-6;
     }
     .stat-card-icon.danger {
-        @apply bg-red-50 text-[#b42318];
+        @apply bg-red-50 text-red-700;
     }
     .stat-card-icon.warn {
         @apply bg-amber-50 text-amber-600;
@@ -734,7 +734,7 @@
         @apply bg-emerald-50 text-emerald-700;
     }
     .stat-card-badge.down {
-        @apply bg-red-50 text-[#b42318];
+        @apply bg-red-50 text-red-700;
     }
     .stat-card-badge.neutral {
         @apply bg-[#e8f2fb] text-[#0059A7];
@@ -860,7 +860,7 @@
     .badge-draft    { @apply bg-slate-100 text-slate-600; }
     .badge-sent     { @apply bg-blue-50 text-blue-700; }
     .badge-approved { @apply bg-emerald-50 text-emerald-700; }
-    .badge-rejected { @apply bg-red-50 text-[#b42318]; }
+    .badge-rejected { @apply bg-red-50 text-red-700; }
     .badge-paid     { @apply bg-green-50 text-green-700; }
     .badge-pending  { @apply bg-amber-50 text-amber-700; }
     .badge-partial  { @apply bg-orange-50 text-orange-700; }
@@ -870,7 +870,7 @@
     .badge-done     { @apply bg-emerald-50 text-emerald-700; }
     .badge-hold     { @apply bg-amber-50 text-amber-700; }
     .badge-income   { @apply bg-[#e8f2fb] text-[#0059A7]; }
-    .badge-expense  { @apply bg-red-50 text-[#b42318]; }
+    .badge-expense  { @apply bg-red-50 text-red-700; }
 
     /* ── Notification cards ──────────────────────────────── */
     .notif-cards {
@@ -886,7 +886,7 @@
         @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-600;
     }
     .notif-card.danger .notif-card-icon {
-        @apply bg-red-100 text-[#b42318];
+        @apply bg-red-100 text-red-700;
     }
     .notif-card-icon svg {
         @apply h-5 w-5;
@@ -895,7 +895,7 @@
         @apply text-2xl font-black text-amber-800;
     }
     .notif-card.danger .notif-count {
-        @apply text-[#b42318];
+        @apply text-red-700;
     }
     .notif-type {
         @apply text-xs font-black uppercase tracking-wide text-amber-700;
@@ -2969,5 +2969,191 @@
     .approval-card:hover {
         @apply bg-white;
         background-image: none;
+    }
+
+    /* Global feedback system: alerts, confirmation, loading, and destructive states */
+    .ui-feedback,
+    .notice,
+    .errors {
+        @apply mb-4 flex items-start gap-3 rounded-xl border px-4 py-3 text-left shadow-sm;
+    }
+
+    .ui-feedback-icon {
+        @apply grid h-9 w-9 shrink-0 place-items-center rounded-lg;
+    }
+
+    .ui-feedback-icon svg {
+        @apply h-5 w-5;
+    }
+
+    .ui-feedback strong {
+        @apply block text-xs font-black uppercase tracking-wide;
+    }
+
+    .ui-feedback p {
+        @apply mt-0.5 text-xs font-semibold leading-5;
+    }
+
+    .ui-feedback-success,
+    .notice {
+        @apply border-emerald-200 bg-emerald-50 text-emerald-800;
+    }
+
+    .ui-feedback-success .ui-feedback-icon,
+    .notice::before {
+        @apply bg-emerald-100 text-emerald-700;
+    }
+
+    .ui-feedback-info {
+        @apply border-[#cfe0f2] bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .ui-feedback-info .ui-feedback-icon {
+        @apply bg-white/70 text-[#0059A7];
+    }
+
+    .ui-feedback-warning {
+        @apply border-amber-200 bg-amber-50 text-amber-800;
+    }
+
+    .ui-feedback-warning .ui-feedback-icon {
+        @apply bg-amber-100 text-amber-700;
+    }
+
+    .ui-feedback-error,
+    .errors {
+        @apply border-red-200 bg-red-50 text-red-800;
+    }
+
+    .ui-feedback-error .ui-feedback-icon,
+    .errors::before {
+        @apply bg-red-100 text-red-700;
+    }
+
+    .errors {
+        @apply font-bold;
+    }
+
+    button.is-loading,
+    .button.is-loading {
+        @apply pointer-events-none cursor-wait opacity-75;
+    }
+
+    button.is-loading::before,
+    .button.is-loading::before {
+        content: '';
+        @apply mr-2 h-3.5 w-3.5 animate-spin rounded-full border-2 border-current border-r-transparent;
+    }
+
+    .danger,
+    button.danger,
+    .button.danger {
+        @apply border border-red-200 bg-red-50 text-red-700 shadow-none hover:border-red-300 hover:bg-red-100 hover:text-red-800;
+    }
+
+    .success,
+    button.success,
+    .button.success {
+        @apply border border-emerald-200 bg-emerald-50 text-emerald-700 shadow-none hover:border-emerald-300 hover:bg-emerald-100 hover:text-emerald-800;
+    }
+
+    .action-modal-card {
+        @apply overflow-hidden rounded-xl border-slate-200 p-0 text-left;
+    }
+
+    .action-modal-head {
+        @apply flex items-start gap-3 border-b border-slate-200 p-4;
+    }
+
+    .action-modal-body {
+        @apply p-4;
+    }
+
+    .action-modal-icon {
+        @apply m-0 h-10 w-10 rounded-lg bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .action-modal-card[data-action-type='create'] .action-modal-icon {
+        @apply bg-emerald-100 text-emerald-700;
+    }
+
+    .action-modal-card[data-action-type='update'] .action-modal-icon,
+    .action-modal-card[data-action-type='default'] .action-modal-icon {
+        @apply bg-[#e8f2fb] text-[#0059A7];
+    }
+
+    .action-modal-card[data-action-type='delete'] .action-modal-icon {
+        @apply bg-red-100 text-red-700;
+    }
+
+    .action-modal-card[data-action-type='restore'],
+    .action-modal-card[data-action-type='reset'],
+    .action-modal-card[data-action-type='logout'] {
+        @apply border-amber-200;
+    }
+
+    .action-modal-card[data-action-type='restore'] .action-modal-icon,
+    .action-modal-card[data-action-type='reset'] .action-modal-icon,
+    .action-modal-card[data-action-type='logout'] .action-modal-icon {
+        @apply bg-amber-100 text-amber-700;
+    }
+
+    .action-modal-card h3 {
+        @apply mb-1 text-base font-black text-slate-900;
+    }
+
+    .action-modal-card p {
+        @apply text-xs font-semibold leading-5 text-slate-500;
+    }
+
+    .action-modal-actions {
+        @apply m-0 grid grid-cols-2 gap-3 border-t border-slate-200 bg-slate-50 p-4;
+    }
+
+    .action-modal-confirm {
+        @apply bg-[#0059A7] text-white hover:bg-[#002F59];
+    }
+
+    .action-modal-card[data-action-type='create'] .action-modal-confirm {
+        @apply bg-emerald-600 hover:bg-emerald-700;
+    }
+
+    .action-modal-card[data-action-type='delete'] .action-modal-confirm {
+        @apply bg-red-600 hover:bg-red-700;
+    }
+
+    .action-modal-card[data-action-type='restore'] .action-modal-confirm,
+    .action-modal-card[data-action-type='reset'] .action-modal-confirm,
+    .action-modal-card[data-action-type='logout'] .action-modal-confirm {
+        @apply bg-amber-600 hover:bg-amber-700;
+    }
+
+    /* ── Unified action buttons ───────────────────────────────────────── */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-black text-white shadow-sm transition hover:bg-[#002F59];
+    }
+
+    .btn-outline {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[#d7e3ef] bg-white px-5 py-2.5 text-sm font-bold text-[#0059A7] hover:bg-[#f3f8fc];
+    }
+
+    .filter-btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#003d78];
+    }
+
+    .btn-danger {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-xs font-bold text-red-700 shadow-none hover:border-red-300 hover:bg-red-100 hover:text-red-800;
+    }
+
+    .btn-mini {
+        @apply inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#e8f2fb] px-2.5 py-1.5 text-xs font-bold text-[#0059A7] no-underline transition hover:bg-[#0059A7] hover:text-white;
+    }
+
+    .field-input {
+        @apply min-h-10 w-full rounded-xl border border-[#d7e3ef] bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 placeholder:text-slate-400 transition focus:border-[#0059A7] focus:ring-2 focus:ring-[#0059A7]/20 focus:outline-none;
+    }
+
+    form.is-submitting {
+        @apply pointer-events-none;
     }
 }

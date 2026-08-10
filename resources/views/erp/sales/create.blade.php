@@ -19,7 +19,7 @@
             <div class="grid gap-1.5"><label>Upload Signed</label><input name="signed_file" type="file"></div>
             <div class="grid gap-1.5 md:col-span-2"><label>Scope</label><textarea name="scope"></textarea></div>
             <div class="mt-4 flex items-center gap-3 md:col-span-2">
-                <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-black text-white shadow-sm transition hover:bg-[#002F59]">
+                <button class="btn">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Simpan Proposal
                 </button>
                 <a class="button ghost" href="{{ route('sales.index') }}">

@@ -13,6 +13,13 @@ class GoodsReceipt extends Model
     protected $fillable = ['company_id',
         'purchase_order_id', 'receipt_date', 'status', 'notes'];
 
+    protected function casts(): array
+    {
+        return [
+            'receipt_date' => 'date',
+        ];
+    }
+
     public function purchaseOrder(): BelongsTo
     {
         return $this->belongsTo(PurchaseOrder::class, 'purchase_order_id');

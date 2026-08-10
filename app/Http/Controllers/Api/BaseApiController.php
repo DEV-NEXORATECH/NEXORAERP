@@ -62,6 +62,11 @@ abstract class BaseApiController extends Controller
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate($this->validationRules());
+
+        if (method_exists($this, 'prepareStoreData')) {
+            $data = $this->prepareStoreData($request, $data);
+        }
+
         $model = $this->model();
 
         $targetCompanyId = $this->resolveTargetCompanyId($request, $data, $model);
@@ -88,6 +93,11 @@ abstract class BaseApiController extends Controller
     {
         $record = $this->findRecordForUpdate($id);
         $data = $request->validate($this->validationRules(true, $record->getKey()));
+
+        if (method_exists($this, 'prepareUpdateData')) {
+            $data = $this->prepareUpdateData($request, $data, $record);
+        }
+
         $targetCompanyId = $this->resolveTargetCompanyId($request, $data, $this->model(), $record);
         $this->guardCompanyForeignKeys($data, $targetCompanyId);
 
@@ -96,6 +106,9 @@ abstract class BaseApiController extends Controller
         }
 
         $record->update($data);
+        if (method_exists($this, 'afterUpdate')) {
+            $this->afterUpdate($record, $request);
+        }
 
         return $this->respond($record->fresh()->load($this->with()), 'Updated successfully.');
     }

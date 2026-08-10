@@ -88,7 +88,7 @@
                 <div class="flex min-w-0 flex-1 flex-col items-center gap-2">
                     <div class="flex h-52 w-full items-end justify-center gap-1.5 rounded-2xl bg-[#f3f8fc] px-2 py-2">
                         <div title="Income {{ $rp($row['income']) }}" class="w-5 rounded-t-lg bg-[#0059A7]" style="height: {{ $incomeHeight }}%"></div>
-                        <div title="Expense {{ $rp($row['expense']) }}" class="w-5 rounded-t-lg bg-[#b42318]" style="height: {{ $expenseHeight }}%"></div>
+                        <div title="Expense {{ $rp($row['expense']) }}" class="w-5 rounded-t-lg bg-red-600" style="height: {{ $expenseHeight }}%"></div>
                     </div>
                     <div class="text-[11px] font-black text-slate-500">{{ $row['label'] }}</div>
                 </div>
@@ -96,7 +96,7 @@
         </div>
         <div class="mt-4 flex gap-5 border-t border-[#d7e3ef] pt-4 text-sm font-bold">
             <span class="inline-flex items-center gap-2"><span class="h-3 w-3 rounded-full bg-[#0059A7]"></span> Income</span>
-            <span class="inline-flex items-center gap-2"><span class="h-3 w-3 rounded-full bg-[#b42318]"></span> Expense</span>
+            <span class="inline-flex items-center gap-2"><span class="h-3 w-3 rounded-full bg-red-600"></span> Expense</span>
         </div>
     </div>
 

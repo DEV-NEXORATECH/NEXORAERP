@@ -13,22 +13,22 @@
     </div>
 
     <form method="get" action="{{ route('tax-rules.index') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 placeholder:text-slate-400 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
-        <select name="tax_type" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="field-input">
+        <select name="tax_type" class="field-input">
             <option value="">Semua Tipe</option>
             <option value="PPN" @selected(request('tax_type') == 'PPN')>PPN</option>
             <option value="PPh 21" @selected(request('tax_type') == 'PPh 21')>PPh 21</option>
             <option value="PPh 23" @selected(request('tax_type') == 'PPh 23')>PPh 23</option>
             <option value="PPh 4(2)" @selected(request('tax_type') == 'PPh 4(2)')>PPh 4(2)</option>
         </select>
-        <select name="is_active" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <select name="is_active" class="field-input">
             <option value="">Semua Status</option>
             <option value="1" @selected(request('is_active') == '1')>Active</option>
             <option value="0" @selected(request('is_active') == '0')>Inactive</option>
         </select>
         <div class="flex gap-2 items-end">
-            <button class="rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#003d78]">Filter</button>
-            <a href="{{ route('tax-rules.index') }}" class="rounded-xl border border-[#d7e3ef] bg-white px-5 py-2.5 text-sm font-bold text-[#0059A7] hover:bg-[#f3f8fc]">Reset</a>
+            <button class="filter-btn">Filter</button>
+            <a href="{{ route('tax-rules.index') }}" class="btn-outline">Reset</a>
         </div>
     </form>
 

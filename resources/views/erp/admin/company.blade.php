@@ -4,8 +4,9 @@
 <section class="section" id="settings">
     <div class="card">
         <h2>Setting Perusahaan</h2>
-        <form method="post" action="{{ route('company-setting.update') }}" enctype="multipart/form-data" class="grid">
+        <form method="post" action="{{ route('company-settings.update') }}" enctype="multipart/form-data" class="grid">
             @csrf
+            @method('put')
             <input name="company_name" value="{{ $companySetting->company_name }}" required placeholder="Nama Perusahaan">
             <input name="email" type="email" value="{{ $companySetting->email }}" placeholder="Email">
             <input name="phone" value="{{ $companySetting->phone }}" placeholder="Phone">

@@ -6,7 +6,7 @@
         <h1>{{ $project->code }} — {{ $project->name }}</h1>
         <div class="muted">{{ $project->client }} &bull; <span class="badge">{{ $project->status }}</span></div>
     </div>
-    <a class="button ghost" href="{{ route('projects.index-page') }}">Kembali</a>
+    <a class="button ghost" href="{{ route('projects.index') }}">Kembali</a>
 </div>
 
 <div class="grid cards" style="margin-bottom:24px">

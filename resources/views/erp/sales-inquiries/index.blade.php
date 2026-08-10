@@ -12,8 +12,8 @@
         @endif
     </div>
     <form method="get" action="{{ route('sales-inquiries.index') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 placeholder:text-slate-400 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
-        <select name="status" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 focus:border-[#7ec8f8] focus:ring-2 focus:ring-[#7ec8f8]/20">
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="field-input">
+        <select name="status" class="field-input">
             <option value="">Semua Status</option>
             <option value="new" {{ request('status') === 'new' ? 'selected' : '' }}>New</option>
             <option value="contacted" {{ request('status') === 'contacted' ? 'selected' : '' }}>Contacted</option>
@@ -21,8 +21,8 @@
             <option value="lost" {{ request('status') === 'lost' ? 'selected' : '' }}>Lost</option>
         </select>
         <div class="flex gap-2 items-end">
-            <button class="rounded-xl bg-[#0059A7] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#003d78]">Filter</button>
-            <a href="{{ route('sales-inquiries.index') }}" class="rounded-xl border border-[#d7e3ef] bg-white px-5 py-2.5 text-sm font-bold text-[#0059A7] hover:bg-[#f3f8fc]">Reset</a>
+            <button class="filter-btn">Filter</button>
+            <a href="{{ route('sales-inquiries.index') }}" class="btn-outline">Reset</a>
         </div>
     </form>
     <table>

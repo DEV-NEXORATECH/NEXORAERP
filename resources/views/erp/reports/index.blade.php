@@ -12,6 +12,8 @@
         ['label' => 'Budget vs Actual', 'desc' => 'Perbandingan anggaran dengan realisasi biaya per periode.', 'icon' => 'reports', 'route' => 'reports.budget'],
         ['label' => 'Transactions', 'desc' => 'Daftar transaksi cashflow dengan filtering dan pagination.', 'icon' => 'cashflow', 'route' => 'reports.transactions'],
         ['label' => 'Reconciliation', 'desc' => 'Rekonsiliasi bank per akun dengan book balance.', 'icon' => 'cashflow', 'route' => 'reports.reconciliation'],
+        ['label' => 'Trial Balance', 'desc' => 'Neraca saldo debit/kredit per akun dari seluruh jurnal.', 'icon' => 'reports', 'route' => 'reports.trial-balance'],
+        ['label' => 'General Ledger', 'desc' => 'Buku besar per akun dengan saldo berjalan.', 'icon' => 'journal', 'route' => 'reports.general-ledger'],
     ];
 @endphp
 

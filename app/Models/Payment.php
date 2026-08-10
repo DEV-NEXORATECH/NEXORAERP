@@ -14,7 +14,7 @@ class Payment extends Model
     use SoftDeletes;
 
     protected $fillable = ['company_id',
-        'invoice_id', 'bank_account_id', 'cashflow_id', 'amount', 'payment_date', 'method', 'reference', 'proof_file_path'];
+        'invoice_id', 'bank_account_id', 'cashflow_id', 'amount', 'payment_date', 'method', 'reference', 'currency_id', 'exchange_rate', 'proof_file_path'];
 
     public function invoice(): BelongsTo
     {
@@ -24,5 +24,10 @@ class Payment extends Model
     public function bankAccount(): BelongsTo
     {
         return $this->belongsTo(BankAccount::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
     }
 }

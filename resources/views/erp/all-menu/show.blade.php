@@ -10,6 +10,7 @@
         'Reports' => 'reports',
         'Sales' => 'proposal',
         'Main' => 'dashboard',
+        'Inventory' => 'box',
     ];
 @endphp
 

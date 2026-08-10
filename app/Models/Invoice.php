@@ -24,6 +24,10 @@ class Invoice extends Model
         'amount',
         'paid_amount',
         'tax_rate',
+        'currency_id',
+        'exchange_rate',
+        'payment_term_id',
+        'journal_id',
         'notes',
         'payment_terms',
     ];
@@ -41,5 +45,20 @@ class Invoice extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
+    public function paymentTerm(): BelongsTo
+    {
+        return $this->belongsTo(PaymentTerm::class, 'payment_term_id');
+    }
+
+    public function journal(): BelongsTo
+    {
+        return $this->belongsTo(AccountingJournal::class, 'journal_id');
     }
 }

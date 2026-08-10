@@ -101,5 +101,8 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call(DemoCommandCenterSeeder::class);
+        $this->call(FeatureFlagSeeder::class);
+        $this->call(AccountingSeeder::class);
+        $this->call(InventorySeeder::class);
     }
 }

@@ -1,4 +1,6 @@
 @php
+    use App\Models\FeatureFlag;
+
     $modulePages = [
         'modules',
         'projects', 'project-create', 'project-edit',
@@ -14,7 +16,14 @@
         'chart-accounts', 'journal-entries', 'recurring-billings', 'payment-reminders', 'vendor-bills', 'vendor-payments',
         'budgets', 'tax-rules', 'fixed-assets', 'currency-rates', 'currency-variances', 'revenue-schedules',
         'bank-reconciliation-items', 'purchase-matches',
+        'accounting-journals', 'accounting-journals-create', 'accounting-journals-edit',
+        'payment-terms', 'payment-terms-create', 'payment-terms-edit',
+        'currencies', 'currencies-create', 'currencies-edit',
+        'fiscal-periods', 'fiscal-periods-create', 'fiscal-periods-edit',
         'vendors', 'purchase-requisitions', 'purchase-orders', 'goods-receipts', 'procurement-contracts', 'procurement',
+        'products', 'product-create', 'product-edit',
+        'product-categories', 'product-units', 'warehouses', 'warehouse-create', 'warehouse-edit',
+        'stock-locations', 'stock-movements', 'stock-adjustments', 'stock-adjustment-create',
     ];
 
     $reportPages = [
@@ -28,6 +37,8 @@
         'reports-budget',
         'reports-transactions',
         'reports-reconciliation',
+        'reports-trial-balance',
+        'reports-general-ledger',
     ];
 
     $settingsPages = [
@@ -42,6 +53,9 @@
         'bank-accounts',
         'audit-logs',
         'trash',
+        'feature-flags',
+        'feature-flags-create',
+        'feature-flags-edit',
     ];
 
     $cmsPages = [
@@ -84,19 +98,21 @@
                 <span class="side-label">Approval & Task</span>
             </a>
 
-            @if($can('admin', 'finance'))
+            @if($can('admin', 'finance') && FeatureFlag::moduleEnabled('reports'))
                 <a class="{{ $onReportsHub || $isPage(...$reportPages) ? 'active' : '' }}" href="{{ route('modules.show', 'reports') }}">
                     <span class="side-icon">{!! $icon('reports') !!}</span>
                     <span class="side-label">Report & Analyst</span>
                 </a>
             @endif
 
-            @if($can('admin'))
+            @if($can('admin') && FeatureFlag::moduleEnabled('cms'))
                 <a class="{{ $isPage(...$cmsPages) ? 'active' : '' }}" href="{{ route('cms.index') }}">
                     <span class="side-icon">{!! $icon('cms') !!}</span>
                     <span class="side-label">CMS</span>
                 </a>
+            @endif
 
+            @if($can('admin') && FeatureFlag::isEnabled('platform.settings'))
                 <a class="{{ $onAdminHub || $isPage(...$settingsPages) ? 'active' : '' }}" href="{{ route('admin.index') }}">
                     <span class="side-icon">{!! $icon('settings') !!}</span>
                     <span class="side-label">Settings Admin</span>
