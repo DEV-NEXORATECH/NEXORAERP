@@ -4156,11 +4156,12 @@ tbody tr:hover {
 
 /* Keep the leading icon and text separated even under browser zoom/autofill. */
 .login-field-wrap > .login-field-icon + .login-field-input {
-    padding-left: 3.25rem !important;
+    padding-left: 4rem !important;
+    text-indent: 0.25rem !important;
 }
 
 .login-field-wrap > .login-field-icon {
-    width: 3rem !important;
+    width: 3.25rem !important;
 }
 
 .login-field-wrap #login-password.login-field-input {
