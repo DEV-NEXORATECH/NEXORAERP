@@ -4682,6 +4682,41 @@ form.filter-form .filter-search {
     flex: 0 0 1rem !important;
 }
 
+/* Unified button sizing for all ERP feature pages. */
+.shell .btn,
+.shell .button,
+.shell button:not(.erp-action-button),
+.shell a.btn,
+.shell a.button {
+    min-height: 2.25rem !important;
+    padding: 0 0.875rem !important;
+    border-radius: 0.5rem !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+}
+
+/* Preserve compact controls that intentionally use a smaller scale. */
+.shell .filter-toolbar button,
+.shell .filter-card form button,
+.shell .filter-toolbar a,
+.shell .filter-card form a,
+.shell .erp-action-button,
+.shell .pagination-card a,
+.shell .pagination-card button {
+    min-height: 2rem !important;
+}
+
+.shell .erp-action-button {
+    min-width: 1.75rem !important;
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    padding: 0 !important;
+    border-radius: 0.375rem !important;
+}
+
 /* Print view optimization */
 @media print {
     .sidebar,
