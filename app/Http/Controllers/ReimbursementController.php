@@ -21,7 +21,7 @@ class ReimbursementController extends Controller
             Reimbursement::with(['employee:id,name', 'project:id,code'])->latest(),
             $request,
             ['category', 'notes']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
         return view('erp.reimbursements.index', compact('reimbursementsPage', 'employees'));
     }
@@ -141,3 +141,4 @@ public function edit(Reimbursement $reimbursement): View
         ];
     }
 }
+

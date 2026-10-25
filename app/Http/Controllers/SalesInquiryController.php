@@ -19,7 +19,7 @@ class SalesInquiryController extends Controller
         $items = SalesInquiry::latest()
             ->when($request->search, fn($q, $v) => $q->where('company_name', 'like', "%{$v}%"))
             ->when($request->status, fn($q, $v) => $q->where('status', $v))
-            ->paginate(15)->withQueryString();
+            ->paginate(8)->withQueryString();
         return view('erp.sales-inquiries.index', compact('items'));
     }
 
@@ -82,3 +82,4 @@ class SalesInquiryController extends Controller
         return redirect()->route('sales-inquiries.index')->with('status', 'Inquiry sales berhasil dihapus.');
     }
 }
+

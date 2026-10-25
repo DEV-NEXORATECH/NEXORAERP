@@ -16,7 +16,7 @@
                 </div>
                 <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-[#0F172A]">CMS API Control Hub</h1>
                 <p class="mt-0.5 text-xs text-[#475569]">Kelola konten dinamis, artikel blog, dan endpoint API untuk integrasi aplikasi frontend/website eksternal.</p>
-            </div>
+             <x-erp.toolbar-actions module="cms" :can-create="false" /> </div>
         </div>
 
         <div class="flex items-center gap-3 self-start md:self-auto">

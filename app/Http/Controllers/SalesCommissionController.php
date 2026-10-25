@@ -20,7 +20,7 @@ class SalesCommissionController extends Controller
             ->when($request->search, fn($q, $v) => $q->where('period', 'like', "%{$v}%"))
             ->when($request->status, fn($q, $v) => $q->where('status', $v))
             ->when($request->user_id, fn($q, $v) => $q->where('user_id', $v))
-            ->paginate(15)->withQueryString();
+            ->paginate(8)->withQueryString();
         $users = \App\Models\User::orderBy('name')->get(['id', 'name']);
         return view('erp.sales-commissions.index', compact('items', 'users'));
     }
@@ -80,3 +80,4 @@ class SalesCommissionController extends Controller
         return redirect()->route('sales-commissions.index')->with('status', 'Komisi sales berhasil dihapus.');
     }
 }
+

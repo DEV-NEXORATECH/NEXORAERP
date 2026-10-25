@@ -22,7 +22,7 @@
                     </div>
                     <span class="badge badge-{{ $report['project']->status }}">{{ $report['project']->status }}</span>
                 </div>
-                <table>
+                <table class="table-folk w-full">
                     <tr><td class="text-slate-500">Kontrak</td><td class="text-right font-bold">{{ $rp($report['project']->contract_value) }}</td></tr>
                     <tr><td class="text-slate-500">Income</td><td class="good text-right font-bold">{{ $rp($report['summary']['income']) }}</td></tr>
                     <tr><td class="text-slate-500">Expense</td><td class="bad text-right font-bold">{{ $rp($report['summary']['expense']) }}</td></tr>
@@ -52,7 +52,7 @@
     <div class="filter-card">
         <form method="get" action="{{ route('projects.index') }}" class="filter-toolbar">
             
-        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search !w-full pl-8 pr-3 text-xs">
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
         <select name="status" class="field-input">
             <option value="">Semua Status</option>
             <option value="planning" @selected(request('status')==='planning')>Planning</option>
@@ -68,7 +68,7 @@
         </form>
     </div>
 
-    <table>
+    <table class="table-folk w-full">
         <thead><tr><th>Project</th><th>Status</th><th>Kontrak / Budget</th><th>Aksi</th></tr></thead>
         <tbody>
             @forelse($projectsPage as $project)

@@ -8,7 +8,7 @@
     'canCreate'   => true,
 ])
 
-<div class="flex items-center gap-2">
+<div class="toolbar-actions flex items-center gap-2">
     {{-- Export Button --}}
     <a href="{{ $exportRoute ?? route('data-exchange.export', ['module' => $module]) . (request()->getQueryString() ? '?' . request()->getQueryString() : '') }}" class="btn-export" title="Ekspor data ke file CSV">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
@@ -36,7 +36,7 @@
 
     {{-- Primary Create Button --}}
     @if($createRoute && $canCreate)
-        <a href="{{ $createRoute }}" class="btn btn-primary inline-flex h-[34px] items-center gap-1.5 px-3.5 text-xs font-semibold shadow-xs">
+        <a href="{{ $createRoute }}" class="toolbar-create-button btn btn-primary inline-flex items-center gap-1.5 text-xs font-semibold shadow-xs">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             <span>{{ $createLabel }}</span>
         </a>

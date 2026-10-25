@@ -62,14 +62,8 @@
                     <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
                 </a>
 
-                {{-- Export Button --}}
-                @if($exportable)
-                    <button type="button" onclick="window.print()" class="flex h-9 items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3 text-xs font-medium text-[#475569] hover:bg-[#F4F7FB] hover:text-[#002875] transition" title="Cetak / Unduh PDF">
-                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                        <span class="hidden sm:inline">Export</span>
-                    </button>
-                @endif
             </form>
+            <x-erp.toolbar-actions module="dashboard" :can-create="false" />
 
             {{-- Last Updated Indicator --}}
             <div class="hidden sm:flex items-center gap-1.5 rounded-md border border-[#E5E7EB]/60 bg-[#F8FAFC] px-2.5 py-1.5 text-[11px] font-medium text-[#64748B]">

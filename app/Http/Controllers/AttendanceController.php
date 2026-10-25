@@ -21,7 +21,7 @@ class AttendanceController extends Controller
             ->when($request->date_to, fn($q, $v) => $q->whereDate('work_date', '<=', $v))
             ->when($request->employee_id, fn($q, $v) => $q->where('employee_id', $v))
             ->when($request->mode, fn($q, $v) => $q->where('work_mode', $v))
-            ->latest()->paginate(15)->withQueryString();
+            ->latest()->paginate(8)->withQueryString();
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
         return view('erp.attendances.index', compact('items', 'employees'));
     }
@@ -79,3 +79,4 @@ class AttendanceController extends Controller
         return redirect()->route('attendances.index')->with('status', 'Attendance berhasil dihapus.');
     }
 }
+

@@ -20,7 +20,7 @@ class FixedAssetController extends Controller
             FixedAsset::latest(),
             $request,
             ['name', 'asset_code', 'notes']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('category')) {
             $assets->where('category', 'like', '%' . $request->input('category') . '%');
@@ -94,3 +94,4 @@ class FixedAssetController extends Controller
         return redirect()->route('fixed-assets.index')->with('status', 'Fixed asset berhasil dihapus.');
     }
 }
+

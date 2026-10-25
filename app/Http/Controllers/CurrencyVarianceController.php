@@ -20,7 +20,7 @@ class CurrencyVarianceController extends Controller
             CurrencyVariance::with('rate')->latest(),
             $request,
             ['notes', 'period']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
         return view('erp.currency-variances.index', compact('variances'));
     }
 
@@ -75,3 +75,4 @@ class CurrencyVarianceController extends Controller
         return redirect()->route('currency-variances.index')->with('status', 'Currency variance berhasil dihapus.');
     }
 }
+

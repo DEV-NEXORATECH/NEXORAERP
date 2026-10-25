@@ -16,7 +16,7 @@ class BankAccountController extends Controller
 
     public function index(Request $request): View
     {
-        $bankAccounts = $this->applyListFilters(BankAccount::orderBy('name'), $request, ['name', 'bank_name', 'account_number'])->paginate(15)->withQueryString();
+        $bankAccounts = $this->applyListFilters(BankAccount::orderBy('name'), $request, ['name', 'bank_name', 'account_number'])->paginate(8)->withQueryString();
         return view('erp.bank-accounts.index', compact('bankAccounts'));
     }
 
@@ -69,3 +69,4 @@ class BankAccountController extends Controller
         return redirect()->route('bank-accounts.index')->with('status', 'Bank account berhasil dihapus.');
     }
 }
+

@@ -25,7 +25,7 @@ class PurchaseOrderController extends Controller
             PurchaseOrder::with('vendor')->withCount('items')->latest(),
             $request,
             ['number']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('vendor_id')) {
             $orders->where('vendor_id', $request->input('vendor_id'));
@@ -165,3 +165,4 @@ public function edit(PurchaseOrder $order): View
         return redirect()->route('purchase-orders.index')->with('status', 'Purchase order berhasil dihapus.');
     }
 }
+

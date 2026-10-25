@@ -18,7 +18,7 @@
 @endphp
 
 {{-- Client & Project Info Table --}}
-<table class="doc-table" style="margin-top: 0; margin-bottom: 16px;">
+<table class="table-folk doc-table" style="margin-top: 0; margin-bottom: 16px;">
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Ditagihkan Kepada (Bill To):</div>
@@ -42,7 +42,7 @@
 </table>
 
 {{-- Line Items Table --}}
-<table class="doc-table">
+<table class="table-folk doc-table">
     <thead>
         <tr>
             <th style="width: 5%;" class="text-center">No</th>
@@ -68,7 +68,7 @@
 
 {{-- Summary Block --}}
 <div class="summary-block">
-    <table class="summary-table">
+    <table class="table-folk summary-table">
         <tr>
             <td>Subtotal Tagihan</td>
             <td class="text-right text-bold">Rp {{ number_format((float)$invoice->amount, 0, ',', '.') }}</td>

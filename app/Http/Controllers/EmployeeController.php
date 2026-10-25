@@ -31,7 +31,7 @@ class EmployeeController extends Controller
             $query->where('job_position_id', $request->input('job_position_id'));
         }
 
-        $employeesPage = $query->paginate(20)->withQueryString();
+        $employeesPage = $query->paginate(8)->withQueryString();
         $departments = Department::orderBy('name')->get(['id', 'name']);
         $jobPositions = JobPosition::orderBy('name')->get(['id', 'name']);
         return view('erp.employees.index', compact('employeesPage', 'departments', 'jobPositions'));
@@ -103,3 +103,4 @@ public function edit(Employee $employee): View
         ];
     }
 }
+

@@ -6,7 +6,11 @@
         title="Pengaturan Identitas Perusahaan"
         subtitle="Kelola identitas resmi, NPWP, kontak legal, rekening default, dan logo untuk invoice, proposal, dan cetak PDF."
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Administration', 'url' => route('admin.index')], ['label' => 'Company Settings']]"
-    />
+    >
+        <x-slot:actions>
+            <x-erp.toolbar-actions module="company_settings" :can-create="false" />
+        </x-slot:actions>
+    </x-erp.page-header>
 
     <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-xs">
         <form method="post" action="{{ route('company-settings.update') }}" enctype="multipart/form-data" class="space-y-6">

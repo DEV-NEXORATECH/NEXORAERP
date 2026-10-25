@@ -6,7 +6,11 @@
         title="Cadangan Database Sistem"
         subtitle="Unduh arsip database sistem untuk kebutuhan disaster recovery dan arsip berkala."
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Administration', 'url' => route('admin.index')], ['label' => 'Database Backup']]"
-    />
+    >
+        <x-slot:actions>
+            <x-erp.toolbar-actions module="backup" :can-create="false" />
+        </x-slot:actions>
+    </x-erp.page-header>
 
     <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-xs">
         <div class="flex items-start gap-4">

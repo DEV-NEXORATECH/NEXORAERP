@@ -16,7 +16,7 @@ class ProductCategoryController extends Controller
 
     public function index(Request $request): View
     {
-        $categories = $this->applyListFilters(ProductCategory::withCount('products')->orderBy('code'), $request, ['name', 'code'])->paginate(15)->withQueryString();
+        $categories = $this->applyListFilters(ProductCategory::withCount('products')->orderBy('code'), $request, ['name', 'code'])->paginate(8)->withQueryString();
         return view('erp.product-categories.index', compact('categories'));
     }
 
@@ -71,3 +71,4 @@ class ProductCategoryController extends Controller
         return $data;
     }
 }
+

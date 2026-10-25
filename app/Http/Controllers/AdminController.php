@@ -23,7 +23,7 @@ class AdminController extends Controller
 
     public function usersPage(): View
     {
-        $users = User::orderBy('name')->paginate(15)->withQueryString();
+        $users = User::orderBy('name')->paginate(8)->withQueryString();
         return view('erp.admin.users', compact('users'));
     }
 
@@ -51,7 +51,7 @@ class AdminController extends Controller
 
     public function auditPage(): View
     {
-        $auditLogs = \App\Models\AuditLog::with('user:id,name')->latest()->paginate(50);
+        $auditLogs = \App\Models\AuditLog::with('user:id,name')->latest()->paginate(8);
         return view('erp.admin.audit', compact('auditLogs'));
     }
 
@@ -211,3 +211,4 @@ class AdminController extends Controller
         return response()->download($path, 'nexora-backup-' . now()->format('Ymd-His') . '.sqlite');
     }
 }
+

@@ -17,7 +17,7 @@ class UserManagementController extends Controller
 
     public function index(Request $request): View
     {
-        $users = $this->applyListFilters(User::orderBy('name'), $request, ['name', 'email'])->paginate(15)->withQueryString();
+        $users = $this->applyListFilters(User::orderBy('name'), $request, ['name', 'email'])->paginate(8)->withQueryString();
 
         if ($request->filled('is_active')) {
             $users->where('is_active', $request->boolean('is_active'));
@@ -99,3 +99,4 @@ class UserManagementController extends Controller
         return redirect()->route('user-management.index')->with('temporary_password', 'Password sementara: ' . $plain);
     }
 }
+

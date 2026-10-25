@@ -20,7 +20,7 @@ class ChartAccountController extends Controller
             ChartAccount::with('parent:id,code,name')->orderBy('code'),
             $request,
             ['code', 'name']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('is_active')) {
             $accounts->where('is_active', $request->boolean('is_active'));
@@ -81,3 +81,4 @@ class ChartAccountController extends Controller
         return redirect()->route('chart-accounts.index')->with('status', 'CoA berhasil dihapus.');
     }
 }
+

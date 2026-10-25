@@ -20,7 +20,7 @@ class PaymentReminderController extends Controller
             PaymentReminder::with('invoice:id,number,due_date')->latest(),
             $request,
             ['subject', 'message']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('channel') && in_array($request->input('channel'), ['email', 'whatsapp', 'phone'])) {
             $reminders->where('channel', $request->input('channel'));
@@ -80,3 +80,4 @@ class PaymentReminderController extends Controller
         return redirect()->route('payment-reminders.index')->with('status', 'Reminder pembayaran berhasil dihapus.');
     }
 }
+

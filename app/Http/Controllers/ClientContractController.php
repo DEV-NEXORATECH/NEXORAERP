@@ -20,7 +20,7 @@ class ClientContractController extends Controller
             ->when($request->search, fn($q, $v) => $q->where('title', 'like', "%{$v}%"))
             ->when($request->status, fn($q, $v) => $q->where('status', $v))
             ->when($request->client_id, fn($q, $v) => $q->where('client_id', $v))
-            ->paginate(15)->withQueryString();
+            ->paginate(8)->withQueryString();
         $clients = \App\Models\Client::orderBy('name')->get(['id', 'name']);
         return view('erp.client-contracts.index', compact('items', 'clients'));
     }
@@ -83,3 +83,4 @@ class ClientContractController extends Controller
         return redirect()->route('client-contracts.index')->with('status', 'Contract berhasil dihapus.');
     }
 }
+

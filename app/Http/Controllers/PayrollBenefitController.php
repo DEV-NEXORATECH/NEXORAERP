@@ -20,7 +20,7 @@ class PayrollBenefitController extends Controller
         $items = PayrollBenefit::with('employee', 'salary')
             ->when($request->search, fn($q, $v) => $q->where('period', 'like', "%{$v}%"))
             ->when($request->employee_id, fn($q, $v) => $q->where('employee_id', $v))
-            ->latest()->paginate(15)->withQueryString();
+            ->latest()->paginate(8)->withQueryString();
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
         return view('erp.payroll-benefits.index', compact('items', 'employees'));
     }
@@ -82,3 +82,4 @@ class PayrollBenefitController extends Controller
         return redirect()->route('payroll-benefits.index')->with('status', 'Payroll benefit berhasil dihapus.');
     }
 }
+

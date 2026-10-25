@@ -21,7 +21,7 @@ class BankReconciliationItemController extends Controller
             BankReconciliationItem::with('bankAccount')->latest(),
             $request,
             ['reference', 'notes']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('reconciled')) {
             $reconciliations->where('reconciled', $request->boolean('reconciled'));
@@ -86,3 +86,4 @@ class BankReconciliationItemController extends Controller
         return redirect()->route('bank-reconciliation-items.index')->with('status', 'Bank reconciliation item berhasil dihapus.');
     }
 }
+

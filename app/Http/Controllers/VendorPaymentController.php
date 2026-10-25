@@ -22,7 +22,7 @@ class VendorPaymentController extends Controller
             VendorPayment::with(['vendorBill:id,bill_number,vendor_name,amount,paid_amount', 'bankAccount:id,name'])->latest(),
             $request,
             ['reference', 'notes']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
         $unpaidVendorBills = VendorBill::whereIn('status', ['unpaid', 'partial'])->orderBy('due_date')->get();
         $bankAccounts = \App\Models\BankAccount::orderBy('name')->get();
         return view('erp.vendor-payments.index', compact('payments', 'unpaidVendorBills', 'bankAccounts'));
@@ -102,3 +102,4 @@ class VendorPaymentController extends Controller
         return redirect()->route('vendor-payments.index')->with('status', 'Vendor payment berhasil dihapus.');
     }
 }
+

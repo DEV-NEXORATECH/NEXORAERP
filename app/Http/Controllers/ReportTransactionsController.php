@@ -27,7 +27,7 @@ class ReportTransactionsController extends Controller
             ->when($projectId, fn ($q) => $q->where('project_id', $projectId))
             ->when($bankAccountId, fn ($q) => $q->where('bank_account_id', $bankAccountId))
             ->latest('transaction_date')
-            ->paginate(25)
+            ->paginate(8)
             ->withQueryString();
 
         $projects = $this->applyCompanyContext($request, Project::query())->orderBy('code')->get(['id', 'code', 'name']);
@@ -40,3 +40,4 @@ class ReportTransactionsController extends Controller
         return view('erp.reports.transactions', compact('transactions', 'projects', 'bankAccounts'));
     }
 }
+

@@ -22,7 +22,7 @@ class TimesheetController extends Controller
             ->when($request->date_to, fn($q, $v) => $q->whereDate('work_date', '<=', $v))
             ->when($request->employee_id, fn($q, $v) => $q->where('employee_id', $v))
             ->when($request->status, fn($q, $v) => $q->where('status', $v))
-            ->latest()->paginate(15)->withQueryString();
+            ->latest()->paginate(8)->withQueryString();
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
         return view('erp.timesheets.index', compact('items', 'employees'));
     }
@@ -80,3 +80,4 @@ class TimesheetController extends Controller
         return redirect()->route('timesheets.index')->with('status', 'Timesheet berhasil dihapus.');
     }
 }
+

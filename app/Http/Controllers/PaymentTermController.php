@@ -16,7 +16,7 @@ class PaymentTermController extends Controller
 
     public function index(Request $request): View
     {
-        $terms = $this->applyListFilters(PaymentTerm::orderBy('due_days'), $request, ['name', 'code'])->paginate(15)->withQueryString();
+        $terms = $this->applyListFilters(PaymentTerm::orderBy('due_days'), $request, ['name', 'code'])->paginate(8)->withQueryString();
         return view('erp.payment-terms.index', compact('terms'));
     }
 
@@ -68,3 +68,4 @@ class PaymentTermController extends Controller
         ]);
     }
 }
+

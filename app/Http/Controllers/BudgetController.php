@@ -19,7 +19,7 @@ class BudgetController extends Controller
             Budget::with(['project:id,code', 'account:id,code,name'])->latest(),
             $request,
             ['period', 'notes']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
         $projects = \App\Models\Project::orderBy('code')->get(['id', 'code']);
         $coaOptions = \App\Models\ChartAccount::where('is_active', true)->orderBy('code')->get(['id', 'code', 'name', 'type']);
         return view('erp.budgets.index', compact('budgets', 'projects', 'coaOptions'));
@@ -80,3 +80,4 @@ class BudgetController extends Controller
         return redirect()->route('budgets.index')->with('status', 'Budget & forecast berhasil dihapus.');
     }
 }
+

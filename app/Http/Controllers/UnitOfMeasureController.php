@@ -16,7 +16,7 @@ class UnitOfMeasureController extends Controller
 
     public function index(Request $request): View
     {
-        $units = $this->applyListFilters(UnitOfMeasure::withCount('products')->orderBy('code'), $request, ['name', 'code'])->paginate(15)->withQueryString();
+        $units = $this->applyListFilters(UnitOfMeasure::withCount('products')->orderBy('code'), $request, ['name', 'code'])->paginate(8)->withQueryString();
         return view('erp.product-units.index', compact('units'));
     }
 
@@ -69,3 +69,4 @@ class UnitOfMeasureController extends Controller
         return $data;
     }
 }
+

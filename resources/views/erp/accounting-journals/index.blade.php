@@ -18,7 +18,7 @@
         <form method="get" action="{{ route('accounting-journals.index') }}" class="filter-toolbar">
             
             
-        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search !w-full pl-8 pr-3 text-xs">
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
         <select name="type" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700">
             <option value="">Semua Tipe</option>
             @foreach(['sales' => 'Sales', 'purchase' => 'Purchase', 'bank' => 'Bank', 'cash' => 'Cash', 'general' => 'General', 'opening' => 'Opening', 'adjustment' => 'Adjustment', 'asset' => 'Asset'] as $key => $label)

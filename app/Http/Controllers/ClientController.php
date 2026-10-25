@@ -15,7 +15,7 @@ class ClientController extends Controller
 
     public function index(Request $request): View
     {
-        $clients = $this->applyListFilters(Client::orderBy('name'), $request, ['name', 'contact_name', 'email'])->paginate(15)->withQueryString();
+        $clients = $this->applyListFilters(Client::orderBy('name'), $request, ['name', 'contact_name', 'email'])->paginate(8)->withQueryString();
         return view('erp.clients.index', compact('clients'));
     }
 
@@ -75,3 +75,4 @@ public function edit(Client $client): View
         return redirect()->route('clients.index')->with('status', 'Client berhasil dihapus.');
     }
 }
+

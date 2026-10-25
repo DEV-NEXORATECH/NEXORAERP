@@ -70,7 +70,7 @@
             <span class="text-xs font-semibold px-2 py-0.5 bg-gray-100 text-gray-700 rounded">{{ $project->cashflows->count() }} Transaksi</span>
         </div>
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <table class="table-folk w-full text-left border-collapse">
                 <thead class="bg-gray-50 border-b border-gray-200">
                     <tr>
                         <th class="px-4 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider">Tanggal</th>
@@ -113,7 +113,7 @@
                 <span class="text-xs font-semibold px-2 py-0.5 bg-gray-100 text-gray-700 rounded">{{ $project->invoices->count() }}</span>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+                <table class="table-folk w-full text-left border-collapse">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
                             <th class="px-4 py-2 text-[11px] font-semibold text-gray-600 uppercase">Nomor</th>
@@ -152,7 +152,7 @@
                 <span class="text-xs font-semibold px-2 py-0.5 bg-gray-100 text-gray-700 rounded">{{ $project->proposals->count() }}</span>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+                <table class="table-folk w-full text-left border-collapse">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
                             <th class="px-4 py-2 text-[11px] font-semibold text-gray-600 uppercase">Judul Proposal</th>

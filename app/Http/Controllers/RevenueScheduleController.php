@@ -21,7 +21,7 @@ class RevenueScheduleController extends Controller
             RevenueSchedule::with('project')->latest(),
             $request,
             ['title', 'notes']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
         $projects = Project::orderByDesc('id')->get(['id', 'code', 'name']);
         return view('erp.revenue-schedules.index', compact('schedules', 'projects'));
     }
@@ -77,3 +77,4 @@ class RevenueScheduleController extends Controller
         return redirect()->route('revenue-schedules.index')->with('status', 'Revenue schedule berhasil dihapus.');
     }
 }
+

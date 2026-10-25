@@ -19,7 +19,7 @@ class PerformanceReviewController extends Controller
         $items = PerformanceReview::with('employee')
             ->when($request->search, fn($q, $v) => $q->where('period', 'like', "%{$v}%"))
             ->when($request->employee_id, fn($q, $v) => $q->where('employee_id', $v))
-            ->latest()->paginate(15)->withQueryString();
+            ->latest()->paginate(8)->withQueryString();
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
         return view('erp.performance-reviews.index', compact('items', 'employees'));
     }
@@ -75,3 +75,4 @@ class PerformanceReviewController extends Controller
         return redirect()->route('performance-reviews.index')->with('status', 'KPI/OKR berhasil dihapus.');
     }
 }
+

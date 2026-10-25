@@ -16,7 +16,7 @@ class FiscalPeriodController extends Controller
 
     public function index(Request $request): View
     {
-        $periods = $this->applyListFilters(FiscalPeriod::orderBy('start_date', 'desc'), $request, ['name', 'code'])->paginate(15)->withQueryString();
+        $periods = $this->applyListFilters(FiscalPeriod::orderBy('start_date', 'desc'), $request, ['name', 'code'])->paginate(8)->withQueryString();
         return view('erp.fiscal-periods.index', compact('periods'));
     }
 
@@ -81,3 +81,4 @@ class FiscalPeriodController extends Controller
         return $data;
     }
 }
+

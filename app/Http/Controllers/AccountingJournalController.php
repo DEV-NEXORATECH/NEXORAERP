@@ -17,7 +17,7 @@ class AccountingJournalController extends Controller
 
     public function index(Request $request): View
     {
-        $journals = $this->applyListFilters(AccountingJournal::orderBy('code'), $request, ['name', 'code'])->paginate(15)->withQueryString();
+        $journals = $this->applyListFilters(AccountingJournal::orderBy('code'), $request, ['name', 'code'])->paginate(8)->withQueryString();
         return view('erp.accounting-journals.index', compact('journals'));
     }
 
@@ -71,3 +71,4 @@ class AccountingJournalController extends Controller
         ]);
     }
 }
+

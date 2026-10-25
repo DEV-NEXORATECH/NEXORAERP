@@ -25,7 +25,7 @@ class SalesOrderController extends Controller
             ->when($request->status, fn($q, $v) => $q->where('status', $v))
             ->when($request->date_from, fn($q, $v) => $q->whereDate('order_date', '>=', $v))
             ->when($request->date_to, fn($q, $v) => $q->whereDate('order_date', '<=', $v))
-            ->paginate(15)->withQueryString();
+            ->paginate(8)->withQueryString();
         return view('erp.sales-orders.index', compact('items'));
     }
 
@@ -144,3 +144,4 @@ public function edit(SalesOrder $order): View
         return redirect()->route('sales-orders.index')->with('status', 'Sales order berhasil dihapus.');
     }
 }
+

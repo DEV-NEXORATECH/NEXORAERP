@@ -20,7 +20,7 @@ class VendorController extends Controller
             Vendor::latest(),
             $request,
             ['name', 'contact_name', 'email']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('is_active')) {
             $vendors->where('status', $request->boolean('is_active') ? 'active' : 'inactive');
@@ -85,3 +85,4 @@ public function edit(Vendor $vendor): View
         return redirect()->route('vendors.index')->with('status', 'Vendor berhasil dihapus.');
     }
 }
+

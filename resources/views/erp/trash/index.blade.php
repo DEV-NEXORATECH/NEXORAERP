@@ -11,8 +11,6 @@
         </x-slot:actions> 'Dashboard', 'url' => route('dashboard')], ['label' => 'Administration', 'url' => route('admin.index')], ['label' => 'Trash']]"
     />
 
-    <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-xs">
-        
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
     <div class="filter-card">
         <form method="get" action="{{ route('trash.index') }}" class="filter-toolbar">
@@ -38,8 +36,6 @@
             </div>
         
         </form>
-    </div>
-
     </div>
 
     <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">

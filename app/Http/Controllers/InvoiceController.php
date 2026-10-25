@@ -22,8 +22,8 @@ class InvoiceController extends Controller
             Invoice::with(['project:id,code'])->latest(),
             $request,
             ['number', 'notes', 'payment_terms']
-        )->paginate(20, ['*'], 'invoices_page')->withQueryString();
-        $payments     = \App\Models\Payment::with(['invoice:id,number', 'bankAccount:id,name'])->latest()->paginate(20, ['*'], 'payments_page')->withQueryString();
+        )->paginate(8, ['*'], 'invoices_page')->withQueryString();
+        $payments     = \App\Models\Payment::with(['invoice:id,number', 'bankAccount:id,name'])->latest()->paginate(8, ['*'], 'payments_page')->withQueryString();
         return view('erp.invoices.index', compact('invoicesPage', 'payments'));
     }
 

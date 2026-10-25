@@ -17,7 +17,7 @@ class StockLocationController extends Controller
 
     public function index(Request $request): View
     {
-        $locations = $this->applyListFilters(StockLocation::with('warehouse:id,code,name')->orderBy('code'), $request, ['name', 'code'])->paginate(15)->withQueryString();
+        $locations = $this->applyListFilters(StockLocation::with('warehouse:id,code,name')->orderBy('code'), $request, ['name', 'code'])->paginate(8)->withQueryString();
         return view('erp.stock-locations.index', compact('locations'));
     }
 
@@ -73,3 +73,4 @@ class StockLocationController extends Controller
         return $data;
     }
 }
+

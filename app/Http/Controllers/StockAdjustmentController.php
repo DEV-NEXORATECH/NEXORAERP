@@ -24,7 +24,7 @@ class StockAdjustmentController extends Controller
             StockAdjustment::with(['product:id,code,name', 'warehouse:id,code,name'])->latest('adjustment_date'),
             $request,
             ['number', 'reason', 'notes']
-        )->paginate(15)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         return view('erp.stock-adjustments.index', compact('adjustments'));
     }
@@ -111,3 +111,4 @@ class StockAdjustmentController extends Controller
         return $this->nextNumber($prefix, $sequence);
     }
 }
+

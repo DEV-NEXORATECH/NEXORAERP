@@ -20,7 +20,7 @@ class VendorBillController extends Controller
             VendorBill::with(['project:id,code'])->latest(),
             $request,
             ['vendor_name', 'bill_number', 'notes']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
         $projects = \App\Models\Project::orderBy('code')->get(['id', 'code']);
         $bankAccounts = \App\Models\BankAccount::orderBy('name')->get();
         return view('erp.vendor-bills.index', compact('vendorBills', 'projects', 'bankAccounts'));
@@ -93,3 +93,4 @@ class VendorBillController extends Controller
         return redirect()->route('vendor-bills.index')->with('status', 'Vendor bill berhasil dihapus.');
     }
 }
+

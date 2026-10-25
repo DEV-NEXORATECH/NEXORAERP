@@ -20,7 +20,7 @@ class TaxRuleController extends Controller
             TaxRule::orderBy('tax_type'),
             $request,
             ['name']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('is_active')) {
             $taxRules->where('is_active', $request->boolean('is_active'));
@@ -78,3 +78,4 @@ class TaxRuleController extends Controller
         return redirect()->route('tax-rules.index')->with('status', 'Tax rule berhasil dihapus.');
     }
 }
+

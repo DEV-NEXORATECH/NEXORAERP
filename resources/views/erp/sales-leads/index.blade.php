@@ -12,14 +12,12 @@
         </x-slot:actions>
     </x-erp.page-header>
 
-    <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-xs">
-        
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
     <div class="filter-card">
         <form method="get" action="{{ route('sales-leads.index') }}" class="filter-toolbar">
             
             <div>
-                <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search !w-full pl-8 pr-3 text-xs">
+                <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
             </div>
             <div>
                 <select name="stage" class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
@@ -48,8 +46,6 @@
             </div>
         
         </form>
-    </div>
-
     </div>
 
     <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">

@@ -18,7 +18,7 @@
         <form method="get" action="{{ route('procurement-contracts.index') }}" class="filter-toolbar">
             
             
-        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search !w-full pl-8 pr-3 text-xs">
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
         @if(isset($vendors))
         <select name="vendor_id" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
             <option value="">Semua Vendor</option>

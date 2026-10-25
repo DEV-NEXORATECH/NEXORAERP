@@ -28,7 +28,8 @@ class SalaryController extends Controller
             $query->where('employee_id', $request->input('employee_id'));
         }
 
-        $salariesPage = $query->paginate(20)->withQueryString();
+        // Keep the list compact and expose pagination controls once the dataset grows.
+        $salariesPage = $query->paginate(8)->withQueryString();
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
         return view('erp.salaries.index', compact('salariesPage', 'employees'));
     }

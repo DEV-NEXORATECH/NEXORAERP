@@ -4650,6 +4650,38 @@ form.filter-form .filter-search {
     flex-shrink: 0 !important;
 }
 
+/* One consistent action-button scale across every module toolbar. */
+.toolbar-actions {
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+
+.toolbar-actions .btn-export,
+.toolbar-actions .btn-import,
+.toolbar-actions .btn-pdf,
+.toolbar-actions .toolbar-create-button {
+    height: 2.25rem !important;
+    min-height: 2.25rem !important;
+    padding: 0 0.875rem !important;
+    border-radius: 0.5rem !important;
+    font-size: 0.8125rem !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+    white-space: nowrap !important;
+}
+
+.toolbar-actions .toolbar-create-button svg,
+.toolbar-actions .btn-export svg,
+.toolbar-actions .btn-import svg,
+.toolbar-actions .btn-pdf svg {
+    width: 1rem !important;
+    height: 1rem !important;
+    flex: 0 0 1rem !important;
+}
+
 /* Print view optimization */
 @media print {
     .sidebar,
@@ -4772,7 +4804,7 @@ form.filter-form .filter-search {
     align-items: center !important;
     gap: 0.5rem !important;
     width: 100% !important;
-    justify-content: flex-end !important;
+    justify-content: flex-start !important;
     overflow-x: auto !important;
     white-space: nowrap !important;
     padding: 0 !important;

@@ -15,7 +15,7 @@
         </div>
         <div class="flex items-center gap-2">
             <span class="px-2.5 py-1 text-xs font-semibold bg-blue-50 text-[#002875] border border-blue-200 rounded-md">5 Sub Modul</span>
-        </div>
+         <x-erp.toolbar-actions module="procurement" :can-create="false" /> </div>
     </div>
 
     <!-- Quick Stats -->

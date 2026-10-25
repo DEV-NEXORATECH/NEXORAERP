@@ -18,7 +18,7 @@
         <form method="get" action="{{ route('stock-movements.index') }}" class="filter-toolbar">
             
             
-        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search !w-full pl-8 pr-3 text-xs">
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
         <select name="type">
             <option value="">Semua Tipe</option>
             @foreach(['in', 'out', 'adjustment'] as $type)

@@ -20,7 +20,7 @@ class RecurringBillingController extends Controller
             RecurringBilling::with('client:id,name')->latest(),
             $request,
             ['title', 'description']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
         return view('erp.recurring-billings.index', compact('recurrings'));
     }
 
@@ -81,3 +81,4 @@ class RecurringBillingController extends Controller
         return redirect()->route('recurring-billings.index')->with('status', 'Recurring billing berhasil dihapus.');
     }
 }
+

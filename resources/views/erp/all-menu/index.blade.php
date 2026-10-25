@@ -51,7 +51,7 @@
                 </div>
                 <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-[#0F172A]">ERP Modules</h1>
                 <p class="mt-0.5 text-xs text-[#475569]">Akses dan kelola seluruh modul bisnis dalam satu tempat.</p>
-            </div>
+             <x-erp.toolbar-actions module="all-menu" :can-create="false" /> </div>
         </div>
 
         <div class="flex flex-wrap items-center gap-3">

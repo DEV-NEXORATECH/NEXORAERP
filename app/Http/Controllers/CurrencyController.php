@@ -16,7 +16,7 @@ class CurrencyController extends Controller
 
     public function index(Request $request): View
     {
-        $currencies = $this->applyListFilters(Currency::orderBy('code'), $request, ['code', 'name'])->paginate(15)->withQueryString();
+        $currencies = $this->applyListFilters(Currency::orderBy('code'), $request, ['code', 'name'])->paginate(8)->withQueryString();
         return view('erp.currencies.index', compact('currencies'));
     }
 
@@ -68,3 +68,4 @@ class CurrencyController extends Controller
         ]);
     }
 }
+

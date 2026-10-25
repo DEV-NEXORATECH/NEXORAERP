@@ -25,11 +25,11 @@ class FinanceSuiteController extends Controller
 
     public function index(): View
     {
-        $invoices = Invoice::with(['project:id,code'])->latest()->paginate(10, ['*'], 'ar_page')->withQueryString();
-        $vendorBills = VendorBill::with(['project:id,code'])->latest()->paginate(10, ['*'], 'ap_page')->withQueryString();
+        $invoices = Invoice::with(['project:id,code'])->latest()->paginate(8, ['*'], 'ar_page')->withQueryString();
+        $vendorBills = VendorBill::with(['project:id,code'])->latest()->paginate(8, ['*'], 'ap_page')->withQueryString();
         $recurrings = RecurringBilling::with('client:id,name')->latest()->paginate(8, ['*'], 'recurring_page')->withQueryString();
         $reminders = PaymentReminder::with('invoice:id,number,due_date')->latest()->paginate(8, ['*'], 'reminder_page')->withQueryString();
-        $accounts = ChartAccount::with('parent:id,code,name')->orderBy('code')->paginate(12, ['*'], 'coa_page')->withQueryString();
+        $accounts = ChartAccount::with('parent:id,code,name')->orderBy('code')->paginate(8, ['*'], 'coa_page')->withQueryString();
         $journals = JournalEntry::with('lines.account:id,code,name')->latest('entry_date')->paginate(8, ['*'], 'journal_page')->withQueryString();
         $budgets = Budget::with(['project:id,code', 'account:id,code,name'])->latest()->paginate(8, ['*'], 'budget_page')->withQueryString();
         $taxRules = TaxRule::orderBy('tax_type')->paginate(8, ['*'], 'tax_page')->withQueryString();

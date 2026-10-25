@@ -22,7 +22,7 @@
         <form method="get" action="{{ route('user-management.index') }}" class="filter-toolbar">
             <div class="relative w-64 flex-shrink-0">
                 <input type="text" name="search" placeholder="Cari nama atau email..." value="{{ request('search') }}"
-                    class="filter-search !w-full pl-8 pr-3 text-xs">
+                    class="filter-search pl-8 pr-3 text-xs">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5 text-[#9CA3AF]">
                     <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </div>

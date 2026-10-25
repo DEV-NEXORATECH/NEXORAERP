@@ -13,11 +13,7 @@
             <h1 class="text-xl font-bold text-gray-900 tracking-tight">HRIS Suite & Manajemen Karyawan</h1>
             <p class="text-xs text-gray-500 mt-0.5">Pusat kelola sumber daya manusia: absensi harian, timesheet project, pengajuan cuti, keahlian, dan penggajian terintegrasi.</p>
         </div>
-        <div class="flex items-center gap-2">
-            <a href="{{ route('dashboard.hr') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition shadow-sm">
-                Lihat HR Dashboard
-            </a>
-        </div>
+        <x-erp.toolbar-actions module="hris" :can-create="false" />
     </div>
 
     <!-- Quick Stats -->

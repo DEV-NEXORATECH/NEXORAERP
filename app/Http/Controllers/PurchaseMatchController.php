@@ -22,7 +22,7 @@ class PurchaseMatchController extends Controller
             PurchaseMatch::with('purchaseOrder', 'goodsReceipt')->latest(),
             $request,
             ['reference', 'notes']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('status') && in_array($request->input('status'), ['matched', 'unmatched', 'partial'])) {
             $matches->where('match_status', $request->input('status'));
@@ -86,3 +86,4 @@ class PurchaseMatchController extends Controller
         return redirect()->route('purchase-matches.index')->with('status', 'Purchase match berhasil dihapus.');
     }
 }
+

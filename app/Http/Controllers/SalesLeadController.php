@@ -22,7 +22,7 @@ class SalesLeadController extends Controller
             ->when($request->search, fn($q, $v) => $q->where('title', 'like', "%{$v}%"))
             ->when($request->stage, fn($q, $v) => $q->where('stage', $v))
             ->when($request->status, fn($q, $v) => $q->where('status', $v))
-            ->paginate(15)->withQueryString();
+            ->paginate(8)->withQueryString();
         return view('erp.sales-leads.index', compact('items'));
     }
 
@@ -89,3 +89,4 @@ class SalesLeadController extends Controller
         return redirect()->route('sales-leads.index')->with('status', 'Lead pipeline berhasil dihapus.');
     }
 }
+

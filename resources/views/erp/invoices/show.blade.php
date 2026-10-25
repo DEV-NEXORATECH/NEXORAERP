@@ -113,7 +113,7 @@
                     <span class="text-xs font-semibold text-[#002875]">{{ $invoice->payments->count() }} Pembayaran</span>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-xs">
+                    <table class="table-folk w-full text-left border-collapse text-xs">
                         <thead>
                             <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC]">
                                 <th class="p-2 font-semibold text-[#475569]">Tanggal</th>

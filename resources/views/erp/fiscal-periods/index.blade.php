@@ -18,7 +18,7 @@
         <form method="get" action="{{ route('fiscal-periods.index') }}" class="filter-toolbar">
             
             
-        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search !w-full pl-8 pr-3 text-xs">
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
         <select name="status" class="rounded-xl border border-[#d7e3ef] bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700">
             <option value="">Semua Status</option>
             <option value="open" {{ request('status') === 'open' ? 'selected' : '' }}>Open</option>

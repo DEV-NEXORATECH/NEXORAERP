@@ -23,7 +23,7 @@ class StockMovementController extends Controller
             StockMovement::with(['product:id,code,name', 'warehouse:id,code,name', 'location:id,code,name'])->latest('movement_date'),
             $request,
             ['reference', 'source_type', 'notes']
-        )->paginate(15)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         return view('erp.stock-movements.index', compact('movements'));
     }
@@ -77,3 +77,4 @@ class StockMovementController extends Controller
         return $this->nextNumber($prefix, $sequence);
     }
 }
+

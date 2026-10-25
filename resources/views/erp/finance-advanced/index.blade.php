@@ -13,6 +13,7 @@
             <h1 class="text-xl font-bold text-gray-900 tracking-tight">Advanced Accounting & Compliance</h1>
             <p class="text-xs text-gray-500 mt-0.5">Fitur lanjutan akuntansi perusahaan: multi-currency, penyusutan aset tetap, aturan perpajakan, rekonsiliasi bank, dan anggaran.</p>
         </div>
+        <x-erp.toolbar-actions module="finance_advanced" :can-create="false" />
     </div>
 
     <!-- Sub Modules Navigation -->

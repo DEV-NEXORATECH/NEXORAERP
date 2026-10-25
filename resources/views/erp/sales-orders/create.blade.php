@@ -95,7 +95,7 @@
                 </div>
 
                 <div class="border border-slate-200 rounded-md overflow-hidden">
-                    <table class="w-full text-left text-xs" id="items-table">
+                    <table class="table-folk w-full text-left text-xs" id="items-table">
                         <thead class="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th class="px-3 py-2.5 font-semibold text-slate-600 uppercase">Item Produk</th>

@@ -29,7 +29,7 @@ class ProjectController extends Controller
             $query->where('status', $request->input('status'));
         }
 
-        $projectsPage = $query->latest()->paginate(15)->withQueryString();
+        $projectsPage = $query->latest()->paginate(8)->withQueryString();
 
         $projectReports = Project::with(['cashflows', 'salaries', 'reimbursements', 'invoices'])->get()->map(fn ($p) => [
             'project'             => $p,
@@ -136,3 +136,4 @@ class ProjectController extends Controller
         ];
     }
 }
+

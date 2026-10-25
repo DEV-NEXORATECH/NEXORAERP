@@ -13,11 +13,7 @@
             <h1 class="text-xl font-bold text-gray-900 tracking-tight">Finance & Accounting Suite</h1>
             <p class="text-xs text-gray-500 mt-0.5">Pusat kendali arus kas, piutang, hutang, buku besar, anggaran, dan pelaporan keuangan terpadu.</p>
         </div>
-        <div class="flex items-center gap-2">
-            <a href="{{ route('dashboard.finance') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition shadow-sm">
-                Lihat Finance Dashboard
-            </a>
-        </div>
+        <x-erp.toolbar-actions module="finance-suite" :can-create="false" />
     </div>
 
     <!-- Sub Modules Navigation -->

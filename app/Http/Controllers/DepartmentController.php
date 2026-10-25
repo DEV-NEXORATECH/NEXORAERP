@@ -16,7 +16,7 @@ class DepartmentController extends Controller
 
     public function index(Request $request): View
     {
-        $departments = $this->applyListFilters(Department::orderBy('name'), $request, ['name'])->paginate(15)->withQueryString();
+        $departments = $this->applyListFilters(Department::orderBy('name'), $request, ['name'])->paginate(8)->withQueryString();
         return view('erp.departments.index', compact('departments'));
     }
 
@@ -63,3 +63,4 @@ class DepartmentController extends Controller
         return redirect()->route('departments.index')->with('status', 'Department berhasil dihapus.');
     }
 }
+

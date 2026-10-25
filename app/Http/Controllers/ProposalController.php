@@ -33,7 +33,7 @@ class ProposalController extends Controller
             $query->whereDate('created_at', '<=', $request->date('date_to'));
         }
 
-        $proposalsPage = $query->paginate(20)->withQueryString();
+        $proposalsPage = $query->paginate(8)->withQueryString();
         return view('erp.sales.index', compact('proposalsPage'));
     }
 
@@ -125,3 +125,4 @@ public function edit(Proposal $proposal): View
         ];
     }
 }
+

@@ -21,7 +21,7 @@ class JournalEntryController extends Controller
             JournalEntry::with('lines.account:id,code,name')->latest('entry_date'),
             $request,
             ['reference', 'memo']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
         return view('erp.journal-entries.index', compact('journals'));
     }
 
@@ -125,3 +125,4 @@ class JournalEntryController extends Controller
         return redirect()->route('journal-entries.index')->with('status', 'Journal entry berhasil dihapus.');
     }
 }
+

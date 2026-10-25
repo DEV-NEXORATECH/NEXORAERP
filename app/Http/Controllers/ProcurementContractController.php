@@ -21,7 +21,7 @@ class ProcurementContractController extends Controller
             ProcurementContract::with('vendor')->latest(),
             $request,
             ['contract_number', 'title']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('vendor_id')) {
             $contracts->where('vendor_id', $request->input('vendor_id'));
@@ -86,3 +86,4 @@ class ProcurementContractController extends Controller
         return redirect()->route('procurement-contracts.index')->with('status', 'Procurement contract berhasil dihapus.');
     }
 }
+

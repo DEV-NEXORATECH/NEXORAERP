@@ -18,7 +18,7 @@ class AuditLogController extends Controller
         $query = $this->applyListFilters(AuditLog::with('user:id,name')->latest(), $request, ['action', 'description'])
             ->when($request->filled('user_id'), fn ($auditQuery) => $auditQuery->where('user_id', $request->integer('user_id')));
 
-        $auditLogs = $query->paginate(50)->withQueryString();
+        $auditLogs = $query->paginate(8)->withQueryString();
         if ($this->isApi()) {
             return $this->respond($auditLogs);
         }
@@ -27,3 +27,4 @@ class AuditLogController extends Controller
         return view('erp.audit-logs.index', compact('auditLogs', 'users'));
     }
 }
+

@@ -54,7 +54,7 @@
         <div class="lg:col-span-2 rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <h2 class="text-sm font-bold text-[#0F172A] border-b border-[#E5E7EB] pb-3 mb-4">Proyek Klien Terdaftar</h2>
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse text-xs">
+                <table class="table-folk w-full text-left border-collapse text-xs">
                     <thead>
                         <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC]">
                             <th class="p-2.5 font-semibold text-[#475569]">Kode</th>

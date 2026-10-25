@@ -16,7 +16,7 @@ class WarehouseController extends Controller
 
     public function index(Request $request): View
     {
-        $warehouses = $this->applyListFilters(Warehouse::withCount('locations')->orderBy('code'), $request, ['name', 'code', 'address'])->paginate(15)->withQueryString();
+        $warehouses = $this->applyListFilters(Warehouse::withCount('locations')->orderBy('code'), $request, ['name', 'code', 'address'])->paginate(8)->withQueryString();
         return view('erp.warehouses.index', compact('warehouses'));
     }
 
@@ -69,3 +69,4 @@ class WarehouseController extends Controller
         return $data;
     }
 }
+

@@ -20,7 +20,7 @@ class LeaveRequestController extends Controller
             ->when($request->status, fn($q, $v) => $q->where('status', $v))
             ->when($request->type, fn($q, $v) => $q->where('type', $v))
             ->when($request->employee_id, fn($q, $v) => $q->where('employee_id', $v))
-            ->latest()->paginate(15)->withQueryString();
+            ->latest()->paginate(8)->withQueryString();
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
         return view('erp.leave-requests.index', compact('items', 'employees'));
     }
@@ -76,3 +76,4 @@ class LeaveRequestController extends Controller
         return redirect()->route('leave-requests.index')->with('status', 'Leave request berhasil dihapus.');
     }
 }
+

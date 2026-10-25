@@ -19,16 +19,7 @@
             </div>
         </div>
 
-        <div class="flex items-center gap-3 self-start md:self-auto">
-            <a href="{{ route('cms.sections.create') }}" class="btn btn-primary inline-flex h-9 items-center gap-2 px-3.5 text-xs font-semibold">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-4 w-4"><path d="M12 5v14M5 12h14"/></svg>
-                <span>Tambah Section</span>
-            </a>
-            <div class="inline-flex h-9 items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-[#F8FAFC] px-3.5 text-xs font-semibold text-[#0F172A]">
-                <span class="text-[#475569]">Total:</span>
-                <span class="font-bold text-[#002875]">{{ $sections->total() }} Section</span>
-            </div>
-        </div>
+        <x-erp.toolbar-actions module="cms_sections" :create-route="route('cms.sections.create')" create-label="+ Tambah Section" />
     </div>
 
     {{-- Section Cards Grid --}}

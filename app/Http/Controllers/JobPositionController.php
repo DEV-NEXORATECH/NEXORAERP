@@ -16,7 +16,7 @@ class JobPositionController extends Controller
 
     public function index(Request $request): View
     {
-        $jobPositions = $this->applyListFilters(JobPosition::orderBy('name'), $request, ['name'])->paginate(15)->withQueryString();
+        $jobPositions = $this->applyListFilters(JobPosition::orderBy('name'), $request, ['name'])->paginate(8)->withQueryString();
         return view('erp.job-positions.index', compact('jobPositions'));
     }
 
@@ -63,3 +63,4 @@ class JobPositionController extends Controller
         return redirect()->route('job-positions.index')->with('status', 'Job position berhasil dihapus.');
     }
 }
+

@@ -28,7 +28,7 @@ class CmsController extends Controller
     {
         CmsSection::ensureDefaultSections();
 
-        $sections = CmsSection::orderBy('sort_order')->paginate(12);
+        $sections = CmsSection::orderBy('sort_order')->paginate(8);
 
         return view('erp.cms.sections.index', compact('sections'));
     }
@@ -74,7 +74,7 @@ class CmsController extends Controller
 
     public function blog(): View
     {
-        $posts = BlogPost::latest()->paginate(12);
+        $posts = BlogPost::latest()->paginate(8);
 
         return view('erp.cms.blog.index', compact('posts'));
     }
@@ -205,3 +205,4 @@ class CmsController extends Controller
     }
 
 }
+

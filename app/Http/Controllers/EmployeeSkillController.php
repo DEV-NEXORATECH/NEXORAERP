@@ -19,7 +19,7 @@ class EmployeeSkillController extends Controller
         $items = EmployeeSkill::with('employee')
             ->when($request->search, fn($q, $v) => $q->where('skill', 'like', "%{$v}%"))
             ->when($request->level, fn($q, $v) => $q->where('level', $v))
-            ->latest()->paginate(15)->withQueryString();
+            ->latest()->paginate(8)->withQueryString();
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
         return view('erp.employee-skills.index', compact('items', 'employees'));
     }
@@ -71,3 +71,4 @@ class EmployeeSkillController extends Controller
         return redirect()->route('employee-skills.index')->with('status', 'Skill karyawan berhasil dihapus.');
     }
 }
+

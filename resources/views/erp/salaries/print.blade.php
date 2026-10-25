@@ -11,7 +11,7 @@
 
 @section('content')
 {{-- Employee Metadata Table --}}
-<table class="doc-table" style="margin-top: 0; margin-bottom: 16px;">
+<table class="table-folk doc-table" style="margin-top: 0; margin-bottom: 16px;">
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Identitas Karyawan:</div>
@@ -31,7 +31,7 @@
 </table>
 
 {{-- Salary Components Breakdown Table --}}
-<table class="doc-table">
+<table class="table-folk doc-table">
     <thead>
         <tr>
             <th style="width: 5%;" class="text-center">No</th>
@@ -67,7 +67,7 @@
 </table>
 
 {{-- Deductions Table --}}
-<table class="doc-table">
+<table class="table-folk doc-table">
     <thead>
         <tr>
             <th style="width: 5%;" class="text-center">No</th>
@@ -90,7 +90,7 @@
 
 {{-- Summary Block --}}
 <div class="summary-block">
-    <table class="summary-table">
+    <table class="table-folk summary-table">
         <tr class="grand-total">
             <td>PENGHASILAN BERSIH (TAKE HOME PAY)</td>
             <td class="text-right">Rp {{ number_format((float)$salary->net_salary, 0, ',', '.') }}</td>

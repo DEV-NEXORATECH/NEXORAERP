@@ -40,10 +40,7 @@
             </div>
         </div>
 
-        <div class="inline-flex h-9 items-center gap-1.5 self-start rounded-md border border-[#E5E7EB] bg-[#F8FAFC] px-3.5 text-xs font-semibold text-[#0F172A] md:self-auto">
-            <span class="text-[#475569]">Tersedia:</span>
-            <span class="font-bold text-[#002875]">{{ count($reportMenus) }} Jenis Laporan</span>
-        </div>
+        <x-erp.toolbar-actions module="reports" :can-create="false" />
     </div>
 
     {{-- Report Cards Grid --}}

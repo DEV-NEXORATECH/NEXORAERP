@@ -18,7 +18,7 @@ class SalesTargetController extends Controller
         $items = SalesTarget::latest()
             ->when($request->search, fn($q, $v) => $q->where('period', 'like', "%{$v}%"))
             ->when($request->user_id, fn($q, $v) => $q->where('user_id', $v))
-            ->paginate(15)->withQueryString();
+            ->paginate(8)->withQueryString();
         $users = \App\Models\User::orderBy('name')->get(['id', 'name']);
         return view('erp.sales-targets.index', compact('items', 'users'));
     }
@@ -72,3 +72,4 @@ class SalesTargetController extends Controller
         return redirect()->route('sales-targets.index')->with('status', 'Sales target berhasil dihapus.');
     }
 }
+

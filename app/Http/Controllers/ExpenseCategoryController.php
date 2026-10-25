@@ -16,7 +16,7 @@ class ExpenseCategoryController extends Controller
 
     public function index(Request $request): View
     {
-        $expenseCategories = $this->applyListFilters(ExpenseCategory::orderBy('name'), $request, ['name'])->paginate(15)->withQueryString();
+        $expenseCategories = $this->applyListFilters(ExpenseCategory::orderBy('name'), $request, ['name'])->paginate(8)->withQueryString();
         return view('erp.expense-categories.index', compact('expenseCategories'));
     }
 
@@ -65,3 +65,4 @@ class ExpenseCategoryController extends Controller
         return redirect()->route('expense-categories.index')->with('status', 'Expense category berhasil dihapus.');
     }
 }
+

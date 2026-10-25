@@ -19,7 +19,7 @@ class CurrencyRateController extends Controller
             CurrencyRate::latest('rate_date'),
             $request,
             ['from_currency', 'to_currency']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
         return view('erp.currency-rates.index', compact('rates'));
     }
 
@@ -72,3 +72,4 @@ class CurrencyRateController extends Controller
         return redirect()->route('currency-rates.index')->with('status', 'Currency rate berhasil dihapus.');
     }
 }
+

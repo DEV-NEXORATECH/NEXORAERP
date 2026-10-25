@@ -22,7 +22,7 @@ class ProductController extends Controller
             Product::with(['category:id,code,name', 'unit:id,code,name', 'movements' => fn ($q) => $q->where('is_posted', true)->select('product_id', 'warehouse_id', 'type', 'quantity', 'is_posted')]),
             $request,
             ['name', 'code', 'sku', 'barcode']
-        )->paginate(15)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         return view('erp.products.index', compact('products'));
     }
@@ -96,3 +96,4 @@ public function edit(Product $product): View
         return $data;
     }
 }
+

@@ -21,7 +21,7 @@ class GoodsReceiptController extends Controller
             GoodsReceipt::with('purchaseOrder')->latest(),
             $request,
             ['notes']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('date_from')) {
             $receipts->whereDate('receipt_date', '>=', $request->date('date_from')->toDateString());
@@ -86,3 +86,4 @@ public function edit(GoodsReceipt $receipt): View
         return redirect()->route('goods-receipts.index')->with('status', 'Goods receipt berhasil dihapus.');
     }
 }
+

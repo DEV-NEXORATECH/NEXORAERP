@@ -24,7 +24,7 @@ class CashflowController extends Controller
             ->with(['project:id,code', 'expenseCategory:id,name', 'bankAccount:id,name'])
             ->orderBy('transaction_date', 'desc')
             ->orderBy('id', 'desc')
-            ->paginate(25)
+            ->paginate(8)
             ->withQueryString();
 
         $allFiltered    = (clone $baseQuery)->get(['type', 'amount', 'cost_type', 'project_id']);
@@ -177,3 +177,4 @@ class CashflowController extends Controller
         ];
     }
 }
+

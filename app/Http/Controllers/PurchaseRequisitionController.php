@@ -22,7 +22,7 @@ class PurchaseRequisitionController extends Controller
             PurchaseRequisition::with('requester', 'department')->latest(),
             $request,
             ['number', 'title']
-        )->paginate(20)->withQueryString();
+        )->paginate(8)->withQueryString();
 
         if ($request->filled('date_from')) {
             $requisitions->whereDate('created_at', '>=', $request->date('date_from')->toDateString());
@@ -92,3 +92,4 @@ class PurchaseRequisitionController extends Controller
         return redirect()->route('purchase-requisitions.index')->with('status', 'Purchase requisition berhasil dihapus.');
     }
 }
+

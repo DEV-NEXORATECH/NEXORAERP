@@ -12,14 +12,12 @@
         </x-slot:actions>
     </x-erp.page-header>
 
-    <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-xs">
-        
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
     <div class="filter-card">
         <form method="get" action="{{ route('job-positions.index') }}" class="filter-toolbar">
             
             <div class="relative flex-1 min-w-[200px]">
-                <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search !w-full pl-8 pr-3 text-xs">
+                <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
             </div>
             <div class="flex items-center gap-2">
                 <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#001B50] transition-colors">
@@ -33,8 +31,6 @@
             </div>
         
         </form>
-    </div>
-
     </div>
 
     <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">

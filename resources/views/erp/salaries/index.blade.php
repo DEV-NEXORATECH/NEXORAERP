@@ -55,7 +55,7 @@
     {{-- Data Table Container --}}
     <div class="bg-white rounded-lg border border-[#E5E7EB] overflow-hidden shadow-xs">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead class="bg-[#F8FAFC] border-b border-[#E5E7EB]">
                     <tr>
                         <th class="px-4 py-3 font-semibold text-[#475569]">Karyawan</th>

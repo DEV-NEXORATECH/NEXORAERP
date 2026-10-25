@@ -133,7 +133,7 @@
     {{-- Monthly Breakdown --}}
     <div class="card">
         <h3 class="mb-4">Bulanan {{ $year }}</h3>
-        <table>
+        <table class="table-folk w-full">
             <thead>
                 <tr>
                     <th>Bulan</th>
@@ -174,7 +174,7 @@
         {{-- By Cost Type --}}
         <div class="card">
             <h3 class="mb-4">Per Cost Type</h3>
-            <table>
+            <table class="table-folk w-full">
                 <thead>
                     <tr><th>Tipe Biaya</th><th class="text-right">Income</th><th class="text-right">Expense</th><th class="text-right">Tx</th></tr>
                 </thead>
@@ -200,7 +200,7 @@
         {{-- By Project --}}
         <div class="card">
             <h3 class="mb-4">Per Project</h3>
-            <table>
+            <table class="table-folk w-full">
                 <thead>
                     <tr><th>Project</th><th class="text-right">Income</th><th class="text-right">Expense</th><th class="text-right">Tx</th></tr>
                 </thead>
@@ -241,7 +241,7 @@
     </div>
 
     <div class="overflow-x-auto">
-        <table>
+        <table class="table-folk w-full">
             <thead>
                 <tr>
                     <th>Tanggal</th>
