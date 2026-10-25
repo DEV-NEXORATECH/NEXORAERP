@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'accounting-journals', 'pageTitle' => 'Accounting Journals'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="accounting-journals">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="accounting-journals">
     <div class="section-head">
         <h2>Accounting Journals</h2>
         <a href="{{ route('accounting-journals.create-page') }}" class="button ghost">

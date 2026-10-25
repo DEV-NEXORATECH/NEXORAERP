@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'currency-rates.index', 'pageTitle' => 'Currency Rates'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="currency-rates">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="currency-rates">
     <div class="section-head">
         <h2>Currency Rates</h2>
         @if($can('admin', 'finance'))

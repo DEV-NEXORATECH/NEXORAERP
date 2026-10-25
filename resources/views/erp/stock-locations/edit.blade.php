@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'stock-locations', 'pageTitle' => 'Edit Lokasi Stok'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="stock-location-edit">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="stock-location-edit">
     <div class="section-head">
         <h2>Edit Lokasi Stok: {{ $location->code }}</h2>
     </div>

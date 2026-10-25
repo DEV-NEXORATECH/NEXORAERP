@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => ($pageTitle ?? 'Dashboard') . ' — NEXORA ERP'])
+@extends('layouts.app', ['title' => ($pageTitle ?? 'Dashboard') . ' — NEXORA360 ERP'])
 
 @php
     $role       = auth()->user()->role;

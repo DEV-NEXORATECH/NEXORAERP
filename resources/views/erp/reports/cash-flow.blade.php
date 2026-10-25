@@ -29,7 +29,7 @@
     </form>
 </section>
 
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5 section">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5 section">
     <h2 class="font-bold text-lg mb-4">Cash Flow Summary</h2>
     <table class="w-full">
         <tr><td class="py-2">Cash In</td><td class="good text-right font-black py-2">{{ $rp($cashFlowStatement['operating_in']) }}</td></tr>
@@ -38,7 +38,7 @@
     </table>
 </section>
 
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5 section">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5 section">
     <h2 class="font-bold text-lg mb-4">Cash Flow by Month</h2>
     <div class="overflow-x-auto">
         <table class="w-full">

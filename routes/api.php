@@ -25,8 +25,17 @@ Route::prefix('v1')->group(function () {
     // ── Authenticated API Routes ────────────────────────────────────────────
     Route::middleware('auth:sanctum', 'feature')->as('api.')->group(function () {
 
-        // ── Dashboard ───────────────────────────────────────────────────────
+        // ── Dashboard & Sub-Dashboards ───────────────────────────────────────
         Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/executive', [\App\Http\Controllers\DashboardController::class, 'executive'])->name('dashboard.executive');
+        Route::get('/dashboard/sales', [\App\Http\Controllers\DashboardController::class, 'sales'])->name('dashboard.sales');
+        Route::get('/dashboard/projects', [\App\Http\Controllers\DashboardController::class, 'projects'])->name('dashboard.projects');
+        Route::get('/dashboard/hr', [\App\Http\Controllers\DashboardController::class, 'hr'])->name('dashboard.hr');
+        Route::get('/dashboard/finance', [\App\Http\Controllers\DashboardController::class, 'finance'])->name('dashboard.finance');
+        Route::get('/dashboard/procurement', [\App\Http\Controllers\DashboardController::class, 'procurement'])->name('dashboard.procurement');
+        Route::get('/dashboard/inventory', [\App\Http\Controllers\DashboardController::class, 'inventory'])->name('dashboard.inventory');
+        Route::get('/dashboard/cms', [\App\Http\Controllers\DashboardController::class, 'cms'])->name('dashboard.cms');
+        Route::get('/dashboard/workspace', [\App\Http\Controllers\DashboardController::class, 'workspace'])->name('dashboard.workspace');
 
         // ── Projects ────────────────────────────────────────────────────────
         Route::apiResource('projects', \App\Http\Controllers\Api\ProjectApiController::class);

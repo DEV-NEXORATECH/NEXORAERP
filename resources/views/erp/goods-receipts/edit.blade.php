@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="section">
-    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5">
+    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
         <div class="mb-8 border-b border-[#d7e3ef] pb-5">
             <h2 class="mb-1">Edit Goods Receipt</h2>
             <p class="muted">Perbarui data penerimaan barang.</p>

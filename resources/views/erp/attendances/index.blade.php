@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'attendances', 'pageTitle' => 'Attendances'])
 
 @section('content')
-<div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5">
+<div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
     <div class="section-head">
         <h2>Daftar Attendance</h2>
         @if($can('admin', 'hr'))

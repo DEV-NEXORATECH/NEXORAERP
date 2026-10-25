@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'product-units', 'pageTitle' => 'Units of Measure'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="product-units">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="product-units">
     <div class="section-head">
         <h2>Satuan Produk</h2>
         <a href="{{ route('product-units.create-page') }}" class="button ghost">

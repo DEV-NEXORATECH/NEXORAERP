@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'payment-terms', 'pageTitle' => 'Payment Terms'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="payment-terms">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="payment-terms">
     <div class="section-head">
         <h2>Payment Terms</h2>
         <a href="{{ route('payment-terms.create-page') }}" class="button ghost">

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'fiscal-periods', 'pageTitle' => 'Fiscal Periods'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="fiscal-periods">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="fiscal-periods">
     <div class="section-head">
         <h2>Periode Fiskal</h2>
         <a href="{{ route('fiscal-periods.create-page') }}" class="button ghost">

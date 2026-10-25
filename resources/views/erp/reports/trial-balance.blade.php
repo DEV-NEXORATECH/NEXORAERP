@@ -35,7 +35,7 @@
     </form>
 </section>
 
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5 section">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5 section">
     <h2 class="font-bold text-lg mb-4">Trial Balance</h2>
     @if($accounts->isEmpty())
         <p class="muted">Tidak ada jurnal pada periode tersebut.</p>
@@ -65,7 +65,7 @@
                     @endforeach
                 </tbody>
                 <tfoot>
-                    <tr class="border-t-2 border-[#002F59]">
+                    <tr class="border-t-2 border-[#0B2345]">
                         <td colspan="3" class="py-3 font-bold">Total</td>
                         <td class="py-3 text-right font-bold">{{ $rp($accounts->sum('debit')) }}</td>
                         <td class="py-3 text-right font-bold">{{ $rp($accounts->sum('credit')) }}</td>

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'expense-categories', 'pageTitle' => 'Expense Categories'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="expense-categories">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="expense-categories">
     <div class="section-head">
         <h2>Daftar Expense Category</h2>
         @if($can('admin', 'finance') || $can('admin'))

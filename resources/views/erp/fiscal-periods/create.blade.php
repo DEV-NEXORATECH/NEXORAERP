@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'fiscal-periods-create', 'pageTitle' => 'Tambah Periode Fiskal'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="fiscal-period-create">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="fiscal-period-create">
     <div class="section-head">
         <h2>Tambah Periode Fiskal</h2>
     </div>

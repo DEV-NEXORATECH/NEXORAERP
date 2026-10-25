@@ -1,89 +1,107 @@
-<!doctype html>
-<html lang="id">
-<head>
-    <meta charset="utf-8">
-    <title>Slip Gaji — {{ $salary->employee->name }}</title>
-    <style>
-        body { font-family: Arial, sans-serif; color:#002F59; margin:40px; line-height:1.5; }
-        .top { display:flex; justify-content:space-between; gap:24px; align-items:flex-start; }
-        .logo { width:88px; height:88px; object-fit:contain; }
-        h1 { margin:0 0 8px; }
-        .muted { color:#637083; }
-        table { width:100%; border-collapse:collapse; margin-top:20px; }
-        td, th { border:1px solid #d7e3ef; padding:10px; text-align:left; }
-        .right { text-align:right; }
-        .total { font-size:24px; font-weight:700; }
-        .btn-print { margin-bottom:24px; padding:8px 20px; background:#0059A7; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:14px; }
-        @media print { .btn-print { display:none; } body { margin:20mm; } }
-    </style>
-</head>
-<body>
-    <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+@extends('layouts.pdf', [
+    'docTitle'       => 'SLIP GAJI KARYAWAN',
+    'docNumber'      => $salary->slip_number,
+    'docDate'        => $salary->period,
+    'docStatus'      => $salary->status,
+    'companySetting' => $companySetting ?? null,
+    'preparedBy'     => 'HR & Payroll Dept',
+    'reviewedBy'     => 'Finance Manager',
+    'approvedBy'     => $salary->employee->name ?? 'Penerima Gaji',
+])
 
-    <div class="top">
-        <div>
-            @if($companySetting->logo_path)
-                <img class="logo" src="{{ asset('storage/'.$companySetting->logo_path) }}" alt="Logo">
-            @endif
-            <h1>{{ $companySetting->company_name }}</h1>
-            @if($companySetting->address)
-                <div class="muted">{{ $companySetting->address }}</div>
-            @endif
-            <div class="muted">
-                {{ $companySetting->email }}
-                {{ $companySetting->phone ? '| '.$companySetting->phone : '' }}
-            </div>
-        </div>
-        <div style="text-align:right">
-            <h1>SLIP GAJI</h1>
-            <div><strong>{{ $salary->slip_number }}</strong></div>
-            <div>Periode: <strong>{{ $salary->period }}</strong></div>
-            <div>Status: <strong>{{ strtoupper($salary->status) }}</strong></div>
-        </div>
-    </div>
+@section('content')
+{{-- Employee Metadata Table --}}
+<table class="doc-table" style="margin-top: 0; margin-bottom: 16px;">
+    <tr>
+        <td style="width: 50%;">
+            <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Identitas Karyawan:</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $salary->employee->name }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">ID Karyawan: {{ $salary->employee->employee_id ?? ('EMP-'.$salary->employee->id) }}</div>
+            <div style="font-size: 8.5pt; color: #444;">Jabatan: {{ $salary->employee->jobPosition?->name ?? 'Staff' }}</div>
+            <div style="font-size: 8.5pt; color: #444;">Departemen: {{ $salary->employee->departmentRecord?->name ?? 'General' }}</div>
+        </td>
+        <td style="width: 50%;">
+            <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Rincian Penggajian:</div>
+            <div style="font-size: 10pt; font-weight: bold; margin-top: 2px;">Periode: {{ $salary->period }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Alokasi Project: {{ $salary->project?->code ? ($salary->project->code . ' — ' . $salary->project->name) : 'Operasional Umum' }}</div>
+            <div style="font-size: 8.5pt; color: #444;">Tanggal Pembayaran: {{ $salary->paid_at ? \Carbon\Carbon::parse($salary->paid_at)->format('d/m/Y') : 'Menunggu Pencairan' }}</div>
+            <div style="font-size: 8.5pt; color: #444;">Status Persetujuan: <strong>{{ strtoupper($salary->status) }}</strong></div>
+        </td>
+    </tr>
+</table>
 
-    <table style="margin-top:32px">
-        <tr><th>Karyawan</th><td>{{ $salary->employee->name }}</td></tr>
-        <tr><th>Jabatan</th><td>{{ $salary->employee->jobPosition?->name ?? '—' }}</td></tr>
-        <tr><th>Departemen</th><td>{{ $salary->employee->departmentRecord?->name ?? '—' }}</td></tr>
-        <tr><th>Project</th><td>{{ $salary->project?->code ?? 'Non Project' }}</td></tr>
+{{-- Salary Components Breakdown Table --}}
+<table class="doc-table">
+    <thead>
+        <tr>
+            <th style="width: 5%;" class="text-center">No</th>
+            <th style="width: 45%;">Komponen Pendapatan (Penghasilan)</th>
+            <th style="width: 25%;" class="text-right">Nominal (IDR)</th>
+            <th style="width: 25%;" class="text-right">Subtotal (IDR)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center">1</td>
+            <td>Gaji Pokok (Basic Salary)</td>
+            <td class="text-right">Rp {{ number_format((float)$salary->base_salary, 0, ',', '.') }}</td>
+            <td class="text-right text-bold">Rp {{ number_format((float)$salary->base_salary, 0, ',', '.') }}</td>
+        </tr>
+        <tr>
+            <td class="text-center">2</td>
+            <td>Tunjangan Tetap / Fungsional</td>
+            <td class="text-right">Rp {{ number_format((float)$salary->allowances, 0, ',', '.') }}</td>
+            <td class="text-right text-bold">Rp {{ number_format((float)$salary->allowances, 0, ',', '.') }}</td>
+        </tr>
+        <tr>
+            <td class="text-center">3</td>
+            <td>Bonus / Insentif Kinerja</td>
+            <td class="text-right">Rp {{ number_format((float)$salary->bonus, 0, ',', '.') }}</td>
+            <td class="text-right text-bold">Rp {{ number_format((float)$salary->bonus, 0, ',', '.') }}</td>
+        </tr>
+        <tr style="background-color: #F5F5F5; font-weight: bold;">
+            <td colspan="3" class="text-right">TOTAL PENGHASILAN KOTOR (GROSS)</td>
+            <td class="text-right">Rp {{ number_format((float)$salary->base_salary + (float)$salary->allowances + (float)$salary->bonus, 0, ',', '.') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{{-- Deductions Table --}}
+<table class="doc-table">
+    <thead>
+        <tr>
+            <th style="width: 5%;" class="text-center">No</th>
+            <th style="width: 70%;">Komponen Potongan (Deductions)</th>
+            <th style="width: 25%;" class="text-right">Nominal Potongan (IDR)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center">1</td>
+            <td>Potongan Pajak PPh 21 / BPJS / Keterlambatan / Pinjaman</td>
+            <td class="text-right text-bold">Rp {{ number_format((float)$salary->deductions, 0, ',', '.') }}</td>
+        </tr>
+        <tr style="background-color: #F5F5F5; font-weight: bold;">
+            <td colspan="2" class="text-right">TOTAL POTONGAN</td>
+            <td class="text-right">Rp {{ number_format((float)$salary->deductions, 0, ',', '.') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{{-- Summary Block --}}
+<div class="summary-block">
+    <table class="summary-table">
+        <tr class="grand-total">
+            <td>PENGHASILAN BERSIH (TAKE HOME PAY)</td>
+            <td class="text-right">Rp {{ number_format((float)$salary->net_salary, 0, ',', '.') }}</td>
+        </tr>
     </table>
+</div>
 
-    <table>
-        <thead><tr><th>Komponen</th><th class="right">Jumlah</th></tr></thead>
-        <tbody>
-            <tr>
-                <td>Gaji Pokok</td>
-                <td class="right">Rp {{ number_format($salary->base_salary, 0, ',', '.') }}</td>
-            </tr>
-            <tr>
-                <td>Tunjangan</td>
-                <td class="right">Rp {{ number_format($salary->allowance, 0, ',', '.') }}</td>
-            </tr>
-            <tr>
-                <td>Potongan</td>
-                <td class="right">— Rp {{ number_format($salary->deduction, 0, ',', '.') }}</td>
-            </tr>
-            <tr>
-                <th>Gaji Bersih</th>
-                <th class="right total">Rp {{ number_format($salary->net_salary, 0, ',', '.') }}</th>
-            </tr>
-        </tbody>
-    </table>
-
-    @if($salary->notes)
-        <p style="margin-top:16px"><strong>Catatan:</strong> {{ $salary->notes }}</p>
-    @endif
-
-    <div style="margin-top:64px; display:flex; justify-content:space-between">
-        <div style="width:220px; text-align:center">
-            <div class="muted">Karyawan</div>
-            <div style="border-top:1px solid #002F59; margin-top:56px; padding-top:8px">{{ $salary->employee->name }}</div>
-        </div>
-        <div style="width:220px; text-align:center">
-            <div class="muted">{{ $companySetting->signature_name ?: 'HR / Finance' }}</div>
-            <div style="border-top:1px solid #002F59; margin-top:56px; padding-top:8px">{{ $companySetting->company_name }}</div>
-        </div>
+@if($salary->notes)
+    <div style="margin-top: 14px; font-size: 8pt; color: #555; padding: 6px 10px; border-left: 3px solid #777;">
+        Catatan Penggajian: {{ $salary->notes }}
     </div>
-</body>
-</html>
+@endif
+
+@endsection

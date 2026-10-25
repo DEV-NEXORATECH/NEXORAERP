@@ -29,7 +29,7 @@
     </form>
 </section>
 
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5 section">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5 section">
     <h2 class="font-bold text-lg mb-4">Transactions</h2>
     <div class="overflow-x-auto">
         <table class="w-full">

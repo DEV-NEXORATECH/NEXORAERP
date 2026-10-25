@@ -30,7 +30,7 @@
     </div>
     <div class="stat-card">
         <div class="stat-card-label">
-            <svg class="inline-block h-4 w-4 mr-1 text-[#0059A7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+            <svg class="inline-block h-4 w-4 mr-1 text-[#0B2345]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
             Transaksi
         </div>
         <div class="stat-card-metric">{{ number_format($summary['count']) }}</div>
@@ -178,7 +178,7 @@
                     @forelse($byCostType as $ct => $row)
                     <tr>
                         <td>
-                            <span class="inline-flex items-center rounded-lg bg-[#f3f8fc] px-2 py-0.5 text-xs font-bold text-[#0059A7]">
+                            <span class="inline-flex items-center rounded-lg bg-[#F4F7FB] px-2 py-0.5 text-xs font-bold text-[#0B2345]">
                                 {{ str_replace('_', ' ', ucfirst($ct)) }}
                             </span>
                         </td>
@@ -260,7 +260,7 @@
                         <div class="muted text-xs">{{ \Carbon\Carbon::parse($flow->transaction_date)->format('l') }}</div>
                     </td>
                     <td>
-                        <span class="inline-flex items-center rounded-lg bg-[#f3f8fc] px-2 py-0.5 text-xs font-bold text-[#0059A7]">
+                        <span class="inline-flex items-center rounded-lg bg-[#F4F7FB] px-2 py-0.5 text-xs font-bold text-[#0B2345]">
                             {{ $flow->project?->code ?? 'Company' }}
                         </span>
                     </td>

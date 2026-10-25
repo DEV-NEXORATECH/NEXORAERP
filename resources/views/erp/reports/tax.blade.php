@@ -28,7 +28,7 @@
 </section>
 
 <section class="grid two section">
-    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5">
+    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
         <h2 class="font-bold text-lg mb-4">Tax Recap</h2>
         <table class="w-full">
             <tr><td class="py-2">Output Tax dari Invoice</td><td class="text-right font-bold py-2">{{ $rp($taxSummary['invoice_tax']) }}</td></tr>
@@ -36,7 +36,7 @@
             <tr><td class="py-2 border-t border-[#d7e3ef]">Net Tax</td><td class="text-right font-black py-2 border-t border-[#d7e3ef]">{{ $rp($taxSummary['net_tax']) }}</td></tr>
         </table>
     </div>
-    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5">
+    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
         <h2 class="font-bold text-lg mb-4">Active Tax Rules</h2>
         <table class="w-full">
             @foreach($taxSummary['rules'] as $rule)

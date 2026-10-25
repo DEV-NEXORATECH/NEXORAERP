@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Proposal — {{ $proposal->title }}</title>
     <style>
-        body { font-family: Arial, sans-serif; color:#002F59; margin:40px; line-height:1.5; }
+        body { font-family: Arial, sans-serif; color:#0B2345; margin:40px; line-height:1.5; }
         .top { display:flex; justify-content:space-between; gap:24px; align-items:flex-start; }
         .logo { width:88px; height:88px; object-fit:contain; }
         h1 { margin:0 0 8px; }
@@ -13,7 +13,7 @@
         td, th { border:1px solid #d7e3ef; padding:10px; text-align:left; }
         .total { font-size:24px; font-weight:700; }
         .scope { white-space:pre-line; line-height:1.7; }
-        .btn-print { margin-bottom:24px; padding:8px 20px; background:#0059A7; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:14px; }
+        .btn-print { margin-bottom:24px; padding:8px 20px; background:#0B2345; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:14px; }
         @media print { .btn-print { display:none; } body { margin:20mm; } }
     </style>
 </head>
@@ -59,7 +59,7 @@
 
     <div style="margin-top:64px; width:260px; text-align:center">
         <div>{{ $companySetting->signature_name ?: 'Authorized Signature' }}</div>
-        <div style="border-top:1px solid #002F59; margin-top:72px; padding-top:8px">
+        <div style="border-top:1px solid #0B2345; margin-top:72px; padding-top:8px">
             {{ $companySetting->company_name }}
         </div>
     </div>

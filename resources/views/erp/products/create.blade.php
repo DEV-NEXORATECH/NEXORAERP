@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'product-create', 'pageTitle' => 'Tambah Produk'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="product-create">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="product-create">
     <div class="section-head">
         <h2>Tambah Produk</h2>
     </div>

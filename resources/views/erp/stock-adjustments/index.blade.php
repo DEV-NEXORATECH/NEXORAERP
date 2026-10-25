@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'stock-adjustments', 'pageTitle' => 'Stock Adjustments'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="stock-adjustments">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="stock-adjustments">
     <div class="section-head">
         <h2>Adjustment Stok</h2>
         <a href="{{ route('stock-adjustments.create-page') }}" class="button ghost">

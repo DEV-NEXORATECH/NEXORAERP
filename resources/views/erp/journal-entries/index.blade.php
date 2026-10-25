@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'journal-entries', 'pageTitle' => 'Journal Entries'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="journal-entries">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="journal-entries">
     <div class="section-head">
         <h2>General Ledger & Journaling</h2>
         @if($can('admin', 'finance'))

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'accounting-journals-create', 'pageTitle' => 'Tambah Journal'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="accounting-journal-create">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="accounting-journal-create">
     <div class="section-head">
         <h2>Tambah Journal Akuntansi</h2>
     </div>

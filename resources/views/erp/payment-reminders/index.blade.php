@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'payment-reminders', 'pageTitle' => 'Payment Reminders'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="payment-reminders">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="payment-reminders">
     <div class="section-head">
         <h2>Automated Payment Reminder</h2>
         @if($can('admin', 'finance'))

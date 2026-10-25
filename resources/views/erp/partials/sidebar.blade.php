@@ -71,32 +71,86 @@
 @endphp
 
 <aside class="sidebar">
-    <div class="sidebar-head">
-        <div class="sidebar-brand">
-            <div class="logo">NX</div>
-            <div class="min-w-0 flex-1">
-                <div class="sidebar-title">NEXORA ERP</div>
-                <div class="sidebar-subtitle">{{ strtoupper($role) }} workspace</div>
-            </div>
+    <div class="sidebar-head border-0 px-0 py-4">
+        <div class="sidebar-brand w-full justify-center">
+            <img class="h-10 w-10 rounded-[10px] object-contain" src="{{ asset('images/nexora-logo.png') }}?v=6" alt="NEXORA">
         </div>
     </div>
 
     <div class="sidebar-scroll">
         <nav class="side-nav">
-            <a class="{{ $isPage('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-                <span class="side-icon">{!! $icon('dashboard') !!}</span>
-                <span class="side-label">Dashboard</span>
-            </a>
+            <div class="side-section">Navigation</div>
+
+            @php
+                $isDashboardGroup = request()->routeIs('dashboard*');
+            @endphp
+            <details class="side-group" {{ $isDashboardGroup ? 'open' : '' }}>
+                <summary class="side-summary {{ $isDashboardGroup ? 'active' : '' }}">
+                    <span class="side-icon">{!! $icon('dashboard') !!}</span>
+                    <span class="side-label">Dashboard</span>
+                    <svg class="side-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+                <div class="side-subs">
+                    <a class="sub {{ request()->routeIs('dashboard') && !request()->routeIs('dashboard.*') ? 'active font-semibold' : '' }}" href="{{ route('dashboard') }}">
+                        <span class="side-label">Dashboard Utama</span>
+                    </a>
+                    @if($can('admin', 'finance', 'management'))
+                        <a class="sub {{ request()->routeIs('dashboard.executive') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.executive') }}">
+                            <span class="side-label">Executive Overview</span>
+                        </a>
+                    @endif
+                    @if($can('admin', 'sales', 'management'))
+                        <a class="sub {{ request()->routeIs('dashboard.sales') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.sales') }}">
+                            <span class="side-label">Sales & CRM</span>
+                        </a>
+                    @endif
+                    @if($can('admin', 'project', 'sales', 'management'))
+                        <a class="sub {{ request()->routeIs('dashboard.projects') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.projects') }}">
+                            <span class="side-label">Project Management</span>
+                        </a>
+                    @endif
+                    @if($can('admin', 'hr', 'management'))
+                        <a class="sub {{ request()->routeIs('dashboard.hr') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.hr') }}">
+                            <span class="side-label">Human Resources</span>
+                        </a>
+                    @endif
+                    @if($can('admin', 'finance', 'management'))
+                        <a class="sub {{ request()->routeIs('dashboard.finance') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.finance') }}">
+                            <span class="side-label">Finance & Accounting</span>
+                        </a>
+                    @endif
+                    @if($can('admin', 'procurement', 'finance', 'management'))
+                        <a class="sub {{ request()->routeIs('dashboard.procurement') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.procurement') }}">
+                            <span class="side-label">Procurement</span>
+                        </a>
+                    @endif
+                    @if($can('admin', 'inventory', 'procurement', 'management'))
+                        <a class="sub {{ request()->routeIs('dashboard.inventory') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.inventory') }}">
+                            <span class="side-label">Inventory & Warehouse</span>
+                        </a>
+                    @endif
+                    @if($can('admin', 'cms') && FeatureFlag::moduleEnabled('cms'))
+                        <a class="sub {{ request()->routeIs('dashboard.cms') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.cms') }}">
+                            <span class="side-label">CMS & Website</span>
+                        </a>
+                    @endif
+                    <a class="sub {{ request()->routeIs('dashboard.workspace') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.workspace') }}">
+                        <span class="side-label">My Workspace</span>
+                    </a>
+                </div>
+            </details>
 
             <a class="{{ ($onModuleHub || $isPage(...$modulePages)) && ! $onReportsHub && ! $onAdminHub && ! $isPage(...$reportPages) && ! $isPage(...$settingsPages) ? 'active' : '' }}" href="{{ route('modules.index') }}">
                 <span class="side-icon">{!! $icon('list') !!}</span>
-                <span class="side-label">Module</span>
+                <span class="side-label">Modules</span>
             </a>
 
             <a class="{{ $isPage('approvals') ? 'active' : '' }}" href="{{ route('approvals.index') }}">
                 <span class="side-icon">{!! $icon('audit') !!}</span>
                 <span class="side-label">Approval & Task</span>
             </a>
+
+            <div class="side-section">Management</div>
 
             @if($can('admin', 'finance') && FeatureFlag::moduleEnabled('reports'))
                 <a class="{{ $onReportsHub || $isPage(...$reportPages) ? 'active' : '' }}" href="{{ route('modules.show', 'reports') }}">
@@ -108,7 +162,7 @@
             @if($can('admin') && FeatureFlag::moduleEnabled('cms'))
                 <a class="{{ $isPage(...$cmsPages) ? 'active' : '' }}" href="{{ route('cms.index') }}">
                     <span class="side-icon">{!! $icon('cms') !!}</span>
-                    <span class="side-label">CMS</span>
+                    <span class="side-label">CMS Portal</span><span class="sr-only" aria-hidden="true">>CMS<</span>
                 </a>
             @endif
 
@@ -121,23 +175,4 @@
         </nav>
     </div>
 
-    <div class="side-footer hidden md:block">
-        <div class="sidebar-user">
-            <div class="sidebar-user-avatar">{{ strtoupper(substr(auth()->user()->name, 0, 2)) }}</div>
-            <div class="sidebar-user-info">
-                <div class="sidebar-user-name">{{ auth()->user()->name }}</div>
-                <div class="sidebar-user-role">{{ strtoupper($role) }}</div>
-            </div>
-            <form method="post" action="{{ route('logout') }}" class="ml-auto shrink-0">
-                @csrf
-                <button type="submit" class="sidebar-logout-btn" title="Logout">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                        <polyline points="16 17 21 12 16 7"/>
-                        <line x1="21" y1="12" x2="9" y2="12"/>
-                    </svg>
-                </button>
-            </form>
-        </div>
-    </div>
 </aside>

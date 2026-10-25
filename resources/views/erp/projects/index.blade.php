@@ -14,7 +14,7 @@
                 <div class="mb-4 flex items-start justify-between gap-3">
                     <div>
                         <h3 class="mb-0.5">
-                            <a href="{{ route('projects.show', $report['project']) }}" class="hover:text-[#0059A7]">
+                            <a href="{{ route('projects.show', $report['project']) }}" class="hover:text-[#0B2345]">
                                 {{ $report['project']->code }} — {{ $report['project']->name }}
                             </a>
                         </h3>
@@ -34,7 +34,7 @@
                 </table>
             </div>
         @empty
-            <div class="col-span-full rounded-2xl bg-[#f3f8fc] p-8 text-center text-sm font-bold text-slate-500">Belum ada data project.</div>
+            <div class="col-span-full rounded-2xl bg-[#F4F7FB] p-8 text-center text-sm font-bold text-slate-500">Belum ada data project.</div>
         @endforelse
     </div>
 </section>

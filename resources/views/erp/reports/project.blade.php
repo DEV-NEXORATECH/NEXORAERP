@@ -30,7 +30,7 @@
     <div class="section-head"><h2>Laporan Profitabilitas Proyek</h2><span class="badge">{{ $projectReports->count() }} project</span></div>
     <div class="grid three">
         @forelse ($projectReports as $report)
-            <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5">
+            <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
                 <h3 class="font-bold text-lg mb-3">{{ $report['project']->code }} - {{ $report['project']->name }}</h3>
                 <table class="w-full">
                     <tr><td class="py-1">Kontrak</td><td class="text-right font-bold py-1">{{ $rp($report['project']->contract_value) }}</td></tr>
@@ -41,7 +41,7 @@
                 </table>
             </div>
         @empty
-            <div class="col-span-full rounded-2xl bg-[#f3f8fc] p-8 text-center text-sm font-bold text-slate-500">Belum ada data project.</div>
+            <div class="col-span-full rounded-2xl bg-[#F4F7FB] p-8 text-center text-sm font-bold text-slate-500">Belum ada data project.</div>
         @endforelse
     </div>
 </section>

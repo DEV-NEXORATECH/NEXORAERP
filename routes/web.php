@@ -102,8 +102,17 @@ Route::middleware('auth')->middleware('feature')->group(function () {
     Route::get('/change-password',  [AuthController::class, 'showChangePassword'])->name('password.change');
     Route::post('/change-password', [AuthController::class, 'changePassword'])->name('password.change.store');
 
-    // ── Dashboard ─────────────────────────────────────────────────────────────
+    // ── Dashboard & Sub-Dashboards ─────────────────────────────────────────────
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/executive', [DashboardController::class, 'executive'])->name('dashboard.executive');
+    Route::get('/dashboard/sales', [DashboardController::class, 'sales'])->name('dashboard.sales');
+    Route::get('/dashboard/projects', [DashboardController::class, 'projects'])->name('dashboard.projects');
+    Route::get('/dashboard/hr', [DashboardController::class, 'hr'])->name('dashboard.hr');
+    Route::get('/dashboard/finance', [DashboardController::class, 'finance'])->name('dashboard.finance');
+    Route::get('/dashboard/procurement', [DashboardController::class, 'procurement'])->name('dashboard.procurement');
+    Route::get('/dashboard/inventory', [DashboardController::class, 'inventory'])->name('dashboard.inventory');
+    Route::get('/dashboard/cms', [DashboardController::class, 'cms'])->name('dashboard.cms');
+    Route::get('/dashboard/workspace', [DashboardController::class, 'workspace'])->name('dashboard.workspace');
 
     // ── All Menu ──────────────────────────────────────────────────────────────
     Route::get('/all-menu', [\App\Http\Controllers\AllMenuController::class, 'index'])->name('all-menu');

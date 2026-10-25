@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales-leads.index', 'pageTitle' => 'Sales Leads Pipeline'])
 
 @section('content')
-<div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5">
+<div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
     <div class="section-head">
         <h2>Daftar Sales Lead</h2>
         @if($can('admin', 'sales'))

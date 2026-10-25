@@ -30,7 +30,7 @@
         $activePage === 'modules' || $activePage === 'all-menu' => 'Module',
         $activePage === 'approvals' => 'Approval',
         in_array($activePage, ['company','users','masters','trash','audit']) => 'Admin',
-        default => 'Main',
+        default => 'Overview',
     };
 
     $quickActions = [
@@ -76,9 +76,9 @@
         {{-- ── LEFT: Toggle + Context ──────────────────────────────────── --}}
         <div class="app-header-left">
             <button type="button" class="hdr-toggle" data-sidebar-toggle title="Toggle sidebar">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
+                <span class="sidebar-toggle-icon" aria-hidden="true">
+                    <span></span><span></span><span></span>
+                </span>
             </button>
 
             <div class="hdr-sep"></div>
@@ -89,7 +89,11 @@
                 </div>
                 <div class="hdr-page-meta">
                     <div class="hdr-page-title">{{ $pageTitle ?? 'Dashboard' }}</div>
-                    <div class="hdr-page-path hidden sm:block">NEXORA ERP <span class="opacity-40">›</span> {{ $pageSection }}</div>
+                    <div class="hdr-page-path hidden sm:flex items-center gap-1.5">
+                        <span>NEXORA360</span>
+                        <span class="opacity-40">/</span>
+                        <span class="text-white/80 font-medium">{{ $pageSection }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -128,13 +132,13 @@
             </button>
 
             {{-- User dropdown --}}
-            <details class="hdr-user-chip">
-                <summary class="hdr-user-summary">
-                <div class="hdr-user-avatar">{{ strtoupper(substr(auth()->user()->name, 0, 2)) }}</div>
-                <div class="hdr-user-meta">
-                    <span class="hdr-user-name">{{ auth()->user()->name }}</span>
-                    <span class="hdr-user-role">{{ strtoupper($userRole) }}</span>
-                </div>
+            <details class="hdr-user-chip relative">
+                <summary class="hdr-user-summary cursor-pointer">
+                    <div class="hdr-user-avatar">{{ strtoupper(substr(auth()->user()->name, 0, 2)) }}</div>
+                    <div class="hdr-user-meta">
+                        <span class="hdr-user-name">{{ auth()->user()->name }}</span>
+                        <span class="hdr-user-role">{{ strtoupper($userRole) }}</span>
+                    </div>
                     <svg class="hdr-user-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M6 9l6 6 6-6"/>
                     </svg>
@@ -145,17 +149,17 @@
                         <strong>{{ auth()->user()->name }}</strong>
                         <span>{{ auth()->user()->email }}</span>
                     </div>
-                    <form method="post" action="{{ route('logout') }}" class="m-0">
-                    @csrf
-                        <button type="submit" class="hdr-logout-menu-btn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                            <polyline points="16 17 21 12 16 7"/>
-                            <line x1="21" y1="12" x2="9" y2="12"/>
-                        </svg>
+                    <form method="post" action="{{ route('logout') }}" class="m-0" data-confirmed="1">
+                        @csrf
+                        <button type="submit" class="hdr-logout-menu-btn cursor-pointer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16 17 21 12 16 7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
                             Logout
-                    </button>
-                </form>
+                        </button>
+                    </form>
                 </div>
             </details>
 

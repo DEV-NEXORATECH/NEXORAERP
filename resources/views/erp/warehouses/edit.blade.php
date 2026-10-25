@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'warehouse-edit', 'pageTitle' => 'Edit Gudang'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="warehouse-edit">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="warehouse-edit">
     <div class="section-head">
         <h2>Edit Gudang: {{ $warehouse->code }}</h2>
     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'warehouse-create', 'pageTitle' => 'Tambah Gudang'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="warehouse-create">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="warehouse-create">
     <div class="section-head">
         <h2>Tambah Gudang</h2>
     </div>

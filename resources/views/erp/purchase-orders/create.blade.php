@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="section">
-    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5">
+    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
         <div class="mb-8 border-b border-[#d7e3ef] pb-5">
             <h2 class="mb-1">Buat Purchase Order</h2>
             <p class="muted">Buat order ke vendor.</p>
@@ -36,7 +36,7 @@
                 <label>Item Produk</label>
                 <table class="w-full text-sm" id="items-table">
                     <thead>
-                        <tr class="text-left text-xs uppercase text-[#002F59]/60">
+                        <tr class="text-left text-xs uppercase text-[#0B2345]/60">
                             <th class="py-1 pr-2">Produk</th>
                             <th class="py-1 pr-2 w-28">Qty</th>
                             <th class="py-1 pr-2 w-40">Harga Satuan</th>
@@ -62,7 +62,7 @@
                     </tbody>
                 </table>
                 <div class="mt-1 flex items-center justify-between">
-                    <button type="button" class="text-sm font-bold text-[#0059A7]" id="btn-add-row">+ Tambah Baris</button>
+                    <button type="button" class="text-sm font-bold text-[#0B2345]" id="btn-add-row">+ Tambah Baris</button>
                     <span class="text-sm font-black">Total: <span id="items-total">0</span></span>
                 </div>
             </div>

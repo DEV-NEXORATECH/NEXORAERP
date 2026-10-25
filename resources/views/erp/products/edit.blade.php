@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'product-edit', 'pageTitle' => 'Edit Produk'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="product-edit">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="product-edit">
     <div class="section-head">
         <h2>Edit Produk: {{ $product->code }}</h2>
     </div>

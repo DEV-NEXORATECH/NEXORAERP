@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'procurement-contracts', 'pageTitle' => 'Procurement Contract'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="procurement-contracts">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="procurement-contracts">
     <div class="section-head">
         <h2>Procurement Contract</h2>
         <a href="{{ route('procurement-contracts.create-page') }}" class="button ghost">

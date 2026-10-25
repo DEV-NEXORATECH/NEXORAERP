@@ -1,11 +1,11 @@
 @extends('layouts.erp', ['activePage' => 'feature-flags', 'pageTitle' => 'Pengaturan Fitur'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="feature-flags">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="feature-flags">
     <div class="section-head">
         <h2>Pengaturan Fitur</h2>
         <div class="flex items-center gap-3">
-            <span class="rounded-full bg-[#e8f4fd] px-3 py-1 text-xs font-bold text-[#0059A7]">
+            <span class="rounded-full bg-[#E8EEF5] px-3 py-1 text-xs font-bold text-[#0B2345]">
                 {{ $enabledCount }}/{{ $totalCount }} aktif
             </span>
             <a href="{{ route('feature-flags.create-page') }}" class="button ghost">
@@ -24,7 +24,7 @@
             @php $moduleFlags = $flags->get($moduleKey, collect()); @endphp
             <div class="rounded-2xl border border-[#d7e3ef] bg-[#f8fbff] p-4 sm:p-5">
                 <div class="mb-3 flex items-center justify-between">
-                    <h3 class="text-sm font-bold uppercase tracking-wide text-[#0059A7]">{{ $moduleLabel }}</h3>
+                    <h3 class="text-sm font-bold uppercase tracking-wide text-[#0B2345]">{{ $moduleLabel }}</h3>
                     <span class="text-xs font-semibold text-slate-400">
                         {{ $moduleFlags->where('is_enabled', true)->count() }}/{{ $moduleFlags->count() }} aktif
                     </span>

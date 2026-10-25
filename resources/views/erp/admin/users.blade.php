@@ -1,43 +1,142 @@
 @extends('layouts.erp', ['activePage' => 'users', 'pageTitle' => 'User Management'])
 
 @section('content')
-<section class="grid two section" id="users">
-    <div class="card">
-        <h2>Tambah User</h2>
-        <form method="post" action="{{ route('user-management.store') }}" class="grid">
-            @csrf
-            <input name="name" placeholder="Nama" required>
-            <input name="email" type="email" placeholder="Email" required>
-            <select name="role"><option>admin</option><option>hr</option><option>finance</option><option>sales</option></select>
-            <input name="password" placeholder="Password optional, min 8">
-            <button>Tambah User</button>
-        </form>
-    </div>
-    <div class="card wide">
-        <h2>Daftar User</h2>
-        <table>
-            <thead><tr><th>Nama</th><th>Role</th><th>Status</th><th>Aksi</th></tr></thead>
-            <tbody>
-                @foreach($users as $user)
-                <tr>
-                    <td>
-                        <div class="font-bold">{{ $user->name }}</div>
-                        <div class="muted">{{ $user->email }}</div>
-                    </td>
-                    <td><span class="badge">{{ $user->role }}</span></td>
-                    <td><span class="badge badge-{{ $user->is_active ? 'active' : 'hold' }}">{{ $user->is_active ? 'active' : 'inactive' }}</span></td>
-                    <td class="actions">
-                        <form method="post" action="{{ route('user-management.reset-password', $user) }}">@csrf @method('patch')<button class="mini ghost">Reset PW</button></form>
-                        <form method="post" action="{{ route('user-management.destroy', $user) }}">@csrf @method('delete')<button class="mini danger">Delete</button></form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <div class="pager">
-            <span>Menampilkan {{ $users->count() }} dari {{ $users->total() }} user</span>
-            {{ $users->links() }}
+<div class="space-y-6">
+    {{-- Header --}}
+    <div class="flex flex-col gap-4 rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs md:flex-row md:items-center md:justify-between">
+        <div class="flex items-center gap-3.5">
+            <a href="{{ route('admin.index') }}" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] border border-[#D9E2EC] bg-white text-[#475569] transition hover:border-[#0B2345] hover:text-[#0B2345]" title="Kembali ke Admin">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </a>
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#0B2345]">System Access</span>
+                    <span class="text-[#475569]">·</span>
+                    <span class="text-[11px] font-medium text-[#475569]">User Control</span>
+                </div>
+                <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-[#0F172A]">User Management</h1>
+                <p class="mt-0.5 text-xs text-[#475569]">Kelola akun staf, hak akses berbasis role ERP, dan kredensial keamanan.</p>
+            </div>
+        </div>
+
+        <div class="inline-flex h-9 items-center gap-1.5 self-start rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] px-3.5 text-xs font-semibold text-[#0F172A] md:self-auto">
+            <span class="text-[#475569]">Total Akun:</span>
+            <span class="font-bold text-[#0B2345]">{{ $users->total() }} User</span>
         </div>
     </div>
-</section>
+
+    {{-- Layout Grid: Form Tambah & Tabel Daftar --}}
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+        {{-- Form Tambah User --}}
+        <div class="lg:col-span-4">
+            <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+                <div class="mb-4 border-b border-[#D9E2EC] pb-3">
+                    <h2 class="text-sm font-bold text-[#0F172A]">Tambah User Baru</h2>
+                    <p class="text-xs text-[#475569]">Buat akun staf baru dan tentukan hak akses sistem.</p>
+                </div>
+
+                <form method="post" action="{{ route('user-management.store') }}" class="space-y-4">
+                    @csrf
+                    <div>
+                        <label class="mb-1 block text-xs font-semibold text-[#0F172A]">Nama Lengkap <span class="text-[#DC2626]">*</span></label>
+                        <input name="name" class="field-input w-full" placeholder="Nama staf" required>
+                    </div>
+                    <div>
+                        <label class="mb-1 block text-xs font-semibold text-[#0F172A]">Email Perusahaan <span class="text-[#DC2626]">*</span></label>
+                        <input name="email" type="email" class="field-input w-full" placeholder="nama@perusahaan.com" required>
+                    </div>
+                    <div>
+                        <label class="mb-1 block text-xs font-semibold text-[#0F172A]">Role Akses <span class="text-[#DC2626]">*</span></label>
+                        <select name="role" class="field-input w-full" required>
+                            <option value="admin">Admin (Full Access)</option>
+                            <option value="hr">HR (Human Resources)</option>
+                            <option value="finance">Finance & Accounting</option>
+                            <option value="sales">Sales & Commercial</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="mb-1 block text-xs font-semibold text-[#0F172A]">Password Awal</label>
+                        <input name="password" type="password" class="field-input w-full" placeholder="Opsional (default: min 8 karakter)">
+                        <p class="mt-1 text-[11px] text-[#475569]">Kosongkan bila ingin menggunakan password default sistem.</p>
+                    </div>
+                    <div class="pt-2">
+                        <button type="submit" class="btn btn-primary w-full h-10 text-xs font-semibold">
+                            Tambah Akun User
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {{-- Tabel Daftar User --}}
+        <div class="lg:col-span-8">
+            <div class="rounded-[12px] border border-[#D9E2EC] bg-white shadow-xs overflow-hidden">
+                <div class="flex items-center justify-between border-b border-[#D9E2EC] px-5 py-4">
+                    <h2 class="text-sm font-bold text-[#0F172A]">Daftar Akun Terdaftar</h2>
+                    <span class="text-xs text-[#475569]">Menampilkan {{ $users->count() }} dari {{ $users->total() }} akun</span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-[#F8FAFC] border-b border-[#D9E2EC] text-[#475569] font-semibold">
+                            <tr>
+                                <th class="px-5 py-3.5">Nama & Email</th>
+                                <th class="px-4 py-3.5">Role</th>
+                                <th class="px-4 py-3.5">Status</th>
+                                <th class="px-5 py-3.5 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-[#D9E2EC]">
+                            @forelse($users as $user)
+                            <tr class="hover:bg-[#F8FAFC]/60 transition">
+                                <td class="px-5 py-3.5">
+                                    <div class="font-bold text-[#0F172A]">{{ $user->name }}</div>
+                                    <div class="text-[11px] text-[#475569]">{{ $user->email }}</div>
+                                </td>
+                                <td class="px-4 py-3.5">
+                                    <span class="inline-flex items-center rounded-full bg-[#E8EEF5] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#0B2345]">
+                                        {{ $user->role }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3.5">
+                                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold {{ $user->is_active ? 'bg-[#F0FDF4] border border-[#86EFAC] text-[#16A34A]' : 'bg-[#FEF2F2] border border-[#FCA5A5] text-[#DC2626]' }}">
+                                        {{ $user->is_active ? 'Active' : 'Inactive' }}
+                                    </span>
+                                </td>
+                                <td class="px-5 py-3.5 text-right">
+                                    <div class="inline-flex items-center gap-1.5 justify-end">
+                                        <form method="post" action="{{ route('user-management.reset-password', $user) }}">
+                                            @csrf @method('patch')
+                                            <button type="submit" class="btn btn-outline h-7 px-2.5 text-[11px] font-medium" title="Reset Password">
+                                                Reset PW
+                                            </button>
+                                        </form>
+                                        <form method="post" action="{{ route('user-management.destroy', $user) }}">
+                                            @csrf @method('delete')
+                                            <button type="submit" class="inline-flex h-7 items-center rounded-[6px] border border-[#FECACA] bg-[#FEF2F2] px-2.5 text-[11px] font-bold text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus User">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="px-5 py-8 text-center text-xs text-[#94A3B8]">Belum ada pengguna terdaftar.</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                @if($users->hasPages())
+                <div class="flex items-center justify-between border-t border-[#D9E2EC] px-5 py-3 bg-[#F8FAFC]">
+                    <span class="text-xs text-[#475569]">Halaman {{ $users->currentPage() }} dari {{ $users->lastPage() }}</span>
+                    <div>{{ $users->links() }}</div>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

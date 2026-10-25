@@ -22,6 +22,7 @@ use App\Models\SalesOrder;
 use App\Models\Task;
 use App\Models\Timesheet;
 use App\Models\VendorBill;
+use App\Services\DashboardDataService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -31,8 +32,22 @@ class DashboardController extends Controller
 {
     use LoadsErpData;
 
+    protected DashboardDataService $dashboardService;
+
+    public function __construct(DashboardDataService $dashboardService)
+    {
+        $this->dashboardService = $dashboardService;
+    }
+
+    /**
+     * 1. Dashboard Utama (Operational Command Center)
+     */
     public function index(Request $request): View|JsonResponse
     {
+        $user = auth()->user();
+        $data = $this->dashboardService->getMainDashboardData($request, $user);
+
+        // Retain legacy variables for backwards compatibility with existing tests
         $cashflows      = $this->applyCompanyContext($request, Cashflow::with(['project:id,code']))->get();
         $projects       = $this->applyCompanyContext($request, Project::with(['cashflows', 'salaries', 'reimbursements', 'invoices']))->latest()->get();
         $invoices       = $this->applyCompanyContext($request, Invoice::query())->get();
@@ -109,26 +124,14 @@ class DashboardController extends Controller
 
         $invoiceAging = $this->agingBuckets($invoices, 'amount', 'paid_amount');
         $vendorBillAging = $this->agingBuckets($vendorBills, 'amount', 'paid_amount');
-        $agingMax = max(
-            collect($invoiceAging)->sum('amount'),
-            collect($vendorBillAging)->sum('amount'),
-            1
-        );
+        $agingMax = max(collect($invoiceAging)->sum('amount'), collect($vendorBillAging)->sum('amount'), 1);
 
         $projectStatus = $this->statusCounts($projects, [
-            'planning' => 'Planning',
-            'active' => 'In Progress',
-            'in_progress' => 'In Progress',
-            'on_hold' => 'On Hold',
-            'hold' => 'On Hold',
-            'completed' => 'Completed',
-            'done' => 'Completed',
+            'planning' => 'Planning', 'active' => 'In Progress', 'in_progress' => 'In Progress',
+            'on_hold' => 'On Hold', 'hold' => 'On Hold', 'completed' => 'Completed', 'done' => 'Completed',
         ], ['Planning', 'In Progress', 'On Hold', 'Completed']);
 
-        $projectProfitability = $projectReports
-            ->sortByDesc('profit_margin')
-            ->take(5)
-            ->values();
+        $projectProfitability = $projectReports->sortByDesc('profit_margin')->take(5)->values();
         $profitabilityMax = max($projectProfitability->max(fn ($r) => abs($r['profit_margin'])), 1);
 
         $salesFunnel = collect([
@@ -149,10 +152,7 @@ class DashboardController extends Controller
         $procurementMax = max($procurementPipeline->max('count'), 1);
 
         $attendanceToday = $this->statusCounts($attendances, [
-            'present' => 'Present',
-            'late' => 'Late',
-            'leave' => 'Leave',
-            'absent' => 'Absent',
+            'present' => 'Present', 'late' => 'Late', 'leave' => 'Leave', 'absent' => 'Absent',
         ], ['Present', 'Late', 'Leave', 'Absent']);
         $attendanceTotal = max(collect($attendanceToday)->sum('count'), 1);
 
@@ -166,14 +166,9 @@ class DashboardController extends Controller
         $pendingMax = max($pendingByCategory->max('count'), 1);
 
         $taskStatus = $this->statusCounts($tasks, [
-            'todo' => 'To Do',
-            'in_progress' => 'In Progress',
-            'review' => 'Review',
-            'done' => 'Done',
-            'completed' => 'Done',
+            'todo' => 'To Do', 'in_progress' => 'In Progress', 'review' => 'Review', 'done' => 'Done', 'completed' => 'Done',
         ], ['To Do', 'In Progress', 'Review', 'Done']);
-        $taskOverdue = $tasks
-            ->whereNotIn('status', ['done', 'completed'])
+        $taskOverdue = $tasks->whereNotIn('status', ['done', 'completed'])
             ->filter(fn ($task) => $task->due_date && $task->due_date < today()->toDateString())
             ->count();
 
@@ -181,22 +176,14 @@ class DashboardController extends Controller
             ->merge($vendorBills->whereNotIn('status', ['paid', 'void'])->map(fn ($bill) => [
                 'priority' => $bill->due_date && $bill->due_date < today()->toDateString() ? 'Critical' : 'High',
                 'item' => 'Bayar vendor bill ' . ($bill->bill_number ?: $bill->vendor_name),
-                'module' => 'Finance',
-                'pic' => 'Finance',
-                'due' => $bill->due_date ?: '-',
-                'status' => $bill->status,
+                'module' => 'Finance', 'pic' => 'Finance', 'due' => $bill->due_date ?: '-', 'status' => $bill->status,
             ]))
             ->merge($tasks->whereNotIn('status', ['done', 'completed'])->map(fn ($task) => [
                 'priority' => $task->due_date && $task->due_date < today()->toDateString() ? 'Critical' : ucfirst($task->priority ?: 'Normal'),
-                'item' => $task->title,
-                'module' => 'Task',
-                'pic' => $task->assignee?->name ?: '-',
-                'due' => $task->due_date ?: '-',
-                'status' => $task->status,
+                'item' => $task->title, 'module' => 'Task', 'pic' => $task->assignee?->name ?: '-', 'due' => $task->due_date ?: '-', 'status' => $task->status,
             ]))
             ->sortByDesc(fn ($item) => ['Critical' => 3, 'High' => 2, 'Medium' => 1, 'Normal' => 0][$item['priority']] ?? 0)
-            ->take(6)
-            ->values();
+            ->take(6)->values();
 
         $cmsStatus = collect([
             ['label' => 'Draft', 'count' => $blogPosts->where('status', 'draft')->count()],
@@ -210,10 +197,7 @@ class DashboardController extends Controller
             $month = now()->subMonths($i)->format('Y-m');
             return [
                 'label' => now()->subMonths($i)->format('M'),
-                'count' => $blogPosts
-                    ->where('status', 'published')
-                    ->filter(fn ($post) => $post->published_at && $post->published_at->format('Y-m') === $month)
-                    ->count(),
+                'count' => $blogPosts->where('status', 'published')->filter(fn ($post) => $post->published_at && $post->published_at->format('Y-m') === $month)->count(),
             ];
         });
         $publicationMax = max($publicationTrend->max('count'), 1);
@@ -235,15 +219,15 @@ class DashboardController extends Controller
         ];
 
         $notifications = collect([
-            ['type' => 'Reimbursement pending',  'count' => $reimbursements->where('status', 'pending')->count(), 'message' => 'Menunggu approval.', 'danger' => false],
-            ['type' => 'Invoice jatuh tempo',    'count' => $invoices->whereNotIn('status', ['paid', 'void'])->filter(fn ($i) => $i->due_date && $i->due_date <= now()->addDays(7)->toDateString())->count(), 'message' => 'Jatuh tempo 7 hari.', 'danger' => true],
-            ['type' => 'Salary belum dibayar',   'count' => $salaries->where('status', 'approved')->count(), 'message' => 'Menunggu pembayaran.', 'danger' => false],
-            ['type' => 'Proposal menunggu',      'count' => $proposals->where('status', 'sent')->count(), 'message' => 'Menunggu approval client.', 'danger' => false],
+            ['type' => 'Reimbursement pending', 'count' => $reimbursements->where('status', 'pending')->count(), 'message' => 'Menunggu approval.', 'danger' => false],
+            ['type' => 'Invoice jatuh tempo', 'count' => $invoices->whereNotIn('status', ['paid', 'void'])->filter(fn ($i) => $i->due_date && $i->due_date <= now()->addDays(7)->toDateString())->count(), 'message' => 'Jatuh tempo 7 hari.', 'danger' => true],
+            ['type' => 'Salary belum dibayar', 'count' => $salaries->where('status', 'approved')->count(), 'message' => 'Menunggu pembayaran.', 'danger' => false],
+            ['type' => 'Proposal menunggu', 'count' => $proposals->where('status', 'sent')->count(), 'message' => 'Menunggu approval client.', 'danger' => false],
         ])->filter(fn ($item) => $item['count'] > 0);
 
         if ($this->isApi()) {
             return $this->respond(compact(
-                'summary', 'filterCounts', 'dashboard',
+                'data', 'summary', 'filterCounts', 'dashboard',
                 'monthlyChart', 'expenseBreakdown', 'projectChart', 'notifications',
                 'executiveSummary', 'invoiceAging', 'vendorBillAging', 'projectStatus',
                 'projectProfitability', 'salesFunnel', 'procurementPipeline', 'attendanceToday',
@@ -253,7 +237,7 @@ class DashboardController extends Controller
         }
 
         return view('erp.dashboard.index', compact(
-            'summary', 'filterCounts', 'dashboard',
+            'data', 'summary', 'filterCounts', 'dashboard',
             'monthlyChart', 'monthlyMax', 'expenseBreakdown',
             'projectChart', 'projectMax', 'notifications',
             'executiveSummary', 'invoiceAging', 'vendorBillAging', 'agingMax',
@@ -265,13 +249,148 @@ class DashboardController extends Controller
         ));
     }
 
+    /**
+     * 2. Executive Overview Dashboard
+     */
+    public function executive(Request $request): View|JsonResponse
+    {
+        $user = auth()->user();
+        $data = $this->dashboardService->getExecutiveDashboardData($request, $user);
+
+        if ($this->isApi()) {
+            return $this->respond($data);
+        }
+
+        return view('erp.dashboard.executive', compact('data'));
+    }
+
+    /**
+     * 3. Sales & CRM Dashboard
+     */
+    public function sales(Request $request): View|JsonResponse
+    {
+        $user = auth()->user();
+        $data = $this->dashboardService->getSalesDashboardData($request, $user);
+
+        if ($this->isApi()) {
+            return $this->respond($data);
+        }
+
+        return view('erp.dashboard.sales', compact('data'));
+    }
+
+    /**
+     * 4. Project Management Dashboard
+     */
+    public function projects(Request $request): View|JsonResponse
+    {
+        $user = auth()->user();
+        $data = $this->dashboardService->getProjectsDashboardData($request, $user);
+
+        if ($this->isApi()) {
+            return $this->respond($data);
+        }
+
+        return view('erp.dashboard.projects', compact('data'));
+    }
+
+    /**
+     * 5. Human Resources Dashboard
+     */
+    public function hr(Request $request): View|JsonResponse
+    {
+        $user = auth()->user();
+        $data = $this->dashboardService->getHrDashboardData($request, $user);
+
+        if ($this->isApi()) {
+            return $this->respond($data);
+        }
+
+        return view('erp.dashboard.hr', compact('data'));
+    }
+
+    /**
+     * 6. Finance & Accounting Dashboard
+     */
+    public function finance(Request $request): View|JsonResponse
+    {
+        $user = auth()->user();
+        $data = $this->dashboardService->getFinanceDashboardData($request, $user);
+
+        if ($this->isApi()) {
+            return $this->respond($data);
+        }
+
+        return view('erp.dashboard.finance', compact('data'));
+    }
+
+    /**
+     * 7. Procurement Dashboard
+     */
+    public function procurement(Request $request): View|JsonResponse
+    {
+        $user = auth()->user();
+        $data = $this->dashboardService->getProcurementDashboardData($request, $user);
+
+        if ($this->isApi()) {
+            return $this->respond($data);
+        }
+
+        return view('erp.dashboard.procurement', compact('data'));
+    }
+
+    /**
+     * 8. Inventory & Warehouse Dashboard
+     */
+    public function inventory(Request $request): View|JsonResponse
+    {
+        $user = auth()->user();
+        $data = $this->dashboardService->getInventoryDashboardData($request, $user);
+
+        if ($this->isApi()) {
+            return $this->respond($data);
+        }
+
+        return view('erp.dashboard.inventory', compact('data'));
+    }
+
+    /**
+     * 9. CMS & Website Dashboard
+     */
+    public function cms(Request $request): View|JsonResponse
+    {
+        $user = auth()->user();
+        $data = $this->dashboardService->getCmsDashboardData($request, $user);
+
+        if ($this->isApi()) {
+            return $this->respond($data);
+        }
+
+        return view('erp.dashboard.cms', compact('data'));
+    }
+
+    /**
+     * 10. My Workspace Dashboard
+     */
+    public function workspace(Request $request): View|JsonResponse
+    {
+        $user = auth()->user();
+        $data = $this->dashboardService->getWorkspaceDashboardData($request, $user);
+
+        if ($this->isApi()) {
+            return $this->respond($data);
+        }
+
+        return view('erp.dashboard.workspace', compact('data'));
+    }
+
     private function agingBuckets(Collection $items, string $amountField, string $paidField): array
     {
         $buckets = [
             'current' => ['label' => 'Belum jatuh tempo', 'amount' => 0],
-            '1_30' => ['label' => '1-30 hari', 'amount' => 0],
-            '31_60' => ['label' => '31-60 hari', 'amount' => 0],
-            '61_90' => ['label' => '61-90 hari', 'amount' => 0],
+            '1_30'    => ['label' => '1-30 hari', 'amount' => 0],
+            '31_60'   => ['label' => '31-60 hari', 'amount' => 0],
+            '61_90'   => ['label' => '61-90 hari', 'amount' => 0],
             '90_plus' => ['label' => '>90 hari', 'amount' => 0],
         ];
 
@@ -295,7 +414,7 @@ class DashboardController extends Controller
                 $days <= 30 => '1_30',
                 $days <= 60 => '31_60',
                 $days <= 90 => '61_90',
-                default => '90_plus',
+                default     => '90_plus',
             };
             $buckets[$key]['amount'] += $outstanding;
         }

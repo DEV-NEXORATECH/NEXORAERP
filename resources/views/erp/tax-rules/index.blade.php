@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'tax-rules', 'pageTitle' => 'Tax Rules'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="tax-rules">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="tax-rules">
     <div class="section-head">
         <h2>Tax Calculation & Management</h2>
         @if($can('admin', 'finance'))

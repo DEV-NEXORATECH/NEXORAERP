@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'warehouses', 'pageTitle' => 'Warehouses'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="warehouses">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="warehouses">
     <div class="section-head">
         <h2>Gudang</h2>
         <a href="{{ route('warehouses.create-page') }}" class="button ghost">

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'vendors', 'pageTitle' => 'Vendor / Supplier Management'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="vendors">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="vendors">
     <div class="section-head">
         <h2>Vendor / Supplier Management</h2>
         <a href="{{ route('vendors.create-page') }}" class="button ghost">

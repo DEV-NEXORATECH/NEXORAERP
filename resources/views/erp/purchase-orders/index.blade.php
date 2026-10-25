@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'purchase-orders', 'pageTitle' => 'Purchase Order'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="purchase-orders">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="purchase-orders">
     <div class="section-head">
         <h2>Purchase Order</h2>
         <a href="{{ route('purchase-orders.create-page') }}" class="button ghost">

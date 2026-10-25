@@ -1,449 +1,579 @@
-@extends('layouts.erp', ['activePage' => 'dashboard', 'pageTitle' => 'Dashboard'])
+@extends('layouts.erp', ['activePage' => 'dashboard', 'pageTitle' => 'Dashboard Utama'])
 
 @section('content')
-<section class="dashboard-hero">
-    <div class="module-detail-copy">
-        <a class="module-back-link" href="{{ route('modules.index') }}">Module Hub</a>
-        <div class="module-title-row">
-            <span class="module-title-icon">{!! $icon('dashboard') !!}</span>
-            <div>
-                <span class="module-eyebrow">NEXORA Command Center</span>
-                <h1>Dashboard</h1>
-            </div>
-        </div>
-        <p>Ringkasan finance, operasional, pending action, dan CMS dalam satu layar kerja.</p>
-    </div>
-    <div class="dashboard-hero-balance">
-        <small>Net Cashflow</small>
-        <strong class="{{ $executiveSummary['net_cashflow'] >= 0 ? 'good' : 'bad' }}">{{ $rp($executiveSummary['net_cashflow']) }}</strong>
-        <em>{{ $executiveSummary['net_cashflow'] >= 0 ? 'Cash position positif' : 'Cash position perlu perhatian' }}</em>
-    </div>
-</section>
+<div class="space-y-6">
+    {{-- Header --}}
+    @include('erp.dashboard.components.header', [
+        'title'      => 'Dashboard Utama',
+        'subtitle'   => 'Command Center operasional ERP Nexora — ringkasan keuangan, bisnis, dan workflow sistem.',
+        'icon'       => 'dashboard',
+        'breadcrumb' => 'Dashboard Utama',
+        'period'     => $data['range']['period'],
+    ])
 
-{{-- Row 1: Executive Summary --}}
-<section class="dashboard-section-grid" id="executive-summary">
-    <a href="{{ route('cashflows.index-page') }}" class="stat-card no-underline">
-        <div class="stat-card-top">
-            <div class="stat-card-icon success">{!! $icon('cashflow') !!}</div>
-            <span class="stat-card-badge up">Income</span>
-        </div>
-        <div class="stat-card-metric good">{{ $rp($executiveSummary['income']) }}</div>
-        <div class="stat-card-label">Total Income</div>
-        <div class="stat-card-sub">Seluruh cashflow masuk</div>
-    </a>
-    <a href="{{ route('cashflows.index-page') }}" class="stat-card no-underline">
-        <div class="stat-card-top">
-            <div class="stat-card-icon danger">{!! $icon('cashflow') !!}</div>
-            <span class="stat-card-badge down">Expense</span>
-        </div>
-        <div class="stat-card-metric bad">{{ $rp($executiveSummary['expense']) }}</div>
-        <div class="stat-card-label">Total Expense</div>
-        <div class="stat-card-sub">Seluruh cashflow keluar</div>
-    </a>
-    <a href="{{ route('reports.cash-flow') }}" class="stat-card no-underline">
-        <div class="stat-card-top">
-            <div class="stat-card-icon {{ $executiveSummary['net_cashflow'] >= 0 ? 'success' : 'danger' }}">{!! $icon('reports') !!}</div>
-            <span class="stat-card-badge {{ $executiveSummary['net_cashflow'] >= 0 ? 'up' : 'down' }}">{{ $executiveSummary['net_cashflow'] >= 0 ? 'Surplus' : 'Defisit' }}</span>
-        </div>
-        <div class="stat-card-metric {{ $executiveSummary['net_cashflow'] >= 0 ? 'good' : 'bad' }}">{{ $rp($executiveSummary['net_cashflow']) }}</div>
-        <div class="stat-card-label">Net Cashflow</div>
-        <div class="stat-card-sub">Income dikurangi expense</div>
-    </a>
-    <a href="{{ route('projects.index') }}" class="stat-card no-underline">
-        <div class="stat-card-top">
-            <div class="stat-card-icon">{!! $icon('projects') !!}</div>
-            <span class="stat-card-badge neutral">Project</span>
-        </div>
-        <div class="stat-card-metric">{{ $executiveSummary['active_projects'] }}</div>
-        <div class="stat-card-label">Active Projects</div>
-        <div class="stat-card-sub">{{ $filterCounts['projects_total'] }} total project</div>
-    </a>
-    <a href="{{ route('approvals.index') }}" class="stat-card no-underline">
-        <div class="stat-card-top">
-            <div class="stat-card-icon warn">{!! $icon('audit') !!}</div>
-            <span class="stat-card-badge neutral">Action</span>
-        </div>
-        <div class="stat-card-metric">{{ $executiveSummary['pending_approvals'] }}</div>
-        <div class="stat-card-label">Pending Actions</div>
-        <div class="stat-card-sub">Approval, task, timesheet</div>
-    </a>
-</section>
+    {{-- Section 1 — Executive KPI Cards (8 cards in 2 rows of 4) --}}
+    <section>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {{-- 1. Total Income --}}
+            @include('erp.dashboard.components.kpi-card', [
+                'label'     => $data['kpis']['income']['label'],
+                'value'     => $data['kpis']['income']['value'],
+                'icon'      => 'cashflow',
+                'color'     => '#16A34A',
+                'trend'     => $data['kpis']['income']['trend'],
+                'route'     => $data['kpis']['income']['route'],
+                'sparkline' => $data['kpis']['income']['sparkline'],
+                'chartId'   => 'kpi-sparkline-income',
+                'format'    => 'currency',
+            ])
 
-{{-- Row 2: Finance Health --}}
-<section class="dashboard-chart-grid">
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Income vs Expense</div>
-                <div class="chart-sub">Grouped column chart, 6 bulan terakhir</div>
-            </div>
-            <a class="badge" href="{{ route('reports.profit-loss') }}">Finance</a>
-        </div>
-        <div class="mt-6 flex h-64 items-end gap-2 overflow-x-auto px-1">
-            @foreach($monthlyChart as $row)
-                @php
-                    $incomeHeight = max(4, ($row['income'] / $monthlyMax) * 100);
-                    $expenseHeight = max(4, ($row['expense'] / $monthlyMax) * 100);
-                @endphp
-                <div class="flex min-w-0 flex-1 flex-col items-center gap-2">
-                    <div class="flex h-52 w-full items-end justify-center gap-1.5 rounded-2xl bg-[#f3f8fc] px-2 py-2">
-                        <div title="Income {{ $rp($row['income']) }}" class="w-5 rounded-t-lg bg-[#0059A7]" style="height: {{ $incomeHeight }}%"></div>
-                        <div title="Expense {{ $rp($row['expense']) }}" class="w-5 rounded-t-lg bg-red-600" style="height: {{ $expenseHeight }}%"></div>
-                    </div>
-                    <div class="text-[11px] font-black text-slate-500">{{ $row['label'] }}</div>
-                </div>
-            @endforeach
-        </div>
-        <div class="mt-4 flex gap-5 border-t border-[#d7e3ef] pt-4 text-sm font-bold">
-            <span class="inline-flex items-center gap-2"><span class="h-3 w-3 rounded-full bg-[#0059A7]"></span> Income</span>
-            <span class="inline-flex items-center gap-2"><span class="h-3 w-3 rounded-full bg-red-600"></span> Expense</span>
-        </div>
-    </div>
+            {{-- 2. Total Expense --}}
+            @include('erp.dashboard.components.kpi-card', [
+                'label'     => $data['kpis']['expense']['label'],
+                'value'     => $data['kpis']['expense']['value'],
+                'icon'      => 'cashflow',
+                'color'     => '#DC2626',
+                'trend'     => $data['kpis']['expense']['trend'],
+                'route'     => $data['kpis']['expense']['route'],
+                'sparkline' => $data['kpis']['expense']['sparkline'],
+                'chartId'   => 'kpi-sparkline-expense',
+                'format'    => 'currency',
+            ])
 
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Invoice & Vendor Bill Aging</div>
-                <div class="chart-sub">Horizontal stacked aging, nominal outstanding</div>
-            </div>
-            <a class="badge" href="{{ route('reports.aging', 'ar') }}">Aging</a>
-        </div>
-        @foreach([['label' => 'Invoice Customer', 'items' => $invoiceAging], ['label' => 'Vendor Bill', 'items' => $vendorBillAging]] as $row)
-            @php $total = max(collect($row['items'])->sum('amount'), 1); @endphp
-            <div class="mt-5">
-                <div class="mb-2 flex items-center justify-between text-sm font-black">
-                    <span>{{ $row['label'] }}</span>
-                    <span class="text-slate-500">{{ $rp(collect($row['items'])->sum('amount')) }}</span>
-                </div>
-                <div class="flex h-8 overflow-hidden rounded-xl bg-[#e8f2fb]">
-                    @foreach($row['items'] as $bucket)
-                        @php $width = $bucket['amount'] > 0 ? max(4, ($bucket['amount'] / $total) * 100) : 0; @endphp
-                        <div title="{{ $bucket['label'] }} {{ $rp($bucket['amount']) }}" class="h-full {{ $loop->index === 0 ? 'bg-emerald-500' : ($loop->index === 1 ? 'bg-amber-400' : ($loop->index === 2 ? 'bg-orange-500' : ($loop->index === 3 ? 'bg-red-500' : 'bg-red-800'))) }}" style="width: {{ $width }}%"></div>
-                    @endforeach
-                </div>
-            </div>
-        @endforeach
-        <div class="mt-5 grid grid-cols-2 gap-2 text-xs font-bold text-slate-500">
-            @foreach($invoiceAging as $bucket)
-                <span>{{ $bucket['label'] }}</span>
-            @endforeach
-        </div>
-    </div>
-</section>
+            {{-- 3. Net Cashflow --}}
+            @include('erp.dashboard.components.kpi-card', [
+                'label'     => $data['kpis']['net_cashflow']['label'],
+                'value'     => $data['kpis']['net_cashflow']['value'],
+                'icon'      => 'reports',
+                'color'     => '#2563EB',
+                'trend'     => $data['kpis']['net_cashflow']['trend'],
+                'route'     => $data['kpis']['net_cashflow']['route'],
+                'sparkline' => $data['kpis']['net_cashflow']['sparkline'],
+                'chartId'   => 'kpi-sparkline-net',
+                'format'    => 'currency',
+            ])
 
-<section class="dashboard-chart-grid">
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Cashflow Trend</div>
-                <div class="chart-sub">Net cashflow per bulan</div>
-            </div>
-            <span class="badge">Net</span>
-        </div>
-        <div class="mt-6 grid gap-3">
-            @foreach($monthlyChart as $row)
-                @php
-                    $width = max(4, (abs($row['net']) / $monthlyMax) * 100);
-                    $isPositive = $row['net'] >= 0;
-                @endphp
-                <div class="grid grid-cols-[44px_1fr_120px] items-center gap-3">
-                    <div class="text-xs font-black text-slate-500">{{ $row['label'] }}</div>
-                    <div class="h-4 rounded-full bg-[#e8f2fb]">
-                        <div class="h-full rounded-full {{ $isPositive ? 'bg-emerald-500' : 'bg-red-500' }}" style="width: {{ $width }}%"></div>
-                    </div>
-                    <div class="text-right text-xs font-black {{ $isPositive ? 'good' : 'bad' }}">{{ $rp($row['net']) }}</div>
-                </div>
-            @endforeach
-        </div>
-    </div>
+            {{-- 4. Outstanding Invoices --}}
+            @include('erp.dashboard.components.kpi-card', [
+                'label'     => $data['kpis']['outstanding_invoices']['label'],
+                'value'     => $data['kpis']['outstanding_invoices']['value'],
+                'icon'      => 'invoice',
+                'color'     => '#EA580C',
+                'trend'     => $data['kpis']['outstanding_invoices']['trend'],
+                'route'     => $data['kpis']['outstanding_invoices']['route'],
+                'format'    => 'currency',
+            ])
 
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Expense Breakdown</div>
-                <div class="chart-sub">Komposisi biaya terbesar</div>
-            </div>
-            <span class="badge">Cost</span>
-        </div>
-        <div class="mt-4 grid gap-4">
-            @forelse($expenseBreakdown as $item)
-                <div>
-                    <div class="mb-1.5 flex items-center justify-between gap-3 text-sm font-bold">
-                        <span class="capitalize">{{ str_replace('_', ' ', $item['type']) }}</span>
-                        <span class="text-slate-500">{{ $item['percent'] }}%</span>
-                    </div>
-                    <div class="h-3 overflow-hidden rounded-full bg-[#e8f2fb]">
-                        <div class="h-full rounded-full bg-[#0059A7]" style="width: {{ min(100, $item['percent']) }}%"></div>
-                    </div>
-                    <div class="mt-1 text-xs font-bold text-slate-500">{{ $rp($item['amount']) }}</div>
-                </div>
-            @empty
-                <div class="rounded-2xl bg-[#f3f8fc] p-6 text-center text-sm font-bold text-slate-500">Belum ada data expense.</div>
-            @endforelse
-        </div>
-    </div>
-</section>
+            {{-- 5. Active Projects --}}
+            @include('erp.dashboard.components.kpi-card', [
+                'label'     => $data['kpis']['active_projects']['label'],
+                'value'     => $data['kpis']['active_projects']['value'],
+                'icon'      => 'projects',
+                'color'     => '#7C3AED',
+                'trend'     => $data['kpis']['active_projects']['trend'],
+                'route'     => $data['kpis']['active_projects']['route'],
+                'format'    => 'number',
+            ])
 
-{{-- Row 3: Operational Progress --}}
-<section class="dashboard-chart-grid">
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Project Status</div>
-                <div class="chart-sub">Horizontal bar, bukan pie chart</div>
-            </div>
-            <a class="badge" href="{{ route('projects.index') }}">Projects</a>
-        </div>
-        <div class="mt-4 grid gap-3">
-            @php $projectStatusMax = max(collect($projectStatus)->max('count'), 1); @endphp
-            @foreach($projectStatus as $item)
-                <div class="grid grid-cols-[96px_1fr_40px] items-center gap-3">
-                    <span class="text-xs font-black text-slate-500">{{ $item['label'] }}</span>
-                    <div class="h-3 rounded-full bg-[#e8f2fb]"><div class="h-full rounded-full bg-[#0059A7]" style="width: {{ max(4, ($item['count'] / $projectStatusMax) * 100) }}%"></div></div>
-                    <span class="text-right text-xs font-black">{{ $item['count'] }}</span>
-                </div>
-            @endforeach
-        </div>
-    </div>
+            {{-- 6. Pending Approvals --}}
+            @include('erp.dashboard.components.kpi-card', [
+                'label'     => $data['kpis']['pending_approvals']['label'],
+                'value'     => $data['kpis']['pending_approvals']['value'],
+                'icon'      => 'audit',
+                'color'     => '#D97706',
+                'trend'     => $data['kpis']['pending_approvals']['trend'],
+                'route'     => $data['kpis']['pending_approvals']['route'],
+                'format'    => 'number',
+            ])
 
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Sales Funnel</div>
-                <div class="chart-sub">Inquiry sampai sales order</div>
-            </div>
-            <a class="badge" href="{{ route('sales-crm.index') }}">Sales</a>
-        </div>
-        <div class="mt-4 grid gap-3">
-            @foreach($salesFunnel as $item)
-                <div>
-                    <div class="mb-1 flex items-center justify-between text-xs font-black text-slate-500">
-                        <span>{{ $item['label'] }}</span>
-                        <span>{{ $item['count'] }}</span>
-                    </div>
-                    <div class="mx-auto h-9 rounded-xl bg-[#0059A7] text-center text-xs font-black leading-9 text-white" style="width: {{ max(18, ($item['count'] / $salesFunnelMax) * 100) }}%">
-                        {{ $item['count'] }}
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
+            {{-- 7. Payroll This Month --}}
+            @if(!($data['kpis']['payroll_month']['is_hidden'] ?? false))
+                @include('erp.dashboard.components.kpi-card', [
+                    'label'     => $data['kpis']['payroll_month']['label'],
+                    'value'     => $data['kpis']['payroll_month']['value'],
+                    'icon'      => 'salary',
+                    'color'     => '#0891B2',
+                    'trend'     => $data['kpis']['payroll_month']['trend'],
+                    'route'     => $data['kpis']['payroll_month']['route'],
+                    'format'    => 'currency',
+                ])
+            @else
+                @include('erp.dashboard.components.kpi-card', [
+                    'label'     => 'Total Karyawan Aktif',
+                    'value'     => count($employees),
+                    'icon'      => 'employees',
+                    'color'     => '#0891B2',
+                    'route'     => route('hr.index'),
+                    'format'    => 'number',
+                ])
+            @endif
 
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Procurement Pipeline</div>
-                <div class="chart-sub">Tahap procurement yang sedang berjalan</div>
-            </div>
-            <a class="badge" href="{{ route('procurement.index') }}">Procurement</a>
+            {{-- 8. Pending Reimbursements --}}
+            @include('erp.dashboard.components.kpi-card', [
+                'label'     => $data['kpis']['pending_reimbursements']['label'],
+                'value'     => $data['kpis']['pending_reimbursements']['value'],
+                'icon'      => 'reimbursement',
+                'color'     => '#4F46E5',
+                'trend'     => $data['kpis']['pending_reimbursements']['trend'],
+                'route'     => $data['kpis']['pending_reimbursements']['route'],
+                'format'    => 'currency',
+            ])
         </div>
-        <div class="mt-4 grid gap-3">
-            @foreach($procurementPipeline as $item)
-                <div>
-                    <div class="mb-1.5 flex items-center justify-between text-sm font-bold">
-                        <span>{{ $item['label'] }}</span>
-                        <span>{{ $item['count'] }}</span>
-                    </div>
-                    <div class="h-4 rounded-full bg-[#e8f2fb]">
-                        <div class="h-full rounded-full bg-emerald-500" style="width: {{ max(4, ($item['count'] / $procurementMax) * 100) }}%"></div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
+    </section>
 
-<section class="dashboard-chart-grid">
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Project Profitability</div>
-                <div class="chart-sub">Top 5 margin project</div>
-            </div>
-            <a class="badge" href="{{ route('reports.project') }}">Margin</a>
+    {{-- Section 2 — Financial Performance (Layout 8:4) --}}
+    <section class="grid grid-cols-1 gap-5 lg:grid-cols-12">
+        {{-- Kiri (8 cols): Combo Chart (Income vs Expense vs Net Cashflow) --}}
+        <div class="lg:col-span-8">
+            @include('erp.dashboard.components.chart-card', [
+                'title'      => 'Kinerja Keuangan (Income vs Expense vs Net Cashflow)',
+                'subtitle'   => 'Tren 6 bulan terakhir — Income (Hijau), Expense (Merah), Net Cashflow (Biru)',
+                'badge'      => 'Laporan Cashflow',
+                'badgeRoute' => route('reports.cash-flow'),
+                'chartId'    => 'chart-financial-combo',
+            ])
         </div>
-        <div class="mt-4 grid gap-4">
-            @forelse($projectProfitability as $report)
-                @php $isPositive = $report['profit_margin'] >= 0; @endphp
-                <div>
-                    <div class="mb-1.5 flex items-center justify-between gap-3 text-sm font-bold">
-                        <span class="truncate">{{ $report['project']->code }} - {{ $report['project']->name }}</span>
-                        <span class="{{ $isPositive ? 'good' : 'bad' }}">{{ number_format($report['profit_margin'], 1) }}%</span>
-                    </div>
-                    <div class="h-3 rounded-full bg-[#e8f2fb]">
-                        <div class="h-full rounded-full {{ $isPositive ? 'bg-emerald-500' : 'bg-red-500' }}" style="width: {{ max(4, (abs($report['profit_margin']) / $profitabilityMax) * 100) }}%"></div>
-                    </div>
-                </div>
-            @empty
-                <div class="rounded-2xl bg-[#f3f8fc] p-6 text-center text-sm font-bold text-slate-500">Belum ada data project.</div>
-            @endforelse
-        </div>
-    </div>
 
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Attendance Today</div>
-                <div class="chart-sub">Mini stacked bar hari ini</div>
-            </div>
-            <span class="badge">{{ now()->format('d M') }}</span>
+        {{-- Kanan (4 cols): Expense Breakdown Donut Chart --}}
+        <div class="lg:col-span-4">
+            @include('erp.dashboard.components.chart-card', [
+                'title'      => 'Distribusi Pengeluaran',
+                'subtitle'   => 'Berdasarkan kategori biaya transaksi',
+                'badge'      => 'Finance',
+                'badgeRoute' => route('cashflows.index-page'),
+                'chartId'    => 'chart-expense-donut',
+            ])
         </div>
-        <div class="mt-5 flex h-9 overflow-hidden rounded-xl bg-[#e8f2fb]">
-            @foreach($attendanceToday as $item)
-                @php $width = $item['count'] > 0 ? max(5, ($item['count'] / $attendanceTotal) * 100) : 0; @endphp
-                <div class="h-full {{ $loop->index === 0 ? 'bg-emerald-500' : ($loop->index === 1 ? 'bg-amber-400' : ($loop->index === 2 ? 'bg-sky-500' : 'bg-red-500')) }}" style="width: {{ $width }}%"></div>
-            @endforeach
-        </div>
-        <div class="mt-5 grid grid-cols-2 gap-3">
-            @foreach($attendanceToday as $item)
-                <div class="rounded-2xl bg-[#f8fbfe] p-4">
-                    <div class="text-2xl font-black">{{ $item['count'] }}</div>
-                    <div class="text-xs font-black uppercase tracking-wide text-slate-500">{{ $item['label'] }}</div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
+    </section>
 
-{{-- Row 4: Pending Actions --}}
-<section class="dashboard-chart-grid">
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Pending by Category</div>
-                <div class="chart-sub">Area kerja yang paling banyak tertahan</div>
-            </div>
-            <a class="badge" href="{{ route('approvals.index') }}">Pending</a>
+    {{-- Section 3 — Business Operations (3 cards in 1 row: 4:4:4) --}}
+    <section class="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {{-- Card 1: Project Status Donut --}}
+        <div>
+            @include('erp.dashboard.components.chart-card', [
+                'title'      => 'Status Project',
+                'subtitle'   => 'Distribusi status pekerjaan project',
+                'badge'      => 'Projects',
+                'badgeRoute' => route('projects.index'),
+                'chartId'    => 'chart-project-status-donut',
+            ])
         </div>
-        <div class="mt-4 grid gap-3">
-            @foreach($pendingByCategory as $item)
-                <div class="grid grid-cols-[132px_1fr_40px] items-center gap-3">
-                    <span class="text-xs font-black text-slate-500">{{ $item['label'] }}</span>
-                    <div class="h-3 rounded-full bg-[#e8f2fb]"><div class="h-full rounded-full bg-amber-500" style="width: {{ max(4, ($item['count'] / $pendingMax) * 100) }}%"></div></div>
-                    <span class="text-right text-xs font-black">{{ $item['count'] }}</span>
-                </div>
-            @endforeach
-        </div>
-        <div class="mt-5 rounded-2xl bg-[#f8fbfe] p-4">
-            <div class="mb-3 text-sm font-black">Task Status</div>
-            <div class="grid gap-2">
-                @php $taskStatusMax = max(collect($taskStatus)->max('count'), 1); @endphp
-                @foreach($taskStatus as $item)
-                    <div class="grid grid-cols-[88px_1fr_32px] items-center gap-2">
-                        <span class="text-xs font-bold text-slate-500">{{ $item['label'] }}</span>
-                        <div class="h-2.5 rounded-full bg-[#e8f2fb]"><div class="h-full rounded-full bg-[#0059A7]" style="width: {{ max(4, ($item['count'] / $taskStatusMax) * 100) }}%"></div></div>
-                        <span class="text-right text-xs font-black">{{ $item['count'] }}</span>
-                    </div>
-                @endforeach
-            </div>
-            <div class="mt-3 text-xs font-black {{ $taskOverdue > 0 ? 'bad' : 'good' }}">{{ $taskOverdue }} overdue task</div>
-        </div>
-    </div>
 
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Action Required</div>
-                <div class="chart-sub">Maksimal 6 item paling mendesak</div>
-            </div>
-            <span class="badge">Table</span>
+        {{-- Card 2: Sales Funnel Horizontal Bar --}}
+        <div>
+            @include('erp.dashboard.components.chart-card', [
+                'title'      => 'Sales Funnel',
+                'subtitle'   => 'Konversi Inquiry hingga Sales Order',
+                'badge'      => 'CRM Pipeline',
+                'badgeRoute' => route('sales.index'),
+                'chartId'    => 'chart-sales-funnel-bar',
+            ])
         </div>
-        <div class="wide mt-4">
-            <table>
+
+        {{-- Card 3: Procurement Pipeline --}}
+        <div>
+            @include('erp.dashboard.components.chart-card', [
+                'title'      => 'Procurement Pipeline',
+                'subtitle'   => 'Alur Requisition ke Vendor Bill',
+                'badge'      => 'Pengadaan',
+                'badgeRoute' => route('purchase-orders.index'),
+                'chartId'    => 'chart-procurement-pipeline-bar',
+            ])
+        </div>
+    </section>
+
+    {{-- Section 4 — Operational Monitoring (2 cards: 6:6) --}}
+    <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        {{-- Card 1: Attendance Today Donut --}}
+        <div>
+            @include('erp.dashboard.components.chart-card', [
+                'title'      => 'Presensi Hari Ini',
+                'subtitle'   => 'Status kehadiran karyawan per hari ini',
+                'badge'      => 'HR Presensi',
+                'badgeRoute' => route('attendances.index'),
+                'chartId'    => 'chart-attendance-donut',
+            ])
+        </div>
+
+        {{-- Card 2: Task Overview Stacked Bar --}}
+        <div>
+            @include('erp.dashboard.components.chart-card', [
+                'title'      => 'Monitoring Task & Pekerjaan',
+                'subtitle'   => 'Distribusi status task tim (Overdue: ' . $data['overdueTasksCount'] . ')',
+                'badge'      => 'Approval & Task',
+                'badgeRoute' => route('approvals.index'),
+                'chartId'    => 'chart-tasks-stacked-bar',
+            ])
+        </div>
+    </section>
+
+    {{-- Section 5 — Action Required (Compact Table) --}}
+    <section class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#F1F5F9] pb-3">
+            <div>
+                <h2 class="text-base font-bold tracking-tight text-[#0F172A] m-0">Tindakan Memerlukan Respon (Action Required)</h2>
+                <p class="mt-0.5 text-xs text-[#64748B]">Daftar tagihan jatuh tempo, pengajuan pending, dan task kritikal.</p>
+            </div>
+            <a href="{{ route('approvals.index') }}" class="inline-flex items-center gap-1 rounded-[6px] border border-[#D9E2EC] bg-[#F8FAFC] px-3 py-1.5 text-xs font-semibold text-[#0B2345] hover:bg-[#F1F5F9] transition">
+                <span>Pusat Approval</span>
+                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
                 <thead>
-                    <tr>
-                        <th>Prioritas</th>
-                        <th>Item</th>
-                        <th>Modul</th>
-                        <th>PIC</th>
-                        <th>Due</th>
-                        <th>Status</th>
+                    <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <th class="px-4 py-3">Tipe</th>
+                        <th class="px-4 py-3">Referensi</th>
+                        <th class="px-4 py-3">Deskripsi</th>
+                        <th class="px-4 py-3">Prioritas</th>
+                        <th class="px-4 py-3">Jatuh Tempo</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3 text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @forelse($actionItems as $item)
-                        <tr>
-                            <td><span class="badge {{ $item['priority'] === 'Critical' ? 'badge-rejected' : 'badge-pending' }}">{{ $item['priority'] }}</span></td>
-                            <td class="font-bold">{{ $item['item'] }}</td>
-                            <td>{{ $item['module'] }}</td>
-                            <td>{{ $item['pic'] }}</td>
-                            <td>{{ $item['due'] }}</td>
-                            <td>{{ $item['status'] }}</td>
+                <tbody class="divide-y divide-[#F1F5F9]">
+                    @forelse($data['actionItems'] as $item)
+                        <tr class="hover:bg-[#F8FAFC] transition">
+                            <td class="px-4 py-3 font-semibold text-[#0F172A]">{{ $item['type'] }}</td>
+                            <td class="px-4 py-3 font-mono font-medium text-[#475569]">{{ $item['reference'] }}</td>
+                            <td class="px-4 py-3 text-[#334155] max-w-xs truncate">{{ $item['description'] }}</td>
+                            <td class="px-4 py-3">
+                                @if($item['priority'] === 'Critical')
+                                    <span class="inline-flex rounded-full bg-[#DC2626]/10 px-2 py-0.5 text-[10px] font-bold text-[#DC2626] border border-[#DC2626]/20">CRITICAL</span>
+                                @elseif($item['priority'] === 'High')
+                                    <span class="inline-flex rounded-full bg-[#EA580C]/10 px-2 py-0.5 text-[10px] font-bold text-[#EA580C] border border-[#EA580C]/20">HIGH</span>
+                                @else
+                                    <span class="inline-flex rounded-full bg-[#2563EB]/10 px-2 py-0.5 text-[10px] font-bold text-[#2563EB] border border-[#2563EB]/20">MEDIUM</span>
+                                @endif
+                            </td>
+                            <td class="px-4 py-3 text-[#64748B]">{{ $item['due_date'] }}</td>
+                            <td class="px-4 py-3">
+                                <span class="inline-flex rounded-[4px] bg-[#F1F5F9] px-2 py-0.5 text-[11px] font-medium text-[#475569] uppercase">
+                                    {{ $item['status'] }}
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 text-right">
+                                <a href="{{ $item['action_url'] }}" class="inline-flex items-center gap-1 rounded-[6px] bg-[#0B2345] px-2.5 py-1 text-xs font-semibold text-white hover:bg-[#123A6B] transition">
+                                    <span>{{ $item['action_text'] }}</span>
+                                </a>
+                            </td>
                         </tr>
                     @empty
-                        <tr><td colspan="6" class="py-8 text-center text-slate-500">Tidak ada action mendesak.</td></tr>
+                        <tr>
+                            <td colspan="7" class="px-4 py-6 text-center text-xs text-[#94A3B8]">
+                                Tidak ada tindakan tertunda yang memerlukan perhatian saat ini.
+                            </td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-    </div>
-</section>
+    </section>
 
-{{-- Row 5: CMS & Public Site --}}
-<section class="dashboard-chart-grid">
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">CMS Content Status</div>
-                <div class="chart-sub">Draft, published, dan section aktif</div>
-            </div>
-            <a class="badge" href="{{ route('cms.index') }}">CMS</a>
-        </div>
-        <div class="mt-4 grid gap-3">
-            @foreach($cmsStatus as $item)
+    {{-- Section 6 — Website & Recent Activity (2 cards: 6:6) --}}
+    <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        {{-- CMS Summary --}}
+        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+            <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div>
-                    <div class="mb-1.5 flex items-center justify-between text-sm font-bold">
-                        <span>{{ $item['label'] }}</span>
-                        <span>{{ $item['count'] }}</span>
-                    </div>
-                    <div class="h-3 rounded-full bg-[#e8f2fb]"><div class="h-full rounded-full bg-[#0059A7]" style="width: {{ max(4, ($item['count'] / $cmsMax) * 100) }}%"></div></div>
+                    <h2 class="text-base font-bold tracking-tight text-[#0F172A] m-0">Ringkasan Website & CMS Portal</h2>
+                    <p class="mt-0.5 text-xs text-[#64748B]">Status publikasi artikel dan visibilitas section website.</p>
                 </div>
-            @endforeach
-        </div>
-    </div>
-
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Publication Trend</div>
-                <div class="chart-sub">Artikel published per bulan</div>
+                <a href="{{ route('cms.index') }}" class="inline-flex items-center gap-1 text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">
+                    <span>Kelola CMS</span>
+                    <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
             </div>
-            <a class="badge" href="{{ route('cms.blog.index') }}">CMS Blog</a>
-        </div>
-        <div class="mt-6 flex h-48 items-end gap-2">
-            @foreach($publicationTrend as $row)
-                <div class="flex flex-1 flex-col items-center gap-2">
-                    <div class="flex h-36 w-full items-end rounded-2xl bg-[#f3f8fc] px-2 py-2">
-                        <div class="w-full rounded-t-lg bg-emerald-500" style="height: {{ max(4, ($row['count'] / $publicationMax) * 100) }}%"></div>
-                    </div>
-                    <span class="text-[11px] font-black text-slate-500">{{ $row['label'] }}</span>
-                </div>
-            @endforeach
-        </div>
-    </div>
 
-    <div class="chart-card">
-        <div class="chart-header">
-            <div>
-                <div class="chart-title">Content Freshness</div>
-                <div class="chart-sub">Umur update section Compro</div>
-            </div>
-            <span class="badge">{{ $lastContentUpdate ? 'Updated' : 'Empty' }}</span>
-        </div>
-        <div class="mt-4 grid gap-3">
-            @php $freshnessMax = max($cmsFreshness->max('count'), 1); @endphp
-            @foreach($cmsFreshness as $item)
-                <div class="grid grid-cols-[84px_1fr_32px] items-center gap-3">
-                    <span class="text-xs font-black text-slate-500">{{ $item['label'] }}</span>
-                    <div class="h-3 rounded-full bg-[#e8f2fb]"><div class="h-full rounded-full bg-amber-500" style="width: {{ max(4, ($item['count'] / $freshnessMax) * 100) }}%"></div></div>
-                    <span class="text-right text-xs font-black">{{ $item['count'] }}</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                <div class="rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] p-3 text-center">
+                    <span class="block text-[10px] font-bold uppercase tracking-wider text-[#16A34A]">Published Blog</span>
+                    <span class="text-lg font-bold text-[#0F172A]">{{ $data['cmsSummary']['published_posts'] }}</span>
                 </div>
-            @endforeach
+                <div class="rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] p-3 text-center">
+                    <span class="block text-[10px] font-bold uppercase tracking-wider text-[#EA580C]">Draft Blog</span>
+                    <span class="text-lg font-bold text-[#0F172A]">{{ $data['cmsSummary']['draft_posts'] }}</span>
+                </div>
+                <div class="rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] p-3 text-center">
+                    <span class="block text-[10px] font-bold uppercase tracking-wider text-[#2563EB]">Active Sections</span>
+                    <span class="text-lg font-bold text-[#0F172A]">{{ $data['cmsSummary']['active_sections'] }}</span>
+                </div>
+                <div class="rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] p-3 text-center">
+                    <span class="block text-[10px] font-bold uppercase tracking-wider text-[#DC2626]">Hidden Sections</span>
+                    <span class="text-lg font-bold text-[#0F172A]">{{ $data['cmsSummary']['hidden_sections'] }}</span>
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <span class="text-xs font-semibold text-[#475569]">Tren Publikasi Artikel (6 Bulan)</span>
+                <div id="chart-cms-trend" class="mt-2 w-full h-36"></div>
+            </div>
         </div>
-        <div class="mt-5 rounded-2xl bg-[#f8fbfe] p-4 text-sm font-bold text-slate-500">
-            Last Content Update:
-            <span class="text-[#002F59]">{{ $lastContentUpdate ? \Illuminate\Support\Carbon::parse($lastContentUpdate)->diffForHumans() : '-' }}</span>
+
+        {{-- Recent Activity Timeline --}}
+        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+            <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
+                <div>
+                    <h2 class="text-base font-bold tracking-tight text-[#0F172A] m-0">Aktivitas Terkini (Activity Timeline)</h2>
+                    <p class="mt-0.5 text-xs text-[#64748B]">Pembaruan data invoices, proposals, dan transaksi terbaru.</p>
+                </div>
+                <span class="text-[11px] font-medium text-[#64748B]">Waktu Nyata</span>
+            </div>
+
+            <div class="space-y-3.5">
+                @forelse($data['recentActivities'] as $act)
+                    <div class="flex items-start gap-3 rounded-[8px] p-2 hover:bg-[#F8FAFC] transition">
+                        <div class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-[6px]" style="background-color: {{ $act['color'] }}15; color: {{ $act['color'] }};">
+                            <span class="text-[10px] font-bold">{{ substr($act['badge'], 0, 2) }}</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="text-xs font-semibold text-[#0F172A] truncate">{{ $act['title'] }}</span>
+                                <span class="text-[10px] text-[#94A3B8] shrink-0">{{ $act['time'] }}</span>
+                            </div>
+                            <p class="text-[11px] text-[#64748B] truncate mt-0.5">{{ $act['desc'] }}</p>
+                        </div>
+                    </div>
+                @empty
+                    <div class="py-8 text-center text-xs text-[#94A3B8]">
+                        Belum ada aktivitas tercatat hari ini.
+                    </div>
+                @endforelse
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. Combo Chart: Income (Green Bar) vs Expense (Red Bar) vs Net Cashflow (Blue Line)
+    const comboMonths = @json($data['comboMonths']);
+    if (document.getElementById('chart-financial-combo')) {
+        window.initNexoraChart('#chart-financial-combo', {
+            chart: {
+                type: 'line',
+                height: 290
+            },
+            series: [
+                {
+                    name: 'Income',
+                    type: 'column',
+                    data: comboMonths.map(m => m.income)
+                },
+                {
+                    name: 'Expense',
+                    type: 'column',
+                    data: comboMonths.map(m => m.expense)
+                },
+                {
+                    name: 'Net Cashflow',
+                    type: 'line',
+                    data: comboMonths.map(m => m.net)
+                }
+            ],
+            colors: ['#16A34A', '#DC2626', '#2563EB'],
+            stroke: {
+                width: [0, 0, 3],
+                curve: 'smooth'
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '45%',
+                    borderRadius: 3
+                }
+            },
+            xaxis: {
+                categories: comboMonths.map(m => m.label),
+                labels: { style: { colors: '#64748B', fontSize: '11px' } }
+            },
+            yaxis: {
+                labels: {
+                    formatter: function(val) {
+                        if (Math.abs(val) >= 1000000) return (val / 1000000).toFixed(0) + ' Jt';
+                        return (val / 1000).toFixed(0) + ' Rb';
+                    },
+                    style: { colors: '#64748B', fontSize: '11px' }
+                }
+            }
+        });
+    }
+
+    // 2. Expense Breakdown Donut Chart
+    const expCategories = @json($data['expenseCategories']);
+    const totalExpAmount = expCategories.reduce((acc, cur) => acc + (cur.amount || 0), 0);
+    if (document.getElementById('chart-expense-donut')) {
+        window.initNexoraChart('#chart-expense-donut', {
+            chart: {
+                type: 'donut',
+                height: 290
+            },
+            series: expCategories.map(c => c.amount),
+            labels: expCategories.map(c => c.name),
+            colors: ['#0B2345', '#DC2626', '#EA580C', '#D97706', '#7C3AED', '#0891B2'],
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '68%',
+                        labels: {
+                            show: true,
+                            name: { fontSize: '12px', fontWeight: 600, color: '#475569' },
+                            value: {
+                                fontSize: '14px',
+                                fontWeight: 700,
+                                color: '#0F172A',
+                                formatter: val => 'Rp ' + (Math.round(val) / 1000000).toFixed(1) + 'M'
+                            },
+                            total: {
+                                show: true,
+                                label: 'Total Expense',
+                                fontSize: '11px',
+                                fontWeight: 600,
+                                color: '#64748B',
+                                formatter: () => 'Rp ' + (Math.round(totalExpAmount) / 1000000).toFixed(1) + 'M'
+                            }
+                        }
+                    }
+                }
+            },
+            legend: { position: 'bottom', horizontalAlign: 'center' }
+        });
+    }
+
+    // 3. Project Status Donut Chart
+    const projStatus = @json($data['projectStatusCounts']);
+    if (document.getElementById('chart-project-status-donut')) {
+        window.initNexoraChart('#chart-project-status-donut', {
+            chart: { type: 'donut', height: 240 },
+            series: Object.values(projStatus),
+            labels: Object.keys(projStatus),
+            colors: ['#2563EB', '#7C3AED', '#EA580C', '#16A34A'], // Planning: Blue, In Progress: Purple, On Hold: Orange, Completed: Green
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '65%',
+                        labels: {
+                            show: true,
+                            total: { show: true, label: 'Projects', fontSize: '11px', color: '#64748B' }
+                        }
+                    }
+                }
+            },
+            legend: { position: 'bottom' }
+        });
+    }
+
+    // 4. Sales Funnel Horizontal Bar Chart
+    const salesFunnel = @json($data['salesFunnel']);
+    if (document.getElementById('chart-sales-funnel-bar')) {
+        window.initNexoraChart('#chart-sales-funnel-bar', {
+            chart: { type: 'bar', height: 240 },
+            series: [{
+                name: 'Prospek & Order',
+                data: salesFunnel.map(f => f.count)
+            }],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    barHeight: '50%',
+                    distributed: true,
+                    borderRadius: 3
+                }
+            },
+            colors: ['#0B2345', '#4F46E5', '#2563EB', '#16A34A', '#0F766E'],
+            xaxis: {
+                categories: salesFunnel.map(f => f.stage),
+                labels: { style: { colors: '#64748B', fontSize: '11px' } }
+            },
+            yaxis: { labels: { style: { colors: '#0F172A', fontSize: '11px', fontWeight: 600 } } },
+            legend: { show: false }
+        });
+    }
+
+    // 5. Procurement Pipeline Stacked/Horizontal Bar Chart
+    const procPipeline = @json($data['procurementPipeline']);
+    if (document.getElementById('chart-procurement-pipeline-bar')) {
+        window.initNexoraChart('#chart-procurement-pipeline-bar', {
+            chart: { type: 'bar', height: 240 },
+            series: [{
+                name: 'Dokumen',
+                data: procPipeline.map(p => p.count)
+            }],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    barHeight: '50%',
+                    distributed: true,
+                    borderRadius: 3
+                }
+            },
+            colors: ['#EA580C', '#2563EB', '#0891B2', '#DC2626'],
+            xaxis: {
+                categories: procPipeline.map(p => p.stage),
+                labels: { style: { colors: '#64748B', fontSize: '11px' } }
+            },
+            yaxis: { labels: { style: { colors: '#0F172A', fontSize: '11px', fontWeight: 600 } } },
+            legend: { show: false }
+        });
+    }
+
+    // 6. Attendance Today Donut Chart
+    const attToday = @json($data['attendanceToday']);
+    if (document.getElementById('chart-attendance-donut')) {
+        window.initNexoraChart('#chart-attendance-donut', {
+            chart: { type: 'donut', height: 240 },
+            series: Object.values(attToday),
+            labels: Object.keys(attToday),
+            colors: ['#16A34A', '#EA580C', '#2563EB', '#DC2626'], // Present: Green, Late: Orange, Leave: Blue, Absent: Red
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '65%',
+                        labels: {
+                            show: true,
+                            total: { show: true, label: 'Karyawan', fontSize: '11px', color: '#64748B' }
+                        }
+                    }
+                }
+            },
+            legend: { position: 'bottom' }
+        });
+    }
+
+    // 7. Task Overview Stacked Bar Chart
+    const taskCounts = @json($data['taskCounts']);
+    if (document.getElementById('chart-tasks-stacked-bar')) {
+        window.initNexoraChart('#chart-tasks-stacked-bar', {
+            chart: { type: 'bar', height: 240, stacked: true },
+            series: [
+                { name: 'To Do', data: [taskCounts['To Do'] || 0] },
+                { name: 'In Progress', data: [taskCounts['In Progress'] || 0] },
+                { name: 'Review', data: [taskCounts['Review'] || 0] },
+                { name: 'Done', data: [taskCounts['Done'] || 0] },
+            ],
+            plotOptions: {
+                bar: { horizontal: true, barHeight: '40%', borderRadius: 3 }
+            },
+            colors: ['#64748B', '#2563EB', '#D97706', '#16A34A'],
+            xaxis: { categories: ['Total Task'] },
+            legend: { position: 'bottom' }
+        });
+    }
+
+    // 8. CMS Publication Trend Line Chart
+    const cmsTrendData = @json($data['cmsSummary']['trend']);
+    if (document.getElementById('chart-cms-trend')) {
+        window.initNexoraChart('#chart-cms-trend', {
+            chart: { type: 'line', height: 140, sparkline: { enabled: true } },
+            series: [{ name: 'Artikel Publish', data: cmsTrendData }],
+            colors: ['#DB2777'],
+            stroke: { width: 2, curve: 'smooth' },
+            tooltip: { fixed: { enabled: false } }
+        });
+    }
+});
+</script>
+@endpush
 @endsection

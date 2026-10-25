@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'stock-locations', 'pageTitle' => 'Tambah Lokasi Stok'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="stock-location-create">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="stock-location-create">
     <div class="section-head">
         <h2>Tambah Lokasi Stok</h2>
     </div>

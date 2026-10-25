@@ -1,4 +1,95 @@
 import './bootstrap';
+import ApexCharts from 'apexcharts';
+
+window.ApexCharts = ApexCharts;
+
+window.formatRupiah = (val) => {
+    if (val === null || val === undefined || isNaN(val)) return 'Rp 0';
+    return 'Rp ' + Math.round(val).toLocaleString('id-ID');
+};
+
+window.initNexoraChart = (target, customOptions = {}) => {
+    const el = typeof target === 'string' ? document.querySelector(target) : target;
+    if (!el) return null;
+
+    const baseDefaults = {
+        chart: {
+            fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
+            toolbar: { show: false },
+            zoom: { enabled: false },
+            animations: {
+                enabled: true,
+                speed: 350,
+                dynamicAnimation: { enabled: true, speed: 250 }
+            }
+        },
+        colors: [
+            '#0B2345', '#2563EB', '#16A34A', '#DC2626', '#EA580C',
+            '#D97706', '#7C3AED', '#0891B2', '#0F766E', '#DB2777', '#4F46E5'
+        ],
+        grid: {
+            borderColor: '#E2E8F0',
+            strokeDashArray: 3,
+            padding: { top: 6, right: 12, bottom: 6, left: 12 }
+        },
+        tooltip: {
+            theme: 'light',
+            style: { fontSize: '12px', fontFamily: 'Inter, sans-serif' },
+            y: {
+                formatter: (val) => {
+                    if (val === null || val === undefined) return '-';
+                    if (typeof val === 'number') {
+                        if (Math.abs(val) >= 1000) {
+                            return 'Rp ' + Math.round(val).toLocaleString('id-ID');
+                        }
+                        return val.toLocaleString('id-ID');
+                    }
+                    return val;
+                }
+            }
+        },
+        legend: {
+            position: 'bottom',
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '12px',
+            fontWeight: 500,
+            labels: { colors: '#475569' },
+            markers: { radius: 3 }
+        },
+        stroke: { width: 2, curve: 'smooth' },
+        dataLabels: { enabled: false }
+    };
+
+    // Deep merge shallow copy of chart and stroke
+    const finalOptions = {
+        ...baseDefaults,
+        ...customOptions,
+        chart: { ...baseDefaults.chart, ...(customOptions.chart || {}) },
+        grid: { ...baseDefaults.grid, ...(customOptions.grid || {}) },
+        tooltip: { ...baseDefaults.tooltip, ...(customOptions.tooltip || {}) },
+        legend: { ...baseDefaults.legend, ...(customOptions.legend || {}) },
+        stroke: { ...baseDefaults.stroke, ...(customOptions.stroke || {}) }
+    };
+
+    const chart = new ApexCharts(el, finalOptions);
+    chart.render();
+    return chart;
+};
+
+// Global dashboard date selector helper
+document.addEventListener('change', (event) => {
+    const periodSelect = event.target.closest('[data-dashboard-period]');
+    if (!periodSelect) return;
+    const form = periodSelect.closest('form');
+    if (form) {
+        if (periodSelect.value === 'custom') {
+            const customDates = form.querySelector('[data-custom-dates]');
+            if (customDates) customDates.classList.remove('hidden');
+        } else {
+            form.submit();
+        }
+    }
+});
 
 document.addEventListener('click', (event) => {
     const toggle = event.target.closest('[data-password-toggle]');
@@ -30,20 +121,23 @@ const ensureActionModal = () => {
         <div class="action-modal-backdrop" data-action-cancel></div>
         <div class="action-modal-card" data-action-type="default" role="dialog" aria-modal="true" aria-labelledby="action-modal-title">
             <div class="action-modal-head">
-                <div class="action-modal-icon" data-action-icon>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-                        <path d="M12 9v4"/>
-                        <path d="M12 17h.01"/>
-                        <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                    </svg>
+                <div class="action-modal-header-left">
+                    <div class="action-modal-icon" data-action-icon>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 id="action-modal-title" class="action-modal-title">Konfirmasi Aksi</h3>
+                        <p data-action-message class="action-modal-subtitle">Apakah Anda yakin ingin melanjutkan aksi ini?</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 id="action-modal-title">Konfirmasi action</h3>
-                    <p data-action-message>Yakin ingin melanjutkan action ini?</p>
-                </div>
+                <button type="button" class="action-modal-close-btn" data-action-cancel title="Tutup">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
             </div>
             <div class="action-modal-actions">
-                <button type="button" class="ghost" data-action-cancel>Batal</button>
+                <button type="button" class="action-modal-cancel" data-action-cancel>Batal</button>
                 <button type="button" class="action-modal-confirm" data-action-confirm>Lanjutkan</button>
             </div>
         </div>

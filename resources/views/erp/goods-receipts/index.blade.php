@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'goods-receipts', 'pageTitle' => 'Receipt Verification'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="goods-receipts">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="goods-receipts">
     <div class="section-head">
         <h2>Receipt Verification</h2>
         <a href="{{ route('goods-receipts.create-page') }}" class="button ghost">

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'stock-adjustment-create', 'pageTitle' => 'Buat Adjustment Stok'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#002F59]/5" id="stock-adjustment-create">
+<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="stock-adjustment-create">
     <div class="section-head">
         <h2>Buat Adjustment Stok</h2>
     </div>
