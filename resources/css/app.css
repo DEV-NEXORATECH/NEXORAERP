@@ -4237,6 +4237,20 @@ tbody tr:hover {
     color: #0B2345 !important;
 }
 
+/* Active sidebar icons use white artwork without a white tile behind them. */
+.side-nav a.active .side-icon,
+.side-nav .side-summary.active .side-icon {
+    background: transparent !important;
+    color: #FFFFFF !important;
+    box-shadow: none !important;
+}
+
+.side-nav a.active .side-icon svg,
+.side-nav .side-summary.active .side-icon svg {
+    color: #FFFFFF !important;
+    stroke: currentColor !important;
+}
+
 /* Dashboard submenu items are navigation links, not action buttons. */
 .side-nav .side-subs .sub,
 .side-nav .side-subs .sub.active {
@@ -4304,10 +4318,13 @@ table td form button[class*="text-red-700"] {
 table td form button[class*="text-red"]::before,
 table td form button[class*="text-\[#DC2626\]"]::before,
 table td form button[class*="text-red-700"]::before {
-    content: '🗑';
+    content: '';
     display: block;
-    font-size: 0.78rem;
-    line-height: 1;
+    width: 0.875rem;
+    height: 0.875rem;
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 table td form button.mini.danger,
@@ -4324,9 +4341,13 @@ table td form button[class~="danger"] {
 
 table td form button.mini.danger::before,
 table td form button[class~="danger"]::before {
-    content: '🗑';
-    font-size: 0.78rem;
-    line-height: 1;
+    content: '';
+    display: block;
+    width: 0.875rem;
+    height: 0.875rem;
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 a.button.mini.ghost,
@@ -4751,6 +4772,7 @@ form.filter-form .filter-search {
     align-items: center !important;
     gap: 0.5rem !important;
     width: 100% !important;
+    justify-content: flex-end !important;
     overflow-x: auto !important;
     white-space: nowrap !important;
     padding: 0 !important;
