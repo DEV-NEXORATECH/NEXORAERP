@@ -4184,6 +4184,33 @@ tbody tr:hover {
     background: #E8F0FD !important;
 }
 
+/* The sidebar toggle chevron must remain blue in every header state. */
+.app-header .hdr-toggle,
+.app-header .hdr-toggle:hover,
+.app-header .hdr-toggle:focus,
+.app-header .hdr-toggle:active,
+.app-header .hdr-toggle .sidebar-toggle-icon {
+    color: #0B2345 !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    display: block !important;
+}
+
+/* Keep the sidebar navigation visually aligned to the left edge. */
+.sidebar-scroll {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+.sidebar-scroll .side-nav a,
+.sidebar-scroll .side-nav button,
+.sidebar-scroll .side-summary {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
 /* Dashboard submenu items are navigation links, not action buttons. */
 .side-nav .side-subs .sub,
 .side-nav .side-subs .sub.active {

@@ -58,6 +58,7 @@
                         required 
                         autofocus
                         placeholder="name@company.com"
+                        style="padding-left: 4rem !important;"
                         class="w-full h-11 pl-10 pr-4 rounded-[10px] border border-[#0B2345]/15 bg-white text-sm text-[#0B2345] placeholder-[#0B2345]/35 transition-all duration-200 outline-none focus:border-[#0B2345] focus:ring-2 focus:ring-[#0B2345]/10 shadow-[0_1px_2px_rgba(11,35,69,0.03)] login-field-input"
                     >
                 </div>
@@ -87,6 +88,7 @@
                         value="password" 
                         required
                         placeholder="••••••••"
+                        style="padding-left: 4rem !important; padding-right: 3.25rem !important;"
                         class="w-full h-11 pl-10 pr-11 rounded-[10px] border border-[#0B2345]/15 bg-white text-sm text-[#0B2345] placeholder-[#0B2345]/35 transition-all duration-200 outline-none focus:border-[#0B2345] focus:ring-2 focus:ring-[#0B2345]/10 shadow-[0_1px_2px_rgba(11,35,69,0.03)] login-field-input"
                     >
                     <button 
