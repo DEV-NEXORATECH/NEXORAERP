@@ -50,7 +50,7 @@
     
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
     <div class="filter-card">
-        <form method="get" action="{{ route('cashflows.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('cashflows.index-page') }}" class="filter-toolbar">
             
         <div class="filter-field xl:col-span-2">
             <label>Cari</label>
