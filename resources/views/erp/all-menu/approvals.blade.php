@@ -32,6 +32,7 @@
         </div>
     </div>
 
+    @if(!request()->boolean('tasks_only'))
     {{-- Approval Cards Grid --}}
     <div>
         <div class="mb-3 flex items-center justify-between">
@@ -66,6 +67,7 @@
             @endforeach
         </div>
     </div>
+    @endif
 
     {{-- Task Kanban Board --}}
     <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">

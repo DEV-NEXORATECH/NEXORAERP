@@ -33,7 +33,12 @@ class ReimbursementController extends Controller
         return view('erp.reimbursements.create', compact('employees', 'projects'));
     }
 
-    public function edit(Reimbursement $reimbursement): View
+    public function show(Reimbursement $reimbursement): View
+    {
+        $reimbursement->load(['employee.departmentRecord', 'project']);
+        return view('erp.reimbursements.show', compact('reimbursement'));
+    }
+public function edit(Reimbursement $reimbursement): View
     {
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
         $projects  = \App\Models\Project::orderBy('code')->get(['id', 'code']);

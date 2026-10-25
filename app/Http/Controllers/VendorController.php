@@ -34,7 +34,12 @@ class VendorController extends Controller
         return view('erp.vendors.create');
     }
 
-    public function edit(Vendor $vendor): View
+    public function show(Vendor $vendor): View
+    {
+        $vendor->load(['purchaseOrders', 'contracts']);
+        return view('erp.vendors.show', compact('vendor'));
+    }
+public function edit(Vendor $vendor): View
     {
         return view('erp.vendors.edit', compact('vendor'));
     }

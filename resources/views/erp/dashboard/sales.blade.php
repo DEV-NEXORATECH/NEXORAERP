@@ -12,7 +12,7 @@
     ])
 
     {{-- Quick Actions --}}
-    <div class="flex flex-wrap items-center gap-2.5">
+    <div class="dashboard-quick-actions flex flex-wrap items-center gap-2.5">
         <a href="{{ route('sales-inquiries.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
             {!! $icon('plus') !!}
             <span>Inquiry Baru</span>

@@ -44,7 +44,12 @@ class EmployeeController extends Controller
         return view('erp.employees.create', compact('jobPositions', 'departments'));
     }
 
-    public function edit(Employee $employee): View
+    public function show(Employee $employee): View
+    {
+        $employee->load(['departmentRecord', 'jobPosition', 'attendances', 'salaries', 'reimbursements']);
+        return view('erp.employees.show', compact('employee'));
+    }
+public function edit(Employee $employee): View
     {
         $jobPositions = JobPosition::orderBy('name')->get();
         $departments  = Department::orderBy('name')->get();

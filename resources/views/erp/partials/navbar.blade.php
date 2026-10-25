@@ -76,9 +76,11 @@
         {{-- ── LEFT: Toggle + Context ──────────────────────────────────── --}}
         <div class="app-header-left">
             <button type="button" class="hdr-toggle" data-sidebar-toggle title="Toggle sidebar">
-                <span class="sidebar-toggle-icon" aria-hidden="true">
-                    <span></span><span></span><span></span>
-                </span>
+                <svg class="sidebar-toggle-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <rect x="3.5" y="4" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M9 4v16" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="m13 9 3 3-3 3M16 12h-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </button>
 
             <div class="hdr-sep"></div>
@@ -149,6 +151,10 @@
                         <strong>{{ auth()->user()->name }}</strong>
                         <span>{{ auth()->user()->email }}</span>
                     </div>
+                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-[#0B2345] hover:bg-slate-50">
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+                        View Account
+                    </a>
                     <form method="post" action="{{ route('logout') }}" class="m-0" data-confirmed="1">
                         @csrf
                         <button type="submit" class="hdr-logout-menu-btn cursor-pointer">

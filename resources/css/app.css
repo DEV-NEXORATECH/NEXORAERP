@@ -346,11 +346,7 @@
     }
 
     .sidebar-toggle-icon {
-        @apply flex w-5 flex-col gap-1;
-    }
-
-    .sidebar-toggle-icon span {
-        @apply block h-0.5 w-full rounded-full bg-current;
+        @apply h-6 w-6;
     }
 
     .hdr-sep {
@@ -943,7 +939,7 @@
 
     .pagination-btn,
     .pagination-square {
-        @apply inline-flex min-h-8 items-center justify-center rounded-[8px] border border-[#D9E2EC] bg-white px-3 text-xs font-semibold text-[#0B2345] no-underline transition-all hover:border-[#0B2345] hover:bg-[#F4F7FB];
+        @apply inline-flex min-h-8 items-center justify-center rounded-[6px] border border-[#D1D5DB] bg-white px-3 text-xs font-semibold text-[#0F172A] no-underline transition-all hover:border-[#002875] hover:text-[#002875] hover:bg-[#F8FAFC];
         font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     }
 
@@ -952,12 +948,12 @@
     }
 
     .pagination-square.active {
-        @apply border-[#0B2345] bg-[#0B2345] text-white font-bold shadow-xs;
+        @apply border-[#002875] bg-[#002875] text-white font-bold shadow-xs;
     }
 
     .pagination-btn.disabled,
     .pagination-square.disabled {
-        @apply cursor-not-allowed border-[#D9E2EC]/60 bg-slate-50 text-[#475569]/40 hover:border-[#D9E2EC]/60 hover:bg-slate-50;
+        @apply cursor-not-allowed border-[#E5E7EB] bg-slate-50 text-[#94A3B8] hover:border-[#E5E7EB] hover:bg-slate-50 hover:text-[#94A3B8];
     }
 
     /* ── Status badges with color variants ───────────────── */
@@ -3993,6 +3989,52 @@ tbody tr:hover {
     padding-left: 2.75rem !important;
     padding-right: 1rem !important;
 }
+
+/* Sidebar toggle uses the NEXORA navy accent instead of white. */
+.hdr-toggle .sidebar-toggle-icon {
+    color: #0B2345 !important;
+}
+
+/* Dashboard submenu items are navigation links, not action buttons. */
+.side-nav .side-subs .sub,
+.side-nav .side-subs .sub.active {
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding-top: 0.4rem !important;
+    padding-bottom: 0.4rem !important;
+    color: #475569 !important;
+}
+
+.side-nav .side-subs .sub:hover,
+.side-nav .side-subs .sub.active:hover {
+    background: transparent !important;
+    color: #0B2345 !important;
+}
+
+.side-nav .side-subs .sub.active .side-label {
+    color: #0B2345 !important;
+    font-weight: 700 !important;
+}
+
+/* Dashboard is for monitoring; actions stay inside their feature modules. */
+.dashboard-quick-actions {
+    display: none !important;
+}
+
+/* Feature-specific accent colors for primary actions. */
+.module-projects .btn-primary, .module-project-create .btn-primary, .module-project-edit .btn-primary,
+.module-projects .button:not(.ghost):not(.danger), .module-project-create .button:not(.ghost):not(.danger) { background-color: #7C3AED !important; }
+.module-sales .btn-primary, .module-sales-crm .btn-primary, .module-sales-inquiries .btn-primary,
+.module-sales-leads .btn-primary, .module-proposal-create .btn-primary { background-color: #2563EB !important; }
+.module-employees .btn-primary, .module-hris .btn-primary, .module-attendances .btn-primary,
+.module-leave-requests .btn-primary, .module-performance-reviews .btn-primary { background-color: #16A34A !important; }
+.module-finance-suite .btn-primary, .module-finance-advanced .btn-primary, .module-invoices .btn-primary,
+.module-cashflows .btn-primary, .module-reimbursements .btn-primary { background-color: #0B2345 !important; }
+.module-procurement .btn-primary, .module-purchase-orders .btn-primary, .module-purchase-requisitions .btn-primary { background-color: #EA580C !important; }
+.module-products .btn-primary, .module-stock-adjustments .btn-primary, .module-warehouses .btn-primary { background-color: #DB2777 !important; }
+.module-cms .btn-primary, .module-cms-blog .btn-primary, .module-cms-sections .btn-primary { background-color: #C026D3 !important; }
 
 #login-password.login-field-input {
     padding-right: 2.75rem !important;

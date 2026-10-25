@@ -34,7 +34,13 @@ class InvoiceController extends Controller
         return view('erp.invoices.create', compact('projects', 'proposals'));
     }
 
-    public function edit(Invoice $invoice): View
+        public function show(Invoice $invoice): View
+    {
+        $invoice->load(['project.clientRecord', 'proposal', 'payments.bankAccount']);
+        $companySetting = CompanySetting::with('defaultBankAccount')->firstOrCreate(['id' => 1], ['company_name' => 'NEXORA']);
+        return view('erp.invoices.show', compact('invoice', 'companySetting'));
+    }
+public function edit(Invoice $invoice): View
     {
         $projects  = \App\Models\Project::orderBy('code')->get(['id', 'code']);
         $proposals = Proposal::whereIn('status', ['approved', 'sent'])->get(['id', 'title', 'status']);

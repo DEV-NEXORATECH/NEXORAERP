@@ -73,6 +73,7 @@ class DemoCommandCenterSeeder extends Seeder
             )]);
 
             $employees = collect([
+                ['Raul', 'Project Manager', 'Operations', 20000000],
                 ['Nadia Putri', 'Full-stack Developer', 'IT', 14500000],
                 ['Arman Yusuf', 'Project Manager', 'Operations', 18500000],
                 ['Salsa Rahma', 'Finance Officer', 'Finance', 12500000],

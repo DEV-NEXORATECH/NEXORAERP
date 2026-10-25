@@ -58,7 +58,12 @@ class PurchaseOrderController extends Controller
         return view('erp.purchase-orders.create', compact('allVendors', 'allRequisitions', 'products', 'productOptions'));
     }
 
-    public function edit(PurchaseOrder $order): View
+        public function show(PurchaseOrder $order): View
+    {
+        $order->load(['vendor', 'requisition', 'items.product', 'goodsReceipts']);
+        return view('erp.purchase-orders.show', compact('order'));
+    }
+public function edit(PurchaseOrder $order): View
     {
         $allVendors      = Vendor::orderBy('name')->get(['id', 'name']);
         $allRequisitions = PurchaseRequisition::orderByDesc('id')->get(['id', 'number', 'title']);
@@ -139,6 +144,16 @@ class PurchaseOrderController extends Controller
             'items.*.quantity'        => ['required', 'numeric', 'gt:0'],
             'items.*.unit_price'      => ['nullable', 'numeric', 'min:0'],
             'items.*.notes'           => ['nullable', 'string'],
+        ]);
+    }
+
+    public function pdf(PurchaseOrder $order): View
+    {
+        $order->load(['vendor', 'items.product', 'purchaseRequisition']);
+        $companySetting = \App\Models\CompanySetting::first();
+        return view('erp.purchase-orders.print', [
+            'order' => $order,
+            'companySetting' => $companySetting,
         ]);
     }
 

@@ -43,7 +43,12 @@ class ProposalController extends Controller
         return view('erp.sales.create', compact('projects'));
     }
 
-    public function edit(Proposal $proposal): View
+        public function show(Proposal $proposal): View
+    {
+        $proposal->load(['project.clientRecord']);
+        return view('erp.sales.show', compact('proposal'));
+    }
+public function edit(Proposal $proposal): View
     {
         $projects = \App\Models\Project::orderBy('code')->get(['id', 'code', 'name']);
         return view('erp.sales.edit', compact('proposal', 'projects'));

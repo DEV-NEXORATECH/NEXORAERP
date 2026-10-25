@@ -13,6 +13,7 @@ class RevenueSchedule extends Model
 
     protected $fillable = ['company_id',
         'project_id', 'schedule_date', 'amount', 'status', 'notes',
+        'description', 'recognition_month',
     ];
 
     public function project(): BelongsTo

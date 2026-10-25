@@ -73,6 +73,7 @@ use App\Http\Controllers\ReportTransactionsController;
 use App\Http\Controllers\ReportTrialBalanceController;
 use App\Http\Controllers\ReportGeneralLedgerController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalesCommissionController;
 use App\Http\Controllers\SalesCrmController;
 use App\Http\Controllers\SalesInquiryController;
@@ -99,6 +100,8 @@ Route::post('/forgot-password',[AuthController::class, 'forgotPassword'])->name(
 Route::middleware('auth')->middleware('feature')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/account', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/account', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/change-password',  [AuthController::class, 'showChangePassword'])->name('password.change');
     Route::post('/change-password', [AuthController::class, 'changePassword'])->name('password.change.store');
 
@@ -119,6 +122,7 @@ Route::middleware('auth')->middleware('feature')->group(function () {
     Route::get('/modules', [\App\Http\Controllers\AllMenuController::class, 'index'])->name('modules.index');
     Route::get('/modules/{section}', [\App\Http\Controllers\AllMenuController::class, 'show'])->name('modules.show');
     Route::get('/approvals', [\App\Http\Controllers\AllMenuController::class, 'approvals'])->name('approvals.index');
+    Route::get('/task-board', fn () => redirect()->route('approvals.index', ['tasks_only' => 1]))->name('task-board.index');
     Route::redirect('/settings-admin', '/admin')->name('settings-admin.index');
     Route::get('/admin', [CompanySettingController::class, 'hub'])->middleware('role:admin')->name('admin.index');
     Route::get('/admin/users', [UserManagementController::class, 'index'])->middleware('role:admin')->name('admin.users');
@@ -193,7 +197,8 @@ Route::middleware('auth')->middleware('feature')->group(function () {
 
     // ── Sales: Orders ─────────────────────────────────────────────────────────────
     Route::get('/sales-orders',                        [SalesOrderController::class, 'index'])->middleware('role:admin,sales')->name('sales-orders.index');
-    Route::get('/sales-orders/create',                 [SalesOrderController::class, 'create'])->middleware('role:admin,sales')->name('sales-orders.create-page');
+        Route::get('/sales-orders/{order}',                [SalesOrderController::class, 'show'])->middleware('role:admin,sales')->name('sales-orders.show');
+Route::get('/sales-orders/create',                 [SalesOrderController::class, 'create'])->middleware('role:admin,sales')->name('sales-orders.create-page');
     Route::get('/sales-orders/{order}/edit',           [SalesOrderController::class, 'edit'])->middleware('role:admin,sales')->name('sales-orders.edit-page');
     Route::post('/sales-orders',                       [SalesOrderController::class, 'store'])->middleware('role:admin,sales')->name('sales-orders.store');
     Route::put('/sales-orders/{order}',                [SalesOrderController::class, 'update'])->middleware('role:admin,sales')->name('sales-orders.update');
@@ -223,7 +228,9 @@ Route::middleware('auth')->middleware('feature')->group(function () {
     Route::put('/client-contracts/{contract}',         [ClientContractController::class, 'update'])->middleware('role:admin,sales')->name('client-contracts.update');
     Route::delete('/client-contracts/{contract}',      [ClientContractController::class, 'destroy'])->middleware('role:admin')->name('client-contracts.destroy');
 
-    Route::get('/sales/proposals/create',            [ProposalController::class, 'create'])->middleware('role:admin,sales')->name('proposals.create-page');
+        Route::get('/proposals/{proposal}',              [ProposalController::class, 'show'])->middleware('role:admin,sales,finance')->name('proposals.show');
+    Route::get('/sales/{proposal}',                  [ProposalController::class, 'show'])->middleware('role:admin,sales,finance')->name('sales.show');
+Route::get('/sales/proposals/create',            [ProposalController::class, 'create'])->middleware('role:admin,sales')->name('proposals.create-page');
     Route::get('/proposals/{proposal}/edit',         [ProposalController::class, 'edit'])->middleware('role:admin,sales')->name('proposals.edit-page');
     Route::get('/proposals/{proposal}/pdf',          [ProposalController::class, 'pdf'])->middleware('role:admin,sales,finance')->name('proposals.pdf');
     Route::post('/proposals',                        [ProposalController::class, 'store'])->middleware('role:admin,sales')->name('proposals.store');
@@ -240,7 +247,8 @@ Route::middleware('auth')->middleware('feature')->group(function () {
     Route::post('/hris/leaves',                      [HrisController::class, 'storeLeave'])->middleware('role:admin,hr')->name('hris.leaves.store');
     Route::post('/hris/reviews',                     [HrisController::class, 'storeReview'])->middleware('role:admin,hr')->name('hris.reviews.store');
     Route::post('/hris/benefits',                    [HrisController::class, 'storeBenefit'])->middleware('role:admin,hr')->name('hris.benefits.store');
-    Route::get('/employees/create',                  [EmployeeController::class, 'create'])->middleware('role:admin,hr')->name('employees.create-page');
+        Route::get('/employees/{employee}',              [EmployeeController::class, 'show'])->middleware('role:admin,hr')->name('employees.show');
+Route::get('/employees/create',                  [EmployeeController::class, 'create'])->middleware('role:admin,hr')->name('employees.create-page');
     Route::get('/employees/{employee}/edit',         [EmployeeController::class, 'edit'])->middleware('role:admin,hr')->name('employees.edit-page');
     Route::post('/employees',                        [EmployeeController::class, 'store'])->middleware('role:admin,hr')->name('employees.store');
     Route::put('/employees/{employee}',              [EmployeeController::class, 'update'])->middleware('role:admin,hr')->name('employees.update');
@@ -296,7 +304,8 @@ Route::middleware('auth')->middleware('feature')->group(function () {
 
     // ── Salaries ──────────────────────────────────────────────────────────────
     Route::get('/hr/salaries',                       [SalaryController::class, 'index'])->middleware('role:admin,hr')->name('salaries.index-page');
-    Route::get('/salaries/create',                   [SalaryController::class, 'create'])->middleware('role:admin,hr')->name('salaries.create-page');
+        Route::get('/salaries/{salary}',                 [SalaryController::class, 'show'])->middleware('role:admin,hr,finance')->name('salaries.show');
+Route::get('/salaries/create',                   [SalaryController::class, 'create'])->middleware('role:admin,hr')->name('salaries.create-page');
     Route::get('/salaries/{salary}/edit',            [SalaryController::class, 'edit'])->middleware('role:admin,hr')->name('salaries.edit-page');
     Route::get('/salaries/{salary}/pdf',             [SalaryController::class, 'pdf'])->middleware('role:admin,hr,finance')->name('salaries.pdf');
     Route::post('/salaries',                         [SalaryController::class, 'store'])->middleware('role:admin,hr')->name('salaries.store');
@@ -306,7 +315,8 @@ Route::middleware('auth')->middleware('feature')->group(function () {
 
     // ── Reimbursements ────────────────────────────────────────────────────────
     Route::get('/finance/reimbursements',                    [ReimbursementController::class, 'index'])->middleware('role:admin,finance,hr')->name('reimbursements.index-page');
-    Route::get('/reimbursements/create',                     [ReimbursementController::class, 'create'])->middleware('role:admin,finance,hr')->name('reimbursements.create-page');
+        Route::get('/reimbursements/{reimbursement}',    [ReimbursementController::class, 'show'])->middleware('role:admin,finance,hr')->name('reimbursements.show');
+Route::get('/reimbursements/create',                     [ReimbursementController::class, 'create'])->middleware('role:admin,finance,hr')->name('reimbursements.create-page');
     Route::get('/reimbursements/{reimbursement}/edit',       [ReimbursementController::class, 'edit'])->middleware('role:admin,finance,hr')->name('reimbursements.edit-page');
     Route::post('/reimbursements',                           [ReimbursementController::class, 'store'])->middleware('role:admin,hr,finance')->name('reimbursements.store');
     Route::put('/reimbursements/{reimbursement}',            [ReimbursementController::class, 'update'])->middleware('role:admin,hr,finance')->name('reimbursements.update');
@@ -323,7 +333,8 @@ Route::middleware('auth')->middleware('feature')->group(function () {
 
     // ── Invoices ──────────────────────────────────────────────────────────────
     Route::get('/finance',                           [InvoiceController::class, 'index'])->middleware('role:admin,finance')->name('finance.index');
-    Route::get('/invoices/create',                   [InvoiceController::class, 'create'])->middleware('role:admin,finance')->name('invoices.create-page');
+        Route::get('/invoices/{invoice}',                [InvoiceController::class, 'show'])->middleware('role:admin,finance,sales')->name('invoices.show');
+Route::get('/invoices/create',                   [InvoiceController::class, 'create'])->middleware('role:admin,finance')->name('invoices.create-page');
     Route::get('/invoices/{invoice}/edit',           [InvoiceController::class, 'edit'])->middleware('role:admin,finance')->name('invoices.edit-page');
     Route::get('/invoices/{invoice}/pdf',            [InvoiceController::class, 'pdf'])->middleware('role:admin,finance,sales')->name('invoices.pdf');
     Route::post('/invoices',                         [InvoiceController::class, 'store'])->middleware('role:admin,finance')->name('invoices.store');
@@ -521,7 +532,8 @@ Route::middleware('auth')->middleware('feature')->group(function () {
 
     // ── Procurement: Vendors ─────────────────────────────────────────────────---
     Route::get('/vendors',                           [VendorController::class, 'index'])->middleware('role:admin,finance')->name('vendors.index');
-    Route::get('/vendors/create',                    [VendorController::class, 'create'])->middleware('role:admin,finance')->name('vendors.create-page');
+        Route::get('/vendors/{vendor}',                  [VendorController::class, 'show'])->middleware('role:admin,finance')->name('vendors.show');
+Route::get('/vendors/create',                    [VendorController::class, 'create'])->middleware('role:admin,finance')->name('vendors.create-page');
     Route::get('/vendors/{vendor}/edit',             [VendorController::class, 'edit'])->middleware('role:admin,finance')->name('vendors.edit-page');
     Route::post('/vendors',                          [VendorController::class, 'store'])->middleware('role:admin,finance')->name('vendors.store');
     Route::put('/vendors/{vendor}',                  [VendorController::class, 'update'])->middleware('role:admin,finance')->name('vendors.update');
@@ -537,15 +549,18 @@ Route::middleware('auth')->middleware('feature')->group(function () {
 
     // ── Procurement: Purchase Orders ─────────────────────────────────────────────
     Route::get('/purchase-orders',                   [PurchaseOrderController::class, 'index'])->middleware('role:admin,finance')->name('purchase-orders.index');
-    Route::get('/purchase-orders/create',            [PurchaseOrderController::class, 'create'])->middleware('role:admin,finance')->name('purchase-orders.create-page');
+        Route::get('/purchase-orders/{order}',           [PurchaseOrderController::class, 'show'])->middleware('role:admin,finance')->name('purchase-orders.show');
+Route::get('/purchase-orders/create',            [PurchaseOrderController::class, 'create'])->middleware('role:admin,finance')->name('purchase-orders.create-page');
     Route::get('/purchase-orders/{order}/edit',      [PurchaseOrderController::class, 'edit'])->middleware('role:admin,finance')->name('purchase-orders.edit-page');
+    Route::get('/purchase-orders/{order}/pdf',       [PurchaseOrderController::class, 'pdf'])->middleware('role:admin,finance')->name('purchase-orders.pdf');
     Route::post('/purchase-orders',                  [PurchaseOrderController::class, 'store'])->middleware('role:admin,finance')->name('purchase-orders.store');
     Route::put('/purchase-orders/{order}',           [PurchaseOrderController::class, 'update'])->middleware('role:admin,finance')->name('purchase-orders.update');
     Route::delete('/purchase-orders/{order}',        [PurchaseOrderController::class, 'destroy'])->middleware('role:admin')->name('purchase-orders.destroy');
 
     // ── Procurement: Goods Receipts ──────────────────────────────────────────────
     Route::get('/goods-receipts',                    [GoodsReceiptController::class, 'index'])->middleware('role:admin,finance')->name('goods-receipts.index');
-    Route::get('/goods-receipts/create',             [GoodsReceiptController::class, 'create'])->middleware('role:admin,finance')->name('goods-receipts.create-page');
+        Route::get('/goods-receipts/{receipt}',          [GoodsReceiptController::class, 'show'])->middleware('role:admin,finance')->name('goods-receipts.show');
+Route::get('/goods-receipts/create',             [GoodsReceiptController::class, 'create'])->middleware('role:admin,finance')->name('goods-receipts.create-page');
     Route::get('/goods-receipts/{receipt}/edit',     [GoodsReceiptController::class, 'edit'])->middleware('role:admin,finance')->name('goods-receipts.edit-page');
     Route::post('/goods-receipts',                   [GoodsReceiptController::class, 'store'])->middleware('role:admin,finance')->name('goods-receipts.store');
     Route::put('/goods-receipts/{receipt}',          [GoodsReceiptController::class, 'update'])->middleware('role:admin,finance')->name('goods-receipts.update');
@@ -561,7 +576,8 @@ Route::middleware('auth')->middleware('feature')->group(function () {
 
     // ── Inventory: Products ──────────────────────────────────────────────────
     Route::get('/products',                            [ProductController::class, 'index'])->middleware('role:admin,finance,sales')->name('products.index');
-    Route::get('/products/create',                     [ProductController::class, 'create'])->middleware('role:admin,finance,sales')->name('products.create-page');
+        Route::get('/products/{product}',                  [ProductController::class, 'show'])->middleware('role:admin,finance,sales')->name('products.show');
+Route::get('/products/create',                     [ProductController::class, 'create'])->middleware('role:admin,finance,sales')->name('products.create-page');
     Route::get('/products/{product}/edit',             [ProductController::class, 'edit'])->middleware('role:admin,finance,sales')->name('products.edit-page');
     Route::post('/products',                           [ProductController::class, 'store'])->middleware('role:admin,finance,sales')->name('products.store');
     Route::put('/products/{product}',                  [ProductController::class, 'update'])->middleware('role:admin,finance,sales')->name('products.update');
@@ -645,7 +661,8 @@ Route::middleware('auth')->middleware('feature')->group(function () {
 
     // ── Admin: Clients ─────────────────────────────────────────────────────────
     Route::get('/clients',                               [ClientController::class, 'index'])->middleware('role:admin')->name('clients.index');
-    Route::get('/clients/create',                        [ClientController::class, 'create'])->middleware('role:admin')->name('clients.create-page');
+        Route::get('/clients/{client}',                     [ClientController::class, 'show'])->middleware('role:admin')->name('clients.show');
+Route::get('/clients/create',                        [ClientController::class, 'create'])->middleware('role:admin')->name('clients.create-page');
     Route::get('/clients/{client}/edit',                 [ClientController::class, 'edit'])->middleware('role:admin')->name('clients.edit-page');
     Route::post('/clients',                              [ClientController::class, 'store'])->middleware('role:admin')->name('clients.store');
     Route::put('/clients/{client}',                      [ClientController::class, 'update'])->middleware('role:admin')->name('clients.update');

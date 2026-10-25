@@ -42,6 +42,9 @@ class DatabaseSeeder extends Seeder
             ['Raul',  'raul@nexora.test',  'admin'],
             ['Fanni', 'fanni@nexora.test', 'admin'],
             ['Rei',   'rei@nexora.test',   'admin'],
+            ['Nexora Finance', 'finance@nexora.test', 'finance'],
+            ['Nexora Sales', 'sales@nexora.test', 'sales'],
+            ['Nexora HR', 'hr@nexora.test', 'hr'],
         ] as [$name, $email, $role]) {
             User::updateOrCreate(
                 ['email' => $email],
@@ -104,5 +107,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FeatureFlagSeeder::class);
         $this->call(AccountingSeeder::class);
         $this->call(InventorySeeder::class);
+        $this->call(CompleteFeatureSeeder::class);
     }
 }

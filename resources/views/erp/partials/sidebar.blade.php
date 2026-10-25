@@ -81,6 +81,11 @@
         <nav class="side-nav">
             <div class="side-section">Navigation</div>
 
+            <a class="side-link {{ request()->routeIs('task-board.index') || (request()->routeIs('approvals.index') && request()->boolean('tasks_only')) ? 'active' : '' }}" href="{{ route('task-board.index') }}">
+                <span class="side-icon">{!! $icon('audit') !!}</span>
+                <span class="side-label">Task Board</span>
+            </a>
+
             @php
                 $isDashboardGroup = request()->routeIs('dashboard*');
             @endphp
@@ -92,50 +97,50 @@
                 </summary>
                 <div class="side-subs">
                     <a class="sub {{ request()->routeIs('dashboard') && !request()->routeIs('dashboard.*') ? 'active font-semibold' : '' }}" href="{{ route('dashboard') }}">
-                        <span class="side-label">Dashboard Utama</span>
+                        <span class="side-icon text-slate-300">{!! $icon('dashboard') !!}</span><span class="side-label">Dashboard Utama</span>
                     </a>
                     @if($can('admin', 'finance', 'management'))
                         <a class="sub {{ request()->routeIs('dashboard.executive') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.executive') }}">
-                            <span class="side-label">Executive Overview</span>
+                            <span class="side-icon text-cyan-300">{!! $icon('reports') !!}</span><span class="side-label">Executive Overview</span>
                         </a>
                     @endif
                     @if($can('admin', 'sales', 'management'))
                         <a class="sub {{ request()->routeIs('dashboard.sales') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.sales') }}">
-                            <span class="side-label">Sales & CRM</span>
+                        <span class="side-icon text-sky-300">{!! $icon('proposal') !!}</span><span class="side-label">Sales & CRM</span>
                         </a>
                     @endif
                     @if($can('admin', 'project', 'sales', 'management'))
                         <a class="sub {{ request()->routeIs('dashboard.projects') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.projects') }}">
-                            <span class="side-label">Project Management</span>
+                        <span class="side-icon text-violet-300">{!! $icon('projects') !!}</span><span class="side-label">Project Management</span>
                         </a>
                     @endif
                     @if($can('admin', 'hr', 'management'))
                         <a class="sub {{ request()->routeIs('dashboard.hr') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.hr') }}">
-                            <span class="side-label">Human Resources</span>
+                            <span class="side-icon text-emerald-300">{!! $icon('employees') !!}</span><span class="side-label">Human Resources</span>
                         </a>
                     @endif
                     @if($can('admin', 'finance', 'management'))
                         <a class="sub {{ request()->routeIs('dashboard.finance') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.finance') }}">
-                            <span class="side-label">Finance & Accounting</span>
+                        <span class="side-icon text-amber-300">{!! $icon('cashflow') !!}</span><span class="side-label">Finance & Accounting</span>
                         </a>
                     @endif
                     @if($can('admin', 'procurement', 'finance', 'management'))
                         <a class="sub {{ request()->routeIs('dashboard.procurement') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.procurement') }}">
-                            <span class="side-label">Procurement</span>
+                        <span class="side-icon text-orange-300">{!! $icon('procurement') !!}</span><span class="side-label">Procurement</span>
                         </a>
                     @endif
                     @if($can('admin', 'inventory', 'procurement', 'management'))
                         <a class="sub {{ request()->routeIs('dashboard.inventory') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.inventory') }}">
-                            <span class="side-label">Inventory & Warehouse</span>
+                        <span class="side-icon text-pink-300">{!! $icon('warehouse') !!}</span><span class="side-label">Inventory & Warehouse</span>
                         </a>
                     @endif
                     @if($can('admin', 'cms') && FeatureFlag::moduleEnabled('cms'))
                         <a class="sub {{ request()->routeIs('dashboard.cms') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.cms') }}">
-                            <span class="side-label">CMS & Website</span>
+                            <span class="side-icon text-fuchsia-300">{!! $icon('cms') !!}</span><span class="side-label">CMS & Website</span>
                         </a>
                     @endif
                     <a class="sub {{ request()->routeIs('dashboard.workspace') ? 'active font-semibold' : '' }}" href="{{ route('dashboard.workspace') }}">
-                        <span class="side-label">My Workspace</span>
+                        <span class="side-icon text-blue-200">{!! $icon('users') !!}</span><span class="side-label">My Workspace</span>
                     </a>
                 </div>
             </details>

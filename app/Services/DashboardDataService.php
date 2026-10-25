@@ -1619,6 +1619,11 @@ class DashboardDataService
     {
         $range = $this->resolveDateRange($request);
         $userId = $user->id;
+        // ERP requests are linked to employees, while authentication is linked to users.
+        // Do not query employee-owned tables with the non-existent user_id column.
+        $employeeId = Employee::query()
+            ->where('name', $user->name)
+            ->value('id');
 
         // My tasks
         $myTasks = Task::where('assigned_to', $userId)->get();
@@ -1629,21 +1634,21 @@ class DashboardDataService
             ->count();
 
         // My pending requests
-        $myReimbursements = Reimbursement::where('user_id', $userId)->get();
-        $myLeaveRequests  = LeaveRequest::where('employee_id', $user->employee_id ?? $userId)->get();
+        $myReimbursements = $employeeId ? Reimbursement::where('employee_id', $employeeId)->get() : collect();
+        $myLeaveRequests  = $employeeId ? LeaveRequest::where('employee_id', $employeeId)->get() : collect();
         $pendingRequests  = $myReimbursements->where('status', 'pending')->count() + $myLeaveRequests->where('status', 'pending')->count();
 
         // My Approvals (reimbursements or tasks assigned to approve)
         $approvalsAssigned = Reimbursement::where('status', 'pending')->count(); // For admin/approver
 
         // My Timesheets
-        $myTimesheets = Timesheet::where('employee_id', $user->employee_id ?? $userId)->get();
+        $myTimesheets = $employeeId ? Timesheet::where('employee_id', $employeeId)->get() : collect();
         $myTimesheetHours = (float) $myTimesheets->sum('hours');
 
         // My Attendance this month
-        $myAttendances = Attendance::where('employee_id', $user->employee_id ?? $userId)
+        $myAttendances = $employeeId ? Attendance::where('employee_id', $employeeId)
             ->whereMonth('work_date', now()->month)
-            ->get();
+            ->get() : collect();
         $myPresentDays = $myAttendances->where('status', 'present')->count();
 
         // My Assigned Projects

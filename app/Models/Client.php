@@ -20,4 +20,14 @@ class Client extends Model
     {
         return $this->hasMany(Project::class);
     }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(ClientContract::class);
+    }
+
+    public function leads(): HasMany
+    {
+        return $this->hasMany(SalesLead::class);
+    }
 }

@@ -12,5 +12,6 @@ class CurrencyRate extends Model
 
     protected $fillable = ['company_id',
         'from_currency', 'to_currency', 'rate', 'rate_date', 'source',
+        'currency', 'rate_to_idr',
     ];
 }

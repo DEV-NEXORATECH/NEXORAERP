@@ -40,7 +40,12 @@ class GoodsReceiptController extends Controller
         return view('erp.goods-receipts.create', compact('allOrders'));
     }
 
-    public function edit(GoodsReceipt $receipt): View
+    public function show(GoodsReceipt $receipt): View
+    {
+        $receipt->load(['purchaseOrder.vendor']);
+        return view('erp.goods-receipts.show', compact('receipt'));
+    }
+public function edit(GoodsReceipt $receipt): View
     {
         $allOrders = PurchaseOrder::orderByDesc('id')->get(['id', 'number']);
         return view('erp.goods-receipts.edit', compact('receipt', 'allOrders'));

@@ -35,7 +35,12 @@ class ProductController extends Controller
         return view('erp.products.create', compact('categories', 'units'));
     }
 
-    public function edit(Product $product): View
+        public function show(Product $product): View
+    {
+        $product->load(['category', 'unit', 'movements.warehouse']);
+        return view('erp.products.show', compact('product'));
+    }
+public function edit(Product $product): View
     {
         $categories = ProductCategory::orderBy('name')->get(['id', 'code', 'name']);
         $units = UnitOfMeasure::orderBy('name')->get(['id', 'code', 'name']);

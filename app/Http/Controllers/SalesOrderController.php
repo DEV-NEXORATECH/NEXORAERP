@@ -44,7 +44,12 @@ class SalesOrderController extends Controller
         return view('erp.sales-orders.create', compact('proposals', 'clients', 'products', 'productOptions'));
     }
 
-    public function edit(SalesOrder $order): View
+        public function show(SalesOrder $order): View
+    {
+        $order->load(['proposal', 'client', 'items.product']);
+        return view('erp.sales-orders.show', compact('order'));
+    }
+public function edit(SalesOrder $order): View
     {
         $proposals = Proposal::orderByDesc('id')->get(['id', 'number', 'title']);
         $clients = Client::orderBy('name')->get(['id', 'name']);

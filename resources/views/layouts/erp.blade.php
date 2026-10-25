@@ -65,7 +65,7 @@
 @endphp
 
 @section('body')
-<div class="app-shell">
+<div class="app-shell module-{{ \Illuminate\Support\Str::slug($activePage) }}">
     @include('erp.partials.sidebar')
     <div class="sidebar-backdrop" data-sidebar-backdrop></div>
     <div class="content">
@@ -73,9 +73,6 @@
         <div class="content-body">
             <main class="shell">
                 @include('erp.partials.alerts')
-                @include('erp.partials.finance-page-hero')
-                @include('erp.partials.finance-list-filter')
-                @include('erp.partials.module-list-filter')
                 @yield('content')
             </main>
         </div>

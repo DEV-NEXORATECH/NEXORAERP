@@ -20,6 +20,8 @@ class User extends Authenticatable
         'company_id',
         'name',
         'email',
+        'avatar_path', 'nik', 'phone', 'job_title', 'department', 'address',
+        'birth_date', 'birth_place', 'emergency_contact',
         'role',
         'is_active',
         'must_change_password',
@@ -38,6 +40,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'birth_date' => 'date',
             'is_active' => 'boolean',
             'must_change_password' => 'boolean',
             'locked_until' => 'datetime',

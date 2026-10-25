@@ -24,7 +24,12 @@ class ClientController extends Controller
         return view('erp.clients.create');
     }
 
-    public function edit(Client $client): View
+    public function show(Client $client): View
+    {
+        $client->load(['projects', 'contracts', 'leads']);
+        return view('erp.clients.show', compact('client'));
+    }
+public function edit(Client $client): View
     {
         return view('erp.clients.edit', compact('client'));
     }

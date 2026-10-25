@@ -40,7 +40,12 @@ class SalaryController extends Controller
         return view('erp.salaries.create', compact('employees', 'projects'));
     }
 
-    public function edit(Salary $salary): View
+    public function show(Salary $salary): View
+    {
+        $salary->load(['employee.departmentRecord', 'employee.jobPosition', 'project']);
+        return view('erp.salaries.show', compact('salary'));
+    }
+public function edit(Salary $salary): View
     {
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
         $projects  = \App\Models\Project::orderBy('code')->get(['id', 'code']);
