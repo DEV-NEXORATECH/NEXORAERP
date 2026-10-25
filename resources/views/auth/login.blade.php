@@ -43,8 +43,8 @@
                 <label for="email" class="block mb-1.5 text-xs font-semibold text-[#0B2345] tracking-wide">
                     Email Address
                 </label>
-                <div class="relative">
-                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#0B2345]/40">
+                <div class="relative login-field-wrap">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#0B2345]/40 login-field-icon">
                         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect width="20" height="16" x="2" y="4" rx="2"/>
                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
@@ -58,7 +58,7 @@
                         required 
                         autofocus
                         placeholder="name@company.com"
-                        class="w-full h-11 pl-10 pr-4 rounded-[10px] border border-[#0B2345]/15 bg-white text-sm text-[#0B2345] placeholder-[#0B2345]/35 transition-all duration-200 outline-none focus:border-[#0B2345] focus:ring-2 focus:ring-[#0B2345]/10 shadow-[0_1px_2px_rgba(11,35,69,0.03)]"
+                        class="w-full h-11 pl-10 pr-4 rounded-[10px] border border-[#0B2345]/15 bg-white text-sm text-[#0B2345] placeholder-[#0B2345]/35 transition-all duration-200 outline-none focus:border-[#0B2345] focus:ring-2 focus:ring-[#0B2345]/10 shadow-[0_1px_2px_rgba(11,35,69,0.03)] login-field-input"
                     >
                 </div>
             </div>
@@ -73,8 +73,8 @@
                         Forgot Password?
                     </a>
                 </div>
-                <div class="relative">
-                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#0B2345]/40">
+                <div class="relative login-field-wrap">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#0B2345]/40 login-field-icon">
                         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
@@ -87,7 +87,7 @@
                         value="password" 
                         required
                         placeholder="••••••••"
-                        class="w-full h-11 pl-10 pr-11 rounded-[10px] border border-[#0B2345]/15 bg-white text-sm text-[#0B2345] placeholder-[#0B2345]/35 transition-all duration-200 outline-none focus:border-[#0B2345] focus:ring-2 focus:ring-[#0B2345]/10 shadow-[0_1px_2px_rgba(11,35,69,0.03)]"
+                        class="w-full h-11 pl-10 pr-11 rounded-[10px] border border-[#0B2345]/15 bg-white text-sm text-[#0B2345] placeholder-[#0B2345]/35 transition-all duration-200 outline-none focus:border-[#0B2345] focus:ring-2 focus:ring-[#0B2345]/10 shadow-[0_1px_2px_rgba(11,35,69,0.03)] login-field-input"
                     >
                     <button 
                         type="button" 

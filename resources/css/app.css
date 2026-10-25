@@ -3963,3 +3963,38 @@ tbody tr:hover {
     border-radius: 0 0 8px 8px !important;
 }
 
+/* Login fields: keep the leading icon clear of the entered text at every zoom level. */
+.login-field-wrap {
+    position: relative !important;
+}
+
+.login-field-icon {
+    position: absolute !important;
+    inset-block: 0 !important;
+    left: 0 !important;
+    z-index: 2 !important;
+    width: 2.75rem !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    pointer-events: none !important;
+}
+
+.login-field-icon svg {
+    width: 1rem !important;
+    height: 1rem !important;
+}
+
+.login-field-input {
+    position: relative !important;
+    z-index: 1 !important;
+    box-sizing: border-box !important;
+    padding-left: 2.75rem !important;
+    padding-right: 1rem !important;
+}
+
+#login-password.login-field-input {
+    padding-right: 2.75rem !important;
+}
+
