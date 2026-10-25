@@ -13,20 +13,20 @@
 
     {{-- Quick Actions --}}
     <div class="flex flex-wrap items-center gap-2.5">
-        <a href="{{ route('products.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#0B2345] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
+        <a href="{{ route('products.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
             {!! $icon('plus') !!}
             <span>Produk Baru</span>
         </a>
-        <a href="{{ route('products.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('products.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Daftar Produk</span>
         </a>
-        <a href="{{ route('stock-movements.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('stock-movements.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Mutasi Stok</span>
         </a>
-        <a href="{{ route('stock-adjustments.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('stock-adjustments.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Penyesuaian (Stock Opname)</span>
         </a>
-        <a href="{{ route('warehouses.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('warehouses.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Gudang</span>
         </a>
     </div>
@@ -38,7 +38,7 @@
                 @include('erp.dashboard.components.kpi-card', [
                     'label'  => $kpi['label'],
                     'value'  => $kpi['value'],
-                    'color'  => $kpi['color'] ?? '#0B2345',
+                    'color'  => $kpi['color'] ?? '#002875',
                     'format' => in_array($key, ['valuation']) ? 'currency' : 'text',
                 ])
             @endforeach
@@ -128,7 +128,7 @@
     {{-- Data Tables --}}
     <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {{-- Low & Out of Stock Alert Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Peringatan Stok Menipis & Habis</h3>
                 <span class="inline-flex rounded-full bg-[#DC2626]/10 px-2 py-0.5 text-[11px] font-bold text-[#DC2626]">
@@ -138,7 +138,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">Kode</th>
                             <th class="px-3 py-2.5">Nama Produk</th>
                             <th class="px-3 py-2.5 text-right">Stok Fisik</th>
@@ -168,15 +168,15 @@
         </div>
 
         {{-- Recent Stock Movements Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Mutasi Fisik Terkini (Logistik)</h3>
-                <a href="{{ route('stock-movements.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Semua Mutasi →</a>
+                <a href="{{ route('stock-movements.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Semua Mutasi →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">Produk</th>
                             <th class="px-3 py-2.5">Gudang</th>
                             <th class="px-3 py-2.5 text-right">Kuantitas</th>
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
             chart: { type: 'donut', height: 260 },
             series: catData.map(c => c.count),
             labels: catData.map(c => c.name),
-            colors: ['#0B2345', '#0F766E', '#2563EB', '#16A34A', '#7C3AED', '#EA580C'],
+            colors: ['#002875', '#0F766E', '#2563EB', '#16A34A', '#7C3AED', '#EA580C'],
             legend: { position: 'bottom' }
         });
     }

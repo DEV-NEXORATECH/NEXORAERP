@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'reports-project', 'pageTitle' => 'Project Profitability Report'])
 
 @section('content')
-<section class="report-hero">
+<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mb-4">
     <div>
         <span>Financial Intelligence</span>
         <h1>Project Profitability</h1>
@@ -9,9 +9,9 @@
     </div>
 </section>
 
-<section class="filter-panel report-filter section">
-    <div class="filter-panel-header">
-        <div class="filter-panel-icon">{!! $icon('list') !!}</div>
+<section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4 report-filter section">
+    <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-header">
+        <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-icon">{!! $icon('list') !!}</div>
         <div>
             <h3>Filter Report</h3>
             <p class="muted">Filter berdasarkan project.</p>
@@ -30,7 +30,7 @@
     <div class="section-head"><h2>Laporan Profitabilitas Proyek</h2><span class="badge">{{ $projectReports->count() }} project</span></div>
     <div class="grid three">
         @forelse ($projectReports as $report)
-            <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
+            <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
                 <h3 class="font-bold text-lg mb-3">{{ $report['project']->code }} - {{ $report['project']->name }}</h3>
                 <table class="w-full">
                     <tr><td class="py-1">Kontrak</td><td class="text-right font-bold py-1">{{ $rp($report['project']->contract_value) }}</td></tr>

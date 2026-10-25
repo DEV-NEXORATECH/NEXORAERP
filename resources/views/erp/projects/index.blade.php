@@ -3,18 +3,18 @@
 @section('content')
 
 {{-- Project Finance Cards --}}
-<section class="section" id="project-finance">
+<section class="space-y-4 mb-6>
     <div class="section-head">
         <h2>Project Finance Detail</h2>
         <span class="badge">{{ $projectReports->count() }} project</span>
     </div>
     <div class="grid three">
         @forelse ($projectReports as $report)
-            <div class="card overflow-x-auto">
+            <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm overflow-x-auto">
                 <div class="mb-4 flex items-start justify-between gap-3">
                     <div>
                         <h3 class="mb-0.5">
-                            <a href="{{ route('projects.show', $report['project']) }}" class="hover:text-[#0B2345]">
+                            <a href="{{ route('projects.show', $report['project']) }}" class="hover:text-[#002875]">
                                 {{ $report['project']->code }} — {{ $report['project']->name }}
                             </a>
                         </h3>
@@ -34,13 +34,13 @@
                 </table>
             </div>
         @empty
-            <div class="col-span-full rounded-2xl bg-[#F4F7FB] p-8 text-center text-sm font-bold text-slate-500">Belum ada data project.</div>
+            <div class="col-span-full rounded-lg bg-[#F4F7FB] p-8 text-center text-sm font-bold text-slate-500">Belum ada data project.</div>
         @endforelse
     </div>
 </section>
 
 {{-- Projects Table --}}
-<section class="card section wide">
+<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mt-4">
     <div class="section-head">
         <h2>Daftar Projects</h2>
         @if($can('admin', 'sales'))

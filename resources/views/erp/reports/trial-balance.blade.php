@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'reports-trial-balance', 'pageTitle' => 'Trial Balance'])
 
 @section('content')
-<section class="report-hero">
+<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mb-4">
     <div>
         <span>Financial Intelligence</span>
         <h1>Trial Balance</h1>
@@ -9,9 +9,9 @@
     </div>
 </section>
 
-<section class="filter-panel report-filter section">
-    <div class="filter-panel-header">
-        <div class="filter-panel-icon">{!! $icon('reports') !!}</div>
+<section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4 report-filter section">
+    <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-header">
+        <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-icon">{!! $icon('reports') !!}</div>
         <div>
             <h3>Filter Trial Balance</h3>
             <p class="muted">Filter berdasarkan periode dan jenis akun.</p>
@@ -35,7 +35,7 @@
     </form>
 </section>
 
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5 section">
+<section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm section">
     <h2 class="font-bold text-lg mb-4">Trial Balance</h2>
     @if($accounts->isEmpty())
         <p class="muted">Tidak ada jurnal pada periode tersebut.</p>
@@ -65,7 +65,7 @@
                     @endforeach
                 </tbody>
                 <tfoot>
-                    <tr class="border-t-2 border-[#0B2345]">
+                    <tr class="border-t-2 border-[#002875]">
                         <td colspan="3" class="py-3 font-bold">Total</td>
                         <td class="py-3 text-right font-bold">{{ $rp($accounts->sum('debit')) }}</td>
                         <td class="py-3 text-right font-bold">{{ $rp($accounts->sum('credit')) }}</td>

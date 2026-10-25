@@ -3,14 +3,14 @@
 @section('content')
 <div class="space-y-6">
     {{-- Header --}}
-    <div class="flex flex-col gap-4 rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-col gap-4 rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs md:flex-row md:items-center md:justify-between">
         <div class="flex items-center gap-3.5">
-            <a href="{{ route('cms.index') }}" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] border border-[#D9E2EC] bg-white text-[#475569] transition hover:border-[#0B2345] hover:text-[#0B2345]" title="Kembali ke CMS">
+            <a href="{{ route('cms.index') }}" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#E5E7EB] bg-white text-[#475569] transition hover:border-[#002875] hover:text-[#002875]" title="Kembali ke CMS">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             </a>
             <div>
                 <div class="flex items-center gap-2">
-                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#0B2345]">Headless Content</span>
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#002875]">Headless Content</span>
                     <span class="text-[#475569]">·</span>
                     <span class="text-[11px] font-medium text-[#475569]">Section Builder</span>
                 </div>
@@ -24,9 +24,9 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-4 w-4"><path d="M12 5v14M5 12h14"/></svg>
                 <span>Tambah Section</span>
             </a>
-            <div class="inline-flex h-9 items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] px-3.5 text-xs font-semibold text-[#0F172A]">
+            <div class="inline-flex h-9 items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-[#F8FAFC] px-3.5 text-xs font-semibold text-[#0F172A]">
                 <span class="text-[#475569]">Total:</span>
-                <span class="font-bold text-[#0B2345]">{{ $sections->total() }} Section</span>
+                <span class="font-bold text-[#002875]">{{ $sections->total() }} Section</span>
             </div>
         </div>
     </div>
@@ -34,10 +34,10 @@
     {{-- Section Cards Grid --}}
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         @forelse($sections as $section)
-            <div class="flex min-h-[170px] flex-col justify-between rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs transition hover:border-[#0B2345] hover:shadow-sm">
+            <div class="flex min-h-[170px] flex-col justify-between rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs transition hover:border-[#002875] hover:shadow-sm">
                 <div>
                     <div class="flex items-center justify-between gap-3">
-                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-[#0B2345] text-white">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#002875] text-white">
                             {!! $icon('content') !!}
                         </div>
                         <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider {{ $section->is_visible ? 'bg-[#F0FDF4] text-[#16A34A] border border-[#86EFAC]' : 'bg-[#FEF2F2] text-[#DC2626] border border-[#FCA5A5]' }}">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <div class="mt-4 flex items-center justify-between border-t border-[#D9E2EC] pt-3">
+                <div class="mt-4 flex items-center justify-between border-t border-[#E5E7EB] pt-3">
                     <a href="{{ route('cms.sections.edit', $section) }}" class="btn btn-outline h-7 px-3 text-xs font-semibold">
                         Edit
                     </a>
@@ -69,7 +69,7 @@
                 </div>
             </div>
         @empty
-            <div class="col-span-full rounded-[12px] border border-dashed border-[#D9E2EC] bg-white p-8 text-center text-xs text-[#94A3B8]">
+            <div class="col-span-full rounded-lg border border-dashed border-[#E5E7EB] bg-white p-8 text-center text-xs text-[#94A3B8]">
                 Belum ada section konten yang dibuat.
             </div>
         @endforelse

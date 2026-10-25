@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'reports-budget', 'pageTitle' => 'Budget vs Actual Report'])
 
 @section('content')
-<section class="report-hero">
+<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mb-4">
     <div>
         <span>Financial Intelligence</span>
         <h1>Budget vs Actual</h1>
@@ -9,7 +9,7 @@
     </div>
 </section>
 
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5 section">
+<section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm section">
     <h2 class="font-bold text-lg mb-4">Anggaran vs Realisasi</h2>
     <div class="overflow-x-auto">
         <table class="w-full">

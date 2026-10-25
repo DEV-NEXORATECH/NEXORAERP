@@ -13,24 +13,24 @@
 
     {{-- Quick Actions --}}
     <div class="flex flex-wrap items-center gap-2.5">
-        <a href="{{ route('hr.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#0B2345] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
+        <a href="{{ route('hr.index') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
             <span>Data Karyawan</span>
         </a>
-        <a href="{{ route('attendances.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('attendances.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Presensi Harian</span>
         </a>
-        <a href="{{ route('leave-requests.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('leave-requests.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Permohonan Cuti</span>
         </a>
         @if($can('admin', 'hr', 'finance'))
-            <a href="{{ route('salaries.index-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+            <a href="{{ route('salaries.index-page') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
                 <span>Kelola Gaji / Payroll</span>
             </a>
         @endif
-        <a href="{{ route('timesheets.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('timesheets.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Review Timesheet</span>
         </a>
-        <a href="{{ route('performance-reviews.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('performance-reviews.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Performance Review</span>
         </a>
     </div>
@@ -43,7 +43,7 @@
                     @include('erp.dashboard.components.kpi-card', [
                         'label'  => $kpi['label'],
                         'value'  => $kpi['value'],
-                        'color'  => $kpi['color'] ?? '#0B2345',
+                        'color'  => $kpi['color'] ?? '#002875',
                         'format' => in_array($key, ['payroll_month', 'unpaid_salary']) ? 'currency' : (is_numeric($kpi['value']) ? 'number' : 'text'),
                     ])
                 @endif
@@ -134,15 +134,15 @@
     {{-- Data Tables --}}
     <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {{-- Pending Leave Requests Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Permohonan Cuti Menunggu Approval</h3>
-                <a href="{{ route('leave-requests.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Semua Cuti →</a>
+                <a href="{{ route('leave-requests.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Semua Cuti →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">Karyawan</th>
                             <th class="px-3 py-2.5">Tipe</th>
                             <th class="px-3 py-2.5">Tanggal</th>
@@ -170,15 +170,15 @@
         </div>
 
         {{-- Performance Review Schedule Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Jadwal Evaluasi Kinerja (Performance Review)</h3>
-                <a href="{{ route('performance-reviews.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Kelola Review →</a>
+                <a href="{{ route('performance-reviews.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Kelola Review →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">Karyawan</th>
                             <th class="px-3 py-2.5">Periode</th>
                             <th class="px-3 py-2.5">Skor / Rating</th>
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function () {
             chart: { type: 'bar', height: 260 },
             series: [{ name: 'Karyawan', data: empDept.map(d => d.count) }],
             plotOptions: { bar: { horizontal: true, barHeight: '50%', borderRadius: 3 } },
-            colors: ['#0B2345'],
+            colors: ['#002875'],
             xaxis: { categories: empDept.map(d => d.name) },
             yaxis: { labels: { style: { fontSize: '11px', fontWeight: 600 } } }
         });

@@ -1,34 +1,66 @@
-@extends('layouts.erp', ['activePage' => 'sales-targets.create-page', 'pageTitle' => 'Tambah Target'])
+@extends('layouts.erp', ['activePage' => 'sales-targets.create-page', 'pageTitle' => 'Tambah Target Sales'])
 
 @section('content')
-<section class="section">
-    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
-        <div class="mb-8 border-b border-[#d7e3ef] pb-5">
-            <h2 class="mb-1">Tambah Target</h2>
-            <p class="muted">Buat target sales baru.</p>
-        </div>
-        <form method="post" action="{{ route('sales-targets.store') }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+<div class="space-y-5 max-w-3xl">
+    <x-erp.page-header
+        title="Tetapkan Target Penjualan Baru"
+        subtitle="Alokasikan target omset penjualan per sales representative dan periode bulan/tahun."
+        :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Sales & CRM', 'url' => route('sales-crm.index')], ['label' => 'Sales Targets', 'url' => route('sales-targets.index')], ['label' => 'Tambah Target']]"
+    />
+
+    <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-xs">
+        <form method="post" action="{{ route('sales-targets.store') }}" class="space-y-5">
             @csrf
-            <div class="grid gap-1.5"><label>User</label>
-                <select name="user_id">
-                    <option value="">—</option>
-                    @foreach($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
-                </select>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Sales Representative <span class="text-red-500">*</span>
+                    </label>
+                    <select name="user_id" required
+                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        <option value="">-- Pilih Sales User --</option>
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}" @selected(old('user_id') == $user->id)>{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Periode Target (YYYY-MM) <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" name="period" value="{{ old('period', date('Y-m')) }}" placeholder="2026-06" required
+                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Target Penjualan (Rp) <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number" name="target_amount" value="{{ old('target_amount', 0) }}" min="0" step="1" required
+                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Realisasi Tercapai (Rp)
+                    </label>
+                    <input type="number" name="achieved_amount" value="{{ old('achieved_amount', 0) }}" min="0" step="1"
+                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                </div>
             </div>
-            <div class="grid gap-1.5"><label>Period</label><input name="period" placeholder="2026-06" required></div>
-            <div class="grid gap-1.5"><label>Target Amount (Rp)</label><input name="target_amount" type="number" min="0" required></div>
-            <div class="grid gap-1.5"><label>Achieved Amount (Rp)</label><input name="achieved_amount" type="number" min="0" value="0"></div>
-            <div class="mt-4 flex items-center gap-3 md:col-span-2">
-                <button class="btn">
-                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Simpan Target
+
+            <div class="flex items-center gap-3 pt-3 border-t border-slate-100">
+                <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-[#001B50] transition-colors">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                    Simpan Target
                 </button>
-                <a class="button ghost" href="{{ route('sales-targets.index') }}">
-                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Kembali
+                <a href="{{ route('sales-targets.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Batal
                 </a>
             </div>
         </form>
     </div>
-</section>
+</div>
 @endsection

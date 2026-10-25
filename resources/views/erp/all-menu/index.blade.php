@@ -38,14 +38,14 @@
 
 <div class="space-y-5" id="module-hub-container">
     {{-- ── 3. Page Header ──────────────────────────────────────────────── --}}
-    <div class="flex flex-col gap-4 rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-col gap-4 rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs md:flex-row md:items-center md:justify-between">
         <div class="flex items-center gap-3.5">
-            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] bg-[#0B2345] text-white shadow-xs">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#002875] text-white shadow-xs">
                 {!! $icon('dashboard') !!}
             </div>
             <div>
                 <div class="flex items-center gap-2">
-                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#0B2345]">Application Hub</span>
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#002875]">Application Hub</span>
                     <span class="text-[#475569]">·</span>
                     <span class="text-[11px] font-medium text-[#475569]">Core Navigation</span>
                 </div>
@@ -67,14 +67,14 @@
                     type="text"
                     id="module-search-input"
                     placeholder="Cari modul..."
-                    class="h-9 w-full rounded-[8px] border border-[#D9E2EC] bg-white pl-9 pr-3 text-xs text-[#0F172A] placeholder:text-[#475569]/50 transition outline-none focus:border-[#0B2345] focus:ring-1 focus:ring-[#0B2345]/15"
+                    class="h-9 w-full rounded-md border border-[#E5E7EB] bg-white pl-9 pr-3 text-xs text-[#0F172A] placeholder:text-[#475569]/50 transition outline-none focus:border-[#002875] focus:ring-1 focus:ring-[#002875]/15"
                 >
             </div>
 
             {{-- Module Counter Badge --}}
-            <div class="inline-flex h-9 items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] px-3 text-xs font-semibold text-[#0F172A]">
+            <div class="inline-flex h-9 items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-[#F8FAFC] px-3 text-xs font-semibold text-[#0F172A]">
                 <span class="text-[#475569]">Total:</span>
-                <span class="font-bold text-[#0B2345]" id="module-count-badge">{{ $orderedMenus->count() }} Modul</span>
+                <span class="font-bold text-[#002875]" id="module-count-badge">{{ $orderedMenus->count() }} Modul</span>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
             @endphp
             <a
                 href="{{ $routeUrl }}"
-                class="module-card group flex min-h-[200px] flex-col justify-between rounded-[12px] border border-[#D9E2EC] bg-white p-5 no-underline shadow-xs transition-all duration-200 hover:border-[#0B2345] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#0B2345]/20"
+                class="module-card group flex min-h-[200px] flex-col justify-between rounded-lg border border-[#E5E7EB] bg-white p-5 no-underline shadow-xs transition-all duration-200 hover:border-[#002875] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002875]/20"
                 data-module-title="{{ strtolower($hubTitle) }}"
                 data-module-desc="{{ strtolower($hubDesc) }}"
             >
@@ -98,11 +98,11 @@
                     {{-- Top Section: Icon, Title, Menu Count Badge --}}
                     <div class="flex items-start justify-between gap-3">
                         <div class="flex items-center gap-3 min-w-0">
-                            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] bg-[#0B2345] text-white shadow-xs">
+                            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#002875] text-white shadow-xs">
                                 {!! $hubIcons[$section] ?? $hubIcons['Main'] !!}
                             </div>
                             <div class="min-w-0">
-                                <h2 class="mb-0 text-base font-bold leading-tight text-[#0F172A] truncate group-hover:text-[#0B2345]">
+                                <h2 class="mb-0 text-base font-bold leading-tight text-[#0F172A] truncate group-hover:text-[#002875]">
                                     {{ $hubTitle }}
                                 </h2>
                                 <span class="text-[11px] font-medium text-[#475569]">
@@ -112,7 +112,7 @@
                         </div>
 
                         {{-- Menu Badge (Navy Solid) --}}
-                        <span class="inline-flex shrink-0 items-center rounded-full bg-[#0B2345] px-2.5 py-0.5 text-[11px] font-bold text-white shadow-xs">
+                        <span class="inline-flex shrink-0 items-center rounded-full bg-[#002875] px-2.5 py-0.5 text-[11px] font-bold text-white shadow-xs">
                             {{ $menuCount }} Menu
                         </span>
                     </div>
@@ -124,11 +124,11 @@
                 </div>
 
                 {{-- Bottom Section: Divider, "Lihat Modul", Arrow Right --}}
-                <div class="mt-4 flex items-center justify-between border-t border-[#D9E2EC] pt-3">
-                    <span class="text-xs font-semibold text-[#0B2345]">
+                <div class="mt-4 flex items-center justify-between border-t border-[#E5E7EB] pt-3">
+                    <span class="text-xs font-semibold text-[#002875]">
                         Lihat Modul
                     </span>
-                    <span class="text-[#0B2345] transition-transform duration-200 group-hover:translate-x-1">
+                    <span class="text-[#002875] transition-transform duration-200 group-hover:translate-x-1">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-4 w-4">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
@@ -139,8 +139,8 @@
     </div>
 
     {{-- Empty State (Search Not Found) --}}
-    <div id="module-empty-state" class="hidden flex-col items-center justify-center rounded-[12px] border border-dashed border-[#D9E2EC] bg-white p-12 text-center shadow-xs">
-        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-[10px] bg-[#0B2345]/5 text-[#0B2345]">
+    <div id="module-empty-state" class="hidden flex-col items-center justify-center rounded-lg border border-dashed border-[#E5E7EB] bg-white p-12 text-center shadow-xs">
+        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-md bg-[#002875]/5 text-[#002875]">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
                 <circle cx="11" cy="11" r="8"/>
                 <path d="m21 21-4.3-4.3"/>
@@ -151,7 +151,7 @@
         <button
             type="button"
             id="btn-reset-search"
-            class="mt-4 inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3 py-1.5 text-xs font-semibold text-[#0B2345] hover:bg-[#F4F7FB]"
+            class="mt-4 inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3 py-1.5 text-xs font-semibold text-[#002875] hover:bg-[#F4F7FB]"
         >
             Reset Pencarian
         </button>

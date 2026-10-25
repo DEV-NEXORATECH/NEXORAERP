@@ -13,20 +13,20 @@
 
     {{-- Quick Actions --}}
     <div class="flex flex-wrap items-center gap-2.5">
-        <a href="{{ route('cms.blog.create') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#0B2345] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
+        <a href="{{ route('cms.blog.create') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
             {!! $icon('plus') !!}
             <span>Tulis Artikel Blog</span>
         </a>
-        <a href="{{ route('cms.blog.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('cms.blog.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Daftar Artikel</span>
         </a>
-        <a href="{{ route('cms.sections.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('cms.sections.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Kelola Section Landing Page</span>
         </a>
-        <a href="{{ route('cms.api-settings') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('cms.api-settings') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>API Settings</span>
         </a>
-        <a href="/" target="_blank" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#DB2777] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#BE185D] transition shadow-xs">
+        <a href="/" target="_blank" class="inline-flex items-center gap-1.5 rounded-md bg-[#DB2777] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#BE185D] transition shadow-xs">
             <span>Lihat Website Publik ↗</span>
         </a>
     </div>
@@ -38,7 +38,7 @@
                 @include('erp.dashboard.components.kpi-card', [
                     'label'  => $kpi['label'],
                     'value'  => $kpi['value'],
-                    'color'  => $kpi['color'] ?? '#0B2345',
+                    'color'  => $kpi['color'] ?? '#002875',
                     'format' => is_numeric($kpi['value']) ? 'number' : 'text',
                 ])
             @endforeach
@@ -101,15 +101,15 @@
     {{-- Data Tables --}}
     <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {{-- Recent Blog Posts Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Artikel Blog Terkini</h3>
-                <a href="{{ route('cms.blog.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Semua Artikel →</a>
+                <a href="{{ route('cms.blog.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Semua Artikel →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">Judul</th>
                             <th class="px-3 py-2.5">Status</th>
                             <th class="px-3 py-2.5">Dipublikasikan</th>
@@ -127,7 +127,7 @@
                                 </td>
                                 <td class="px-3 py-2.5 text-[#64748B]">{{ $post->published_at ? $post->published_at->format('d M Y') : '-' }}</td>
                                 <td class="px-3 py-2.5 text-right">
-                                    <a href="{{ route('cms.blog.edit', $post->id) }}" class="text-xs font-semibold text-[#0B2345] hover:underline">Edit</a>
+                                    <a href="{{ route('cms.blog.edit', $post->id) }}" class="text-xs font-semibold text-[#002875] hover:underline">Edit</a>
                                 </td>
                             </tr>
                         @empty
@@ -139,15 +139,15 @@
         </div>
 
         {{-- Recently Updated Sections Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Section Website Diperbarui</h3>
-                <a href="{{ route('cms.sections.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Kelola Section →</a>
+                <a href="{{ route('cms.sections.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Kelola Section →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">Section</th>
                             <th class="px-3 py-2.5">Status</th>
                             <th class="px-3 py-2.5">Terakhir Update</th>
@@ -165,7 +165,7 @@
                                 </td>
                                 <td class="px-3 py-2.5 text-[#64748B]">{{ $sec->updated_at ? $sec->updated_at->diffForHumans() : '-' }}</td>
                                 <td class="px-3 py-2.5 text-right">
-                                    <a href="{{ route('cms.sections.edit', $sec->id) }}" class="text-xs font-semibold text-[#0B2345] hover:underline">Edit</a>
+                                    <a href="{{ route('cms.sections.edit', $sec->id) }}" class="text-xs font-semibold text-[#002875] hover:underline">Edit</a>
                                 </td>
                             </tr>
                         @empty
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 { name: 'Artikel', data: activity.map(a => a.posts) },
                 { name: 'Sections', data: activity.map(a => a.sections) }
             ],
-            colors: ['#DB2777', '#0B2345'],
+            colors: ['#DB2777', '#002875'],
             plotOptions: { bar: { columnWidth: '45%', borderRadius: 2 } },
             xaxis: { categories: activity.map(a => a.month) }
         });

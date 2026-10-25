@@ -1,41 +1,78 @@
-@extends('layouts.erp', ['activePage' => 'sales-commissions.edit-page', 'pageTitle' => 'Edit Komisi'])
+@extends('layouts.erp', ['activePage' => 'sales-commissions.edit-page', 'pageTitle' => 'Edit Komisi Sales'])
 
 @section('content')
-<section class="section">
-    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
-        <div class="mb-8 border-b border-[#d7e3ef] pb-5">
-            <h2 class="mb-1">Edit Komisi</h2>
-            <p class="muted">Perbarui komisi sales.</p>
-        </div>
-        <form method="post" action="{{ route('sales-commissions.update', $commission) }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
-            @csrf @method('put')
-            <div class="grid gap-1.5"><label>User</label>
-                <select name="user_id">
-                    <option value="">—</option>
-                    @foreach($users as $user)
-                        <option value="{{ $user->id }}" @selected($commission->user_id === $user->id)>{{ $user->name }}</option>
-                    @endforeach
-                </select>
+<div class="space-y-5 max-w-3xl">
+    <x-erp.page-header
+        title="Edit Komisi Sales"
+        subtitle="Perbarui basis nilai penjualan, persentase rate, dan status pembayaran: {{ $commission->user->name ?? 'Sales' }}"
+        :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Sales & CRM', 'url' => route('sales-crm.index')], ['label' => 'Sales Commissions', 'url' => route('sales-commissions.index')], ['label' => 'Edit']]"
+    />
+
+    <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-xs">
+        <form method="post" action="{{ route('sales-commissions.update', $commission) }}" class="space-y-5">
+            @csrf
+            @method('put')
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Sales Representative <span class="text-red-500">*</span>
+                    </label>
+                    <select name="user_id" required
+                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}" @selected($commission->user_id === $user->id)>{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Periode Komisi (YYYY-MM) <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" name="period" value="{{ old('period', $commission->period) }}" required
+                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Basis Nilai Penjualan (Base Rp) <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number" name="base_amount" value="{{ old('base_amount', $commission->base_amount) }}" min="0" step="1" required
+                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Rate Komisi (%) <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number" name="rate" value="{{ old('rate', $commission->rate) }}" min="0" max="100" step="0.01" required
+                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Status Pembayaran Komisi <span class="text-red-500">*</span>
+                    </label>
+                    <select name="status" required
+                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        <option value="draft" @selected($commission->status === 'draft')>Draft (Kalkulasi Awal)</option>
+                        <option value="approved" @selected($commission->status === 'approved')>Approved (Disetujui Finance)</option>
+                        <option value="paid" @selected($commission->status === 'paid')>Paid (Telah Dibayarkan)</option>
+                    </select>
+                </div>
             </div>
-            <div class="grid gap-1.5"><label>Period</label><input name="period" value="{{ $commission->period }}" placeholder="2026-06" required></div>
-            <div class="grid gap-1.5"><label>Base Amount (Rp)</label><input name="base_amount" type="number" min="0" value="{{ $commission->base_amount }}" required></div>
-            <div class="grid gap-1.5"><label>Rate (%)</label><input name="rate" type="number" min="0" max="100" step="0.01" value="{{ $commission->rate }}" required></div>
-            <div class="grid gap-1.5"><label>Status</label>
-                <select name="status">
-                    <option value="draft" @selected($commission->status === 'draft')>Draft</option>
-                    <option value="approved" @selected($commission->status === 'approved')>Approved</option>
-                    <option value="paid" @selected($commission->status === 'paid')>Paid</option>
-                </select>
-            </div>
-            <div class="mt-4 flex items-center gap-3 md:col-span-2">
-                <button class="btn">
-                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Update Komisi
+
+            <div class="flex items-center gap-3 pt-3 border-t border-slate-100">
+                <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-[#001B50] transition-colors">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                    Perbarui Komisi
                 </button>
-                <a class="button ghost" href="{{ route('sales-commissions.index') }}">
-                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Kembali
+                <a href="{{ route('sales-commissions.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Batal
                 </a>
             </div>
         </form>
     </div>
-</section>
+</div>
 @endsection

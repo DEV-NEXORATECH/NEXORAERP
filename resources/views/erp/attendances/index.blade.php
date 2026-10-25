@@ -1,62 +1,114 @@
-@extends('layouts.erp', ['activePage' => 'attendances', 'pageTitle' => 'Attendances'])
+@extends('layouts.erp', ['activePage' => 'attendances', 'pageTitle' => 'Presensi & Kehadiran Karyawan'])
 
 @section('content')
-<div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
-    <div class="section-head">
-        <h2>Daftar Attendance</h2>
-        @if($can('admin', 'hr'))
-        <a class="button ghost" href="{{ route('attendances.create-page') }}">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-            Tambah
-        </a>
+<div class="space-y-6">
+    <x-erp.page-header
+        title="Presensi & Kehadiran Karyawan"
+        subtitle="Pantau jam masuk, jam keluar, mode kerja (WFO / WFH / Remote), serta status kehadiran harian."
+        :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'HRIS', 'url' => route('hris.index')], ['label' => 'Attendances']]"
+    >
+        <x-slot:actions>
+            @if($can('admin', 'hr'))
+            <a href="{{ route('attendances.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#001B50] focus:outline-none focus:ring-2 focus:ring-[#002875] transition-colors">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Catat Presensi
+            </a>
+            @endif
+        </x-slot:actions>
+    </x-erp.page-header>
+
+    <div class="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
+        <x-erp.toolbar :resetUrl="route('attendances.index')">
+            <x-slot:filters>
+                <input type="date" name="date_from" value="{{ request('date_from') }}" placeholder="Dari tgl"
+                    class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
+                <input type="date" name="date_to" value="{{ request('date_to') }}" placeholder="Sampai tgl"
+                    class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
+                <select name="employee_id" class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
+                    <option value="">Semua Karyawan</option>
+                    @foreach($employees as $emp)
+                        <option value="{{ $emp->id }}" @selected(request('employee_id') == $emp->id)>{{ $emp->name }}</option>
+                    @endforeach
+                </select>
+                <select name="mode" class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
+                    <option value="">Semua Mode</option>
+                    <option value="office" @selected(request('mode') === 'office')>Office (WFO)</option>
+                    <option value="remote" @selected(request('mode') === 'remote')>Remote (WFH)</option>
+                    <option value="hybrid" @selected(request('mode') === 'hybrid')>Hybrid</option>
+                </select>
+            </x-slot:filters>
+        </x-erp.toolbar>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                    <tr class="border-y border-slate-200 bg-slate-50/75 text-[11px] font-semibold text-slate-600 uppercase tracking-wider">
+                        <th class="py-3 px-4">Karyawan</th>
+                        <th class="py-3 px-4">Tanggal Kerja</th>
+                        <th class="py-3 px-4 text-center">Check-In</th>
+                        <th class="py-3 px-4 text-center">Check-Out</th>
+                        <th class="py-3 px-4 text-center">Mode Kerja</th>
+                        <th class="py-3 px-4 text-center">Status Kehadiran</th>
+                        <th class="py-3 px-4 text-center w-28">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 text-slate-800">
+                    @forelse($items as $row)
+                        <tr class="hover:bg-slate-50/60 transition-colors">
+                            <td class="py-3 px-4 font-bold text-slate-900">{{ $row->employee->name ?? '-' }}</td>
+                            <td class="py-3 px-4 text-slate-600 whitespace-nowrap">{{ $row->work_date ? \Carbon\Carbon::parse($row->work_date)->format('d/m/Y') : '-' }}</td>
+                            <td class="py-3 px-4 text-center font-mono font-medium text-slate-700">{{ $row->check_in ?? '--:--' }}</td>
+                            <td class="py-3 px-4 text-center font-mono font-medium text-slate-700">{{ $row->check_out ?? '--:--' }}</td>
+                            <td class="py-3 px-4 text-center">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700 capitalize">
+                                    {{ $row->work_mode ?? 'Office' }}
+                                </span>
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <x-erp.status-badge :status="$row->status" />
+                            </td>
+                            <td class="py-3 px-4 text-center whitespace-nowrap">
+                                <div class="inline-flex items-center gap-1">
+                                    @if($can('admin', 'hr'))
+                                    <a href="{{ route('attendances.edit-page', $row) }}"
+                                        class="rounded p-1 text-slate-500 hover:bg-slate-100 hover:text-[#0369A1] transition-colors" title="Edit Presensi">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                                    </a>
+                                    @endif
+                                    @if($can('admin'))
+                                    <button type="button"
+                                        onclick="window.showDeleteModal('{{ route('attendances.destroy', $row) }}', 'Presensi {{ $row->employee->name ?? 'Karyawan' }} ({{ $row->work_date }})')"
+                                        class="rounded p-1 text-slate-400 hover:bg-red-50 hover:text-[#DC2626] transition-colors"
+                                        title="Hapus Presensi">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                    </button>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7">
+                                <x-erp.empty-state message="Belum ada data absensi presensi." />
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        @if($items->hasPages())
+            <div class="border-t border-slate-200 bg-slate-50/50 px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+                <div>
+                    Menampilkan <strong>{{ $items->firstItem() ?? 0 }}</strong> - <strong>{{ $items->lastItem() ?? 0 }}</strong> dari <strong>{{ $items->total() }}</strong> entri presensi
+                </div>
+                <div>
+                    {{ $items->links() }}
+                </div>
+            </div>
         @endif
     </div>
-    <form method="get" action="{{ route('attendances.index') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <input type="date" name="date_from" value="{{ request('date_from') }}" class="field-input">
-        <input type="date" name="date_to" value="{{ request('date_to') }}" class="field-input">
-        <select name="employee_id" class="field-input">
-            <option value="">Semua Karyawan</option>
-            @foreach($employees as $emp)
-                <option value="{{ $emp->id }}" {{ request('employee_id') == $emp->id ? 'selected' : '' }}>{{ $emp->name }}</option>
-            @endforeach
-        </select>
-        <select name="mode" class="field-input">
-            <option value="">Semua Mode</option>
-            <option value="office" {{ request('mode') === 'office' ? 'selected' : '' }}>Office</option>
-            <option value="remote" {{ request('mode') === 'remote' ? 'selected' : '' }}>Remote</option>
-            <option value="hybrid" {{ request('mode') === 'hybrid' ? 'selected' : '' }}>Hybrid</option>
-        </select>
-        <div class="flex gap-2 items-end">
-            <button class="filter-btn">Filter</button>
-            <a href="{{ route('attendances.index') }}" class="btn-outline">Reset</a>
-        </div>
-    </form>
-    <table>
-        <thead><tr><th>Karyawan</th><th>Tanggal</th><th>Masuk</th><th>Keluar</th><th>Mode</th><th>Status</th><th>Aksi</th></tr></thead>
-        <tbody>
-            @forelse($items as $row)
-                <tr>
-                    <td class="font-bold">{{ $row->employee->name }}</td>
-                    <td>{{ $row->work_date }}</td>
-                    <td>{{ $row->check_in ?? '-' }}</td>
-                    <td>{{ $row->check_out ?? '-' }}</td>
-                    <td><span class="badge badge-{{ $row->work_mode }}">{{ $row->work_mode }}</span></td>
-                    <td><span class="badge badge-{{ $row->status }}">{{ $row->status }}</span></td>
-                    <td class="actions">
-                        @if($can('admin', 'hr'))<a class="button mini ghost" href="{{ route('attendances.edit-page', $row) }}">Edit</a>@endif
-                        @if($can('admin'))<form method="post" action="{{ route('attendances.destroy', $row) }}">@csrf @method('delete')<button class="mini danger">Hapus</button></form>@endif
-                    </td>
-                </tr>
-            @empty
-                <tr><td colspan="7" class="py-8 text-center text-slate-500">Belum ada data attendance.</td></tr>
-            @endforelse
-        </tbody>
-    </table>
-    @if($items->hasPages())
-    <div class="pager">
-        <span>Menampilkan {{ $items->firstItem() }}-{{ $items->lastItem() }} dari {{ $items->total() }}</span>
-        {{ $items->links() }}
-    </div>
-    @endif
 </div>
+
+<x-erp.confirm-dialog />
 @endsection

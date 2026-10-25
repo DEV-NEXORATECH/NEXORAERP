@@ -1,20 +1,21 @@
 @extends('layouts.erp', ['activePage' => 'chart-accounts', 'pageTitle' => 'Chart of Accounts'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="chart-accounts">
-    <div class="section-head">
-        <h2>Chart of Accounts</h2>
-        @if($can('admin', 'finance'))
-        <a class="button ghost" href="{{ route('chart-accounts.create-page') }}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M12 5v14M5 12h14"/></svg>
-            Tambah
-        </a>
-        @endif
+<div class="space-y-4">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div>
+            <h1 class="text-lg font-bold text-gray-900 tracking-tight">Bagan Akun (Chart of Accounts)</h1>
+            <p class="text-xs text-gray-500">Kelola master data dan transaksi Bagan Akun (Chart of Accounts)</p>
+        </div>
     </div>
 
-    <form method="get" action="{{ route('chart-accounts.index') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="field-input">
-        <select name="type" class="field-input">
+    <!-- Table Card -->
+    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+        <form method="get" action="{{ route('chart-accounts.index') }}" class="p-3 border-b border-gray-200 bg-gray-50/50 flex flex-wrap items-center gap-2.5">
+            
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
+        <select name="type" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
             <option value="">Semua Tipe</option>
             <option value="asset" @selected(request('type') == 'asset')>Asset</option>
             <option value="liability" @selected(request('type') == 'liability')>Liability</option>
@@ -22,42 +23,50 @@
             <option value="income" @selected(request('type') == 'income')>Income</option>
             <option value="expense" @selected(request('type') == 'expense')>Expense</option>
         </select>
-        <select name="is_active" class="field-input">
+        <select name="is_active" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
             <option value="">Semua Status</option>
             <option value="1" @selected(request('is_active') == '1')>Active</option>
             <option value="0" @selected(request('is_active') == '0')>Inactive</option>
         </select>
         <div class="flex gap-2 items-end">
-            <button class="filter-btn">Filter</button>
-            <a href="{{ route('chart-accounts.index') }}" class="btn-outline">Reset</a>
+            <button class="px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition">Filter</button>
+            <a href="{{ route('chart-accounts.index') }}" class="px-3 py-1.5 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition">Reset</a>
         </div>
-    </form>
-
-    <table>
-        <thead><tr><th>Code</th><th>Name</th><th>Type</th><th>Status</th><th>Aksi</th></tr></thead>
-        <tbody>
+    
+        </form>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-gray-50 border-b border-gray-200">
+                    <tr>
+                        <th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Code</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Name</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Type</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Status</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    
             @forelse($accounts as $account)
                 <tr>
-                    <td class="font-bold">{{ $account->code }}</td>
-                    <td>{{ $account->name }}<br><span class="muted">{{ $account->parent?->code ? $account->parent->code.' - '.$account->parent->name : 'Root' }}</span></td>
-                    <td><span class="badge">{{ $account->type }}</span></td>
-                    <td><span class="badge badge-{{ $account->is_active ? 'active' : 'void' }}">{{ $account->is_active ? 'active' : 'inactive' }}</span></td>
-                    <td class="actions">
+                    <td class="px-3 py-2 text-xs text-gray-700 text-left">{{ $account->code }}</td>
+                    <td class="px-3 py-2 text-xs text-gray-700 text-left">{{ $account->name }}<br><span class="muted">{{ $account->parent?->code ? $account->parent->code.' - '.$account->parent->name : 'Root' }}</span></td>
+                    <td class="px-3 py-2 text-xs text-gray-700 text-left"><span class="badge">{{ $account->type }}</span></td>
+                    <td class="px-3 py-2 text-xs text-gray-700 text-left"><span class="badge badge-{{ $account->is_active ? 'active' : 'void' }}">{{ $account->is_active ? 'active' : 'inactive' }}</span></td>
+                    <td class="px-3 py-2 text-xs text-right whitespace-nowrap">
                         @if($can('admin', 'finance'))<a class="button mini ghost" href="{{ route('chart-accounts.edit-page', $account) }}">Edit</a>@endif
-                        @if($can('admin'))<form method="post" action="{{ route('chart-accounts.destroy', $account) }}">@csrf @method('delete')<button class="mini danger">Hapus</button></form>@endif
+                        @if($can('admin'))<form method="post" action="{{ route('chart-accounts.destroy', $account) }}">@csrf @method('delete')<button class="inline-flex items-center px-2 py-1 text-[11px] font-medium text-red-700 bg-red-50 border border-red-200 rounded hover:bg-red-100 transition">Hapus</button></form>@endif
                     </td>
                 </tr>
             @empty
                 <tr><td colspan="5" class="py-8 text-center text-slate-500">Belum ada CoA.</td></tr>
             @endforelse
-        </tbody>
-    </table>
-
-    @if($accounts->hasPages())
-    <div class="pager">
-        <span>Menampilkan {{ $accounts->firstItem() }}-{{ $accounts->lastItem() }} dari {{ $accounts->total() }}</span>
-        {{ $accounts->links() }}
+        
+                </tbody>
+            </table>
+        </div>
+        @if($accounts->hasPages())
+        <div class="p-3 border-t border-gray-200 bg-gray-50/50 flex items-center justify-between text-xs text-gray-500">
+            <span>Menampilkan {{$accounts->firstItem()}}-{{$accounts->lastItem()}} dari {{$accounts->total()}}</span>
+            {{$accounts->links()}}
+        </div>
+        @endif
     </div>
-    @endif
-</section>
+</div>
 @endsection

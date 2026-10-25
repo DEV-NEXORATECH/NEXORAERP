@@ -5,14 +5,14 @@
     'icon'       => 'list',
 ])
 
-<div class="mb-4 flex flex-col gap-3 rounded-[10px] border border-[#D1D5DB] bg-white p-4 shadow-2xs sm:flex-row sm:items-center sm:justify-between">
+<div class="mb-4 flex flex-col gap-3 rounded-md border border-[#D1D5DB] bg-white p-4 shadow-2xs sm:flex-row sm:items-center sm:justify-between">
     <div class="flex items-center gap-3">
         @if($icon)
             @php
                 $renderIcon = app('view')->shared('icon');
                 $iconName = is_string($icon) ? $icon : 'list';
             @endphp
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-[#002875] text-white shadow-2xs">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#002875] text-white shadow-2xs">
                 <div class="h-5 w-5 flex items-center justify-center">
                     {!! is_callable($renderIcon) ? $renderIcon($iconName) : '' !!}
                 </div>

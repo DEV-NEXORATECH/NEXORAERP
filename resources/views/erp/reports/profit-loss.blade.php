@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'reports-profit-loss', 'pageTitle' => 'Profit & Loss Report'])
 
 @section('content')
-<section class="report-hero">
+<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mb-4">
     <div>
         <span>Financial Intelligence</span>
         <h1>Profit & Loss</h1>
@@ -9,9 +9,9 @@
     </div>
 </section>
 
-<section class="filter-panel report-filter section">
-    <div class="filter-panel-header">
-        <div class="filter-panel-icon">{!! $icon('reports') !!}</div>
+<section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4 report-filter section">
+    <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-header">
+        <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-icon">{!! $icon('reports') !!}</div>
         <div>
             <h3>Filter Report</h3>
             <p class="muted">Filter berdasarkan periode, project, dan bank/kas.</p>
@@ -30,13 +30,13 @@
 </section>
 
 <section class="report-summary-grid section">
-    <div class="stat-card"><div class="stat-card-label">Revenue</div><div class="stat-card-metric good">{{ $rp($profitLoss['revenue']) }}</div></div>
-    <div class="stat-card"><div class="stat-card-label">Expense</div><div class="stat-card-metric bad">{{ $rp($profitLoss['expense']) }}</div></div>
-    <div class="stat-card"><div class="stat-card-label">Net Profit / Loss</div><div class="stat-card-metric {{ $profitLoss['net_profit'] >= 0 ? 'good' : 'bad' }}">{{ $rp($profitLoss['net_profit']) }}</div></div>
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">Revenue</div><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric good">{{ $rp($profitLoss['revenue']) }}</div></div>
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">Expense</div><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric bad">{{ $rp($profitLoss['expense']) }}</div></div>
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">Net Profit / Loss</div><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric {{ $profitLoss['net_profit'] >= 0 ? 'good' : 'bad' }}">{{ $rp($profitLoss['net_profit']) }}</div></div>
 </section>
 
 <section class="grid two section">
-    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
+    <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
         <h2 class="font-bold text-lg mb-4">Revenue vs Expense</h2>
         <table class="w-full">
             <tr><td class="py-2">Revenue</td><td class="good text-right font-black py-2">{{ $rp($profitLoss['revenue']) }}</td></tr>
@@ -44,7 +44,7 @@
             <tr><td class="py-2 border-t border-[#d7e3ef]">Net Profit / Loss</td><td class="{{ $profitLoss['net_profit'] >= 0 ? 'good' : 'bad' }} text-right font-black py-2 border-t border-[#d7e3ef]">{{ $rp($profitLoss['net_profit']) }}</td></tr>
         </table>
     </div>
-    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
+    <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
         <h2 class="font-bold text-lg mb-4">Expense by Category</h2>
         <table class="w-full">
             @forelse($profitLoss['expense_by_category'] as $category => $amount)
@@ -56,7 +56,7 @@
     </div>
 </section>
 
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5 section">
+<section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm section">
     <h2 class="font-bold text-lg mb-4">Revenue by Category</h2>
     <table class="w-full">
         @forelse($profitLoss['revenue_by_category'] as $category => $amount)

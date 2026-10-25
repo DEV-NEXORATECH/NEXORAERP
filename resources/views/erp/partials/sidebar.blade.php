@@ -73,7 +73,7 @@
 <aside class="sidebar">
     <div class="sidebar-head border-0 px-0 py-4">
         <div class="sidebar-brand w-full justify-center">
-            <img class="h-10 w-10 rounded-[10px] object-contain" src="{{ asset('images/nexora-logo.png') }}?v=6" alt="NEXORA">
+            <img class="h-10 w-10 rounded-md object-contain" src="{{ asset('images/nexora-logo.png') }}?v=6" alt="NEXORA">
         </div>
     </div>
 

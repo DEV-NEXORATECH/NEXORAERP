@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'reports-general-ledger', 'pageTitle' => 'General Ledger'])
 
 @section('content')
-<section class="report-hero">
+<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mb-4">
     <div>
         <span>Financial Intelligence</span>
         <h1>General Ledger</h1>
@@ -9,9 +9,9 @@
     </div>
 </section>
 
-<section class="filter-panel report-filter section">
-    <div class="filter-panel-header">
-        <div class="filter-panel-icon">{!! $icon('journal') !!}</div>
+<section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4 report-filter section">
+    <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-header">
+        <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-icon">{!! $icon('journal') !!}</div>
         <div>
             <h3>Filter General Ledger</h3>
             <p class="muted">Pilih akun dan periode untuk melihat mutasi.</p>
@@ -35,7 +35,7 @@
     </form>
 </section>
 
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5 section">
+<section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm section">
     <h2 class="font-bold text-lg mb-4">General Ledger</h2>
     @if($paginated->isEmpty())
         <p class="muted">Tidak ada mutasi untuk filter tersebut.</p>

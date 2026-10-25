@@ -13,21 +13,21 @@
 
     {{-- Quick Actions --}}
     <div class="flex flex-wrap items-center gap-2.5">
-        <a href="{{ route('purchase-requisitions.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#0B2345] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
+        <a href="{{ route('purchase-requisitions.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
             {!! $icon('plus') !!}
             <span>Buat Requisition</span>
         </a>
-        <a href="{{ route('purchase-orders.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#EA580C] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#C2410C] transition shadow-xs">
+        <a href="{{ route('purchase-orders.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#EA580C] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#C2410C] transition shadow-xs">
             {!! $icon('plus') !!}
             <span>Purchase Order (PO)</span>
         </a>
-        <a href="{{ route('goods-receipts.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#16A34A] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#15803D] transition shadow-xs">
+        <a href="{{ route('goods-receipts.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#16A34A] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#15803D] transition shadow-xs">
             <span>Penerimaan Barang</span>
         </a>
-        <a href="{{ route('purchase-matches.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('purchase-matches.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>3-Way Matching</span>
         </a>
-        <a href="{{ route('vendors.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('vendors.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Daftar Vendor</span>
         </a>
     </div>
@@ -39,7 +39,7 @@
                 @include('erp.dashboard.components.kpi-card', [
                     'label'  => $kpi['label'],
                     'value'  => $kpi['value'],
-                    'color'  => $kpi['color'] ?? '#0B2345',
+                    'color'  => $kpi['color'] ?? '#002875',
                     'format' => in_array($key, ['spending', 'out_bills']) ? 'currency' : (is_numeric($kpi['value']) ? 'number' : 'text'),
                 ])
             @endforeach
@@ -129,15 +129,15 @@
     {{-- Data Tables --}}
     <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {{-- Pending Requisitions Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Purchase Requisition Menunggu Respon</h3>
-                <a href="{{ route('purchase-requisitions.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Kelola PR →</a>
+                <a href="{{ route('purchase-requisitions.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Kelola PR →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">No PR</th>
                             <th class="px-3 py-2.5">Keperluan</th>
                             <th class="px-3 py-2.5">Tgl Dibutuhkan</th>
@@ -165,15 +165,15 @@
         </div>
 
         {{-- Open Purchase Orders Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Purchase Order Aktif (Open PO)</h3>
-                <a href="{{ route('purchase-orders.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Semua PO →</a>
+                <a href="{{ route('purchase-orders.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Semua PO →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">No PO</th>
                             <th class="px-3 py-2.5">Vendor</th>
                             <th class="px-3 py-2.5 text-right">Nilai PO</th>
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
             chart: { type: 'bar', height: 240 },
             series: [{ name: 'Total Belanja (Rp)', data: vendorSpend.map(v => v.amount) }],
             plotOptions: { bar: { horizontal: true, barHeight: '50%', borderRadius: 3 } },
-            colors: ['#0B2345'],
+            colors: ['#002875'],
             xaxis: { categories: vendorSpend.map(v => v.name) },
             yaxis: { labels: { style: { fontSize: '11px', fontWeight: 600 } } }
         });

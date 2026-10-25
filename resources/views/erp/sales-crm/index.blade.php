@@ -7,14 +7,14 @@
 @endphp
 
 <section class="grid cards section">
-    <div class="stat-card"><div class="stat-card-label">Inquiry</div><div class="stat-card-metric">{{ $inquiries->total() }}</div><div class="muted">Masuk dari channel sales</div></div>
-    <div class="stat-card"><div class="stat-card-label">Pipeline Value</div><div class="stat-card-metric good">{{ $rp($pipelineValue) }}</div><div class="muted">Lead aktif di halaman ini</div></div>
-    <div class="stat-card"><div class="stat-card-label">Sales Order</div><div class="stat-card-metric">{{ $orders->total() }}</div><div class="muted">{{ $rp($orderValue) }}</div></div>
-    <div class="stat-card"><div class="stat-card-label">Contracts</div><div class="stat-card-metric">{{ $contracts->total() }}</div><div class="muted">Lifecycle client</div></div>
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">Inquiry</div><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric">{{ $inquiries->total() }}</div><div class="muted">Masuk dari channel sales</div></div>
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">Pipeline Value</div><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric good">{{ $rp($pipelineValue) }}</div><div class="muted">Lead aktif di halaman ini</div></div>
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">Sales Order</div><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric">{{ $orders->total() }}</div><div class="muted">{{ $rp($orderValue) }}</div></div>
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">Contracts</div><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric">{{ $contracts->total() }}</div><div class="muted">Lifecycle client</div></div>
 </section>
 
 <section class="grid two section">
-    <div class="card">
+    <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
         <h2>Inquiry Management</h2>
         <form method="post" action="{{ route('sales-crm.inquiries.store') }}" class="form-grid">
             @csrf
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
         <h2>Lead & Pipeline</h2>
         <form method="post" action="{{ route('sales-crm.leads.store') }}" class="form-grid">
             @csrf
@@ -69,7 +69,7 @@
 </section>
 
 <section class="grid three section">
-    <div class="card">
+    <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
         <h2>Sales Order</h2>
         <form method="post" action="{{ route('sales-crm.orders.store') }}" class="form-grid">
             @csrf
@@ -84,7 +84,7 @@
         <div class="pager">{{ $orders->links() }}</div>
     </div>
 
-    <div class="card">
+    <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
         <h2>Target & Commission</h2>
         <form method="post" action="{{ route('sales-crm.targets.store') }}" class="form-grid">
             @csrf
@@ -105,7 +105,7 @@
         </form>
     </div>
 
-    <div class="card">
+    <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
         <h2>Contract Lifecycle</h2>
         <form method="post" action="{{ route('sales-crm.contracts.store') }}" class="form-grid">
             @csrf

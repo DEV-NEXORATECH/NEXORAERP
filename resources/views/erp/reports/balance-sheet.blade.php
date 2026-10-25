@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'reports-balance-sheet', 'pageTitle' => 'Balance Sheet Report'])
 
 @section('content')
-<section class="report-hero">
+<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mb-4">
     <div>
         <span>Financial Intelligence</span>
         <h1>Balance Sheet</h1>
@@ -11,7 +11,7 @@
 
 <section class="grid three section">
     @foreach(['assets' => 'Assets', 'liabilities' => 'Liabilities', 'equity' => 'Equity'] as $key => $label)
-        <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
+        <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <h2 class="font-bold text-lg mb-4">{{ $label }}</h2>
             <table class="w-full">
                 @forelse($balanceSheet[$key] as $row)
@@ -22,7 +22,7 @@
             </table>
         </div>
     @endforeach
-    <div class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5">
+    <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
         <h2 class="font-bold text-lg mb-4">Balance Check</h2>
         <table class="w-full">
             <tr><td class="py-2">Total Assets</td><td class="text-right font-black py-2">{{ $rp($balanceSheet['total_assets']) }}</td></tr>

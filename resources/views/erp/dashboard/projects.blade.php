@@ -14,21 +14,21 @@
     {{-- Quick Actions --}}
     <div class="flex flex-wrap items-center gap-2.5">
         @if($can('admin', 'sales'))
-            <a href="{{ route('projects.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#0B2345] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
+            <a href="{{ route('projects.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
                 {!! $icon('plus') !!}
                 <span>Project Baru</span>
             </a>
         @endif
-        <a href="{{ route('projects.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('projects.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Daftar Project</span>
         </a>
-        <a href="{{ route('reports.project') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('reports.project') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Laporan Profit Project</span>
         </a>
-        <a href="{{ route('approvals.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('approvals.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Task Tim</span>
         </a>
-        <a href="{{ route('timesheets.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('timesheets.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Timesheet</span>
         </a>
     </div>
@@ -40,7 +40,7 @@
                 @include('erp.dashboard.components.kpi-card', [
                     'label'  => $kpi['label'],
                     'value'  => $kpi['value'],
-                    'color'  => $kpi['color'] ?? '#0B2345',
+                    'color'  => $kpi['color'] ?? '#002875',
                     'format' => in_array($key, ['revenue', 'expenses', 'profit']) ? 'currency' : (is_numeric($kpi['value']) ? 'number' : 'text'),
                 ])
             @endforeach
@@ -110,7 +110,7 @@
         </div>
 
         {{-- Project Progress List --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs flex flex-col justify-between">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs flex flex-col justify-between">
             <div class="mb-3 border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm sm:text-base font-bold text-[#0F172A] m-0">Progress Invoice / Billing</h3>
                 <p class="text-xs text-[#64748B]">Kemajuan penagihan invoice terhadap kontrak</p>
@@ -136,15 +136,15 @@
     {{-- Data Tables --}}
     <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {{-- Active Projects Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Project Berjalan (Active)</h3>
-                <a href="{{ route('projects.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Kelola Project →</a>
+                <a href="{{ route('projects.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Kelola Project →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">Kode</th>
                             <th class="px-3 py-2.5">Nama Project</th>
                             <th class="px-3 py-2.5 text-right">Nilai Kontrak</th>
@@ -172,7 +172,7 @@
         </div>
 
         {{-- Upcoming Deadlines --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Tenggat Waktu Project (Deadlines)</h3>
                 <span class="text-xs font-semibold text-[#EA580C]">Mendekati Batas Akhir</span>
@@ -180,7 +180,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">Project</th>
                             <th class="px-3 py-2.5">Batas Akhir</th>
                             <th class="px-3 py-2.5">Sisa Hari</th>
@@ -201,7 +201,7 @@
                                     </span>
                                 </td>
                                 <td class="px-3 py-2.5 text-right">
-                                    <a href="{{ route('projects.show', $dl->id) }}" class="text-xs font-semibold text-[#0B2345] hover:underline">Buka</a>
+                                    <a href="{{ route('projects.show', $dl->id) }}" class="text-xs font-semibold text-[#002875] hover:underline">Buka</a>
                                 </td>
                             </tr>
                         @empty
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 { name: 'Budget Plafon', data: budgetData.map(b => b.budget) },
                 { name: 'Realisasi Aktual', data: budgetData.map(b => b.actual) }
             ],
-            colors: ['#0B2345', '#EA580C'],
+            colors: ['#002875', '#EA580C'],
             plotOptions: { bar: { horizontal: false, columnWidth: '45%', borderRadius: 2 } },
             xaxis: { categories: budgetData.map(b => b.name) },
             yaxis: { labels: { formatter: val => (val / 1000000).toFixed(0) + ' Jt' } },

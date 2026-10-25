@@ -208,13 +208,13 @@
     </section>
 
     {{-- Section 5 — Action Required (Compact Table) --}}
-    <section class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+    <section class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
         <div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#F1F5F9] pb-3">
             <div>
                 <h2 class="text-base font-bold tracking-tight text-[#0F172A] m-0">Tindakan Memerlukan Respon (Action Required)</h2>
                 <p class="mt-0.5 text-xs text-[#64748B]">Daftar tagihan jatuh tempo, pengajuan pending, dan task kritikal.</p>
             </div>
-            <a href="{{ route('approvals.index') }}" class="inline-flex items-center gap-1 rounded-[6px] border border-[#D9E2EC] bg-[#F8FAFC] px-3 py-1.5 text-xs font-semibold text-[#0B2345] hover:bg-[#F1F5F9] transition">
+            <a href="{{ route('approvals.index') }}" class="inline-flex items-center gap-1 rounded-[6px] border border-[#E5E7EB] bg-[#F8FAFC] px-3 py-1.5 text-xs font-semibold text-[#002875] hover:bg-[#F1F5F9] transition">
                 <span>Pusat Approval</span>
                 <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
             </a>
@@ -223,7 +223,7 @@
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
                 <thead>
-                    <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                    <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                         <th class="px-4 py-3">Tipe</th>
                         <th class="px-4 py-3">Referensi</th>
                         <th class="px-4 py-3">Deskripsi</th>
@@ -255,7 +255,7 @@
                                 </span>
                             </td>
                             <td class="px-4 py-3 text-right">
-                                <a href="{{ $item['action_url'] }}" class="inline-flex items-center gap-1 rounded-[6px] bg-[#0B2345] px-2.5 py-1 text-xs font-semibold text-white hover:bg-[#123A6B] transition">
+                                <a href="{{ $item['action_url'] }}" class="inline-flex items-center gap-1 rounded-[6px] bg-[#002875] px-2.5 py-1 text-xs font-semibold text-white hover:bg-[#123A6B] transition">
                                     <span>{{ $item['action_text'] }}</span>
                                 </a>
                             </td>
@@ -275,32 +275,32 @@
     {{-- Section 6 — Website & Recent Activity (2 cards: 6:6) --}}
     <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {{-- CMS Summary --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div>
                     <h2 class="text-base font-bold tracking-tight text-[#0F172A] m-0">Ringkasan Website & CMS Portal</h2>
                     <p class="mt-0.5 text-xs text-[#64748B]">Status publikasi artikel dan visibilitas section website.</p>
                 </div>
-                <a href="{{ route('cms.index') }}" class="inline-flex items-center gap-1 text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">
+                <a href="{{ route('cms.index') }}" class="inline-flex items-center gap-1 text-xs font-semibold text-[#002875] hover:text-[#2563EB]">
                     <span>Kelola CMS</span>
                     <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
                 </a>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-                <div class="rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] p-3 text-center">
+                <div class="rounded-md border border-[#E5E7EB] bg-[#F8FAFC] p-3 text-center">
                     <span class="block text-[10px] font-bold uppercase tracking-wider text-[#16A34A]">Published Blog</span>
                     <span class="text-lg font-bold text-[#0F172A]">{{ $data['cmsSummary']['published_posts'] }}</span>
                 </div>
-                <div class="rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] p-3 text-center">
+                <div class="rounded-md border border-[#E5E7EB] bg-[#F8FAFC] p-3 text-center">
                     <span class="block text-[10px] font-bold uppercase tracking-wider text-[#EA580C]">Draft Blog</span>
                     <span class="text-lg font-bold text-[#0F172A]">{{ $data['cmsSummary']['draft_posts'] }}</span>
                 </div>
-                <div class="rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] p-3 text-center">
+                <div class="rounded-md border border-[#E5E7EB] bg-[#F8FAFC] p-3 text-center">
                     <span class="block text-[10px] font-bold uppercase tracking-wider text-[#2563EB]">Active Sections</span>
                     <span class="text-lg font-bold text-[#0F172A]">{{ $data['cmsSummary']['active_sections'] }}</span>
                 </div>
-                <div class="rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] p-3 text-center">
+                <div class="rounded-md border border-[#E5E7EB] bg-[#F8FAFC] p-3 text-center">
                     <span class="block text-[10px] font-bold uppercase tracking-wider text-[#DC2626]">Hidden Sections</span>
                     <span class="text-lg font-bold text-[#0F172A]">{{ $data['cmsSummary']['hidden_sections'] }}</span>
                 </div>
@@ -313,7 +313,7 @@
         </div>
 
         {{-- Recent Activity Timeline --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div>
                     <h2 class="text-base font-bold tracking-tight text-[#0F172A] m-0">Aktivitas Terkini (Activity Timeline)</h2>
@@ -324,7 +324,7 @@
 
             <div class="space-y-3.5">
                 @forelse($data['recentActivities'] as $act)
-                    <div class="flex items-start gap-3 rounded-[8px] p-2 hover:bg-[#F8FAFC] transition">
+                    <div class="flex items-start gap-3 rounded-md p-2 hover:bg-[#F8FAFC] transition">
                         <div class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-[6px]" style="background-color: {{ $act['color'] }}15; color: {{ $act['color'] }};">
                             <span class="text-[10px] font-bold">{{ substr($act['badge'], 0, 2) }}</span>
                         </div>
@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             series: expCategories.map(c => c.amount),
             labels: expCategories.map(c => c.name),
-            colors: ['#0B2345', '#DC2626', '#EA580C', '#D97706', '#7C3AED', '#0891B2'],
+            colors: ['#002875', '#DC2626', '#EA580C', '#D97706', '#7C3AED', '#0891B2'],
             plotOptions: {
                 pie: {
                     donut: {
@@ -482,7 +482,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     borderRadius: 3
                 }
             },
-            colors: ['#0B2345', '#4F46E5', '#2563EB', '#16A34A', '#0F766E'],
+            colors: ['#002875', '#4F46E5', '#2563EB', '#16A34A', '#0F766E'],
             xaxis: {
                 categories: salesFunnel.map(f => f.stage),
                 labels: { style: { colors: '#64748B', fontSize: '11px' } }

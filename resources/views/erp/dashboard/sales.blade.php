@@ -13,23 +13,23 @@
 
     {{-- Quick Actions --}}
     <div class="flex flex-wrap items-center gap-2.5">
-        <a href="{{ route('sales-inquiries.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#0B2345] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
+        <a href="{{ route('sales-inquiries.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
             {!! $icon('plus') !!}
             <span>Inquiry Baru</span>
         </a>
-        <a href="{{ route('sales-leads.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#4F46E5] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#4338CA] transition shadow-xs">
+        <a href="{{ route('sales-leads.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#4F46E5] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#4338CA] transition shadow-xs">
             {!! $icon('plus') !!}
             <span>Lead Baru</span>
         </a>
-        <a href="{{ route('proposals.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#2563EB] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#1D4ED8] transition shadow-xs">
+        <a href="{{ route('proposals.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#2563EB] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#1D4ED8] transition shadow-xs">
             {!! $icon('plus') !!}
             <span>Buat Proposal</span>
         </a>
-        <a href="{{ route('sales-orders.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#16A34A] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#15803D] transition shadow-xs">
+        <a href="{{ route('sales-orders.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#16A34A] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#15803D] transition shadow-xs">
             {!! $icon('plus') !!}
             <span>Sales Order</span>
         </a>
-        <a href="{{ route('client-contracts.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('client-contracts.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Kontrak Klien</span>
         </a>
     </div>
@@ -41,7 +41,7 @@
                 @include('erp.dashboard.components.kpi-card', [
                     'label'  => $kpi['label'],
                     'value'  => $kpi['value'],
-                    'color'  => $kpi['color'] ?? '#0B2345',
+                    'color'  => $kpi['color'] ?? '#002875',
                     'trend'  => $kpi['trend'] ?? null,
                     'format' => in_array($key, ['pipeline_val', 'commission']) ? 'currency' : (is_numeric($kpi['value']) ? 'number' : 'text'),
                 ])
@@ -130,15 +130,15 @@
     {{-- Data Tables --}}
     <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {{-- Recent Sales Orders --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Sales Order Terkini</h3>
-                <a href="{{ route('sales-orders.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Semua Order →</a>
+                <a href="{{ route('sales-orders.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Semua Order →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">No Order</th>
                             <th class="px-3 py-2.5">Klien</th>
                             <th class="px-3 py-2.5 text-right">Nilai</th>
@@ -166,15 +166,15 @@
         </div>
 
         {{-- Pending Proposals --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Proposal Menunggu Respon</h3>
-                <a href="{{ route('sales.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Semua Proposal →</a>
+                <a href="{{ route('sales.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Semua Proposal →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">No Proposal</th>
                             <th class="px-3 py-2.5">Judul / Project</th>
                             <th class="px-3 py-2.5 text-right">Nilai</th>
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
             plotOptions: {
                 bar: { horizontal: true, barHeight: '55%', distributed: true, borderRadius: 3 }
             },
-            colors: ['#0B2345', '#4F46E5', '#2563EB', '#16A34A', '#0F766E'],
+            colors: ['#002875', '#4F46E5', '#2563EB', '#16A34A', '#0F766E'],
             xaxis: { categories: funnel.map(f => f.stage) },
             legend: { show: false }
         });
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 { name: 'Target', data: targetData.map(t => t.target) },
                 { name: 'Realisasi', data: targetData.map(t => t.achieved) }
             ],
-            colors: ['#0B2345', '#16A34A'],
+            colors: ['#002875', '#16A34A'],
             plotOptions: { bar: { columnWidth: '45%', borderRadius: 2 } },
             xaxis: { categories: targetData.map(t => t.period) },
             yaxis: { labels: { formatter: val => (val / 1000000).toFixed(0) + ' Jt' } }

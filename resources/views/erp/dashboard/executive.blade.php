@@ -18,7 +18,7 @@
                 @include('erp.dashboard.components.kpi-card', [
                     'label'  => $kpi['label'],
                     'value'  => $kpi['value'],
-                    'color'  => $kpi['color'] ?? '#0B2345',
+                    'color'  => $kpi['color'] ?? '#002875',
                     'trend'  => $kpi['trend'] ?? null,
                     'format' => in_array($key, ['revenue', 'expenses', 'gross_profit', 'net_profit', 'cash_position', 'receivables', 'payables']) ? 'currency' : 'text',
                 ])
@@ -28,14 +28,14 @@
 
     {{-- Management Alerts Banner --}}
     @if(count($data['alerts']) > 0)
-        <section class="rounded-[12px] border border-[#D9E2EC] bg-[#F8FAFC] p-4 shadow-xs">
+        <section class="rounded-lg border border-[#E5E7EB] bg-[#F8FAFC] p-4 shadow-xs">
             <div class="flex items-center gap-2 mb-3">
                 <span class="flex h-2.5 w-2.5 rounded-full bg-[#EA580C]"></span>
                 <h3 class="text-xs font-bold uppercase tracking-wider text-[#0F172A] m-0">Management Alerts & Exception Monitoring</h3>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                 @foreach($data['alerts'] as $alert)
-                    <div class="rounded-[8px] border border-[#D9E2EC] bg-white p-3">
+                    <div class="rounded-md border border-[#E5E7EB] bg-white p-3">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-bold text-[#0F172A]">{{ $alert['title'] }}</span>
                             <span class="inline-flex rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase {{ $alert['type'] === 'critical' || $alert['type'] === 'danger' ? 'bg-[#DC2626]/10 text-[#DC2626]' : 'bg-[#EA580C]/10 text-[#EA580C]' }}">
@@ -119,7 +119,7 @@
     {{-- Section 5: Data Tables (Tabs / Grid) --}}
     <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {{-- Top 10 Clients by Revenue --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Top Klien berdasarkan Revenue</h3>
                 <span class="text-xs font-semibold text-[#475569]">{{ count($data['topClients']) }} Klien</span>
@@ -127,7 +127,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">Klien</th>
                             <th class="px-3 py-2.5">Invoices</th>
                             <th class="px-3 py-2.5 text-right">Total Revenue</th>
@@ -151,7 +151,7 @@
         </div>
 
         {{-- Top 10 Projects by Profit --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Top Project berdasarkan Profit</h3>
                 <span class="text-xs font-semibold text-[#475569]">{{ count($data['topProjects']) }} Project</span>
@@ -159,7 +159,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">Project</th>
                             <th class="px-3 py-2.5 text-right">Income</th>
                             <th class="px-3 py-2.5 text-right">Expense</th>
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
             chart: { type: 'donut', height: 250 },
             series: revComp.map(r => r.amount),
             labels: revComp.map(r => r.name),
-            colors: ['#0B2345', '#2563EB', '#16A34A', '#7C3AED', '#EA580C', '#0891B2'],
+            colors: ['#002875', '#2563EB', '#16A34A', '#7C3AED', '#EA580C', '#0891B2'],
             legend: { position: 'bottom' }
         });
     }
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 { name: 'Budget', data: budgetData.map(b => b.budget) },
                 { name: 'Realisasi', data: budgetData.map(b => b.actual) }
             ],
-            colors: ['#0B2345', '#EA580C'],
+            colors: ['#002875', '#EA580C'],
             plotOptions: { bar: { columnWidth: '50%', borderRadius: 2 } },
             xaxis: { categories: budgetData.map(b => b.category) },
             yaxis: { labels: { formatter: val => (val / 1000000).toFixed(0) + ' Jt' } }

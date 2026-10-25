@@ -1,11 +1,11 @@
 @extends('layouts.erp', ['activePage' => 'feature-flags', 'pageTitle' => 'Pengaturan Fitur'])
 
 @section('content')
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5" id="feature-flags">
+<section class="space-y-5" id="feature-flags">
     <div class="section-head">
         <h2>Pengaturan Fitur</h2>
         <div class="flex items-center gap-3">
-            <span class="rounded-full bg-[#E8EEF5] px-3 py-1 text-xs font-bold text-[#0B2345]">
+            <span class="rounded-full bg-[#E8EEF5] px-3 py-1 text-xs font-bold text-[#002875]">
                 {{ $enabledCount }}/{{ $totalCount }} aktif
             </span>
             <a href="{{ route('feature-flags.create-page') }}" class="button ghost">
@@ -22,9 +22,9 @@
     <div class="space-y-6">
         @foreach($modules as $moduleKey => $moduleLabel)
             @php $moduleFlags = $flags->get($moduleKey, collect()); @endphp
-            <div class="rounded-2xl border border-[#d7e3ef] bg-[#f8fbff] p-4 sm:p-5">
+            <div class="rounded-lg border border-gray-200 bg-white shadow-sm p-4 sm:p-5">
                 <div class="mb-3 flex items-center justify-between">
-                    <h3 class="text-sm font-bold uppercase tracking-wide text-[#0B2345]">{{ $moduleLabel }}</h3>
+                    <h3 class="text-sm font-bold uppercase tracking-wide text-[#002875]">{{ $moduleLabel }}</h3>
                     <span class="text-xs font-semibold text-slate-400">
                         {{ $moduleFlags->where('is_enabled', true)->count() }}/{{ $moduleFlags->count() }} aktif
                     </span>
@@ -32,7 +32,7 @@
 
                 <div class="grid grid-cols-1 gap-2">
                     @foreach($moduleFlags as $flag)
-                    <div class="flex items-center justify-between gap-3 rounded-xl border border-[#d7e3ef] bg-white px-4 py-3">
+                    <div class="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3">
                         <div class="min-w-0">
                             <div class="flex items-center gap-2">
                                 <span class="truncate text-sm font-bold text-slate-800">{{ $flag->label }}</span>

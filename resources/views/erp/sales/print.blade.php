@@ -1,67 +1,67 @@
-<!doctype html>
-<html lang="id">
-<head>
-    <meta charset="utf-8">
-    <title>Proposal — {{ $proposal->title }}</title>
-    <style>
-        body { font-family: Arial, sans-serif; color:#0B2345; margin:40px; line-height:1.5; }
-        .top { display:flex; justify-content:space-between; gap:24px; align-items:flex-start; }
-        .logo { width:88px; height:88px; object-fit:contain; }
-        h1 { margin:0 0 8px; }
-        .muted { color:#637083; }
-        table { width:100%; border-collapse:collapse; margin-top:20px; }
-        td, th { border:1px solid #d7e3ef; padding:10px; text-align:left; }
-        .total { font-size:24px; font-weight:700; }
-        .scope { white-space:pre-line; line-height:1.7; }
-        .btn-print { margin-bottom:24px; padding:8px 20px; background:#0B2345; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:14px; }
-        @media print { .btn-print { display:none; } body { margin:20mm; } }
-    </style>
-</head>
-<body>
-    <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+@extends('layouts.pdf', [
+    'docTitle'       => 'PROPOSAL PENAWARAN',
+    'docNumber'      => $proposal->number,
+    'docDate'        => $proposal->created_at?->format('Y-m-d') ?? date('Y-m-d'),
+    'docDueDate'     => $proposal->valid_until ?? '—',
+    'docStatus'      => $proposal->status,
+    'companySetting' => $companySetting ?? null,
+    'preparedBy'     => 'Sales & Business Dept',
+    'reviewedBy'     => 'Commercial Lead',
+    'approvedBy'     => $proposal->project->client ?? 'Client PIC',
+])
 
-    <div class="top">
-        <div>
-            @if($companySetting->logo_path)
-                <img class="logo" src="{{ asset('storage/'.$companySetting->logo_path) }}" alt="Logo">
-            @endif
-            <h1>{{ $companySetting->company_name }}</h1>
-            @if($companySetting->address)
-                <div class="muted">{{ $companySetting->address }}</div>
-            @endif
-            <div class="muted">
-                {{ $companySetting->email }}
-                {{ $companySetting->phone ? '| '.$companySetting->phone : '' }}
-            </div>
-        </div>
-        <div style="text-align:right">
-            <h1>PROPOSAL</h1>
-            <div><strong>{{ $proposal->number }}</strong></div>
-            <div>Status: <strong>{{ strtoupper($proposal->status) }}</strong></div>
-            @if($proposal->valid_until)
-                <div>Valid Until: {{ $proposal->valid_until }}</div>
-            @endif
-        </div>
-    </div>
+@section('content')
+{{-- Metadata Table --}}
+<table class="doc-table" style="margin-top: 0; margin-bottom: 16px;">
+    <tr>
+        <td style="width: 50%;">
+            <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Ditujukan Kepada:</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $proposal->project->client }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Proyek: {{ $proposal->project->code }} — {{ $proposal->project->name }}</div>
+        </td>
+        <td style="width: 50%;">
+            <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Rincian Penawaran:</div>
+            <div style="font-size: 10pt; font-weight: bold; margin-top: 2px;">{{ $proposal->title }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Masa Berlaku: {{ $proposal->valid_until ?? '30 Hari kalender' }}</div>
+            <div style="font-size: 8.5pt; color: #444;">Status: <strong>{{ strtoupper($proposal->status) }}</strong></div>
+        </td>
+    </tr>
+</table>
 
-    <h2 style="margin-top:24px">{{ $proposal->title }}</h2>
+{{-- Commercial Summary Table --}}
+<table class="doc-table">
+    <thead>
+        <tr>
+            <th style="width: 5%;" class="text-center">No</th>
+            <th style="width: 65%;">Ruang Lingkup & Deskripsi Proposal</th>
+            <th style="width: 30%;" class="text-right">Nilai Investasi (IDR)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center">1</td>
+            <td>
+                <div class="text-bold">{{ $proposal->title }}</div>
+                @if($proposal->scope)
+                    <div style="font-size: 8pt; color: #444; margin-top: 4px; line-height: 1.5;">{!! nl2br(e($proposal->scope)) !!}</div>
+                @endif
+            </td>
+            <td class="text-right text-bold">Rp {{ number_format((float)$proposal->amount, 0, ',', '.') }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="text-right text-bold">TOTAL PENAWARAN (EXCL. TAX)</td>
+            <td class="text-right text-bold" style="font-size: 10pt;">Rp {{ number_format((float)$proposal->amount, 0, ',', '.') }}</td>
+        </tr>
+    </tbody>
+</table>
 
-    <table>
-        <tr><th>Project</th><td>{{ $proposal->project->code }} — {{ $proposal->project->name }}</td></tr>
-        <tr><th>Client</th><td>{{ $proposal->project->client }}</td></tr>
-        <tr><th>Amount</th><td class="total">Rp {{ number_format($proposal->amount, 0, ',', '.') }}</td></tr>
-    </table>
-
-    @if($proposal->scope)
-        <h2 style="margin-top:24px">Scope of Work</h2>
-        <div class="scope">{!! nl2br(e($proposal->scope)) !!}</div>
-    @endif
-
-    <div style="margin-top:64px; width:260px; text-align:center">
-        <div>{{ $companySetting->signature_name ?: 'Authorized Signature' }}</div>
-        <div style="border-top:1px solid #0B2345; margin-top:72px; padding-top:8px">
-            {{ $companySetting->company_name }}
-        </div>
-    </div>
-</body>
-</html>
+{{-- Terms & Conditions --}}
+<div style="margin-top: 16px; padding: 10px; border: 1px solid #ddd; background-color: #fafafa; font-size: 8pt; line-height: 1.5;">
+    <strong>Ketentuan Penawaran:</strong>
+    <ol style="margin: 4px 0 0 16px; padding: 0;">
+        <li>Harga penawaran di atas belum termasuk PPN 11% kecuali dinyatakan lain secara tertulis.</li>
+        <li>Penawaran ini mengikat sampai tanggal jatuh tempo validitas yang tercantum pada dokumen.</li>
+        <li>Persetujuan proposal dilakukan dengan penandatanganan dokumen ini atau penerbitan Purchase Order / SPK resmi.</li>
+    </ol>
+</div>
+@endsection

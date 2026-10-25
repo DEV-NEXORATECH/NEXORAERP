@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'reports-cash-flow', 'pageTitle' => 'Cash Flow Report'])
 
 @section('content')
-<section class="report-hero">
+<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mb-4">
     <div>
         <span>Financial Intelligence</span>
         <h1>Cash Flow</h1>
@@ -9,9 +9,9 @@
     </div>
 </section>
 
-<section class="filter-panel report-filter section">
-    <div class="filter-panel-header">
-        <div class="filter-panel-icon">{!! $icon('reports') !!}</div>
+<section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4 report-filter section">
+    <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-header">
+        <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-icon">{!! $icon('reports') !!}</div>
         <div>
             <h3>Filter Report</h3>
             <p class="muted">Filter berdasarkan periode, project, dan bank/kas.</p>
@@ -29,7 +29,7 @@
     </form>
 </section>
 
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5 section">
+<section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm section">
     <h2 class="font-bold text-lg mb-4">Cash Flow Summary</h2>
     <table class="w-full">
         <tr><td class="py-2">Cash In</td><td class="good text-right font-black py-2">{{ $rp($cashFlowStatement['operating_in']) }}</td></tr>
@@ -38,7 +38,7 @@
     </table>
 </section>
 
-<section class="rounded-3xl border border-[#d7e3ef] bg-white p-6 sm:p-8 shadow-lg shadow-[#0B2345]/5 section">
+<section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm section">
     <h2 class="font-bold text-lg mb-4">Cash Flow by Month</h2>
     <div class="overflow-x-auto">
         <table class="w-full">

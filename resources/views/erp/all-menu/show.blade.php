@@ -16,19 +16,19 @@
 
 <div class="space-y-5">
     {{-- Page Header --}}
-    <div class="flex flex-col gap-4 rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-col gap-4 rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs md:flex-row md:items-center md:justify-between">
         <div class="flex min-w-0 items-center gap-3.5">
-            <a href="{{ route('modules.index') }}" class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] border border-[#D9E2EC] bg-white text-[#475569] transition hover:border-[#0B2345] hover:text-[#0B2345]" title="Kembali ke Modules">
+            <a href="{{ route('modules.index') }}" class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-[#E5E7EB] bg-white text-[#475569] transition hover:border-[#002875] hover:text-[#002875]" title="Kembali ke Modules">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-4 w-4">
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
             </a>
-            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] bg-[#0B2345] text-white shadow-xs">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#002875] text-white shadow-xs">
                 {!! $hubIcons[$sectionName] ?? $icon('dashboard') !!}
             </div>
             <div class="min-w-0">
                 <div class="flex items-center gap-2">
-                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#0B2345]">ERP Module</span>
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#002875]">ERP Module</span>
                     <span class="text-[#475569]">·</span>
                     <span class="text-[11px] font-medium text-[#475569]">{{ $sectionName }}</span>
                 </div>
@@ -37,9 +37,9 @@
             </div>
         </div>
 
-        <div class="inline-flex h-auto min-h-9 shrink-0 items-center gap-1.5 self-start rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] px-3.5 py-2 text-xs font-semibold text-[#0F172A] md:self-auto">
+        <div class="inline-flex h-auto min-h-9 shrink-0 items-center gap-1.5 self-start rounded-md border border-[#E5E7EB] bg-[#F8FAFC] px-3.5 py-2 text-xs font-semibold text-[#0F172A] md:self-auto">
             <span class="text-[#475569]">Tersedia:</span>
-            <span class="font-bold text-[#0B2345]">{{ count($items) }} Sub Modul</span>
+            <span class="font-bold text-[#002875]">{{ count($items) }} Sub Modul</span>
         </div>
     </div>
 
@@ -48,15 +48,15 @@
         @foreach($items as $item)
             <a
                 href="{{ route($item['route']) }}"
-                class="group flex min-h-[160px] flex-col justify-between rounded-[12px] border border-[#D9E2EC] bg-white p-5 no-underline shadow-xs transition-all duration-200 hover:border-[#0B2345] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#0B2345]/20"
+                class="group flex min-h-[160px] flex-col justify-between rounded-lg border border-[#E5E7EB] bg-white p-5 no-underline shadow-xs transition-all duration-200 hover:border-[#002875] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002875]/20"
             >
                 <div>
                     <div class="flex items-center gap-3">
-                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-[#0B2345] text-white shadow-xs">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#002875] text-white shadow-xs">
                             {!! $icon($item['icon']) !!}
                         </div>
                         <div class="min-w-0">
-                            <h2 class="mb-0 text-sm font-bold text-[#0F172A] truncate group-hover:text-[#0B2345]">
+                            <h2 class="mb-0 text-sm font-bold text-[#0F172A] truncate group-hover:text-[#002875]">
                                 {{ $item['label'] }}
                             </h2>
                             <span class="text-[10px] font-medium uppercase tracking-wider text-[#475569]">
@@ -70,11 +70,11 @@
                     </p>
                 </div>
 
-                <div class="mt-3 flex items-center justify-between border-t border-[#D9E2EC] pt-2.5">
-                    <span class="text-xs font-semibold text-[#0B2345]">
+                <div class="mt-3 flex items-center justify-between border-t border-[#E5E7EB] pt-2.5">
+                    <span class="text-xs font-semibold text-[#002875]">
                         Buka Modul
                     </span>
-                    <span class="text-[#0B2345] transition-transform duration-200 group-hover:translate-x-1">
+                    <span class="text-[#002875] transition-transform duration-200 group-hover:translate-x-1">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-4 w-4">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>

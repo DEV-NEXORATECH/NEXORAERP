@@ -2,7 +2,7 @@
     'label'       => '',
     'value'       => '',
     'icon'        => 'dashboard',
-    'color'       => '#0B2345',
+    'color'       => '#002875',
     'trend'       => null,
     'sub'         => null,
     'route'       => null,
@@ -20,14 +20,14 @@
     }
 @endphp
 
-<div class="group relative flex flex-col justify-between rounded-[12px] border border-[#D9E2EC] bg-white p-4 shadow-xs transition hover:border-[#0B2345]/30 hover:shadow-sm">
+<div class="group relative flex flex-col justify-between rounded-lg border border-[#E5E7EB] bg-white p-4 shadow-xs transition hover:border-[#002875]/30 hover:shadow-sm">
     {{-- Top: Icon & Trend badge --}}
     @php
         $renderIcon = app('view')->shared('icon');
         $iconName = (isset($icon) && is_string($icon)) ? $icon : ($kpi['icon'] ?? 'dashboard');
     @endphp
     <div class="flex items-center justify-between gap-2">
-        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px]" style="background-color: {{ $color }}15; color: {{ $color }};">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md" style="background-color: {{ $color }}15; color: {{ $color }};">
             <div class="h-5 w-5 flex items-center justify-center">
                 {!! is_callable($renderIcon) ? $renderIcon($iconName) : '' !!}
             </div>
@@ -69,7 +69,7 @@
     {{-- Bottom: Mini sparkline or drilldown action --}}
     <div class="mt-3 flex items-center justify-between border-t border-[#F1F5F9] pt-2 text-[11px]">
         @if($route)
-            <a href="{{ $route }}" class="inline-flex items-center gap-1 font-semibold text-[#0B2345] hover:text-[#2563EB] transition">
+            <a href="{{ $route }}" class="inline-flex items-center gap-1 font-semibold text-[#002875] hover:text-[#2563EB] transition">
                 <span>Detail</span>
                 <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
             </a>

@@ -9,7 +9,7 @@
     'isDanger'    => false,
 ])
 
-<dialog id="{{ $id }}" class="fixed inset-0 z-50 m-auto w-full max-w-md rounded-[12px] border border-[#D1D5DB] bg-white p-0 shadow-xl backdrop:bg-[#001B50]/40 backdrop:backdrop-blur-xs open:flex open:flex-col">
+<dialog id="{{ $id }}" class="fixed inset-0 z-50 m-auto w-full max-w-md rounded-lg border border-[#D1D5DB] bg-white p-0 shadow-xl backdrop:bg-[#001B50]/40 backdrop:backdrop-blur-xs open:flex open:flex-col">
     <div class="flex items-center justify-between border-b border-[#E5E7EB] px-5 py-4">
         <div class="flex items-center gap-2.5">
             @if($isDanger)
@@ -34,7 +34,7 @@
     </div>
 
     <div class="flex items-center justify-end gap-2.5 border-t border-[#E5E7EB] bg-[#F9FAFB] px-5 py-3.5 rounded-b-[12px]">
-        <button type="button" onclick="document.getElementById('{{ $id }}').close()" class="inline-flex items-center justify-center rounded-[8px] border border-[#D1D5DB] bg-white px-4 py-2 text-xs font-semibold text-[#374151] hover:bg-[#F3F4F6] transition shadow-2xs">
+        <button type="button" onclick="document.getElementById('{{ $id }}').close()" class="inline-flex items-center justify-center rounded-md border border-[#D1D5DB] bg-white px-4 py-2 text-xs font-semibold text-[#374151] hover:bg-[#F3F4F6] transition shadow-2xs">
             {{ $cancelText }}
         </button>
 
@@ -44,12 +44,12 @@
                 @if(in_array(strtoupper($method), ['PUT', 'PATCH', 'DELETE']))
                     @method($method)
                 @endif
-                <button type="submit" class="inline-flex items-center justify-center rounded-[8px] px-4 py-2 text-xs font-semibold text-white transition shadow-2xs {{ $isDanger ? 'bg-[#DC2626] hover:bg-[#B91C1C]' : 'bg-[#002875] hover:bg-[#001B50]' }}">
+                <button type="submit" class="inline-flex items-center justify-center rounded-md px-4 py-2 text-xs font-semibold text-white transition shadow-2xs {{ $isDanger ? 'bg-[#DC2626] hover:bg-[#B91C1C]' : 'bg-[#002875] hover:bg-[#001B50]' }}">
                     {{ $confirmText }}
                 </button>
             </form>
         @else
-            <button type="button" data-confirm-action class="inline-flex items-center justify-center rounded-[8px] px-4 py-2 text-xs font-semibold text-white transition shadow-2xs {{ $isDanger ? 'bg-[#DC2626] hover:bg-[#B91C1C]' : 'bg-[#002875] hover:bg-[#001B50]' }}">
+            <button type="button" data-confirm-action class="inline-flex items-center justify-center rounded-md px-4 py-2 text-xs font-semibold text-white transition shadow-2xs {{ $isDanger ? 'bg-[#DC2626] hover:bg-[#B91C1C]' : 'bg-[#002875] hover:bg-[#001B50]' }}">
                 {{ $confirmText }}
             </button>
         @endif

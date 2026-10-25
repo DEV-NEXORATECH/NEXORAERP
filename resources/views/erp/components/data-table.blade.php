@@ -3,7 +3,7 @@
     'emptyMessage' => 'Tidak ada data yang ditemukan.',
 ])
 
-<div class="rounded-[10px] border border-[#D1D5DB] bg-white shadow-2xs overflow-hidden">
+<div class="rounded-md border border-[#D1D5DB] bg-white shadow-2xs overflow-hidden">
     <div class="overflow-x-auto">
         <table class="w-full border-separate border-spacing-0 text-left text-xs text-[#111827]">
             {{ $slot }}

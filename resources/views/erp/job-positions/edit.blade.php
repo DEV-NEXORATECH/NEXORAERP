@@ -1,16 +1,39 @@
-@extends('layouts.erp', ['activePage' => 'job-positions-edit-page', 'pageTitle' => 'Edit Job Position'])
+@extends('layouts.erp', ['activePage' => 'job-positions', 'pageTitle' => 'Edit Jabatan'])
 
 @section('content')
-<section class="section" id="job-position-edit">
-    <div class="card">
-        <h2>Edit Job Position: {{ $jobPosition->name }}</h2>
-        <form method="post" action="{{ route('job-positions.update', $jobPosition) }}" class="grid">
+<div class="space-y-5 max-w-2xl">
+    <x-erp.page-header
+        title="Edit Posisi / Jabatan"
+        subtitle="Perbarui nama posisi pekerjaan: {{ $jobPosition->name }}"
+        :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'HR & Organisasi', 'url' => route('hris.index')], ['label' => 'Jabatan', 'url' => route('job-positions.index')], ['label' => 'Edit']]"
+    />
+
+    <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-xs">
+        <form method="post" action="{{ route('job-positions.update', $jobPosition) }}" class="space-y-5">
             @csrf
             @method('put')
-            <input name="name" value="{{ $jobPosition->name }}" placeholder="Nama position" required>
-            <button>Update Position</button>
+            <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Nama Posisi / Jabatan <span class="text-red-500">*</span>
+                </label>
+                <input type="text" name="name" value="{{ old('name', $jobPosition->name) }}" required autofocus
+                    class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
+                @error('name')
+                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="flex items-center gap-3 pt-3 border-t border-slate-100">
+                <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-[#001B50] focus:outline-none focus:ring-2 focus:ring-[#002875]/20 transition-colors">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                    Perbarui Jabatan
+                </button>
+                <a href="{{ route('job-positions.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Batal
+                </a>
+            </div>
         </form>
-        <a href="{{ route('job-positions.index') }}" class="mt-4 inline-block text-sm text-slate-500">&larr; Kembali</a>
     </div>
-</section>
+</div>
 @endsection

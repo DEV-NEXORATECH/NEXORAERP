@@ -3,14 +3,14 @@
 @section('content')
 <div class="space-y-6">
     {{-- Header --}}
-    <div class="flex flex-col gap-4 rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-col gap-4 rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs md:flex-row md:items-center md:justify-between">
         <div class="flex items-center gap-3.5">
-            <a href="{{ route('admin.index') }}" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] border border-[#D9E2EC] bg-white text-[#475569] transition hover:border-[#0B2345] hover:text-[#0B2345]" title="Kembali ke Admin">
+            <a href="{{ route('admin.index') }}" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#E5E7EB] bg-white text-[#475569] transition hover:border-[#002875] hover:text-[#002875]" title="Kembali ke Admin">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             </a>
             <div>
                 <div class="flex items-center gap-2">
-                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#0B2345]">System Access</span>
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-[#002875]">System Access</span>
                     <span class="text-[#475569]">·</span>
                     <span class="text-[11px] font-medium text-[#475569]">User Control</span>
                 </div>
@@ -19,9 +19,9 @@
             </div>
         </div>
 
-        <div class="inline-flex h-9 items-center gap-1.5 self-start rounded-[8px] border border-[#D9E2EC] bg-[#F8FAFC] px-3.5 text-xs font-semibold text-[#0F172A] md:self-auto">
+        <div class="inline-flex h-9 items-center gap-1.5 self-start rounded-md border border-[#E5E7EB] bg-[#F8FAFC] px-3.5 text-xs font-semibold text-[#0F172A] md:self-auto">
             <span class="text-[#475569]">Total Akun:</span>
-            <span class="font-bold text-[#0B2345]">{{ $users->total() }} User</span>
+            <span class="font-bold text-[#002875]">{{ $users->total() }} User</span>
         </div>
     </div>
 
@@ -29,8 +29,8 @@
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
         {{-- Form Tambah User --}}
         <div class="lg:col-span-4">
-            <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
-                <div class="mb-4 border-b border-[#D9E2EC] pb-3">
+            <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
+                <div class="mb-4 border-b border-[#E5E7EB] pb-3">
                     <h2 class="text-sm font-bold text-[#0F172A]">Tambah User Baru</h2>
                     <p class="text-xs text-[#475569]">Buat akun staf baru dan tentukan hak akses sistem.</p>
                 </div>
@@ -70,15 +70,15 @@
 
         {{-- Tabel Daftar User --}}
         <div class="lg:col-span-8">
-            <div class="rounded-[12px] border border-[#D9E2EC] bg-white shadow-xs overflow-hidden">
-                <div class="flex items-center justify-between border-b border-[#D9E2EC] px-5 py-4">
+            <div class="rounded-lg border border-[#E5E7EB] bg-white shadow-xs overflow-hidden">
+                <div class="flex items-center justify-between border-b border-[#E5E7EB] px-5 py-4">
                     <h2 class="text-sm font-bold text-[#0F172A]">Daftar Akun Terdaftar</h2>
                     <span class="text-xs text-[#475569]">Menampilkan {{ $users->count() }} dari {{ $users->total() }} akun</span>
                 </div>
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-xs">
-                        <thead class="bg-[#F8FAFC] border-b border-[#D9E2EC] text-[#475569] font-semibold">
+                        <thead class="bg-[#F8FAFC] border-b border-[#E5E7EB] text-[#475569] font-semibold">
                             <tr>
                                 <th class="px-5 py-3.5">Nama & Email</th>
                                 <th class="px-4 py-3.5">Role</th>
@@ -86,7 +86,7 @@
                                 <th class="px-5 py-3.5 text-right">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-[#D9E2EC]">
+                        <tbody class="divide-y divide-[#E5E7EB]">
                             @forelse($users as $user)
                             <tr class="hover:bg-[#F8FAFC]/60 transition">
                                 <td class="px-5 py-3.5">
@@ -94,7 +94,7 @@
                                     <div class="text-[11px] text-[#475569]">{{ $user->email }}</div>
                                 </td>
                                 <td class="px-4 py-3.5">
-                                    <span class="inline-flex items-center rounded-full bg-[#E8EEF5] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#0B2345]">
+                                    <span class="inline-flex items-center rounded-full bg-[#E8EEF5] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#002875]">
                                         {{ $user->role }}
                                     </span>
                                 </td>
@@ -130,7 +130,7 @@
                 </div>
 
                 @if($users->hasPages())
-                <div class="flex items-center justify-between border-t border-[#D9E2EC] px-5 py-3 bg-[#F8FAFC]">
+                <div class="flex items-center justify-between border-t border-[#E5E7EB] px-5 py-3 bg-[#F8FAFC]">
                     <span class="text-xs text-[#475569]">Halaman {{ $users->currentPage() }} dari {{ $users->lastPage() }}</span>
                     <div>{{ $users->links() }}</div>
                 </div>

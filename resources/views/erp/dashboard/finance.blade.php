@@ -13,26 +13,26 @@
 
     {{-- Quick Actions --}}
     <div class="flex flex-wrap items-center gap-2.5">
-        <a href="{{ route('invoices.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#0B2345] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
+        <a href="{{ route('invoices.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#123A6B] transition shadow-xs">
             {!! $icon('plus') !!}
             <span>Buat Invoice</span>
         </a>
-        <a href="{{ route('payments.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#16A34A] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#15803D] transition shadow-xs">
+        <a href="{{ route('payments.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#16A34A] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#15803D] transition shadow-xs">
             <span>Catat Pembayaran</span>
         </a>
-        <a href="{{ route('journal-entries.create-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-[#2563EB] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#1D4ED8] transition shadow-xs">
+        <a href="{{ route('journal-entries.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#2563EB] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#1D4ED8] transition shadow-xs">
             <span>Entry Jurnal</span>
         </a>
-        <a href="{{ route('reimbursements.index-page') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('reimbursements.index-page') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Reimbursement</span>
         </a>
-        <a href="{{ route('reports.profit-loss') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('reports.profit-loss') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Laba Rugi</span>
         </a>
-        <a href="{{ route('reports.balance-sheet') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('reports.balance-sheet') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Neraca</span>
         </a>
-        <a href="{{ route('reports.cash-flow') }}" class="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs font-semibold text-[#0B2345] hover:bg-[#F8FAFC] transition shadow-xs">
+        <a href="{{ route('reports.cash-flow') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#002875] hover:bg-[#F8FAFC] transition shadow-xs">
             <span>Arus Kas</span>
         </a>
     </div>
@@ -44,7 +44,7 @@
                 @include('erp.dashboard.components.kpi-card', [
                     'label'  => $kpi['label'],
                     'value'  => $kpi['value'],
-                    'color'  => $kpi['color'] ?? '#0B2345',
+                    'color'  => $kpi['color'] ?? '#002875',
                     'format' => in_array($key, ['total_income', 'total_expense', 'net_cashflow', 'receivables', 'payables', 'pending_reimburse', 'tax_payables']) ? 'currency' : 'text',
                 ])
             @endforeach
@@ -138,15 +138,15 @@
     {{-- Data Tables --}}
     <section class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {{-- Outstanding Invoices Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Invoice Belum Lunas (Outstanding AR)</h3>
-                <a href="{{ route('finance.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Kelola Invoice →</a>
+                <a href="{{ route('finance.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Kelola Invoice →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">No Invoice</th>
                             <th class="px-3 py-2.5">Customer</th>
                             <th class="px-3 py-2.5 text-right">Outstanding</th>
@@ -176,15 +176,15 @@
         </div>
 
         {{-- Unpaid Vendor Bills Table --}}
-        <div class="rounded-[12px] border border-[#D9E2EC] bg-white p-5 shadow-xs">
+        <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
             <div class="mb-4 flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <h3 class="text-sm font-bold tracking-tight text-[#0F172A] m-0">Tagihan Vendor Belum Dibayar (AP)</h3>
-                <a href="{{ route('vendor-bills.index') }}" class="text-xs font-semibold text-[#0B2345] hover:text-[#2563EB]">Kelola Bills →</a>
+                <a href="{{ route('vendor-bills.index') }}" class="text-xs font-semibold text-[#002875] hover:text-[#2563EB]">Kelola Bills →</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="border-b border-[#D9E2EC] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
+                        <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#475569]">
                             <th class="px-3 py-2.5">No Bill</th>
                             <th class="px-3 py-2.5">Vendor</th>
                             <th class="px-3 py-2.5 text-right">Nominal</th>
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function () {
             chart: { type: 'donut', height: 280 },
             series: expDist.map(e => e.amount),
             labels: expDist.map(e => e.label),
-            colors: ['#0B2345', '#DC2626', '#EA580C', '#D97706', '#7C3AED', '#0891B2'],
+            colors: ['#002875', '#DC2626', '#EA580C', '#D97706', '#7C3AED', '#0891B2'],
             legend: { position: 'bottom' }
         });
     }
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 { name: 'Plafon Budget', data: budgetData.map(b => b.budget) },
                 { name: 'Realisasi', data: budgetData.map(b => b.actual) }
             ],
-            colors: ['#0B2345', '#16A34A'],
+            colors: ['#002875', '#16A34A'],
             plotOptions: { bar: { columnWidth: '45%', borderRadius: 2 } },
             xaxis: { categories: budgetData.map(b => b.name) },
             yaxis: { labels: { formatter: val => (val / 1000000).toFixed(0) + ' Jt' } },

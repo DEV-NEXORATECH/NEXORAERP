@@ -4,42 +4,42 @@
 
 {{-- ═══════════════════════ KPI Summary ═══════════════════════ --}}
 <div class="report-summary-grid section">
-    <div class="stat-card">
-        <div class="stat-card-label">
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">
             <svg class="inline-block h-4 w-4 mr-1 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
             Total Income
         </div>
-        <div class="stat-card-metric good">{{ $rp($summary['income']) }}</div>
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric good">{{ $rp($summary['income']) }}</div>
         <div class="muted text-xs mt-1">pemasukan keseluruhan</div>
     </div>
-    <div class="stat-card">
-        <div class="stat-card-label">
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">
             <svg class="inline-block h-4 w-4 mr-1 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
             Total Expense
         </div>
-        <div class="stat-card-metric bad">{{ $rp($summary['expense']) }}</div>
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric bad">{{ $rp($summary['expense']) }}</div>
         <div class="muted text-xs mt-1">pengeluaran keseluruhan</div>
     </div>
-    <div class="stat-card">
-        <div class="stat-card-label">
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">
             <svg class="inline-block h-4 w-4 mr-1 {{ $summary['balance'] >= 0 ? 'text-emerald-500' : 'text-red-500' }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
             Net Balance
         </div>
-        <div class="stat-card-metric {{ $summary['balance'] >= 0 ? 'good' : 'bad' }}">{{ $rp($summary['balance']) }}</div>
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric {{ $summary['balance'] >= 0 ? 'good' : 'bad' }}">{{ $rp($summary['balance']) }}</div>
         <div class="muted text-xs mt-1">{{ $summary['balance'] >= 0 ? 'Surplus' : 'Defisit' }}</div>
     </div>
-    <div class="stat-card">
-        <div class="stat-card-label">
-            <svg class="inline-block h-4 w-4 mr-1 text-[#0B2345]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">
+            <svg class="inline-block h-4 w-4 mr-1 text-[#002875]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
             Transaksi
         </div>
-        <div class="stat-card-metric">{{ number_format($summary['count']) }}</div>
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric">{{ number_format($summary['count']) }}</div>
         <div class="muted text-xs mt-1">total entries</div>
     </div>
 </div>
 
 {{-- ═══════════════════════ Filter Panel ═══════════════════════ --}}
-<section class="filter-panel section">
+<section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4">
     <div class="filter-panel-header">
         <div class="filter-panel-icon">{!! $icon('cashflow') !!}</div>
         <div>
@@ -178,7 +178,7 @@
                     @forelse($byCostType as $ct => $row)
                     <tr>
                         <td>
-                            <span class="inline-flex items-center rounded-lg bg-[#F4F7FB] px-2 py-0.5 text-xs font-bold text-[#0B2345]">
+                            <span class="inline-flex items-center rounded-lg bg-[#F4F7FB] px-2 py-0.5 text-xs font-bold text-[#002875]">
                                 {{ str_replace('_', ' ', ucfirst($ct)) }}
                             </span>
                         </td>
@@ -260,7 +260,7 @@
                         <div class="muted text-xs">{{ \Carbon\Carbon::parse($flow->transaction_date)->format('l') }}</div>
                     </td>
                     <td>
-                        <span class="inline-flex items-center rounded-lg bg-[#F4F7FB] px-2 py-0.5 text-xs font-bold text-[#0B2345]">
+                        <span class="inline-flex items-center rounded-lg bg-[#F4F7FB] px-2 py-0.5 text-xs font-bold text-[#002875]">
                             {{ $flow->project?->code ?? 'Company' }}
                         </span>
                     </td>
