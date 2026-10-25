@@ -1,69 +1,97 @@
 @extends('layouts.erp', ['activePage' => 'reports-profit-loss', 'pageTitle' => 'Profit & Loss Report'])
 
 @section('content')
-<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mb-4">
-    <div>
-        <span>Financial Intelligence</span>
-        <h1>Profit & Loss</h1>
-        <p>Laporan laba rugi dengan breakdown pendapatan dan biaya per kategori.</p>
-    </div>
-</section>
-
-<section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4 report-filter section">
-    <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-header">
-        <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-icon">{!! $icon('reports') !!}</div>
+<div class="space-y-4">
+    {{-- Card 1 — Page Header & Global Actions --}}
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
         <div>
-            <h3>Filter Report</h3>
-            <p class="muted">Filter berdasarkan periode, project, dan bank/kas.</p>
+            <h1 class="text-lg font-bold text-gray-900 tracking-tight">Profit & Loss (Laba Rugi)</h1>
+            <p class="text-xs text-gray-500">Laporan laba rugi dengan breakdown pendapatan dan biaya per kategori.</p>
+        </div>
+        <x-erp.toolbar-actions module="report-profit-loss" :can-create="false" />
+    </div>
+
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('reports.profit-loss') }}" class="filter-toolbar">
+            <input name="date_from" type="date" value="{{ request('date_from') }}" class="filter-date">
+            <input name="date_to" type="date" value="{{ request('date_to') }}" class="filter-date">
+            <select name="project_id" class="filter-select">
+                <option value="">Semua Project</option>
+                @foreach($projects as $project)
+                    <option value="{{ $project->id }}" @selected((int) request('project_id') === $project->id)>{{ $project->code }} - {{ $project->name }}</option>
+                @endforeach
+            </select>
+            <select name="bank_account_id" class="filter-select">
+                <option value="">Semua Bank/Kas</option>
+                @foreach($bankAccounts as $bank)
+                    <option value="{{ $bank->id }}" @selected((int) request('bank_account_id') === $bank->id)>{{ $bank->name }}</option>
+                @endforeach
+            </select>
+            <div class="flex items-center gap-2">
+                <button type="submit" class="px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition">Filter</button>
+                <a href="{{ route('reports.profit-loss') }}" class="px-3 py-1.5 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition">Reset</a>
+            </div>
+        </form>
+    </div>
+
+    {{-- Summary Cards --}}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+            <div class="text-xs font-medium text-gray-500">Revenue</div>
+            <div class="text-xl font-bold text-emerald-600 mt-1">{{ $rp($profitLoss['revenue']) }}</div>
+        </div>
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+            <div class="text-xs font-medium text-gray-500">Expense</div>
+            <div class="text-xl font-bold text-rose-600 mt-1">{{ $rp($profitLoss['expense']) }}</div>
+        </div>
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+            <div class="text-xs font-medium text-gray-500">Net Profit / Loss</div>
+            <div class="text-xl font-bold {{ $profitLoss['net_profit'] >= 0 ? 'text-emerald-600' : 'text-rose-600' }} mt-1">{{ $rp($profitLoss['net_profit']) }}</div>
         </div>
     </div>
-    <form method="get" action="{{ route('reports.profit-loss') }}" class="filter-grid">
-        <div class="filter-field"><label>Dari</label><input name="date_from" type="date" value="{{ request('date_from') }}"></div>
-        <div class="filter-field"><label>Sampai</label><input name="date_to" type="date" value="{{ request('date_to') }}"></div>
-        <div class="filter-field"><label>Project</label><select name="project_id"><option value="">Semua</option>@foreach($projects as $project)<option value="{{ $project->id }}" @selected((int) request('project_id') === $project->id)>{{ $project->code }} - {{ $project->name }}</option>@endforeach</select></div>
-        <div class="filter-field"><label>Bank/Kas</label><select name="bank_account_id"><option value="">Semua</option>@foreach($bankAccounts as $bank)<option value="{{ $bank->id }}" @selected((int) request('bank_account_id') === $bank->id)>{{ $bank->name }}</option>@endforeach</select></div>
-        <div class="filter-actions xl:col-span-6">
-            <button>Apply Filter</button>
-            <a class="button ghost" href="{{ route('reports.profit-loss') }}">Reset</a>
+
+    {{-- Two Column Detail --}}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+            <div class="border-b border-gray-200 px-4 py-3 bg-gray-50/50">
+                <h2 class="text-xs font-bold text-gray-900 uppercase tracking-wider">Expense by Category</h2>
+            </div>
+            <div class="p-3">
+                <table class="table-folk w-full text-left border-collapse text-xs">
+                    <tbody class="divide-y divide-gray-200">
+                        @forelse($profitLoss['expense_by_category'] as $category => $amount)
+                            <tr>
+                                <td class="px-3 py-2 text-xs text-gray-700">{{ $category }}</td>
+                                <td class="px-3 py-2 text-xs text-right font-bold text-gray-900">{{ $rp($amount) }}</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="2" class="py-6 text-center text-gray-400">Belum ada expense.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </form>
-</section>
 
-<section class="report-summary-grid section">
-    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">Revenue</div><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric good">{{ $rp($profitLoss['revenue']) }}</div></div>
-    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">Expense</div><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric bad">{{ $rp($profitLoss['expense']) }}</div></div>
-    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">Net Profit / Loss</div><div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric {{ $profitLoss['net_profit'] >= 0 ? 'good' : 'bad' }}">{{ $rp($profitLoss['net_profit']) }}</div></div>
-</section>
-
-<section class="grid two section">
-    <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-        <h2 class="font-bold text-lg mb-4">Revenue vs Expense</h2>
-        <table class="w-full">
-            <tr><td class="py-2">Revenue</td><td class="good text-right font-black py-2">{{ $rp($profitLoss['revenue']) }}</td></tr>
-            <tr><td class="py-2">Expense</td><td class="bad text-right font-black py-2">{{ $rp($profitLoss['expense']) }}</td></tr>
-            <tr><td class="py-2 border-t border-[#d7e3ef]">Net Profit / Loss</td><td class="{{ $profitLoss['net_profit'] >= 0 ? 'good' : 'bad' }} text-right font-black py-2 border-t border-[#d7e3ef]">{{ $rp($profitLoss['net_profit']) }}</td></tr>
-        </table>
+        <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+            <div class="border-b border-gray-200 px-4 py-3 bg-gray-50/50">
+                <h2 class="text-xs font-bold text-gray-900 uppercase tracking-wider">Revenue by Category</h2>
+            </div>
+            <div class="p-3">
+                <table class="table-folk w-full text-left border-collapse text-xs">
+                    <tbody class="divide-y divide-gray-200">
+                        @forelse($profitLoss['revenue_by_category'] as $category => $amount)
+                            <tr>
+                                <td class="px-3 py-2 text-xs text-gray-700">{{ $category }}</td>
+                                <td class="px-3 py-2 text-xs text-right font-bold text-gray-900">{{ $rp($amount) }}</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="2" class="py-6 text-center text-gray-400">Belum ada revenue.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-        <h2 class="font-bold text-lg mb-4">Expense by Category</h2>
-        <table class="w-full">
-            @forelse($profitLoss['expense_by_category'] as $category => $amount)
-                <tr><td class="py-1">{{ $category }}</td><td class="text-right font-bold py-1">{{ $rp($amount) }}</td></tr>
-            @empty
-                <tr><td colspan="2" class="py-8 text-center text-slate-500">Belum ada expense.</td></tr>
-            @endforelse
-        </table>
-    </div>
-</section>
-
-<section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm section">
-    <h2 class="font-bold text-lg mb-4">Revenue by Category</h2>
-    <table class="w-full">
-        @forelse($profitLoss['revenue_by_category'] as $category => $amount)
-            <tr><td class="py-1">{{ $category }}</td><td class="text-right font-bold py-1">{{ $rp($amount) }}</td></tr>
-        @empty
-            <tr><td colspan="2" class="py-8 text-center text-slate-500">Belum ada revenue.</td></tr>
-        @endforelse
-    </table>
-</section>
+</div>
 @endsection

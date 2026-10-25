@@ -2,17 +2,12 @@
 
 @section('content')
 <section class="space-y-5" id="feature-flags">
-    <div class="section-head">
-        <h2>Pengaturan Fitur</h2>
-        <div class="flex items-center gap-3">
-            <span class="rounded-full bg-[#E8EEF5] px-3 py-1 text-xs font-bold text-[#002875]">
-                {{ $enabledCount }}/{{ $totalCount }} aktif
-            </span>
-            <a href="{{ route('feature-flags.create-page') }}" class="button ghost">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M12 5v14M5 12h14"/></svg>
-                Tambah Fitur
-            </a>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div>
+            <h1 class="text-lg font-bold text-gray-900 tracking-tight">Pengaturan Fitur</h1>
+            <p class="text-xs text-gray-500">Kelola status aktif/nonaktif fitur ERP untuk kontrol modul sistem.</p>
         </div>
+        <x-erp.toolbar-actions module="feature_flags" :create-route="route('feature-flags.create-page')" create-label="+ Tambah Fitur" />
     </div>
 
     <p class="mb-6 text-sm text-slate-500">

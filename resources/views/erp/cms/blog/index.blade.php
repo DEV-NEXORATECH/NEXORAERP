@@ -19,22 +19,13 @@
             </div>
         </div>
 
-        <div class="flex items-center gap-3 self-start md:self-auto">
-            <a href="{{ route('cms.blog.create') }}" class="btn btn-primary inline-flex h-9 items-center gap-2 px-3.5 text-xs font-semibold">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-4 w-4"><path d="M12 5v14M5 12h14"/></svg>
-                <span>Tulis Artikel Baru</span>
-            </a>
-            <div class="inline-flex h-9 items-center gap-1.5 rounded-md border border-[#E5E7EB] bg-[#F8FAFC] px-3.5 text-xs font-semibold text-[#0F172A]">
-                <span class="text-[#475569]">Total Post:</span>
-                <span class="font-bold text-[#002875]">{{ $posts->total() }}</span>
-            </div>
-        </div>
+        <x-erp.toolbar-actions module="cms_posts" :create-route="route('cms.blog.create')" create-label="+ Tulis Artikel Baru" />
     </div>
 
     {{-- Blog Articles Table / List --}}
     <div class="rounded-lg border border-[#E5E7EB] bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead class="bg-[#F8FAFC] border-b border-[#E5E7EB] text-[#475569] font-semibold">
                     <tr>
                         <th class="px-5 py-3.5">Judul & Ringkasan</th>
@@ -86,13 +77,15 @@
                 </tbody>
             </table>
         </div>
+    </div>
 
-        @if($posts->hasPages())
-        <div class="flex items-center justify-between border-t border-[#E5E7EB] px-5 py-3 bg-[#F8FAFC]">
+    @if($posts->hasPages())
+        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
             <span class="text-xs text-[#475569]">Menampilkan {{ $posts->firstItem() }}–{{ $posts->lastItem() }} dari {{ $posts->total() }}</span>
             <div>{{ $posts->links() }}</div>
         </div>
-        @endif
-    </div>
+    @endif
 </div>
+
+<x-erp.import-modal module="blog" title="Impor Data Blog" />
 @endsection

@@ -19,10 +19,7 @@
             </div>
         </div>
 
-        <div class="inline-flex h-9 items-center gap-1.5 self-start rounded-md border border-[#E5E7EB] bg-[#F8FAFC] px-3.5 text-xs font-semibold text-[#0F172A] md:self-auto">
-            <span class="text-[#475569]">Total Akun:</span>
-            <span class="font-bold text-[#002875]">{{ $users->total() }} User</span>
-        </div>
+        <x-erp.toolbar-actions module="users" :can-create="false" />
     </div>
 
     {{-- Layout Grid: Form Tambah & Tabel Daftar --}}
@@ -77,7 +74,7 @@
                 </div>
 
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs">
+                    <table class="table-folk w-full text-left border-collapse text-xs">
                         <thead class="bg-[#F8FAFC] border-b border-[#E5E7EB] text-[#475569] font-semibold">
                             <tr>
                                 <th class="px-5 py-3.5">Nama & Email</th>
@@ -128,14 +125,14 @@
                         </tbody>
                     </table>
                 </div>
+    </div>
 
-                @if($users->hasPages())
-                <div class="flex items-center justify-between border-t border-[#E5E7EB] px-5 py-3 bg-[#F8FAFC]">
-                    <span class="text-xs text-[#475569]">Halaman {{ $users->currentPage() }} dari {{ $users->lastPage() }}</span>
+    @if($users->hasPages())
+        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
+            <span class="text-xs text-[#475569]">Halaman {{ $users->currentPage() }} dari {{ $users->lastPage() }}</span>
                     <div>{{ $users->links() }}</div>
-                </div>
-                @endif
-            </div>
+        </div>
+    @endif
         </div>
     </div>
 </div>

@@ -8,54 +8,52 @@
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Administration', 'url' => route('admin.index')], ['label' => 'User Management']]"
     >
         <x-slot:actions>
-            @if($can('admin'))
-                <a href="{{ route('user-management.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white shadow-xs hover:bg-[#001B50] transition-colors">
-                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-                    Tambah Pengguna
-                </a>
-            @endif
+            <x-erp.toolbar-actions
+                module="users"
+                :create-route="route('user-management.create-page')"
+                create-label="+ Tambah Pengguna"
+                :can-create="$can('admin')"
+            />
         </x-slot:actions>
     </x-erp.page-header>
 
-    {{-- Card 2 — Workspace: Filter Toolbar + Data Table + Pagination --}}
-    <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
-        {{-- Filter Toolbar --}}
-        <div class="p-3.5 border-b border-slate-200">
-            <form method="get" action="{{ route('user-management.index') }}" class="flex flex-wrap items-center gap-3">
-                <div class="relative flex-1 min-w-[200px]">
-                    <input type="text" name="search" placeholder="Cari nama atau email..." value="{{ request('search') }}"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('user-management.index') }}" class="filter-toolbar">
+            <div class="relative w-64 flex-shrink-0">
+                <input type="text" name="search" placeholder="Cari nama atau email..." value="{{ request('search') }}"
+                    class="filter-search !w-full pl-8 pr-3 text-xs">
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5 text-[#9CA3AF]">
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </div>
-                <div>
-                    <select name="type" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
-                        <option value="">Semua Role</option>
-                        <option value="admin" @selected(request('type') == 'admin')>Admin</option>
-                        <option value="finance" @selected(request('type') == 'finance')>Finance</option>
-                        <option value="hr" @selected(request('type') == 'hr')>HR</option>
-                        <option value="sales" @selected(request('type') == 'sales')>Sales</option>
-                    </select>
-                </div>
-                <div>
-                    <select name="is_active" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
-                        <option value="">Semua Status</option>
-                        <option value="1" @selected(request('is_active') == '1')>Aktif</option>
-                        <option value="0" @selected(request('is_active') == '0')>Nonaktif</option>
-                    </select>
-                </div>
-                <div class="flex items-center gap-2">
-                    <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#001B50] transition-colors">
-                        Filter
-                    </button>
-                    @if(request('search') || request('type') || request('is_active') !== null)
-                        <a href="{{ route('user-management.index') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
-                            Reset
-                        </a>
-                    @endif
-                </div>
-            </form>
-        </div>
+            </div>
+            <select name="type" class="text-xs">
+                <option value="">Semua Role</option>
+                <option value="admin" @selected(request('type') == 'admin')>Admin</option>
+                <option value="finance" @selected(request('type') == 'finance')>Finance</option>
+                <option value="hr" @selected(request('type') == 'hr')>HR</option>
+                <option value="sales" @selected(request('type') == 'sales')>Sales</option>
+            </select>
+            <select name="is_active" class="text-xs">
+                <option value="">Semua Status</option>
+                <option value="1" @selected(request('is_active') == '1')>Aktif</option>
+                <option value="0" @selected(request('is_active') == '0')>Nonaktif</option>
+            </select>
+            <button type="submit" class="inline-flex h-[34px] items-center gap-1.5 rounded-md bg-[#002875] px-3.5 text-xs font-semibold text-white hover:bg-[#001B50] transition-colors flex-shrink-0 cursor-pointer">
+                Filter
+            </button>
+            @if(request('search') || request('type') || request('is_active') !== null)
+                <a href="{{ route('user-management.index') }}" class="inline-flex h-[34px] items-center rounded-md border border-slate-300 bg-white px-3 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors flex-shrink-0">
+                    Reset
+                </a>
+            @endif
+        </form>
+    </div>
+
+    {{-- Card 3 — Workspace: Data Table + Pagination --}}
+    <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
                     <tr class="bg-slate-50 border-b border-slate-200">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Pengguna</th>
@@ -127,13 +125,12 @@
                 </tbody>
             </table>
         </div>
-
-        @if($users->hasPages())
-            <div class="px-4 py-3 border-t border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
-                <span>Menampilkan {{ $users->firstItem() }}-{{ $users->lastItem() }} dari {{ $users->total() }} pengguna</span>
-                {{ $users->links() }}
-            </div>
-        @endif
     </div>
+
+    {{-- Card 4 — Pagination (Card Terpisah) --}}
+    <x-erp.pagination :paginator="$users" />
 </div>
+
+<x-erp.import-modal module="users" title="Impor Data Pengguna" />
 @endsection
+

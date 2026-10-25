@@ -1,48 +1,50 @@
 @extends('layouts.erp', ['activePage' => 'reports-project', 'pageTitle' => 'Project Profitability Report'])
 
 @section('content')
-<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mb-4">
-    <div>
-        <span>Financial Intelligence</span>
-        <h1>Project Profitability</h1>
-        <p>Profitabilitas per proyek dengan margin, salary, dan invoice total.</p>
-    </div>
-</section>
-
-<section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4 report-filter section">
-    <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-header">
-        <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4-icon">{!! $icon('list') !!}</div>
+<div class="space-y-4">
+    {{-- Card 1 — Page Header & Global Actions --}}
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
         <div>
-            <h3>Filter Report</h3>
-            <p class="muted">Filter berdasarkan project.</p>
+            <h1 class="text-lg font-bold text-gray-900 tracking-tight">Project Profitability</h1>
+            <p class="text-xs text-gray-500">Profitabilitas per proyek dengan margin, salary, dan invoice total.</p>
         </div>
+        <x-erp.toolbar-actions module="report-project" :can-create="false" />
     </div>
-    <form method="get" action="{{ route('reports.project') }}" class="filter-grid">
-        <div class="filter-field"><label>Project</label><select name="project_id"><option value="">Semua</option>@foreach($projects as $project)<option value="{{ $project->id }}" @selected((int) request('project_id') === $project->id)>{{ $project->code }} - {{ $project->name }}</option>@endforeach</select></div>
-        <div class="filter-actions xl:col-span-6">
-            <button>Apply Filter</button>
-            <a class="button ghost" href="{{ route('reports.project') }}">Reset</a>
-        </div>
-    </form>
-</section>
 
-<section class="section" id="project-finance">
-    <div class="section-head"><h2>Laporan Profitabilitas Proyek</h2><span class="badge">{{ $projectReports->count() }} project</span></div>
-    <div class="grid three">
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('reports.project') }}" class="filter-toolbar">
+            <select name="project_id" class="filter-select">
+                <option value="">Semua Project</option>
+                @foreach($projects as $project)
+                    <option value="{{ $project->id }}" @selected((int) request('project_id') === $project->id)>{{ $project->code }} - {{ $project->name }}</option>
+                @endforeach
+            </select>
+            <div class="flex items-center gap-2">
+                <button type="submit" class="px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition">Filter</button>
+                <a href="{{ route('reports.project') }}" class="px-3 py-1.5 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition">Reset</a>
+            </div>
+        </form>
+    </div>
+
+    {{-- Projects Cards --}}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         @forelse ($projectReports as $report)
-            <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-                <h3 class="font-bold text-lg mb-3">{{ $report['project']->code }} - {{ $report['project']->name }}</h3>
-                <table class="w-full">
-                    <tr><td class="py-1">Kontrak</td><td class="text-right font-bold py-1">{{ $rp($report['project']->contract_value) }}</td></tr>
-                    <tr><td class="py-1">Income</td><td class="good text-right font-bold py-1">{{ $rp($report['summary']['income']) }}</td></tr>
-                    <tr><td class="py-1">Expense</td><td class="bad text-right font-bold py-1">{{ $rp($report['summary']['expense']) }}</td></tr>
-                    <tr><td class="py-1">Profit/Loss</td><td class="{{ $report['summary']['balance'] >= 0 ? 'good' : 'bad' }} text-right font-black py-1">{{ $rp($report['summary']['balance']) }}</td></tr>
-                    <tr><td class="py-1">Margin</td><td class="text-right font-bold py-1">{{ number_format($report['profit_margin'], 2) }}%</td></tr>
+            <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs p-4">
+                <h3 class="font-bold text-sm text-gray-900 mb-3 border-b border-gray-100 pb-2">{{ $report['project']->code }} - {{ $report['project']->name }}</h3>
+                <table class="table-folk w-full text-left border-collapse text-xs">
+                    <tbody>
+                        <tr><td class="px-2.5 py-1.5 text-gray-600">Kontrak</td><td class="px-2.5 py-1.5 text-right font-bold text-gray-900">{{ $rp($report['project']->contract_value) }}</td></tr>
+                        <tr><td class="px-2.5 py-1.5 text-gray-600">Income</td><td class="px-2.5 py-1.5 text-emerald-600 text-right font-bold">{{ $rp($report['summary']['income']) }}</td></tr>
+                        <tr><td class="px-2.5 py-1.5 text-gray-600">Expense</td><td class="px-2.5 py-1.5 text-rose-600 text-right font-bold">{{ $rp($report['summary']['expense']) }}</td></tr>
+                        <tr><td class="px-2.5 py-1.5 text-gray-600">Profit/Loss</td><td class="px-2.5 py-1.5 {{ $report['summary']['balance'] >= 0 ? 'text-emerald-600' : 'text-rose-600' }} text-right font-black">{{ $rp($report['summary']['balance']) }}</td></tr>
+                        <tr><td class="px-2.5 py-1.5 text-gray-600">Margin</td><td class="px-2.5 py-1.5 text-right font-bold text-gray-900">{{ number_format($report['profit_margin'], 2) }}%</td></tr>
+                    </tbody>
                 </table>
             </div>
         @empty
-            <div class="col-span-full rounded-2xl bg-[#F4F7FB] p-8 text-center text-sm font-bold text-slate-500">Belum ada data project.</div>
+            <div class="col-span-full rounded-lg bg-white p-8 text-center text-xs font-semibold text-gray-500 border border-gray-200">Belum ada data project.</div>
         @endforelse
     </div>
-</section>
+</div>
 @endsection

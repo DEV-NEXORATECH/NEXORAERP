@@ -645,6 +645,9 @@ Route::get('/products/create',                     [ProductController::class, 'c
     });
     Route::get('/exports/cashflows',                 [ReportController::class, 'exportCashflows'])->middleware('role:admin,finance')->name('exports.cashflows');
     Route::get('/exports/project-finance',           [ReportController::class, 'exportProjectFinance'])->middleware('role:admin,finance')->name('exports.project-finance');
+    Route::get('/data-exchange/export/{module}',     [\App\Http\Controllers\DataExchangeController::class, 'export'])->name('data-exchange.export');
+    Route::post('/data-exchange/import/{module}',    [\App\Http\Controllers\DataExchangeController::class, 'import'])->name('data-exchange.import');
+    Route::get('/data-exchange/template/{module}',   [\App\Http\Controllers\DataExchangeController::class, 'template'])->name('data-exchange.template');
 
     // ── Admin: Company Settings ────────────────────────────────────────────────
     Route::get('/company-settings',                      [CompanySettingController::class, 'index'])->middleware('role:admin')->name('company-settings.index');

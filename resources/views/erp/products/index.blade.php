@@ -2,31 +2,39 @@
 
 @section('content')
 <div class="space-y-4">
-    <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+    <!-- Card 1 — Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
         <div>
-            <h1 class="text-lg font-bold text-gray-900 tracking-tight">Produk & Layanan</h1>
-            <p class="text-xs text-gray-500">Kelola master data dan transaksi Produk & Layanan</p>
+            <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#002875]">Inventory</span>
+                <span class="text-gray-300">/</span>
+                <span class="text-xs font-semibold text-gray-700">Produk</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Produk & Layanan</h1>
+            <p class="mt-0.5 text-xs text-gray-500">Kelola katalog produk, layanan, SKU, unit harga, dan pemantauan stok persediaan.</p>
         </div>
-        <a href="{{ route('products.create-page') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition shadow-sm">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            Tambah Produk
-        </a>
+        <x-erp.toolbar-actions
+            module="products"
+            :create-route="route('products.create-page')"
+            create-label="+ Tambah Produk"
+        />
     </div>
 
-    <!-- Table Card -->
-    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
-        <form method="get" action="{{ route('products.index') }}" class="p-3 border-b border-gray-200 bg-gray-50/50 flex flex-wrap items-center gap-2.5">
-            
-        <input type="text" name="search" placeholder="Cari nama/kode/sku..." value="{{ request('search') }}" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
-        <div class="flex gap-2 items-end">
-            <button class="px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition">Filter</button>
-            <a href="{{ route('products.index') }}" class="px-3 py-1.5 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition">Reset</a>
-        </div>
-    
+    <!-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) -->
+    <div class="filter-card">
+        <form method="get" action="{{ route('products.index') }}" class="filter-toolbar">
+            <input type="text" name="search" placeholder="Cari nama/kode/sku..." value="{{ request('search') }}" class="filter-search !w-64 text-xs">
+            <button type="submit" class="inline-flex h-[34px] items-center px-3.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition flex-shrink-0 cursor-pointer">Filter</button>
+            @if(request('search'))
+                <a href="{{ route('products.index') }}" class="inline-flex h-[34px] items-center px-3 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition flex-shrink-0">Reset</a>
+            @endif
         </form>
+    </div>
+
+    <!-- Card 3 — Table Card -->
+    <div class="workspace-card bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <table class="table-folk w-full text-left border-collapse">
                 <thead class="bg-gray-50 border-b border-gray-200">
                     <tr>
                         <th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Kode</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Nama</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Kategori</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Satuan</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Stok</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Harga Jual</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Status</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Aksi</th>
@@ -76,12 +84,12 @@
                 </tbody>
             </table>
         </div>
-        @if($products->hasPages())
-        <div class="p-3 border-t border-gray-200 bg-gray-50/50 flex items-center justify-between text-xs text-gray-500">
-            <span>Menampilkan {{$products->firstItem()}}-{{$products->lastItem()}} dari {{$products->total()}}</span>
-            {{$products->links()}}
-        </div>
-        @endif
     </div>
+
+    <!-- Card 4 — Pagination (Card Terpisah) -->
+    <x-erp.pagination :paginator="$products" />
 </div>
+
+<x-erp.import-modal module="products" title="Impor Data Produk" />
 @endsection
+

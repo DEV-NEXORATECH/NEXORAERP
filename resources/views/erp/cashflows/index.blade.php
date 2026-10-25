@@ -47,7 +47,11 @@
             <p class="muted">Saring berdasarkan periode, tipe, project, atau kata kunci.</p>
         </div>
     </div>
-    <form method="get" action="{{ route('cashflows.index-page') }}" class="filter-grid">
+    
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('cashflows.index') }}" class="filter-toolbar">
+            
         <div class="filter-field xl:col-span-2">
             <label>Cari</label>
             <input type="text" name="search" value="{{ $filters['search'] ?? '' }}" placeholder="Deskripsi, kategori, vendor...">
@@ -113,13 +117,13 @@
                 Export CSV
             </a>
             @if($can('admin', 'finance'))
-            <a class="button ghost" href="{{ route('cashflows.create-page') }}">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-                Tambah Cashflow
-            </a>
+            <x-erp.toolbar-actions module="cashflows" :create-route="route('cashflows.create-page')" create-label="+ Tambah Cashflow" />
             @endif
         </div>
-    </form>
+    
+        </form>
+    </div>
+
 </section>
 
 {{-- ═══════════════════════ Analytics ═══════════════════════ --}}
@@ -309,11 +313,11 @@
     </div>
 
     @if($cashflowPages->hasPages() || $cashflowPages->total() > 0)
-    <div class="pager">
-        <span>Menampilkan {{ $cashflowPages->firstItem() }}-{{ $cashflowPages->lastItem() }} dari {{ $cashflowPages->total() }} transaksi</span>
-        {{ $cashflowPages->links() }}
-    </div>
+    <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3"><span>Menampilkan {{ $cashflowPages->firstItem() }}-{{ $cashflowPages->lastItem() }} dari {{ $cashflowPages->total() }} transaksi</span>
+        {{ $cashflowPages->links() }}</div>
     @endif
 </section>
 
+
+<x-erp.import-modal module="cashflows" title="Impor Data Cashflows" />
 @endsection

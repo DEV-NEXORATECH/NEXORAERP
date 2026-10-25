@@ -13,19 +13,17 @@
             <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-[#0F172A]">Penggajian (Salaries & Payroll)</h1>
             <p class="mt-0.5 text-xs text-[#64748B]">Kelola data slip gaji, tunjangan, potongan, dan status pembayaran gaji karyawan.</p>
         </div>
-        <div class="flex items-center gap-2">
-            @if($can('admin', 'hr'))
-                <a href="{{ route('salaries.create-page') }}" class="btn btn-primary inline-flex h-9 items-center gap-1.5 px-3.5 text-xs font-semibold shadow-xs">
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    + Buat Slip Gaji
-                </a>
-            @endif
-        </div>
+        <x-erp.toolbar-actions
+            module="salaries"
+            :create-route="route('salaries.create-page')"
+            create-label="+ Buat Slip Gaji"
+            :can-create="$can('admin', 'hr')"
+        />
     </div>
 
-    {{-- Filter Toolbar Directly Under Header --}}
-    <div class="bg-white rounded-lg border border-[#E5E7EB] p-3.5 shadow-xs">
-        <form method="get" action="{{ route('salaries.index-page') }}" class="flex flex-wrap items-center gap-2.5">
+    {{-- Filter Toolbar Directly Under Header (1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('salaries.index-page') }}" class="filter-toolbar">
             <select name="status" class="h-9 rounded-md border border-[#D1D5DB] bg-white px-3 text-xs text-[#0F172A] focus:border-[#002875] focus:ring-1 focus:ring-[#002875]">
                 <option value="">Semua Status</option>
                 <option value="draft" @selected(request('status')==='draft')>Draft</option>
@@ -123,18 +121,12 @@
                 </tbody>
             </table>
         </div>
-
-        {{-- Standard Pagination Footer --}}
-        @if($salariesPage->hasPages() || $salariesPage->total() > 0)
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-t border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-xs text-[#475569] gap-3">
-                <div>
-                    Menampilkan <span class="font-semibold text-[#0F172A]">{{ $salariesPage->firstItem() ?? 0 }}</span> - <span class="font-semibold text-[#0F172A]">{{ $salariesPage->lastItem() ?? 0 }}</span> dari <span class="font-semibold text-[#0F172A]">{{ $salariesPage->total() }}</span> data
-                </div>
-                <div>
-                    {{ $salariesPage->appends(request()->query())->links() }}
-                </div>
-            </div>
-        @endif
     </div>
+
+    {{-- Card 4 — Pagination (Card Terpisah) --}}
+    <x-erp.pagination :paginator="$salariesPage" />
 </div>
+
+<x-erp.import-modal module="salaries" title="Impor Data Penggajian" />
 @endsection
+

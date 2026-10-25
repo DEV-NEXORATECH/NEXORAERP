@@ -9,45 +9,44 @@
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'HRIS', 'url' => route('hris.index')], ['label' => 'Reimbursements']]"
     >
         <x-slot:actions>
-            @if($can('admin', 'hr', 'finance'))
-            <a href="{{ route('reimbursements.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#001B50] focus:outline-none focus:ring-2 focus:ring-[#002875] transition-colors">
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                Ajukan Reimbursement
-            </a>
-            @endif
+            <x-erp.toolbar-actions
+                module="reimbursements"
+                :create-route="route('reimbursements.create-page')"
+                create-label="Ajukan Reimbursement"
+                :can-create="$can('admin', 'hr', 'finance')"
+            />
         </x-slot:actions>
     </x-erp.page-header>
 
-    {{-- Main Table Card --}}
-    <div class="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
-        {{-- Toolbar --}}
-        <x-erp.toolbar
-            :resetUrl="route('reimbursements.index-page')"
-        >
-            <x-slot:filters>
-                <select name="status" class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                    <option value="">Semua Status</option>
-                    <option value="pending" @selected(request('status')==='pending')>Pending</option>
-                    <option value="approved" @selected(request('status')==='approved')>Approved</option>
-                    <option value="paid" @selected(request('status')==='paid')>Paid</option>
-                    <option value="rejected" @selected(request('status')==='rejected')>Rejected</option>
-                </select>
-                <select name="employee_id" class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                    <option value="">Semua Karyawan</option>
-                    @foreach($employees as $employee)
-                        <option value="{{ $employee->id }}" @selected(request('employee_id')==$employee->id)>{{ $employee->name }}</option>
-                    @endforeach
-                </select>
-                <input type="date" name="date_from" value="{{ request('date_from') }}" placeholder="Dari tgl"
-                    class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                <input type="date" name="date_to" value="{{ request('date_to') }}" placeholder="Sampai tgl"
-                    class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-            </x-slot:filters>
-        </x-erp.toolbar>
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('reimbursements.index-page') }}" class="filter-toolbar">
+            <select name="status" class="text-xs">
+                <option value="">Semua Status</option>
+                <option value="pending" @selected(request('status')==='pending')>Pending</option>
+                <option value="approved" @selected(request('status')==='approved')>Approved</option>
+                <option value="paid" @selected(request('status')==='paid')>Paid</option>
+                <option value="rejected" @selected(request('status')==='rejected')>Rejected</option>
+            </select>
+            <select name="employee_id" class="text-xs">
+                <option value="">Semua Karyawan</option>
+                @foreach($employees as $employee)
+                    <option value="{{ $employee->id }}" @selected(request('employee_id')==$employee->id)>{{ $employee->name }}</option>
+                @endforeach
+            </select>
+            <input type="date" name="date_from" value="{{ request('date_from') }}" class="text-xs" title="Dari Tanggal">
+            <input type="date" name="date_to" value="{{ request('date_to') }}" class="text-xs" title="Sampai Tanggal">
+            <button type="submit" class="inline-flex h-[34px] items-center px-3.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition flex-shrink-0 cursor-pointer">Filter</button>
+            @if(request()->hasAny(['status', 'employee_id', 'date_from', 'date_to']))
+                <a href="{{ route('reimbursements.index-page') }}" class="inline-flex h-[34px] items-center px-3 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition flex-shrink-0">Reset</a>
+            @endif
+        </form>
+    </div>
 
-        {{-- Table --}}
+    {{-- Card 3 — Main Table Card --}}
+    <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
                     <tr class="border-y border-slate-200 bg-slate-50/75 text-[11px] font-semibold text-slate-600 uppercase tracking-wider">
                         <th class="py-3 px-4">Karyawan</th>
@@ -129,20 +128,13 @@
                 </tbody>
             </table>
         </div>
-
-        {{-- Pagination --}}
-        @if($reimbursementsPage->hasPages() || $reimbursementsPage->total() > 0)
-            <div class="border-t border-slate-200 bg-slate-50/50 px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-                <div>
-                    Menampilkan <strong>{{ $reimbursementsPage->firstItem() ?? 0 }}</strong> - <strong>{{ $reimbursementsPage->lastItem() ?? 0 }}</strong> dari <strong>{{ $reimbursementsPage->total() }}</strong> klaim
-                </div>
-                <div>
-                    {{ $reimbursementsPage->links() }}
-                </div>
-            </div>
-        @endif
     </div>
+
+    {{-- Card 4 — Pagination (Card Terpisah) --}}
+    <x-erp.pagination :paginator="$reimbursementsPage" />
 </div>
 
+<x-erp.import-modal module="reimbursements" title="Impor Data Reimbursement" />
 <x-erp.confirm-dialog />
 @endsection
+

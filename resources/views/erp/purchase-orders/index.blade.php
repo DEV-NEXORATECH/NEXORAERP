@@ -2,48 +2,56 @@
 
 @section('content')
 <div class="space-y-4">
-    <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+    <!-- Card 1 — Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
         <div>
-            <h1 class="text-lg font-bold text-gray-900 tracking-tight">Purchase Order (PO)</h1>
-            <p class="text-xs text-gray-500">Kelola master data dan transaksi Purchase Order (PO)</p>
+            <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#002875]">Procurement</span>
+                <span class="text-gray-300">/</span>
+                <span class="text-xs font-semibold text-gray-700">Purchase Orders</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Purchase Order (PO)</h1>
+            <p class="mt-0.5 text-xs text-gray-500">Kelola master data, purchase order kepada vendor, dan pemantauan status penerimaan barang.</p>
         </div>
-        <a href="{{ route('purchase-orders.create-page') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition shadow-sm">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            Tambah PO
-        </a>
+        <x-erp.toolbar-actions
+            module="purchase-orders"
+            :create-route="route('purchase-orders.create-page')"
+            create-label="+ Tambah PO"
+        />
     </div>
 
-    <!-- Table Card -->
-    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
-        <form method="get" action="{{ route('purchase-orders.index') }}" class="p-3 border-b border-gray-200 bg-gray-50/50 flex flex-wrap items-center gap-2.5">
-            
-        <input type="text" name="search" placeholder="Cari PO..." value="{{ request('search') }}" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
-        @if(isset($vendors))
-        <select name="vendor_id" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
-            <option value="">Semua Vendor</option>
-            @foreach($vendors as $vendor)
-            <option value="{{ $vendor->id }}" @selected(request('vendor_id') == $vendor->id)>{{ $vendor->name }}</option>
-            @endforeach
-        </select>
-        @endif
-        <select name="status" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
-            <option value="">Semua Status</option>
-            <option value="ordered" @selected(request('status') == 'ordered')>Ordered</option>
-            <option value="partial_received" @selected(request('status') == 'partial_received')>Partial Received</option>
-            <option value="received" @selected(request('status') == 'received')>Received</option>
-            <option value="cancelled" @selected(request('status') == 'cancelled')>Cancelled</option>
-        </select>
-        <input type="date" name="date_from" value="{{ request('date_from') }}" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
-        <input type="date" name="date_to" value="{{ request('date_to') }}" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
-        <div class="flex gap-2 items-end">
-            <button class="px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition">Filter</button>
-            <a href="{{ route('purchase-orders.index') }}" class="px-3 py-1.5 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition">Reset</a>
-        </div>
-    
+    <!-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) -->
+    <div class="filter-card">
+        <form method="get" action="{{ route('purchase-orders.index') }}" class="filter-toolbar">
+            <input type="text" name="search" placeholder="Cari PO..." value="{{ request('search') }}" class="filter-search !w-56 text-xs">
+            @if(isset($vendors))
+            <select name="vendor_id" class="text-xs">
+                <option value="">Semua Vendor</option>
+                @foreach($vendors as $vendor)
+                <option value="{{ $vendor->id }}" @selected(request('vendor_id') == $vendor->id)>{{ $vendor->name }}</option>
+                @endforeach
+            </select>
+            @endif
+            <select name="status" class="text-xs">
+                <option value="">Semua Status</option>
+                <option value="ordered" @selected(request('status') == 'ordered')>Ordered</option>
+                <option value="partial_received" @selected(request('status') == 'partial_received')>Partial Received</option>
+                <option value="received" @selected(request('status') == 'received')>Received</option>
+                <option value="cancelled" @selected(request('status') == 'cancelled')>Cancelled</option>
+            </select>
+            <input type="date" name="date_from" value="{{ request('date_from') }}" class="text-xs" title="Dari Tanggal">
+            <input type="date" name="date_to" value="{{ request('date_to') }}" class="text-xs" title="Sampai Tanggal">
+            <button type="submit" class="inline-flex h-[34px] items-center px-3.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition flex-shrink-0 cursor-pointer">Filter</button>
+            @if(request()->hasAny(['search', 'vendor_id', 'status', 'date_from', 'date_to']))
+                <a href="{{ route('purchase-orders.index') }}" class="inline-flex h-[34px] items-center px-3 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition flex-shrink-0">Reset</a>
+            @endif
         </form>
+    </div>
+
+    <!-- Card 3 — Table Card -->
+    <div class="workspace-card bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <table class="table-folk w-full text-left border-collapse">
                 <thead class="bg-gray-50 border-b border-gray-200">
                     <tr>
                         <th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">PO</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Vendor</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Amount</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Items</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Status</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Aksi</th>
@@ -85,12 +93,12 @@
                 </tbody>
             </table>
         </div>
-        @if($orders->hasPages())
-        <div class="p-3 border-t border-gray-200 bg-gray-50/50 flex items-center justify-between text-xs text-gray-500">
-            <span>Menampilkan {{$orders->firstItem()}}-{{$orders->lastItem()}} dari {{$orders->total()}}</span>
-            {{$orders->links()}}
-        </div>
-        @endif
     </div>
+
+    <!-- Card 4 — Pagination (Card Terpisah) -->
+    <x-erp.pagination :paginator="$orders" />
 </div>
+
+<x-erp.import-modal module="purchase-orders" title="Impor Data Purchase Order" />
 @endsection
+

@@ -8,15 +8,16 @@
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Administration', 'url' => route('admin.index')], ['label' => 'Audit Logs']]"
     >
         <x-slot:actions>
-            <div class="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-xs">
-                <span>Total:</span>
-                <span class="font-bold text-[#002875]">{{ $auditLogs->total() }} Log Tercatat</span>
-            </div>
+            <x-erp.toolbar-actions module="audit-logs" />
         </x-slot:actions>
     </x-erp.page-header>
 
     <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-xs">
-        <form method="get" action="{{ route('audit-logs.index') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('audit-logs.index') }}" class="filter-toolbar">
+            
             <div>
                 <input type="date" name="date_from" value="{{ request('date_from') }}"
                     class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
@@ -45,12 +46,15 @@
                     Reset
                 </a>
             </div>
+        
         </form>
+    </div>
+
     </div>
 
     <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
                     <tr class="bg-slate-50 border-b border-slate-200">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Waktu Kejadian</th>
@@ -91,13 +95,11 @@
                 </tbody>
             </table>
         </div>
-
-        @if($auditLogs->hasPages() || $auditLogs->total() > 0)
-            <div class="px-4 py-3 border-t border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
-                <span>Menampilkan {{ $auditLogs->firstItem() }}-{{ $auditLogs->lastItem() }} dari {{ $auditLogs->total() }} entri</span>
-                {{ $auditLogs->links() }}
-            </div>
-        @endif
     </div>
+
+    {{-- Card 4 — Pagination (Card Terpisah) --}}
+    <x-erp.pagination :paginator="$auditLogs" />
 </div>
+
+<x-erp.import-modal module="audit-logs" title="Impor Data Audit Logs" />
 @endsection

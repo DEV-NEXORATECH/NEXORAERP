@@ -8,17 +8,17 @@
             <h1 class="text-lg font-bold text-gray-900 tracking-tight">Kontrak Pengadaan (Procurement Contract)</h1>
             <p class="text-xs text-gray-500">Kelola master data dan transaksi Kontrak Pengadaan (Procurement Contract)</p>
         </div>
-        <a href="{{ route('procurement-contracts.create-page') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition shadow-sm">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            Tambah Kontrak
-        </a>
+        <x-erp.toolbar-actions module="procurement-contracts" :create-route="route('procurement-contracts.create-page')" create-label="+ Tambah Kontrak" />
     </div>
 
     <!-- Table Card -->
-    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
-        <form method="get" action="{{ route('procurement-contracts.index') }}" class="p-3 border-b border-gray-200 bg-gray-50/50 flex flex-wrap items-center gap-2.5">
+    
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('procurement-contracts.index') }}" class="filter-toolbar">
             
-        <input type="text" name="search" placeholder="Cari Contract..." value="{{ request('search') }}" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
+            
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search !w-full pl-8 pr-3 text-xs">
         @if(isset($vendors))
         <select name="vendor_id" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
             <option value="">Semua Vendor</option>
@@ -39,9 +39,14 @@
             <a href="{{ route('procurement-contracts.index') }}" class="px-3 py-1.5 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition">Reset</a>
         </div>
     
+        
         </form>
+    </div>
+
+    {{-- Card 3 — Workspace: Data Table --}}
+    <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead class="bg-gray-50 border-b border-gray-200">
                     <tr>
                         <th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Contract</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Vendor</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Amount</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Status</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Aksi</th>
@@ -56,8 +61,10 @@
                     <td class="px-3 py-2 text-xs text-gray-700 text-left">{{ $rp($row->amount) }}</td>
                     <td class="px-3 py-2 text-xs text-gray-700 text-left"><span class="badge badge-{{ $row->status === 'active' ? 'active' : 'pending' }}">{{ $row->status }}</span></td>
                     <td class="px-3 py-2 text-xs text-right whitespace-nowrap">
-                        <a class="button mini ghost" href="{{ route('procurement-contracts.edit-page', $row) }}">Edit</a>
-                        <form method="post" action="{{ route('procurement-contracts.destroy', $row) }}">@csrf @method('delete')<button class="inline-flex items-center px-2 py-1 text-[11px] font-medium text-red-700 bg-red-50 border border-red-200 rounded hover:bg-red-100 transition">Hapus</button></form>
+                        <a class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-[#BFDBFE] bg-[#EFF6FF] text-[#2563EB] hover:bg-[#DBEAFE]" href="{{ route('procurement-contracts.edit-page', $row) }}" title="Edit">
+                            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg><span class="sr-only">Edit</span>
+                        </a>
+                        <form method="post" action="{{ route('procurement-contracts.destroy', $row) }}" class="inline">@csrf @method('delete')<button class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-[#FCA5A5] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus"> <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7A2 2 0 0 1 5 20V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="sr-only">Hapus</span></button></form>
                     </td>
                 </tr>
             @empty
@@ -67,12 +74,15 @@
                 </tbody>
             </table>
         </div>
-        @if($contracts->hasPages())
-        <div class="p-3 border-t border-gray-200 bg-gray-50/50 flex items-center justify-between text-xs text-gray-500">
+    </div>
+
+    @if($contracts->hasPages())
+        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
             <span>Menampilkan {{$contracts->firstItem()}}-{{$contracts->lastItem()}} dari {{$contracts->total()}}</span>
             {{$contracts->links()}}
         </div>
-        @endif
-    </div>
+    @endif
 </div>
+
+<x-erp.import-modal module="procurement-contracts" title="Impor Data Procurement Contracts" />
 @endsection

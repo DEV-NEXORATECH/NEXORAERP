@@ -8,45 +8,46 @@
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Procurement', 'url' => route('procurement.index')], ['label' => 'Vendors']]"
     >
         <x-slot:actions>
-            @if($can('admin', 'finance'))
-                <a href="{{ route('vendors.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white shadow-xs hover:bg-[#001B50] transition-colors">
-                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-                    Tambah Vendor Baru
-                </a>
-            @endif
+            <x-erp.toolbar-actions
+                module="vendors"
+                :create-route="route('vendors.create-page')"
+                create-label="+ Tambah Vendor"
+                :can-create="$can('admin', 'finance')"
+            />
         </x-slot:actions>
     </x-erp.page-header>
 
-    <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-xs">
-        <form method="get" action="{{ route('vendors.index') }}" class="flex flex-wrap items-center gap-3">
-            <div class="relative flex-1 min-w-[200px]">
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('vendors.index') }}" class="filter-toolbar">
+            <div class="relative w-64 flex-shrink-0">
                 <input type="text" name="search" placeholder="Cari nama vendor, PIC, email..." value="{{ request('search') }}"
-                    class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                    class="filter-search !w-full pl-8 pr-3 text-xs">
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5 text-[#9CA3AF]">
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                </div>
             </div>
-            <div>
-                <select name="status" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
-                    <option value="">Semua Status</option>
-                    <option value="active" @selected(request('status') == 'active')>Active</option>
-                    <option value="inactive" @selected(request('status') == 'inactive')>Inactive</option>
-                    <option value="blacklisted" @selected(request('status') == 'blacklisted')>Blacklisted</option>
-                </select>
-            </div>
-            <div class="flex items-center gap-2">
-                <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#001B50] transition-colors">
-                    Filter
-                </button>
-                @if(request('search') || request('status'))
-                    <a href="{{ route('vendors.index') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
-                        Reset
-                    </a>
-                @endif
-            </div>
+            <select name="status" class="text-xs">
+                <option value="">Semua Status</option>
+                <option value="active" @selected(request('status') == 'active')>Active</option>
+                <option value="inactive" @selected(request('status') == 'inactive')>Inactive</option>
+                <option value="blacklisted" @selected(request('status') == 'blacklisted')>Blacklisted</option>
+            </select>
+            <button type="submit" class="inline-flex h-[34px] items-center gap-1.5 rounded-md bg-[#002875] px-3.5 text-xs font-semibold text-white hover:bg-[#001B50] transition-colors flex-shrink-0 cursor-pointer">
+                Filter
+            </button>
+            @if(request('search') || request('status'))
+                <a href="{{ route('vendors.index') }}" class="inline-flex h-[34px] items-center rounded-md border border-slate-300 bg-white px-3 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors flex-shrink-0">
+                    Reset
+                </a>
+            @endif
         </form>
     </div>
 
-    <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+    {{-- Card 3 — Workspace: Data Table + Pagination --}}
+    <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
                     <tr class="bg-slate-50 border-b border-slate-200">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Perusahaan Vendor</th>
@@ -116,13 +117,12 @@
                 </tbody>
             </table>
         </div>
-
-        @if($vendors->hasPages())
-            <div class="px-4 py-3 border-t border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
-                <span>Menampilkan {{ $vendors->firstItem() }}-{{ $vendors->lastItem() }} dari {{ $vendors->total() }} vendor</span>
-                {{ $vendors->links() }}
-            </div>
-        @endif
     </div>
+
+    {{-- Card 4 — Pagination (Card Terpisah) --}}
+    <x-erp.pagination :paginator="$vendors" />
 </div>
+
+<x-erp.import-modal module="vendors" title="Impor Data Vendor" />
 @endsection
+

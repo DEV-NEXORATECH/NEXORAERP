@@ -8,12 +8,7 @@
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Finance & Accounting', 'url' => route('finance-suite.index')], ['label' => 'Vendor Payments']]"
     >
         <x-slot:actions>
-            @if($can('admin', 'finance'))
-            <a href="{{ route('vendor-payments.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#001B50] focus:outline-none focus:ring-2 focus:ring-[#002875] transition-colors">
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                Catat Pembayaran Vendor
-            </a>
-            @endif
+            <x-erp.toolbar-actions module="vendor-payments" :create-route="route('vendor-payments.create-page')" create-label="+ Catat Pembayaran Vendor" />
         </x-slot:actions>
     </x-erp.page-header>
 
@@ -32,7 +27,7 @@
         </x-erp.toolbar>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
                     <tr class="border-y border-slate-200 bg-slate-50/75 text-[11px] font-semibold text-slate-600 uppercase tracking-wider">
                         <th class="py-3 px-4">Tanggal Bayar</th>
@@ -89,19 +84,21 @@
                 </tbody>
             </table>
         </div>
+    </div>
 
-        @if($payments->hasPages())
-            <div class="border-t border-slate-200 bg-slate-50/50 px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-                <div>
+    @if($payments->hasPages())
+        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
+            <div>
                     Menampilkan <strong>{{ $payments->firstItem() ?? 0 }}</strong> - <strong>{{ $payments->lastItem() ?? 0 }}</strong> dari <strong>{{ $payments->total() }}</strong> pembayaran
                 </div>
                 <div>
                     {{ $payments->links() }}
                 </div>
-            </div>
-        @endif
-    </div>
+        </div>
+    @endif
 </div>
 
 <x-erp.confirm-dialog />
+
+<x-erp.import-modal module="vendor-payments" title="Impor Data Vendor Payments" />
 @endsection

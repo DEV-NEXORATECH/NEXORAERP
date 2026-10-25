@@ -75,10 +75,6 @@
         @endforelse
     </div>
 
-    @if($sections->hasPages())
-    <div class="mt-4">
-        {{ $sections->links() }}
-    </div>
-    @endif
+    <x-erp.pagination :paginator="$sections" />
 </div>
 @endsection

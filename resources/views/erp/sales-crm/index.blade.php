@@ -71,18 +71,11 @@
                         <h2 class="text-sm font-bold text-[#0F172A]">Inquiry Masuk</h2>
                         <p class="text-xs text-[#475569]">Permintaan prospek dari website dan referral</p>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <a href="{{ route('sales-inquiries.create-page') }}" class="btn btn-primary inline-flex h-8 items-center px-2.5 text-xs font-semibold">
-                            + Tambah Inquiry
-                        </a>
-                        <a href="{{ route('sales-inquiries.index') }}" class="text-xs font-semibold text-[#002875] hover:underline">
-                            Lihat Semua &rarr;
-                        </a>
-                    </div>
-                </div>
+        <x-erp.toolbar-actions module="sales-crm" :create-route="route('sales-leads.create-page')" create-label="+ Lead Baru" />
+    </div>
 
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-xs">
+                    <table class="table-folk w-full text-left border-collapse text-xs">
                         <thead>
                             <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC]">
                                 <th class="p-2.5 font-semibold text-[#475569]">Perusahaan / Kontak</th>
@@ -345,4 +338,6 @@
         </div>
     </div>
 </div>
+
+<x-erp.import-modal module="sales-crm" title="Impor Data Sales Crm" />
 @endsection

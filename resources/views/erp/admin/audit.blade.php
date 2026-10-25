@@ -19,16 +19,13 @@
             </div>
         </div>
 
-        <div class="inline-flex h-9 items-center gap-1.5 self-start rounded-md border border-[#E5E7EB] bg-[#F8FAFC] px-3.5 text-xs font-semibold text-[#0F172A] md:self-auto">
-            <span class="text-[#475569]">Total Log:</span>
-            <span class="font-bold text-[#002875]">{{ $auditLogs->total() }} Entri</span>
-        </div>
+        <x-erp.toolbar-actions module="audit_logs" :can-create="false" />
     </div>
 
     {{-- Audit Log Table --}}
     <div class="rounded-lg border border-[#E5E7EB] bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead class="bg-[#F8FAFC] border-b border-[#E5E7EB] text-[#475569] font-semibold">
                     <tr>
                         <th class="px-5 py-3.5">Waktu</th>
@@ -77,13 +74,13 @@
                 </tbody>
             </table>
         </div>
+    </div>
 
-        @if($auditLogs->hasPages())
-        <div class="flex items-center justify-between border-t border-[#E5E7EB] px-5 py-3 bg-[#F8FAFC]">
+    @if($auditLogs->hasPages())
+        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
             <span class="text-xs text-[#475569]">Menampilkan {{ $auditLogs->firstItem() }}–{{ $auditLogs->lastItem() }} dari {{ $auditLogs->total() }} entri</span>
             <div>{{ $auditLogs->links() }}</div>
         </div>
-        @endif
-    </div>
+    @endif
 </div>
 @endsection

@@ -44,14 +44,15 @@
     <div class="section-head">
         <h2>Daftar Projects</h2>
         @if($can('admin', 'sales'))
-        <a class="button ghost" href="{{ route('projects.create-page') }}">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-            Tambah
-        </a>
+        <x-erp.toolbar-actions module="projects" :create-route="route('projects.create-page')" create-label="+ Tambah" />
         @endif
     </div>
-    <form method="get" action="{{ route('projects.index') }}" class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="field-input">
+    
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('projects.index') }}" class="filter-toolbar">
+            
+        <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search !w-full pl-8 pr-3 text-xs">
         <select name="status" class="field-input">
             <option value="">Semua Status</option>
             <option value="planning" @selected(request('status')==='planning')>Planning</option>
@@ -63,7 +64,10 @@
             <button class="filter-btn">Filter</button>
             <a href="{{ route('projects.index') }}" class="btn-outline">Reset</a>
         </div>
-    </form>
+    
+        </form>
+    </div>
+
     <table>
         <thead><tr><th>Project</th><th>Status</th><th>Kontrak / Budget</th><th>Aksi</th></tr></thead>
         <tbody>
@@ -90,11 +94,11 @@
         </tbody>
     </table>
     @if($projectsPage->hasPages() || $projectsPage->total() > 0)
-        <div class="pager">
-            <span>Menampilkan {{ $projectsPage->firstItem() }}-{{ $projectsPage->lastItem() }} dari {{ $projectsPage->total() }}</span>
-            {{ $projectsPage->links() }}
-        </div>
+        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3"><span>Menampilkan {{ $projectsPage->firstItem() }}-{{ $projectsPage->lastItem() }} dari {{ $projectsPage->total() }}</span>
+            {{ $projectsPage->links() }}</div>
     @endif
 </section>
 
+
+<x-erp.import-modal module="projects" title="Impor Data Projects" />
 @endsection

@@ -18,6 +18,7 @@
                 <p class="mt-0.5 text-xs text-[#475569]">Pulihkan data penting transaksi atau master yang terhapus (soft-deleted).</p>
             </div>
         </div>
+        <x-erp.toolbar-actions module="trash" :can-create="false" />
     </div>
 
     {{-- Trash Table Container --}}
@@ -27,7 +28,7 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead class="bg-[#F8FAFC] border-b border-[#E5E7EB] text-[#475569] font-semibold">
                     <tr>
                         <th class="px-5 py-3.5">Tipe Modul</th>
@@ -69,15 +70,10 @@
                 </tbody>
             </table>
         </div>
-
-        @foreach($trash as $type => $items)
-            @if($items->total() > 0)
-                <div class="flex items-center justify-between border-t border-[#E5E7EB] px-5 py-3 bg-[#F8FAFC]">
-                    <span class="text-xs text-[#475569]">{{ ucfirst($type) }}: {{ $items->count() }} dari {{ $items->total() }}</span>
-                    <div>{{ $items->links() }}</div>
-                </div>
-            @endif
-        @endforeach
     </div>
+
+    @foreach($trash as $type => $items)
+        <x-erp.pagination :paginator="$items" />
+    @endforeach
 </div>
 @endsection

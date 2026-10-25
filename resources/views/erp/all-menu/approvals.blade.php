@@ -25,10 +25,12 @@
                 <span class="text-[#475569]">Pending Approval:</span>
                 <span class="font-bold {{ $items->sum('count') > 0 ? 'text-[#DC2626]' : 'text-[#002875]' }}">{{ $items->sum('count') }}</span>
             </div>
-            <button type="button" class="btn btn-primary inline-flex h-9 items-center gap-2 px-3.5 text-xs font-semibold" data-modal-open="task-create-modal">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-4 w-4"><path d="M12 5v14M5 12h14"/></svg>
-                <span>New Task</span>
-            </button>
+            @if(request()->boolean('tasks_only'))
+                <button type="button" class="btn btn-primary inline-flex h-9 items-center gap-2 px-3.5 text-xs font-semibold" data-modal-open="task-create-modal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-4 w-4"><path d="M12 5v14M5 12h14"/></svg>
+                    <span>New Task</span>
+                </button>
+            @endif
         </div>
     </div>
 
@@ -69,6 +71,7 @@
     </div>
     @endif
 
+    @if(request()->boolean('tasks_only'))
     {{-- Task Kanban Board --}}
     <div class="rounded-lg border border-[#E5E7EB] bg-white p-5 shadow-xs">
         <div class="mb-5 flex flex-col gap-2 border-b border-[#E5E7EB] pb-4 sm:flex-row sm:items-center sm:justify-between">
@@ -221,4 +224,5 @@
         </form>
     </div>
 </div>
+    @endif
 @endsection

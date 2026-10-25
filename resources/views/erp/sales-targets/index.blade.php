@@ -8,20 +8,18 @@
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Sales & CRM', 'url' => route('sales-crm.index')], ['label' => 'Sales Targets']]"
     >
         <x-slot:actions>
-            @if($can('admin', 'sales'))
-                <a href="{{ route('sales-targets.create-page') }}" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-2 text-xs font-semibold text-white shadow-xs hover:bg-[#001B50] transition-colors">
-                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-                    Tetapkan Target Baru
-                </a>
-            @endif
+            <x-erp.toolbar-actions module="sales-targets" :create-route="route('sales-targets.create-page')" create-label="+ Tetapkan Target Baru" />
         </x-slot:actions>
     </x-erp.page-header>
 
     <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-xs">
-        <form method="get" action="{{ route('sales-targets.index') }}" class="flex flex-wrap items-center gap-3">
+        
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('sales-targets.index') }}" class="filter-toolbar">
+            
             <div class="relative flex-1 min-w-[200px]">
-                <input type="text" name="search" placeholder="Cari periode YYYY-MM..." value="{{ request('search') }}"
-                    class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search !w-full pl-8 pr-3 text-xs">
             </div>
             <div>
                 <select name="user_id" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
@@ -41,12 +39,15 @@
                     </a>
                 @endif
             </div>
+        
         </form>
+    </div>
+
     </div>
 
     <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
                     <tr class="bg-slate-50 border-b border-slate-200">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Sales Representative</th>
@@ -112,13 +113,15 @@
                 </tbody>
             </table>
         </div>
-
-        @if($items->hasPages())
-            <div class="px-4 py-3 border-t border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
-                <span>Menampilkan {{ $items->firstItem() }}-{{ $items->lastItem() }} dari {{ $items->total() }} target</span>
-                {{ $items->links() }}
-            </div>
-        @endif
     </div>
+
+    @if($items->hasPages())
+        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
+            <span>Menampilkan {{ $items->firstItem() }}-{{ $items->lastItem() }} dari {{ $items->total() }} target</span>
+                {{ $items->links() }}
+        </div>
+    @endif
 </div>
+
+<x-erp.import-modal module="sales-targets" title="Impor Data Sales Targets" />
 @endsection

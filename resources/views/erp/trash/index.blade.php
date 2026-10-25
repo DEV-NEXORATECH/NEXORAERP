@@ -5,11 +5,18 @@
     <x-erp.page-header
         title="Keranjang Sampah & Pemulihan (Trash)"
         subtitle="Daftar entitas data yang telah dihapus sementara (soft-deleted). Anda dapat memulihkan (restore) data ke posisi semula."
-        :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Administration', 'url' => route('admin.index')], ['label' => 'Trash']]"
+        :breadcrumbs="[['label' =>
+        <x-slot:actions>
+            <x-erp.toolbar-actions module="trash" />
+        </x-slot:actions> 'Dashboard', 'url' => route('dashboard')], ['label' => 'Administration', 'url' => route('admin.index')], ['label' => 'Trash']]"
     />
 
     <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-xs">
-        <form method="get" action="{{ route('trash.index') }}" class="flex flex-wrap items-center gap-3">
+        
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('trash.index') }}" class="filter-toolbar">
+            
             <div>
                 <select name="type" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                     <option value="">Semua Tipe Data</option>
@@ -29,12 +36,15 @@
                     </a>
                 @endif
             </div>
+        
         </form>
+    </div>
+
     </div>
 
     <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-xs">
+            <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
                     <tr class="bg-slate-50 border-b border-slate-200">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Modul / Tipe</th>
@@ -78,15 +88,12 @@
                 </tbody>
             </table>
         </div>
-
-        @foreach($trash as $type => $items)
-            @if($items->total() > 0)
-                <div class="px-4 py-3 border-t border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
-                    <span>{{ ucfirst($type) }}: {{ $items->firstItem() }}-{{ $items->lastItem() }} dari {{ $items->total() }} entri</span>
-                    {{ $items->links() }}
-                </div>
-            @endif
-        @endforeach
     </div>
+
+    @foreach($trash as $type => $items)
+        <x-erp.pagination :paginator="$items" />
+    @endforeach
 </div>
+
+<x-erp.import-modal module="trash" title="Impor Data Trash" />
 @endsection
