@@ -75,6 +75,12 @@ class ClientContractController extends Controller
         return redirect()->route('client-contracts.index')->with('status', 'Contract berhasil diupdate.');
     }
 
+    public function pdf(ClientContract $contract): View
+    {
+        $contract->load('client');
+        return view('erp.client-contracts.print', compact('contract'));
+    }
+
     public function destroy(ClientContract $contract): RedirectResponse
     {
         $this->audit('deleted', $contract, 'Client contract dihapus', $contract->toArray());

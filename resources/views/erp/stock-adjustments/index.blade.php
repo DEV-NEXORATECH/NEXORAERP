@@ -57,7 +57,13 @@
                 <td class="px-3 py-2 text-xs text-right whitespace-nowrap">
                     @if($adjustment->status !== 'posted')
                         <form method="post" action="{{ route('stock-adjustments.post', $adjustment) }}" class="inline">@csrf<button class="mini">Post</button></form>
-                        <form method="post" action="{{ route('stock-adjustments.destroy', $adjustment) }}" class="inline">@csrf @method('delete')<button class="inline-flex items-center px-2 py-1 text-[11px] font-medium text-red-700 bg-red-50 border border-red-200 rounded hover:bg-red-100 transition">Delete</button></form>
+                        <form method="post" action="{{ route('stock-adjustments.destroy', $adjustment) }}" class="inline" onsubmit="return confirm('Hapus penyesuaian stok ini?');">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
+                                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                            </button>
+                        </form>
                     @else
                         <span class="text-xs muted">Posted</span>
                     @endif

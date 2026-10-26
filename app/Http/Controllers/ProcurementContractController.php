@@ -78,6 +78,13 @@ class ProcurementContractController extends Controller
         return redirect()->route('procurement-contracts.index')->with('status', 'Procurement contract berhasil diupdate.');
     }
 
+    public function pdf(ProcurementContract $contract): View
+    {
+        $contract->load('vendor');
+        $companySetting = \App\Models\CompanySetting::first();
+        return view('erp.procurement-contracts.print', compact('contract', 'companySetting'));
+    }
+
     public function destroy(ProcurementContract $contract): RedirectResponse
     {
         $this->audit('deleted', $contract, 'Procurement contract dihapus', $contract->toArray());

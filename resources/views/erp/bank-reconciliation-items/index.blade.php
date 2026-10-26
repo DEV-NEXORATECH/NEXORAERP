@@ -60,8 +60,20 @@
                     <td class="px-3 py-2 text-xs text-gray-700 text-left"><span class="badge badge-{{ $row->type === 'credit' ? 'active' : 'pending' }}">{{ $row->type }}</span></td>
                     <td class="px-3 py-2 text-xs text-gray-700 text-left"><span class="badge badge-{{ $row->reconciled ? 'active' : 'void' }}">{{ $row->reconciled ? 'Yes' : 'No' }}</span></td>
                     <td class="px-3 py-2 text-xs text-right whitespace-nowrap">
-                        @if($can('admin', 'finance'))<a class="button mini ghost" href="{{ route('bank-reconciliation-items.edit-page', $row) }}">Edit</a>@endif
-                        @if($can('admin', 'finance'))<form method="post" action="{{ route('bank-reconciliation-items.destroy', $row) }}">@csrf @method('delete')<button class="inline-flex items-center px-2 py-1 text-[11px] font-medium text-red-700 bg-red-50 border border-red-200 rounded hover:bg-red-100 transition">Hapus</button></form>@endif
+                        <div class="inline-flex items-center gap-1.5">
+                        @if($can('admin', 'finance'))
+                            <a href="{{ route('bank-reconciliation-items.edit-page', $row) }}" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
+                            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                        </a>
+                            <form method="post" action="{{ route('bank-reconciliation-items.destroy', $row) }}" class="inline" onsubmit="return confirm('Hapus data rekonsiliasi ini?');">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
+                                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                            </button>
+                        </form>
+                        @endif
+                    </div>
                     </td>
                 </tr>
             @empty

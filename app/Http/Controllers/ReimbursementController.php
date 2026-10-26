@@ -140,5 +140,12 @@ public function edit(Reimbursement $reimbursement): View
             'receipt_file' => ['nullable', 'file', 'max:4096'],
         ];
     }
+
+    public function pdf(Reimbursement $reimbursement): View
+    {
+        $reimbursement->load(['employee.department', 'project', 'cashflow']);
+        $companySetting = \App\Models\CompanySetting::first();
+        return view('erp.reimbursements.print', compact('reimbursement', 'companySetting'));
+    }
 }
 

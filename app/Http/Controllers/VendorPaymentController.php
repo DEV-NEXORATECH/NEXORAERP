@@ -94,6 +94,13 @@ class VendorPaymentController extends Controller
         return redirect()->route('vendor-payments.index')->with('status', 'Vendor payment berhasil diupdate.');
     }
 
+    public function pdf(VendorPayment $vendorPayment): View
+    {
+        $vendorPayment->load(['vendorBill.project', 'bankAccount', 'cashflow', 'currency']);
+        $companySetting = \App\Models\CompanySetting::first();
+        return view('erp.vendor-payments.print', compact('vendorPayment', 'companySetting'));
+    }
+
     public function destroy(VendorPayment $vendorPayment): RedirectResponse
     {
         $this->audit('deleted', $vendorPayment, 'Vendor payment dihapus', $vendorPayment->toArray());

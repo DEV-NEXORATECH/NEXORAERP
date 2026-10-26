@@ -68,6 +68,13 @@ class LeaveRequestController extends Controller
         return redirect()->route('leave-requests.index')->with('status', 'Leave request berhasil diupdate.');
     }
 
+    public function pdf(LeaveRequest $leave): View
+    {
+        $leave->load(['employee.department']);
+        $companySetting = \App\Models\CompanySetting::first();
+        return view('erp.leave-requests.print', compact('leave', 'companySetting'));
+    }
+
     public function destroy(LeaveRequest $leave): RedirectResponse
     {
         $this->audit('deleted', $leave, 'Leave request dihapus', $leave->toArray());

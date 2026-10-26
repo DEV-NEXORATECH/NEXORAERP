@@ -136,6 +136,13 @@ public function edit(SalesOrder $order): View
         ]);
     }
 
+    public function pdf(SalesOrder $order): View
+    {
+        $order->load(['client', 'proposal', 'items.product']);
+        $companySetting = \App\Models\CompanySetting::first();
+        return view('erp.sales-orders.print', compact('order', 'companySetting'));
+    }
+
     public function destroy(SalesOrder $order): RedirectResponse
     {
         $this->audit('deleted', $order, 'Sales order dihapus', $order->toArray());

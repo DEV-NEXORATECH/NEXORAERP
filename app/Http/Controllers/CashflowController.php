@@ -94,6 +94,13 @@ class CashflowController extends Controller
         return redirect()->route('cashflows.index-page')->with('status', 'Cashflow berhasil diupdate.');
     }
 
+    public function pdf(Cashflow $cashflow): View
+    {
+        $cashflow->load(['project', 'bankAccount']);
+        $companySetting = \App\Models\CompanySetting::first();
+        return view('erp.cashflows.print', compact('cashflow', 'companySetting'));
+    }
+
     public function destroy(Cashflow $cashflow): RedirectResponse
     {
         $this->audit('deleted', $cashflow, 'Cashflow dihapus', $cashflow->toArray());

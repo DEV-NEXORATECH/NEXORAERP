@@ -84,6 +84,13 @@ class PurchaseRequisitionController extends Controller
         return redirect()->route('purchase-requisitions.index')->with('status', 'Purchase requisition berhasil diupdate.');
     }
 
+    public function pdf(PurchaseRequisition $requisition): View
+    {
+        $requisition->load(['requester', 'department']);
+        $companySetting = \App\Models\CompanySetting::first();
+        return view('erp.purchase-requisitions.print', compact('requisition', 'companySetting'));
+    }
+
     public function destroy(PurchaseRequisition $requisition): RedirectResponse
     {
         $this->audit('deleted', $requisition, 'Purchase requisition dihapus', $requisition->toArray());

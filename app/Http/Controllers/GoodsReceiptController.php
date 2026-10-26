@@ -78,6 +78,13 @@ public function edit(GoodsReceipt $receipt): View
         return redirect()->route('goods-receipts.index')->with('status', 'Goods receipt berhasil diupdate.');
     }
 
+    public function pdf(GoodsReceipt $receipt): View
+    {
+        $receipt->load(['purchaseOrder.vendor', 'purchaseOrder.items.product']);
+        $companySetting = \App\Models\CompanySetting::first();
+        return view('erp.goods-receipts.print', compact('receipt', 'companySetting'));
+    }
+
     public function destroy(GoodsReceipt $receipt): RedirectResponse
     {
         $this->audit('deleted', $receipt, 'Goods receipt dihapus', $receipt->toArray());

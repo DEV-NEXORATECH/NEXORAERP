@@ -3561,57 +3561,41 @@ textarea:focus {
     stroke: currentColor !important;
 }
 
-/* One rule for every legacy delete button. */
-.shell form button.danger,
-.shell form button[class*="text-red"],
-.shell form button[title*="Hapus"],
-.shell form button[aria-label*="Hapus"] {
-    font-size: 0 !important;
-    min-width: 2.25rem !important;
-    width: 2.25rem !important;
-    height: 2.25rem !important;
-    padding: 0 !important;
+/* Consistent table action buttons (28x28px) */
+.erp-action-button,
+a.button.mini.ghost,
+a.mini.ghost {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+    width: 1.75rem !important;
+    min-width: 1.75rem !important;
+    height: 1.75rem !important;
+    min-height: 1.75rem !important;
+    padding: 0 !important;
+    border-radius: 6px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease-in-out !important;
 }
 
-.shell form button.danger::before,
-.shell form button[class*="text-red"]::before,
-.shell form button[title*="Hapus"]::before,
-.shell form button[aria-label*="Hapus"]::before {
-    content: '' !important;
+.erp-action-button svg {
     display: block !important;
-    width: 1rem !important;
-    height: 1rem !important;
-    background-color: currentColor !important;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat !important;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat !important;
+    width: 0.875rem !important;
+    height: 0.875rem !important;
+    flex: 0 0 auto !important;
+    stroke: currentColor !important;
 }
 
-/* Action buttons already contain their own SVG; never add a second pseudo icon. */
-.shell form button.erp-action-button::before,
-.shell form button.erp-action-button::after {
+/* Strictly suppress any pseudo-element injection so buttons never render double icons */
+.shell form button::before,
+.shell form button::after,
+.erp-action-button::before,
+.erp-action-button::after,
+table td a::before,
+table td a::after {
     content: none !important;
     display: none !important;
-}
-
-/* Any delete button that already contains an inline SVG must render one icon only. */
-.shell form button:has(> svg)::before,
-.shell form button:has(> svg)::after {
-    content: none !important;
-    display: none !important;
-}
-
-/* Some legacy action buttons wrap their SVG; suppress the pseudo icon there too. */
-.shell form button:has(svg)::before,
-.shell form button:has(svg)::after,
-.shell table button:has(svg)::before,
-.shell table button:has(svg)::after {
-    content: none !important;
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
 }
 
 /* Collapsed sidebar: keep the active item compact and readable. */
@@ -3630,31 +3614,6 @@ textarea:focus {
 .app-shell.sidebar-collapsed .side-nav .side-summary.active .side-icon {
     color: #0B2345 !important;
     background: transparent !important;
-}
-
-a.button.mini.ghost,
-a.mini.ghost,
-table td a[class*="text-blue-700"] {
-    width: 1.75rem !important;
-    height: 1.75rem !important;
-    padding: 0 !important;
-    font-size: 0 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-radius: 6px !important;
-    border-color: #BFDBFE !important;
-    background: #EFF6FF !important;
-    color: #2563EB !important;
-}
-
-a.button.mini.ghost::before,
-a.mini.ghost::before,
-table td a[class*="text-blue-700"]::before {
-    content: '✎';
-    display: block;
-    font-size: 1rem;
-    line-height: 1;
 }
 
 /* Feature-specific accent colors for primary actions. */

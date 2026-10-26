@@ -85,6 +85,13 @@ class VendorBillController extends Controller
         return redirect()->route('vendor-bills.index')->with('status', 'Vendor bill berhasil diupdate.');
     }
 
+    public function pdf(VendorBill $vendorBill): View
+    {
+        $vendorBill->load(['project', 'bankAccount', 'payments', 'currency', 'paymentTerm']);
+        $companySetting = \App\Models\CompanySetting::first();
+        return view('erp.vendor-bills.print', compact('vendorBill', 'companySetting'));
+    }
+
     public function destroy(VendorBill $vendorBill): RedirectResponse
     {
         $this->audit('deleted', $vendorBill, 'Vendor bill dihapus', $vendorBill->toArray());

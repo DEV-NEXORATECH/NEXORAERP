@@ -202,6 +202,7 @@ Route::get('/sales-orders/create',                 [SalesOrderController::class,
     Route::get('/sales-orders/{order}/edit',           [SalesOrderController::class, 'edit'])->middleware('role:admin,sales')->name('sales-orders.edit-page');
     Route::post('/sales-orders',                       [SalesOrderController::class, 'store'])->middleware('role:admin,sales')->name('sales-orders.store');
     Route::put('/sales-orders/{order}',                [SalesOrderController::class, 'update'])->middleware('role:admin,sales')->name('sales-orders.update');
+    Route::get('/sales-orders/{order}/pdf',            [SalesOrderController::class, 'pdf'])->middleware('role:admin,sales')->name('sales-orders.pdf');
     Route::delete('/sales-orders/{order}',             [SalesOrderController::class, 'destroy'])->middleware('role:admin')->name('sales-orders.destroy');
 
     // ── Sales: Targets ────────────────────────────────────────────────────────────
@@ -224,6 +225,7 @@ Route::get('/sales-orders/create',                 [SalesOrderController::class,
     Route::get('/client-contracts',                    [ClientContractController::class, 'index'])->middleware('role:admin,sales')->name('client-contracts.index');
     Route::get('/client-contracts/create',             [ClientContractController::class, 'create'])->middleware('role:admin,sales')->name('client-contracts.create-page');
     Route::get('/client-contracts/{contract}/edit',    [ClientContractController::class, 'edit'])->middleware('role:admin,sales')->name('client-contracts.edit-page');
+    Route::get('/client-contracts/{contract}/pdf',     [ClientContractController::class, 'pdf'])->middleware('role:admin,sales,finance')->name('client-contracts.pdf');
     Route::post('/client-contracts',                   [ClientContractController::class, 'store'])->middleware('role:admin,sales')->name('client-contracts.store');
     Route::put('/client-contracts/{contract}',         [ClientContractController::class, 'update'])->middleware('role:admin,sales')->name('client-contracts.update');
     Route::delete('/client-contracts/{contract}',      [ClientContractController::class, 'destroy'])->middleware('role:admin')->name('client-contracts.destroy');
@@ -284,6 +286,7 @@ Route::get('/employees/create',                  [EmployeeController::class, 'cr
     Route::get('/leave-requests/{leave}/edit',         [LeaveRequestController::class, 'edit'])->middleware('role:admin,hr')->name('leave-requests.edit-page');
     Route::post('/leave-requests',                     [LeaveRequestController::class, 'store'])->middleware('role:admin,hr')->name('leave-requests.store');
     Route::put('/leave-requests/{leave}',              [LeaveRequestController::class, 'update'])->middleware('role:admin,hr')->name('leave-requests.update');
+    Route::get('/leave-requests/{leave}/pdf',          [LeaveRequestController::class, 'pdf'])->middleware('role:admin,hr')->name('leave-requests.pdf');
     Route::delete('/leave-requests/{leave}',           [LeaveRequestController::class, 'destroy'])->middleware('role:admin')->name('leave-requests.destroy');
 
     // ── HR: Performance Reviews ───────────────────────────────────────────────
@@ -320,6 +323,7 @@ Route::get('/reimbursements/create',                     [ReimbursementControlle
     Route::get('/reimbursements/{reimbursement}/edit',       [ReimbursementController::class, 'edit'])->middleware('role:admin,finance,hr')->name('reimbursements.edit-page');
     Route::post('/reimbursements',                           [ReimbursementController::class, 'store'])->middleware('role:admin,hr,finance')->name('reimbursements.store');
     Route::put('/reimbursements/{reimbursement}',            [ReimbursementController::class, 'update'])->middleware('role:admin,hr,finance')->name('reimbursements.update');
+    Route::get('/reimbursements/{reimbursement}/pdf',        [ReimbursementController::class, 'pdf'])->middleware('role:admin,finance,hr')->name('reimbursements.pdf');
     Route::patch('/reimbursements/{reimbursement}/status',   [ReimbursementController::class, 'updateStatus'])->middleware('role:admin,hr,finance')->name('reimbursements.status');
     Route::delete('/reimbursements/{reimbursement}',         [ReimbursementController::class, 'destroy'])->middleware('role:admin')->name('reimbursements.destroy');
 
@@ -327,6 +331,7 @@ Route::get('/reimbursements/create',                     [ReimbursementControlle
     Route::get('/finance/cashflows',                 [CashflowController::class, 'index'])->middleware('role:admin,finance')->name('cashflows.index-page');
     Route::get('/cashflows/create',                  [CashflowController::class, 'create'])->middleware('role:admin,finance')->name('cashflows.create-page');
     Route::get('/cashflows/{cashflow}/edit',         [CashflowController::class, 'edit'])->middleware('role:admin,finance')->name('cashflows.edit-page');
+    Route::get('/cashflows/{cashflow}/pdf',          [CashflowController::class, 'pdf'])->middleware('role:admin,finance')->name('cashflows.pdf');
     Route::post('/cashflows',                        [CashflowController::class, 'store'])->middleware('role:admin,finance')->name('cashflows.store');
     Route::put('/cashflows/{cashflow}',              [CashflowController::class, 'update'])->middleware('role:admin,finance')->name('cashflows.update');
     Route::delete('/cashflows/{cashflow}',           [CashflowController::class, 'destroy'])->middleware('role:admin')->name('cashflows.destroy');
@@ -441,12 +446,14 @@ Route::get('/invoices/create',                   [InvoiceController::class, 'cre
     Route::get('/vendor-bills/{vendorBill}/edit',        [VendorBillController::class, 'edit'])->middleware('role:admin,finance')->name('vendor-bills.edit-page');
     Route::post('/vendor-bills',                         [VendorBillController::class, 'store'])->middleware('role:admin,finance')->name('vendor-bills.store');
     Route::put('/vendor-bills/{vendorBill}',             [VendorBillController::class, 'update'])->middleware('role:admin,finance')->name('vendor-bills.update');
+    Route::get('/vendor-bills/{vendorBill}/pdf',         [VendorBillController::class, 'pdf'])->middleware('role:admin,finance')->name('vendor-bills.pdf');
     Route::delete('/vendor-bills/{vendorBill}',          [VendorBillController::class, 'destroy'])->middleware('role:admin')->name('vendor-bills.destroy');
 
     // ── Finance Suite: Vendor Payments ──────────────────────────────────────────
     Route::get('/vendor-payments',                       [VendorPaymentController::class, 'index'])->middleware('role:admin,finance')->name('vendor-payments.index');
     Route::get('/vendor-payments/create',                [VendorPaymentController::class, 'create'])->middleware('role:admin,finance')->name('vendor-payments.create-page');
     Route::get('/vendor-payments/{vendorPayment}/edit',  [VendorPaymentController::class, 'edit'])->middleware('role:admin,finance')->name('vendor-payments.edit-page');
+    Route::get('/vendor-payments/{vendorPayment}/pdf',   [VendorPaymentController::class, 'pdf'])->middleware('role:admin,finance')->name('vendor-payments.pdf');
     Route::post('/vendor-payments',                      [VendorPaymentController::class, 'store'])->middleware('role:admin,finance')->name('vendor-payments.store');
     Route::put('/vendor-payments/{vendorPayment}',       [VendorPaymentController::class, 'update'])->middleware('role:admin,finance')->name('vendor-payments.update');
     Route::delete('/vendor-payments/{vendorPayment}',    [VendorPaymentController::class, 'destroy'])->middleware('role:admin')->name('vendor-payments.destroy');
@@ -545,6 +552,7 @@ Route::get('/vendors/create',                    [VendorController::class, 'crea
     Route::get('/purchase-requisitions/{requisition}/edit', [PurchaseRequisitionController::class, 'edit'])->middleware('role:admin,finance')->name('purchase-requisitions.edit-page');
     Route::post('/purchase-requisitions',            [PurchaseRequisitionController::class, 'store'])->middleware('role:admin,finance')->name('purchase-requisitions.store');
     Route::put('/purchase-requisitions/{requisition}', [PurchaseRequisitionController::class, 'update'])->middleware('role:admin,finance')->name('purchase-requisitions.update');
+    Route::get('/purchase-requisitions/{requisition}/pdf', [PurchaseRequisitionController::class, 'pdf'])->middleware('role:admin,finance')->name('purchase-requisitions.pdf');
     Route::delete('/purchase-requisitions/{requisition}', [PurchaseRequisitionController::class, 'destroy'])->middleware('role:admin')->name('purchase-requisitions.destroy');
 
     // ── Procurement: Purchase Orders ─────────────────────────────────────────────
@@ -562,6 +570,7 @@ Route::get('/purchase-orders/create',            [PurchaseOrderController::class
         Route::get('/goods-receipts/{receipt}',          [GoodsReceiptController::class, 'show'])->middleware('role:admin,finance')->name('goods-receipts.show');
 Route::get('/goods-receipts/create',             [GoodsReceiptController::class, 'create'])->middleware('role:admin,finance')->name('goods-receipts.create-page');
     Route::get('/goods-receipts/{receipt}/edit',     [GoodsReceiptController::class, 'edit'])->middleware('role:admin,finance')->name('goods-receipts.edit-page');
+    Route::get('/goods-receipts/{receipt}/pdf',      [GoodsReceiptController::class, 'pdf'])->middleware('role:admin,finance')->name('goods-receipts.pdf');
     Route::post('/goods-receipts',                   [GoodsReceiptController::class, 'store'])->middleware('role:admin,finance')->name('goods-receipts.store');
     Route::put('/goods-receipts/{receipt}',          [GoodsReceiptController::class, 'update'])->middleware('role:admin,finance')->name('goods-receipts.update');
     Route::delete('/goods-receipts/{receipt}',       [GoodsReceiptController::class, 'destroy'])->middleware('role:admin')->name('goods-receipts.destroy');
@@ -570,6 +579,7 @@ Route::get('/goods-receipts/create',             [GoodsReceiptController::class,
     Route::get('/procurement-contracts',             [ProcurementContractController::class, 'index'])->middleware('role:admin,finance')->name('procurement-contracts.index');
     Route::get('/procurement-contracts/create',      [ProcurementContractController::class, 'create'])->middleware('role:admin,finance')->name('procurement-contracts.create-page');
     Route::get('/procurement-contracts/{contract}/edit', [ProcurementContractController::class, 'edit'])->middleware('role:admin,finance')->name('procurement-contracts.edit-page');
+    Route::get('/procurement-contracts/{contract}/pdf', [ProcurementContractController::class, 'pdf'])->middleware('role:admin,finance')->name('procurement-contracts.pdf');
     Route::post('/procurement-contracts',            [ProcurementContractController::class, 'store'])->middleware('role:admin,finance')->name('procurement-contracts.store');
     Route::put('/procurement-contracts/{contract}',  [ProcurementContractController::class, 'update'])->middleware('role:admin,finance')->name('procurement-contracts.update');
     Route::delete('/procurement-contracts/{contract}', [ProcurementContractController::class, 'destroy'])->middleware('role:admin')->name('procurement-contracts.destroy');

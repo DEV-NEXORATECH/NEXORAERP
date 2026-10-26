@@ -55,13 +55,17 @@
                             <td class="py-3 px-4 text-right font-bold text-slate-900">{{ $payment->currency_code ?? 'IDR' }} {{ number_format($payment->amount, 2, ',', '.') }}</td>
                             <td class="py-3 px-4 text-slate-500 font-mono text-[11px]">{{ $payment->reference ?? '-' }}</td>
                             <td class="py-3 px-4 text-center whitespace-nowrap">
-                                <div class="inline-flex items-center gap-1">
-                                    <button type="button"
-                                        onclick="window.showDeleteModal('{{ route('vendor-payments.destroy', $payment) }}', 'Pembayaran {{ $payment->vendorBill->bill_number ?? '' }} ({{ $payment->payment_date }})')"
-                                        class="rounded p-1 text-slate-400 hover:bg-red-50 hover:text-[#DC2626] transition-colors"
-                                        title="Hapus Pembayaran">
-                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                    </button>
+                                <div class="inline-flex items-center gap-1.5">
+                                    <a href="{{ route('vendor-payments.pdf', $payment) }}" target="_blank" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Cetak Voucher PDF">
+                                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+                                    </a>
+                                    <form method="post" action="{{ route('vendor-payments.destroy', $payment) }}" class="inline" onsubmit="return confirm('Hapus pembayaran ini?');">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
+                                            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

@@ -56,12 +56,22 @@
                     </span>
                 </td>
                 <td class="px-3 py-2 text-xs text-right whitespace-nowrap">
-                    <a href="{{ route('fiscal-periods.edit-page', $period) }}" class="inline-flex items-center px-2 py-1 text-[11px] font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded hover:bg-blue-100 transition mr-1">Edit</a>
-                    <form method="post" action="{{ route('fiscal-periods.toggle', $period) }}" class="inline">
-                        @csrf
-                        <button class="mini">{{ $period->status === 'open' ? 'Close' : 'Open' }}</button>
-                    </form>
-                    <form method="post" action="{{ route('fiscal-periods.destroy', $period) }}" class="inline">@csrf @method('delete')<button class="inline-flex items-center px-2 py-1 text-[11px] font-medium text-red-700 bg-red-50 border border-red-200 rounded hover:bg-red-100 transition">Delete</button></form>
+                    <div class="inline-flex items-center gap-1.5">
+                        <a href="{{ route('fiscal-periods.edit-page', $period) }}" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
+                            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                        </a>
+                        <form method="post" action="{{ route('fiscal-periods.toggle', $period) }}" class="inline">
+                            @csrf
+                            <button class="inline-flex h-7 items-center rounded border border-[#E2E8F0] bg-white px-2 text-[11px] font-semibold text-[#002875] hover:bg-slate-50 transition" title="{{ $period->status === 'open' ? 'Close Periode' : 'Open Periode' }}">{{ $period->status === 'open' ? 'Close' : 'Open' }}</button>
+                        </form>
+                        <form method="post" action="{{ route('fiscal-periods.destroy', $period) }}" class="inline" onsubmit="return confirm('Hapus periode fiskal ini?');">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
+                                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                            </button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             @empty
