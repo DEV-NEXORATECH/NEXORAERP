@@ -120,11 +120,11 @@
 
 @layer components {
     .app-shell {
-        @apply grid min-h-screen grid-cols-[260px_minmax(0,1fr)] bg-[#F4F7FB];
+        @apply grid min-h-screen grid-cols-[220px_minmax(0,1fr)] bg-[#F4F7FB];
     }
 
     .app-shell.sidebar-collapsed {
-        @apply grid-cols-[72px_minmax(0,1fr)];
+        @apply grid-cols-[64px_minmax(0,1fr)];
     }
 
     /* ── Sidebar shell (Clean White Enterprise) ───────────────────── */
@@ -137,29 +137,30 @@
 
     /* ── Sidebar head (fixed top, clean enterprise brand) ──────────── */
     .sidebar-head {
-        @apply flex shrink-0 items-center gap-2.5 border-b border-[#D9E2EC] px-4 py-3.5 bg-white;
+        @apply flex shrink-0 items-center gap-2.5 border-b border-[#D9E2EC] px-3 py-3 bg-white;
     }
 
     .sidebar-brand {
         @apply flex min-w-0 items-center gap-2.5;
     }
 
-    .sidebar-brand .logo {
-        @apply grid h-8 w-8 place-items-center rounded-[8px] bg-[#0B2345] text-xs font-black text-white shadow-xs;
+    .sidebar-brand .logo,
+    .sidebar .logo {
+        @apply grid h-9 w-9 place-items-center rounded-[10px] bg-[#0B2345] text-xs font-black text-white shadow-xs;
     }
 
     .sidebar-title {
-        @apply text-sm font-bold tracking-tight text-[#0B2345];
+        @apply text-[12px] font-bold leading-tight tracking-tight text-[#0B2345];
         font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     }
 
     .sidebar-subtitle {
-        @apply text-[10px] font-semibold uppercase tracking-wider text-[#475569];
+        @apply text-[9px] font-semibold uppercase leading-tight tracking-wider text-[#475569];
     }
 
     /* ── Scrollable nav area ─────────────────────────────────────── */
     .sidebar-scroll {
-        @apply min-h-0 flex-1 overflow-y-auto px-3 py-3;
+        @apply min-h-0 flex-1 overflow-y-auto px-2 py-2;
         scrollbar-width: thin;
         scrollbar-color: #D9E2EC transparent;
     }
@@ -188,37 +189,41 @@
     }
 
     .side-nav {
-        @apply grid gap-1;
+        @apply grid gap-0.5;
     }
 
     .side-nav a,
-    .side-nav button {
-        @apply flex w-full items-center justify-start gap-2.5 rounded-[8px] border border-transparent px-2.5 py-2 text-xs font-medium text-[#475569] no-underline transition-all hover:bg-[#F4F7FB] hover:text-[#0B2345];
+    .side-nav button,
+    .side-summary {
+        @apply flex w-full items-center justify-start gap-2 rounded-[10px] border border-transparent px-2.5 py-2 text-xs font-semibold text-[#475569] no-underline transition-all hover:bg-[#F4F7FB] hover:text-[#0B2345];
         font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     }
 
-    .side-nav a.active {
+    .side-nav a.active,
+    .side-summary.active {
         @apply border-[#0B2345]/10 bg-[#0B2345] text-white font-semibold shadow-xs;
     }
 
     .side-icon {
-        @apply inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[6px] text-[#475569];
+        @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[#475569];
     }
 
     .side-icon svg {
         @apply h-4 w-4;
     }
 
-    .side-nav a:hover .side-icon {
+    .side-nav a:hover .side-icon,
+    .side-summary:hover .side-icon {
         @apply text-[#0B2345];
     }
 
-    .side-nav a.active .side-icon {
+    .side-nav a.active .side-icon,
+    .side-summary.active .side-icon {
         @apply text-white;
     }
 
     .side-label {
-        @apply truncate;
+        @apply truncate text-xs leading-tight;
     }
 
     .side-nav .sub {
@@ -238,18 +243,12 @@
     }
 
     .side-summary {
-        @apply flex cursor-pointer items-center gap-2.5 rounded-[8px] border border-transparent px-2.5 py-2 text-xs font-medium text-[#475569] no-underline transition hover:bg-[#F4F7FB] hover:text-[#0B2345];
         list-style: none;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     }
 
     .side-summary::-webkit-details-marker,
     .side-summary::marker {
         display: none;
-    }
-
-    .side-summary.active {
-        @apply border-[#0B2345]/10 bg-[#0B2345] text-white font-semibold;
     }
 
     .side-chevron {
@@ -260,7 +259,6 @@
         @apply rotate-180;
     }
 
-    .side-summary.active .side-icon,
     .side-summary.active .side-chevron {
         @apply text-white;
     }
@@ -271,15 +269,15 @@
 
     /* ── Sidebar footer (compact profile block + logout) ──────────── */
     .side-footer {
-        @apply shrink-0 border-t border-[#D9E2EC] bg-[#F8FAFC] px-3 py-2.5;
+        @apply shrink-0 border-t border-[#D9E2EC] bg-[#F8FAFC] px-2.5 py-2;
     }
 
     .sidebar-user {
-        @apply flex items-center gap-2 rounded-[8px] p-1.5 transition;
+        @apply flex items-center gap-2 rounded-[12px] p-2 transition;
     }
 
     .sidebar-user-avatar {
-        @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-[6px] bg-[#0B2345] text-[11px] font-bold text-white;
+        @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0B2345] text-[10px] font-bold text-white;
     }
 
     .sidebar-user-info {
@@ -287,19 +285,19 @@
     }
 
     .sidebar-user-name {
-        @apply truncate text-xs font-semibold text-[#0F172A];
+        @apply truncate text-xs font-semibold leading-tight text-[#0F172A];
     }
 
     .sidebar-user-role {
-        @apply text-[9px] font-medium uppercase tracking-wider text-[#475569];
+        @apply text-[9px] font-medium uppercase leading-tight tracking-wider text-[#475569];
     }
 
     .sidebar-logout-btn {
-        @apply flex h-7 w-7 items-center justify-center rounded-[6px] border border-[#D9E2EC] bg-white text-[#475569] transition hover:border-[#DC2626] hover:bg-[#DC2626]/5 hover:text-[#DC2626] shadow-none;
+        @apply flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#D9E2EC] bg-white text-[#475569] transition hover:border-[#DC2626] hover:bg-[#DC2626]/5 hover:text-[#DC2626] shadow-none;
     }
 
     .sidebar-logout-btn svg {
-        @apply h-3.5 w-3.5;
+        @apply h-4 w-4;
     }
 
     /* ── Collapsed sidebar ───────────────────────────────────────── */
@@ -335,33 +333,37 @@
 
     /* ── Global App Header (Enterprise Solid Navy) ───────────────── */
     .app-header {
-        @apply sticky top-0 z-20 px-4 pt-3 pb-2;
+        @apply sticky top-0 z-20 px-0 pb-3 pt-0;
     }
 
     .app-header-card {
-        @apply flex items-center justify-between gap-4 rounded-[12px] bg-[#0B2345] px-4 py-2.5 sm:px-5;
+        @apply flex items-center justify-between gap-3 rounded-none px-4 py-2.5;
+        background: linear-gradient(135deg, #0B2345 0%, #123A6B 55%, #0B2345 100%);
         border: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: 0 2px 8px rgba(11, 35, 69, 0.15);
     }
 
-    .app-header-left {
-        @apply flex items-center gap-3 min-w-0;
+    .app-header-left,
+    .app-header-right {
+        @apply flex items-center gap-2 min-w-0;
     }
 
     .app-header-right {
-        @apply flex items-center gap-2 shrink-0;
+        @apply shrink-0;
     }
 
-    .hdr-toggle {
-        @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] border border-white/10 bg-white/10 text-white transition hover:bg-white/20 active:scale-95;
+    .hdr-toggle,
+    .hdr-icon-btn {
+        @apply relative flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-white/10 bg-white/10 text-white transition hover:bg-white/20 active:scale-95;
     }
 
-    .hdr-toggle svg {
+    .hdr-toggle svg,
+    .hdr-icon-btn svg {
         @apply h-5 w-5;
     }
 
     .sidebar-toggle-icon {
-        @apply h-6 w-6;
+        @apply h-5 w-5;
     }
 
     .hdr-sep {
@@ -369,15 +371,15 @@
     }
 
     .hdr-context {
-        @apply flex items-center gap-2.5 min-w-0;
+        @apply flex items-center gap-2 min-w-0;
     }
 
     .hdr-page-icon {
-        @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-[6px] bg-white/10 text-white;
+        @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-white/10 text-white;
     }
 
     .hdr-page-icon svg {
-        @apply h-4 w-4 text-white;
+        @apply h-5 w-5 text-white;
     }
 
     .hdr-page-meta {
@@ -385,16 +387,16 @@
     }
 
     .hdr-page-title {
-        @apply truncate text-xs sm:text-sm font-bold text-white;
+        @apply truncate text-sm font-bold text-white;
         font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     }
 
     .hdr-page-path {
-        @apply text-[10px] font-medium text-white/60 tracking-wider;
+        @apply text-[10px] font-semibold text-white/60 tracking-wider;
     }
 
     .hdr-date {
-        @apply hidden items-center gap-1.5 rounded-[6px] border border-white/10 bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-white/80 md:flex;
+        @apply hidden items-center gap-1.5 rounded-[10px] border border-white/10 bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-white/80 md:flex;
     }
 
     .hdr-date svg {
@@ -413,24 +415,20 @@
         @apply hidden sm:inline;
     }
 
-    .hdr-icon-btn {
-        @apply relative flex h-8 w-8 shrink-0 items-center justify-center rounded-[6px] text-white/70 transition hover:bg-white/10 hover:text-white;
-    }
-
-    .hdr-icon-btn svg {
-        @apply h-4 w-4;
-    }
-
     .hdr-notif-badge {
         @apply absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D97706] px-1 text-[9px] font-bold text-white shadow-xs;
     }
 
     .hdr-user-chip {
-        @apply flex items-center gap-2 rounded-[6px] border border-white/10 bg-white/5 py-1 pl-1 pr-2 transition hover:bg-white/10;
+        @apply flex items-center gap-2 rounded-[10px] border border-white/10 bg-white/5 py-1 pl-1 pr-2 transition hover:bg-white/10;
+    }
+
+    .hdr-user-summary {
+        @apply flex cursor-pointer list-none items-center gap-2 rounded-[10px] py-1 pl-1 pr-2 text-white;
     }
 
     .hdr-user-avatar {
-        @apply flex h-6 w-6 shrink-0 items-center justify-center rounded-[4px] bg-white/20 text-[10px] font-bold text-white;
+        @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/20 text-[10px] font-bold text-white;
     }
 
     .hdr-user-meta {
@@ -438,7 +436,7 @@
     }
 
     .hdr-user-name {
-        @apply text-xs font-semibold text-white;
+        @apply text-xs font-bold text-white;
         max-width: 110px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -450,39 +448,17 @@
     }
 
     .hdr-user-chevron {
-        @apply h-3 w-3 text-white/50 transition-transform;
+        @apply h-3.5 w-3.5 text-white/50 transition-transform;
     }
 
-    .hdr-user-menu {
-        @apply absolute right-0 top-[calc(100%+8px)] z-50 w-52 rounded-[10px] border border-[#D9E2EC] bg-white p-1 text-slate-800 shadow-lg;
-    }
 
-    .hdr-user-menu-head {
-        @apply border-b border-[#D9E2EC]/70 px-3 py-2 text-xs text-[#0F172A];
-    }
-
-    .hdr-user-menu-head strong {
-        @apply block font-semibold truncate;
-    }
-
-    .hdr-user-menu-head span {
-        @apply block text-[11px] text-[#475569] truncate;
-    }
-
-    .hdr-logout-menu-btn {
-        @apply mt-1 flex w-full items-center gap-2 rounded-[6px] px-3 py-2 text-xs font-medium text-[#DC2626] transition hover:bg-[#DC2626]/10;
-    }
-
-    .hdr-logout-menu-btn svg {
-        @apply h-3.5 w-3.5;
-    }
 
     .content {
         @apply flex min-w-0 flex-col px-0 py-0;
     }
 
     .content-body {
-        @apply px-4 pb-6 pt-4 sm:px-6 lg:px-8;
+        @apply px-4 pb-6 pt-4 sm:px-6 lg:px-8 gap-3.5 lg:gap-4;
     }
 
     .shell {
@@ -552,11 +528,11 @@
     }
 
     .good {
-        @apply text-[#0B2345];
+        @apply text-[#16A34A] font-bold;
     }
 
     .bad {
-        @apply text-red-700;
+        @apply text-[#DC2626] font-bold;
     }
 
     .toolbar {
@@ -577,11 +553,11 @@
     }
 
     .ghost {
-        @apply bg-[#E8EEF5] text-[#0B2345] shadow-none hover:bg-[#d7e3ef] hover:text-[#0B2345];
+        @apply border border-[#D9E2EC] bg-white text-[#0B2345] shadow-xs hover:border-[#0B2345] hover:bg-[#F4F7FB];
     }
 
     .badge {
-        @apply inline-flex items-center rounded-full bg-[#E8EEF5] px-3 py-1 text-xs font-black uppercase tracking-wide text-[#0B2345];
+        @apply inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-[#475569];
     }
 
     .notice {
@@ -593,7 +569,7 @@
     }
 
     .actions {
-        @apply flex flex-wrap items-center gap-2;
+        @apply flex flex-wrap items-center justify-end gap-2;
     }
 
     .mini {
@@ -601,7 +577,7 @@
     }
 
     .danger {
-        @apply bg-red-50 text-red-700 shadow-none hover:bg-red-100 hover:text-red-800;
+        @apply bg-[#DC2626] text-white font-semibold shadow-xs hover:bg-[#B91C1C];
     }
 
     .wide {
@@ -1227,83 +1203,7 @@
         }
     }
 
-    /* Moneyku-style ERP theme override */
-    body {
-        @apply bg-[#f6f7fb] text-slate-800;
-    }
-
-    .app-shell {
-        @apply grid-cols-[288px_minmax(0,1fr)] bg-[#f6f7fb];
-    }
-
-    .app-shell.sidebar-collapsed {
-        @apply grid-cols-[96px_minmax(0,1fr)];
-    }
-
-    .sidebar {
-        @apply sticky top-0 bg-white text-slate-700 shadow-sm shadow-slate-200/70;
-        font-family: 'Inter', sans-serif;
-        border-right: 1px solid #e8edf5;
-    }
-
-    .sidebar-head {
-        @apply border-slate-100 bg-white px-5 py-5;
-    }
-
-    .sidebar .logo {
-        @apply rounded-[12px] bg-[#0B2345] text-white shadow-lg shadow-[#0B2345]/20;
-    }
-
-    .sidebar-title {
-        @apply text-slate-900;
-    }
-
-    .sidebar-subtitle {
-        @apply text-slate-400;
-    }
-
-    .sidebar-scroll {
-        scrollbar-color: rgba(0,89,167,0.25) transparent;
-    }
-
-    .sidebar-scroll::-webkit-scrollbar-thumb {
-        background: rgba(0,89,167,0.25);
-    }
-
-    .side-section {
-        @apply text-slate-400;
-    }
-
-    .side-nav a,
-    .side-nav button,
-    .side-summary {
-        @apply rounded-[12px] px-4 py-3 text-[15px] text-slate-600 hover:bg-[#E8EEF5] hover:text-[#0B2345];
-    }
-
-    .side-nav a.active,
-    .side-summary.active {
-        @apply border-[#cfe0f2] bg-[#E8EEF5] text-[#0B2345] shadow-none;
-    }
-
-    .side-icon {
-        @apply h-11 w-11 rounded-[12px] bg-slate-50 text-slate-400;
-    }
-
-    .side-icon svg {
-        @apply h-6 w-6;
-    }
-
-    .side-nav a:hover .side-icon,
-    .side-summary:hover .side-icon,
-    .side-nav a.active .side-icon,
-    .side-summary.active .side-icon {
-        @apply bg-white text-[#0B2345];
-    }
-
-    .side-subs {
-        @apply border-[#cfe0f2];
-    }
-
+    /* ── Header & Navigation interactive menus ────────────────────────── */
     .side-summary::after {
         background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='rgba(100,116,139,0.65)' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
     }
@@ -1312,95 +1212,9 @@
         display: none;
     }
 
-    .side-footer {
-        @apply border-slate-100 bg-white;
-    }
-
-    .sidebar-user {
-        @apply rounded-[12px] border border-slate-100 bg-slate-50 p-2;
-    }
-
-    .sidebar-user-avatar {
-        @apply bg-[#E8EEF5] text-[#0B2345];
-    }
-
-    .sidebar-user-name {
-        @apply text-slate-800;
-    }
-
-    .sidebar-user-role {
-        @apply text-slate-400;
-    }
-
-    .sidebar-logout-btn {
-        @apply bg-white text-slate-400 hover:bg-red-50 hover:text-red-600;
-    }
-
-    .app-header {
-        @apply sticky top-0 z-30 px-0 pb-4 pt-0;
-    }
-
-    .app-header-card {
-        @apply rounded-none border border-[#0B2345]/20 px-6 py-4;
-        background: linear-gradient(135deg, #0B2345 0%, #123A6B 55%, #0B2345 100%);
-        box-shadow: 0 10px 26px rgba(0, 89, 167, 0.22);
-    }
-
-    .hdr-toggle,
-    .hdr-icon-btn {
-        @apply h-12 w-12 bg-white/10 text-white hover:bg-white/20 hover:text-white;
-    }
-
-    .hdr-toggle svg,
-    .hdr-icon-btn svg {
-        @apply h-7 w-7;
-    }
-
-    .hdr-sep {
-        @apply bg-white/25;
-    }
-
-    .hdr-page-icon,
-    .hdr-date,
-    .hdr-user-chip {
-        @apply bg-white/16;
-    }
-
-    .hdr-action-btn {
-        @apply bg-white text-[#0B2345] hover:bg-[#E8EEF5] hover:text-[#0B2345];
-    }
-
-    .hdr-notif-badge {
-        @apply bg-white text-[#0B2345];
-    }
-
-    .hdr-user-chip {
-        @apply relative m-0 border-0 p-0 pt-0;
-    }
-
-    .hdr-user-summary {
-        @apply flex cursor-pointer list-none items-center gap-2 rounded-[10px] py-1.5 pl-1.5 pr-2 text-white;
-    }
-
     .hdr-user-summary::-webkit-details-marker,
     .hdr-user-summary::marker {
         display: none;
-    }
-
-    .hdr-user-avatar {
-        @apply h-10 w-10 bg-white text-[#0B2345];
-    }
-
-    .hdr-page-icon {
-        @apply h-12 w-12;
-    }
-
-    .hdr-page-icon svg {
-        @apply h-7 w-7;
-    }
-
-    .hdr-user-chevron {
-        @apply h-4 w-4 text-white/75 transition;
     }
 
     .hdr-user-chip[open] .hdr-user-chevron {
@@ -1430,33 +1244,6 @@
     .hdr-logout-menu-btn svg {
         @apply h-5 w-5;
     }
-
-    .content-body {
-        @apply px-5 pb-8 pt-1 sm:px-6 lg:px-8;
-    }
-
-    h1,
-    h2,
-    h3 {
-        @apply text-slate-900;
-    }
-
-    .muted {
-        @apply text-slate-500;
-    }
-
-    .card,
-    .stat-card,
-    .chart-card,
-    .filter-panel {
-        @apply rounded-[12px] border-slate-200 bg-white shadow-sm shadow-slate-200/80;
-    }
-
-    .card:hover,
-    .stat-card:hover {
-        @apply shadow-md shadow-[#0B2345]/10;
-    }
-
     /* ── Standardized Enterprise Form Architecture ─────────────────────── */
     .form-group,
     .field {
@@ -1540,13 +1327,7 @@
         @apply bg-[#0B2345] text-white shadow-sm shadow-[#0B2345]/20 hover:bg-[#0B2345];
     }
 
-    .ghost {
-        @apply border border-[#D9E2EC] bg-white text-[#0B2345] shadow-xs hover:border-[#0B2345] hover:bg-[#F4F7FB];
-    }
 
-    .danger {
-        @apply bg-[#DC2626] text-white font-semibold shadow-xs hover:bg-[#B91C1C];
-    }
 
     .success {
         @apply bg-[#16A34A] text-white font-semibold shadow-xs hover:bg-[#15803D];
@@ -1560,17 +1341,7 @@
         @apply bg-[#D97706] text-white font-semibold shadow-xs hover:bg-[#B45309];
     }
 
-    .good {
-        @apply text-[#16A34A] font-bold;
-    }
 
-    .bad {
-        @apply text-[#DC2626] font-bold;
-    }
-
-    .badge {
-        @apply bg-slate-100 text-[#475569] font-semibold;
-    }
 
     .badge-active,
     .badge-approved,
@@ -1655,23 +1426,11 @@
         @apply hover:border-[#DC2626] hover:bg-[#DC2626]/10 hover:text-[#DC2626];
     }
 
-    .actions {
-        @apply justify-end;
-    }
-
     .metric,
     .stat-card-metric,
     .filter-chip-count,
     .notif-count {
         @apply text-slate-900;
-    }
-
-    .filter-chip {
-        @apply rounded-[12px] border-slate-200 shadow-sm shadow-slate-200/70 hover:border-[#cfe0f2] hover:bg-[#E8EEF5]/50;
-    }
-
-    .filter-chip.active {
-        @apply border-[#0B2345]/30 bg-[#E8EEF5];
     }
 
     .filter-chip-icon,
@@ -1683,30 +1442,6 @@
     .filter-chip.active .filter-chip-count,
     .filter-chip.active .filter-chip-icon {
         @apply text-[#0B2345];
-    }
-
-    .notice {
-        @apply border-[#cfe0f2] bg-[#E8EEF5] text-[#0B2345];
-    }
-
-    .pager a {
-        @apply text-[#0B2345] hover:bg-[#E8EEF5];
-    }
-
-    .pager span[aria-current="page"] span,
-    .pager [aria-current="page"] span {
-        @apply bg-[#0B2345] text-white;
-    }
-
-    @media (max-width: 1100px) {
-        .app-shell,
-        .app-shell.sidebar-collapsed {
-            @apply grid-cols-1;
-        }
-
-        .sidebar {
-            @apply fixed z-50;
-        }
     }
 
     @media (max-width: 768px) {
@@ -1925,10 +1660,6 @@
         @apply flex min-h-28 items-center justify-between gap-5 rounded-[12px] border border-[#d7e3ef] bg-white p-5 text-slate-700 no-underline shadow-sm shadow-slate-200/70 transition hover:-translate-y-0.5 hover:border-[#0B2345] hover:bg-[#f7fbff] hover:shadow-lg hover:shadow-[#0B2345]/10;
     }
 
-    .module-sub-main {
-        @apply flex min-w-0 items-center gap-4;
-    }
-
     .module-sub-icon {
         @apply grid h-12 w-12 shrink-0 place-items-center rounded-[12px] bg-[#E8EEF5] text-[#0B2345] transition;
     }
@@ -2133,11 +1864,11 @@
     }
 
     .cms-card-grid {
-        @apply grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4;
+        @apply grid grid-cols-1 gap-3 p-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4;
     }
 
     .cms-section-card {
-        @apply flex min-h-64 flex-col rounded-[12px] border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/70 transition duration-300 hover:-translate-y-1 hover:border-[#0B2345]/25 hover:shadow-xl hover:shadow-[#0B2345]/10;
+        @apply flex min-h-52 flex-col rounded-[12px] border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/70 transition duration-300 hover:-translate-y-1 hover:border-[#0B2345]/25 hover:shadow-xl hover:shadow-[#0B2345]/10;
     }
 
     .cms-section-card-top {
@@ -2153,7 +1884,7 @@
     }
 
     .cms-section-card-body {
-        @apply min-h-24 flex-1;
+        @apply min-h-20 flex-1;
     }
 
     .cms-section-card-body h3 {
@@ -2472,236 +2203,15 @@
         }
     }
 
-    /* ── Global UI audit: font, sizing, and card consistency ───────────── */
-    body,
-    input,
-    select,
-    textarea,
-    button,
-    .button,
-    .sidebar,
-    .side-nav a,
-    .side-nav button,
-    .side-summary,
-    .hdr-page-title,
-    h1,
-    h2,
-    h3,
-    h4,
-    .module-detail-hero h1,
-    .process-hub-heading h1,
-    .approval-hero h1,
-    .cms-tile h2,
-    .cms-row-title h3,
-    .cms-section-card-body h3,
-    .approval-card-body h3,
-    .task-column-head h3,
-    .process-center strong,
-    .process-node-card h3,
-    .module-sub-card h3 {
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    }
-
-    h1 {
-        @apply text-2xl font-bold leading-tight tracking-tight text-[#0F172A] sm:text-3xl;
-    }
-
-    h2 {
-        @apply mb-3 text-lg font-semibold leading-tight tracking-tight text-[#0F172A] sm:text-xl;
-    }
-
-    h3 {
-        @apply mb-2 text-base font-semibold leading-snug text-[#0F172A];
-    }
-
-    .module-detail-hero h1,
-    .process-hub-heading h1,
-    .approval-hero h1 {
-        @apply text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl;
-    }
-
-    .module-detail-hero p,
-    .process-hub-heading p,
-    .approval-hero p {
-        @apply mt-2 text-sm font-medium leading-6;
-    }
-
-    .module-detail-hero,
-    .process-hub-heading,
-    .approval-hero {
-        @apply rounded-[12px] p-5 sm:p-6;
-    }
-
-    .card,
-    .stat-card,
-    .chart-card,
-    .filter-panel,
-    .cms-panel,
-    .cms-form-card,
-    .cms-tile,
-    .cms-section-card,
-    .cms-endpoint,
-    .approval-card,
-    .task-panel,
-    .task-column,
-    .task-card,
-    .ui-modal-card,
-    .module-sub-card,
-    .process-center {
-        @apply rounded-[12px] border border-[#D9E2EC] bg-white shadow-xs;
-    }
-
-    .card:hover,
-    .cms-tile:hover,
-    .cms-section-card:hover,
-    .cms-endpoint:hover,
-    .approval-card:hover,
-    .task-card:hover,
-    .module-sub-card:hover {
-        @apply border-[#0B2345]/30 shadow-sm;
-    }
-
-    button,
-    .button,
-    .ghost,
-    .danger,
-    .success,
-    .hdr-action-btn,
-    .task-create-btn {
-        @apply rounded-[10px] text-xs font-semibold;
-    }
-
-    .badge,
-    .cms-tile-count,
-    .cms-method,
-    .approval-chip,
-    .task-priority {
-        @apply rounded-full text-[11px] font-bold tracking-wide;
-    }
-
-    .module-title-icon,
-    .cms-tile-icon,
-    .approval-icon,
-    .process-node-icon,
-    .module-sub-icon,
-    .filter-panel-icon,
-    .stat-card-icon,
-    .cms-section-icon {
-        @apply rounded-[10px];
-    }
-
-    .module-count strong,
-    .process-hub-count strong,
-    .approval-hero-stat strong,
-    .approval-card-body strong,
-    .metric,
-    .stat-card-metric {
-        @apply text-2xl font-extrabold sm:text-3xl;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    }
-
-    .topbar,
-    .cms-panel-head,
-    .task-panel-head,
-    .ui-modal-head {
-        @apply mb-4 gap-3;
-    }
-
-    .content-body {
-        @apply pt-4;
-    }
-
-    /* ── Make every hub card follow the CMS card language ──────────────── */
+    /* ── Hub Card Grid Container ────────────────────────────────────────── */
     .module-sub-grid,
     .approval-grid {
         @apply mt-6 grid grid-cols-1 gap-5 lg:grid-cols-3;
     }
 
-    .module-sub-card,
-    .approval-card {
-        @apply relative min-h-64 overflow-hidden rounded-[12px] border border-slate-200 bg-white p-6 text-slate-700 no-underline shadow-sm shadow-slate-200/80 transition duration-300 hover:-translate-y-1 hover:border-[#0B2345]/30 hover:shadow-xl hover:shadow-[#0B2345]/10;
-    }
-
-    .module-sub-card::before,
-    .approval-card::before {
-        @apply pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#E8EEF5] transition duration-300 content-[''];
-    }
-
-    .module-sub-card:hover::before,
-    .approval-card:hover::before {
-        @apply scale-125 bg-[#d7ecff];
-    }
-
-    .module-sub-main,
-    .approval-card-top,
-    .approval-card-body,
-    .approval-card-foot {
-        @apply relative z-10;
-    }
-
-    .module-sub-main {
-        @apply flex flex-col items-start gap-0;
-    }
-
-    .module-sub-icon,
-    .approval-icon {
-        @apply mb-6 grid h-14 w-14 place-items-center rounded-[12px] bg-[#0B2345] text-white shadow-lg shadow-[#0B2345]/20 transition;
-    }
-
-    .module-sub-icon svg,
-    .approval-icon svg {
-        @apply h-7 w-7;
-    }
-
-    .module-sub-card:hover .module-sub-icon,
-    .approval-card:hover .approval-icon {
-        @apply scale-105 bg-[#0B2345] text-white;
-    }
-
-    .module-sub-card h3,
-    .approval-card-body h3 {
-        @apply mb-2 text-xl font-black text-slate-900;
-    }
-
-    .module-sub-card p,
-    .approval-card-body p {
-        @apply text-sm font-semibold leading-6 text-slate-500;
-    }
-
-    .module-sub-action,
-    .approval-card-foot {
-        @apply relative z-10 mt-6 flex items-center justify-between gap-3 border-t border-slate-100 bg-transparent px-0 pt-4 text-xs font-black uppercase tracking-wide text-[#0B2345];
-    }
-
-    .approval-card {
-        @apply flex flex-col justify-between;
-    }
-
-    .approval-card-top {
-        @apply mb-0 flex items-start justify-between gap-3;
-    }
-
-    .approval-card-body {
-        @apply mt-0 flex items-end justify-between gap-4;
-    }
-
-    .approval-card-body strong {
-        @apply text-3xl font-black leading-none text-[#0B2345];
-    }
-
-    .approval-chip {
-        @apply rounded-full bg-slate-100 px-3 py-1 text-xs font-black uppercase tracking-wide text-slate-500;
-    }
-
     /* ── Compact scale pass: smaller fonts and cards everywhere ───────── */
     body {
         @apply text-[13px];
-    }
-
-    input,
-    select,
-    textarea {
-        @apply min-h-10 rounded-lg px-3 py-2.5 text-xs;
     }
 
     h1 {
@@ -2808,12 +2318,6 @@
         @apply text-sm font-bold;
     }
 
-    .cms-tile-icon,
-    .module-sub-icon,
-    .approval-icon {
-        @apply mb-4;
-    }
-
     .cms-tile-foot,
     .module-sub-action,
     .approval-card-foot,
@@ -2854,109 +2358,10 @@
         @apply text-xl sm:text-2xl;
     }
 
-    .cms-card-grid {
-        @apply gap-3 p-3;
-    }
-
-    .cms-section-card {
-        @apply min-h-52;
-    }
-
-    .cms-section-card-body {
-        @apply min-h-20;
-    }
-
     .cms-panel-head,
     .task-panel-head,
     .ui-modal-head {
         @apply p-4;
-    }
-
-    .content-body {
-        @apply px-4 pb-5;
-    }
-
-    /* ── Compact sidebar scale ─────────────────────────────────────────── */
-    .app-shell {
-        @apply grid-cols-[220px_minmax(0,1fr)];
-    }
-
-    .app-shell.sidebar-collapsed {
-        @apply grid-cols-[64px_minmax(0,1fr)];
-    }
-
-    .sidebar-head {
-        @apply px-3 py-3;
-    }
-
-    .sidebar-brand {
-        @apply gap-2.5;
-    }
-
-    .sidebar .logo {
-        @apply h-9 w-9 rounded-[10px] text-xs;
-    }
-
-    .sidebar-title {
-        @apply text-[12px] leading-tight;
-    }
-
-    .sidebar-subtitle {
-        @apply text-[9px] leading-tight;
-    }
-
-    .sidebar-scroll {
-        @apply px-2 py-2;
-    }
-
-    .side-nav {
-        @apply gap-0.5;
-    }
-
-    .side-nav a,
-    .side-nav button,
-    .side-summary {
-        @apply gap-2 rounded-[10px] px-2.5 py-2 text-xs font-semibold;
-    }
-
-    .side-icon {
-        @apply h-8 w-8 rounded-lg;
-    }
-
-    .side-icon svg {
-        @apply h-4 w-4;
-    }
-
-    .side-label {
-        @apply text-xs leading-tight;
-    }
-
-    .side-footer {
-        @apply px-2.5 py-2;
-    }
-
-    .sidebar-user {
-        @apply gap-2 rounded-[12px] p-2;
-    }
-
-    .sidebar-user-avatar {
-        @apply h-8 w-8 rounded-lg text-[10px];
-    }
-
-    .sidebar-user-name {
-        @apply text-xs leading-tight;
-    }
-
-    .sidebar-user-role {
-        @apply text-[9px] leading-tight;
-    }
-
-    .sidebar-logout-btn {
-        @apply h-9 w-9 rounded-[10px];
-    }
-
-    .sidebar-logout-btn svg {
-        @apply h-5 w-5;
     }
 
     /* ── Canonical hub card: CMS, Admin, Modules, Reports, Approvals ──── */
@@ -3030,117 +2435,6 @@
 
     .approval-card-top {
         @apply relative z-10 mb-4 flex w-full items-start justify-between gap-3;
-    }
-
-    .approval-card-body {
-        @apply relative z-10 mt-0 flex w-full items-start justify-between gap-4;
-    }
-
-    .approval-card-body strong {
-        @apply text-xl font-black leading-none text-[#0B2345];
-    }
-
-    .approval-card-foot svg {
-        @apply h-4 w-4;
-    }
-
-    /* ── Compact navbar + better hub action pill ──────────────────────── */
-    .app-header {
-        @apply px-0 pb-3 pt-0;
-    }
-
-    .app-header-card {
-        @apply gap-3 rounded-none px-4 py-2.5;
-    }
-
-    .app-header-left,
-    .app-header-right {
-        @apply gap-2;
-    }
-
-    .hdr-toggle,
-    .hdr-icon-btn {
-        @apply h-9 w-9 rounded-[10px];
-    }
-
-    .hdr-toggle svg,
-    .hdr-icon-btn svg {
-        @apply h-5 w-5;
-    }
-
-    .hdr-sep {
-        @apply h-5;
-    }
-
-    .hdr-context {
-        @apply gap-2;
-    }
-
-    .hdr-page-icon {
-        @apply h-9 w-9 rounded-[10px];
-    }
-
-    .hdr-page-icon svg {
-        @apply h-5 w-5;
-    }
-
-    .hdr-page-title {
-        @apply text-sm font-bold;
-    }
-
-    .hdr-page-path {
-        @apply text-[10px] font-semibold;
-    }
-
-    .hdr-date {
-        @apply rounded-[10px] px-2.5 py-1.5 text-[11px];
-    }
-
-    .hdr-date svg {
-        @apply h-3.5 w-3.5;
-    }
-
-    .hdr-user-summary {
-        @apply gap-2 rounded-[10px] py-1 pl-1 pr-2;
-    }
-
-    .hdr-user-avatar {
-        @apply h-8 w-8 rounded-lg text-[10px];
-    }
-
-    .hdr-user-name {
-        @apply text-xs font-bold;
-    }
-
-    .hdr-user-role {
-        @apply text-[9px];
-    }
-
-    .hdr-user-chevron {
-        @apply h-3.5 w-3.5;
-    }
-
-    .cms-tile-action,
-    .module-sub-action,
-    .approval-card-foot span {
-        @apply inline-flex items-center gap-1.5 rounded-full bg-[#E8EEF5] px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#0B2345] transition;
-    }
-
-    .cms-tile-action::after,
-    .module-sub-action::after,
-    .approval-card-foot span::after {
-        content: '→';
-        @apply text-xs leading-none;
-    }
-
-    .cms-tile:hover .cms-tile-action,
-    .module-sub-card:hover .module-sub-action,
-    .approval-card:hover .approval-card-foot span {
-        @apply bg-[#0B2345] text-white;
-    }
-
-    .approval-card-foot > svg {
-        @apply hidden;
     }
 
     /* ── Match all hub actions to CMS action style exactly ────────────── */
@@ -3241,10 +2535,6 @@
     .ui-feedback-error .ui-feedback-icon,
     .errors::before {
         @apply bg-red-100 text-red-700;
-    }
-
-    .errors {
-        @apply font-bold;
     }
 
     /* ── Unified Enterprise Button System ────────────────────────────── */
@@ -4060,35 +3350,7 @@ textarea:focus {
     box-shadow: 0 0 0 1px #002875 !important;
 }
 
-/* Table standardization */
-table {
-    border-collapse: collapse !important;
-    width: 100% !important;
-}
 
-th {
-    background-color: #F8FAFC !important;
-    border-bottom: 1px solid #E2E8F0 !important;
-    color: #475569 !important;
-    font-size: 11px !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    padding: 10px 14px !important;
-    vertical-align: middle !important;
-}
-
-td {
-    border-bottom: 1px solid #F1F5F9 !important;
-    padding: 10px 14px !important;
-    color: #1E293B !important;
-    font-size: 13px !important;
-    vertical-align: middle !important;
-}
-
-tbody tr:hover {
-    background-color: #F8FAFC !important;
-}
 
 /* Section headers */
 .section-head {
@@ -4109,19 +3371,7 @@ tbody tr:hover {
     margin: 0 !important;
 }
 
-/* Pager / Pagination */
-.pager {
-    border-top: 1px solid #E2E8F0 !important;
-    background-color: #F8FAFC !important;
-    padding: 10px 16px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    font-size: 12px !important;
-    color: #64748B !important;
-    margin-top: 12px !important;
-    border-radius: 0 0 8px 8px !important;
-}
+
 
 /* Login fields: keep the leading icon clear of the entered text at every zoom level. */
 .login-field-wrap {
@@ -4168,33 +3418,45 @@ tbody tr:hover {
     padding-right: 3.25rem !important;
 }
 
-/* Sidebar toggle uses the NEXORA navy accent instead of white. */
-.hdr-toggle .sidebar-toggle-icon {
-    color: #0B2345 !important;
-}
-
-/* Keep the sidebar toggle visible against the dark header. */
+/* Stable toggle geometry and styling against the dark header */
 .app-header .hdr-toggle {
-    background: #FFFFFF !important;
-    border-color: rgba(255, 255, 255, 0.9) !important;
-    color: #0B2345 !important;
+    flex: 0 0 44px !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
+    color: #FFFFFF !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 .app-header .hdr-toggle:hover {
-    background: #E8F0FD !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #FFFFFF !important;
 }
 
-/* The sidebar toggle chevron must remain blue in every header state. */
-.app-header .hdr-toggle,
-.app-header .hdr-toggle:hover,
 .app-header .hdr-toggle:focus,
-.app-header .hdr-toggle:active,
+.app-header .hdr-toggle:active {
+    color: #FFFFFF !important;
+}
+
+.hdr-toggle .sidebar-toggle-icon,
 .app-header .hdr-toggle .sidebar-toggle-icon {
-    color: #0B2345 !important;
+    flex: 0 0 24px !important;
     width: 24px !important;
     height: 24px !important;
     min-width: 24px !important;
     min-height: 24px !important;
+    margin: 0 !important;
+    color: #FFFFFF !important;
     display: block !important;
 }
 
@@ -4211,25 +3473,6 @@ tbody tr:hover {
     padding-right: 0.5rem !important;
 }
 
-/* Stable toggle geometry at narrow widths and high browser zoom. */
-.app-header .hdr-toggle {
-    flex: 0 0 44px !important;
-    width: 44px !important;
-    min-width: 44px !important;
-    height: 44px !important;
-    min-height: 44px !important;
-    padding: 0 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important;
-}
-
-.app-header .hdr-toggle .sidebar-toggle-icon {
-    flex: 0 0 24px !important;
-    margin: 0 !important;
-}
-
 /* Active sidebar groups keep their open/close chevron blue. */
 .side-nav .side-summary .side-chevron,
 .side-nav .side-summary.active .side-chevron,
@@ -4237,17 +3480,23 @@ tbody tr:hover {
     color: #0B2345 !important;
 }
 
+/* Smaller icons inside module/management cards; sidebar sizing is untouched. */
+.menu-module-card-icon svg {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+
 /* Active sidebar icons use white artwork without a white tile behind them. */
 .side-nav a.active .side-icon,
 .side-nav .side-summary.active .side-icon {
     background: transparent !important;
-    color: #FFFFFF !important;
+    color: #0B2345 !important;
     box-shadow: none !important;
 }
 
 .side-nav a.active .side-icon svg,
 .side-nav .side-summary.active .side-icon svg {
-    color: #FFFFFF !important;
+    color: #0B2345 !important;
     stroke: currentColor !important;
 }
 
@@ -4296,58 +3545,32 @@ tbody tr:hover {
     stroke: currentColor !important;
 }
 
-/* Normalize legacy list actions that still render text-only controls. */
-table td form button[class*="text-red"],
-table td form button[class*="text-\[#DC2626\]"],
-table td form button[class*="text-red-700"] {
-    width: 1.75rem !important;
-    height: 1.75rem !important;
-    min-width: 1.75rem !important;
-    padding: 0 !important;
+/* One rule for every legacy delete button. */
+.shell form button.danger,
+.shell form button[class*="text-red"],
+.shell form button[title*="Hapus"],
+.shell form button[aria-label*="Hapus"] {
     font-size: 0 !important;
-    line-height: 1 !important;
+    min-width: 2.25rem !important;
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    padding: 0 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    border-radius: 6px !important;
-    border: 1px solid #FCA5A5 !important;
-    background: #FEF2F2 !important;
-    color: #DC2626 !important;
 }
 
-table td form button[class*="text-red"]::before,
-table td form button[class*="text-\[#DC2626\]"]::before,
-table td form button[class*="text-red-700"]::before {
-    content: '';
-    display: block;
-    width: 0.875rem;
-    height: 0.875rem;
-    background-color: currentColor;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat;
-}
-
-table td form button.mini.danger,
-table td form button[class~="danger"] {
-    width: 1.75rem !important;
-    height: 1.75rem !important;
-    padding: 0 !important;
-    font-size: 0 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-radius: 6px !important;
-}
-
-table td form button.mini.danger::before,
-table td form button[class~="danger"]::before {
-    content: '';
-    display: block;
-    width: 0.875rem;
-    height: 0.875rem;
-    background-color: currentColor;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat;
+.shell form button.danger::before,
+.shell form button[class*="text-red"]::before,
+.shell form button[title*="Hapus"]::before,
+.shell form button[aria-label*="Hapus"]::before {
+    content: '' !important;
+    display: block !important;
+    width: 1rem !important;
+    height: 1rem !important;
+    background-color: currentColor !important;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat !important;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5M14 11v5'/%3E%3C/svg%3E") center / contain no-repeat !important;
 }
 
 a.button.mini.ghost,
@@ -4388,9 +3611,7 @@ table td a[class*="text-blue-700"]::before {
 .module-products .btn-primary, .module-stock-adjustments .btn-primary, .module-warehouses .btn-primary { background-color: #DB2777 !important; }
 .module-cms .btn-primary, .module-cms-blog .btn-primary, .module-cms-sections .btn-primary { background-color: #C026D3 !important; }
 
-#login-password.login-field-input {
-    padding-right: 2.75rem !important;
-}
+
 
 /* ==========================================================================
    FOLK CRM / ATTIO GRID TABLE SPECIFICATION (Vertical & Horizontal Gridlines)
@@ -4540,73 +3761,8 @@ table.w-full td[colspan] {
     flex-shrink: 0;
 }
 
-/* ==========================================================================
-   LINEAR SINGLE-ROW FILTER TOOLBAR SPECIFICATION (Strictly 1 Row)
-   ========================================================================== */
 
-.filter-card {
-    background-color: #FFFFFF !important;
-    border: 1px solid #E5E7EB !important;
-    border-radius: 0.5rem !important;
-    padding: 0.75rem 1rem !important;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
-}
 
-.filter-toolbar,
-.filter-card form,
-form.filter-form,
-[data-filter-bar] {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    flex-wrap: nowrap !important;
-    gap: 0.5rem !important;
-    overflow-x: auto !important;
-    white-space: nowrap !important;
-    width: 100% !important;
-}
-
-.filter-toolbar input:not([type="checkbox"]):not([type="radio"]),
-.filter-toolbar select,
-.filter-card form input:not([type="checkbox"]):not([type="radio"]),
-.filter-card form select,
-form.filter-form input:not([type="checkbox"]):not([type="radio"]),
-form.filter-form select,
-[data-filter-bar] input:not([type="checkbox"]):not([type="radio"]),
-[data-filter-bar] select {
-    width: auto !important;
-    min-width: 0 !important;
-    max-width: 16rem !important;
-    height: 2.125rem !important;
-    min-height: 2.125rem !important;
-    padding: 0.25rem 0.625rem !important;
-    font-size: 0.75rem !important;
-    border-radius: 0.375rem !important;
-    border: 1px solid #D1D5DB !important;
-    background-color: #FFFFFF !important;
-    color: #0F172A !important;
-    flex-shrink: 0 !important;
-}
-
-.filter-toolbar select,
-.filter-card form select,
-form.filter-form select {
-    width: 10rem !important;
-    background-color: #FFFFFF !important;
-}
-
-.filter-toolbar input[type="date"],
-.filter-card form input[type="date"],
-form.filter-form input[type="date"] {
-    width: 8.5rem !important;
-}
-
-.filter-toolbar .filter-search,
-.filter-card form .filter-search,
-form.filter-form .filter-search {
-    width: 15rem !important;
-    flex-shrink: 0 !important;
-}
 
 /* ==========================================================================
    EXPORT, IMPORT, AND PDF BUTTON STYLES (Linear & Attio Style)
@@ -4614,12 +3770,14 @@ form.filter-form .filter-search {
 
 .btn-export,
 .btn-import,
-.btn-pdf {
+.btn-pdf,
+.toolbar-create-button {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 0.375rem !important;
     height: 2.125rem !important;
+    min-height: 2.125rem !important;
     padding: 0 0.75rem !important;
     font-size: 0.75rem !important;
     font-weight: 600 !important;
@@ -4644,42 +3802,17 @@ form.filter-form .filter-search {
 
 .btn-export svg,
 .btn-import svg,
-.btn-pdf svg {
+.btn-pdf svg,
+.toolbar-create-button svg {
     width: 0.875rem !important;
     height: 0.875rem !important;
     flex-shrink: 0 !important;
 }
 
-/* One consistent action-button scale across every module toolbar. */
 .toolbar-actions {
-    align-items: center !important;
-    gap: 0.5rem !important;
-}
-
-.toolbar-actions .btn-export,
-.toolbar-actions .btn-import,
-.toolbar-actions .btn-pdf,
-.toolbar-actions .toolbar-create-button {
-    height: 2.25rem !important;
-    min-height: 2.25rem !important;
-    padding: 0 0.875rem !important;
-    border-radius: 0.5rem !important;
-    font-size: 0.8125rem !important;
-    line-height: 1 !important;
     display: inline-flex !important;
     align-items: center !important;
-    justify-content: center !important;
-    gap: 0.45rem !important;
-    white-space: nowrap !important;
-}
-
-.toolbar-actions .toolbar-create-button svg,
-.toolbar-actions .btn-export svg,
-.toolbar-actions .btn-import svg,
-.toolbar-actions .btn-pdf svg {
-    width: 1rem !important;
-    height: 1rem !important;
-    flex: 0 0 1rem !important;
+    gap: 0.5rem !important;
 }
 
 /* Unified button sizing for all ERP feature pages. */
@@ -4877,6 +4010,31 @@ form.filter-form .filter-search {
     color: #1E293B !important;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
     flex-shrink: 0 !important;
+}
+
+/* Search fields reserve a dedicated lane for the magnifier icon. */
+.filter-card .filter-search {
+    padding-left: 2.25rem !important;
+    text-indent: 0 !important;
+}
+
+.filter-card .filter-search + div {
+    z-index: 2 !important;
+    width: 2rem !important;
+    padding-left: 0 !important;
+    justify-content: center !important;
+}
+
+.filter-card .filter-search + div svg {
+    width: 0.875rem !important;
+    height: 0.875rem !important;
+    display: block !important;
+}
+
+/* Keep search on the left and push all filter controls to the right. */
+.filter-toolbar > div:has(> .filter-search),
+.filter-card form > div:has(> .filter-search) {
+    margin-right: auto !important;
 }
 
 /* Select Dropdowns */

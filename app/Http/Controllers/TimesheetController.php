@@ -24,7 +24,8 @@ class TimesheetController extends Controller
             ->when($request->status, fn($q, $v) => $q->where('status', $v))
             ->latest()->paginate(8)->withQueryString();
         $employees = \App\Models\Employee::orderBy('name')->get(['id', 'name']);
-        return view('erp.timesheets.index', compact('items', 'employees'));
+        $projects = \App\Models\Project::orderBy('code')->get(['id', 'code', 'name']);
+        return view('erp.timesheets.index', compact('items', 'employees', 'projects'));
     }
 
     public function create(): View

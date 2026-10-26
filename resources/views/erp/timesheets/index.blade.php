@@ -1,47 +1,58 @@
-@extends('layouts.erp', ['activePage' => 'timesheets', 'pageTitle' => 'Timesheet Proyek & Aktivitas'])
+@extends('layouts.erp', ['activePage' => 'timesheets', 'pageTitle' => 'Timesheet Kerja Proyek'])
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-4">
+    {{-- Card 1 — Page Header & Global Actions --}}
     <x-erp.page-header
-        title="Timesheet Proyek & Aktivitas"
-        subtitle="Catat alokasi jam kerja karyawan per proyek, deskripsi pekerjaan, dan status verifikasi persetujuan."
+        title="Timesheet Kerja Proyek"
+        subtitle="Pencatatan alokasi jam kerja harian staf untuk tiap task dan project client guna perhitungan cost rate."
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'HRIS', 'url' => route('hris.index')], ['label' => 'Timesheets']]"
     >
         <x-slot:actions>
-            <x-erp.toolbar-actions module="timesheets" :create-route="route('timesheets.create-page')" create-label="+ Catat Timesheet" />
+            <x-erp.toolbar-actions module="timesheets" :create-route="route('timesheets.create-page')" create-label="Catat Timesheet" />
         </x-slot:actions>
     </x-erp.page-header>
 
-    <div class="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
-        <x-erp.toolbar :resetUrl="route('timesheets.index')">
-            <x-slot:filters>
-                <input type="date" name="date_from" value="{{ request('date_from') }}" placeholder="Dari tgl"
-                    class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                <input type="date" name="date_to" value="{{ request('date_to') }}" placeholder="Sampai tgl"
-                    class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                <select name="employee_id" class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                    <option value="">Semua Karyawan</option>
-                    @foreach($employees as $emp)
-                        <option value="{{ $emp->id }}" @selected(request('employee_id') == $emp->id)>{{ $emp->name }}</option>
-                    @endforeach
-                </select>
-                <select name="status" class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                    <option value="">Semua Status</option>
-                    <option value="submitted" @selected(request('status') === 'submitted')>Submitted</option>
-                    <option value="approved" @selected(request('status') === 'approved')>Approved</option>
-                    <option value="rejected" @selected(request('status') === 'rejected')>Rejected</option>
-                </select>
-            </x-slot:filters>
-        </x-erp.toolbar>
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('timesheets.index') }}" class="filter-toolbar">
+            <input type="text" name="search" placeholder="Cari task / aktivitas..." value="{{ request('search') }}" class="filter-search">
+            <select name="project_id" class="filter-select">
+                <option value="">Semua Project</option>
+                @foreach($projects as $proj)
+                    <option value="{{ $proj->id }}" @selected(request('project_id') == $proj->id)>{{ $proj->code }} - {{ $proj->name }}</option>
+                @endforeach
+            </select>
+            <select name="employee_id" class="filter-select">
+                <option value="">Semua Karyawan</option>
+                @foreach($employees as $emp)
+                    <option value="{{ $emp->id }}" @selected(request('employee_id') == $emp->id)>{{ $emp->name }}</option>
+                @endforeach
+            </select>
+            <div class="flex items-center gap-2">
+                <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#001B50] transition-colors">
+                    Filter
+                </button>
+                @if(request()->hasAny(['search', 'project_id', 'employee_id']))
+                    <a href="{{ route('timesheets.index') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                        Reset
+                    </a>
+                @endif
+            </div>
+        </form>
+    </div>
 
+    {{-- Card 3 — Workspace: Data Table --}}
+    <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
                     <tr class="border-y border-slate-200 bg-slate-50/75 text-[11px] font-semibold text-slate-600 uppercase tracking-wider">
                         <th class="py-3 px-4">Karyawan</th>
-                        <th class="py-3 px-4">Proyek</th>
+                        <th class="py-3 px-4">Proyek / Task</th>
                         <th class="py-3 px-4 text-center">Tanggal</th>
-                        <th class="py-3 px-4 text-center">Alokasi Jam</th>
+                        <th class="py-3 px-4 text-center">Durasi Jam</th>
+                        <th class="py-3 px-4 text-center">Billable</th>
                         <th class="py-3 px-4 text-center">Status</th>
                         <th class="py-3 px-4 text-center w-28">Aksi</th>
                     </tr>
@@ -51,16 +62,16 @@
                         <tr class="hover:bg-slate-50/60 transition-colors">
                             <td class="py-3 px-4 font-bold text-slate-900">{{ $row->employee->name ?? '-' }}</td>
                             <td class="py-3 px-4">
-                                @if($row->project)
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-blue-50 text-[#002875]">
-                                        {{ $row->project->code }}
-                                    </span>
-                                @else
-                                    <span class="text-slate-400">Non-Project</span>
-                                @endif
+                                <div class="font-semibold text-slate-900">{{ $row->project->name ?? '-' }}</div>
+                                <div class="text-[11px] text-slate-500">{{ $row->task_name }}</div>
                             </td>
-                            <td class="py-3 px-4 text-center text-slate-600 whitespace-nowrap">{{ $row->work_date ? \Carbon\Carbon::parse($row->work_date)->format('d/m/Y') : '-' }}</td>
-                            <td class="py-3 px-4 text-center font-bold text-slate-900">{{ $row->hours }} jam</td>
+                            <td class="py-3 px-4 text-center whitespace-nowrap">{{ $row->date ? \Carbon\Carbon::parse($row->date)->format('d/m/Y') : '-' }}</td>
+                            <td class="py-3 px-4 text-center font-bold text-[#002875]">{{ $row->hours }} Jam</td>
+                            <td class="py-3 px-4 text-center">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium {{ $row->is_billable ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-600' }}">
+                                    {{ $row->is_billable ? 'Yes' : 'No' }}
+                                </span>
+                            </td>
                             <td class="py-3 px-4 text-center">
                                 <x-erp.status-badge :status="$row->status" />
                             </td>
@@ -74,7 +85,7 @@
                                     @endif
                                     @if($can('admin'))
                                     <button type="button"
-                                        onclick="window.showDeleteModal('{{ route('timesheets.destroy', $row) }}', 'Timesheet {{ $row->employee->name ?? 'Karyawan' }} ({{ $row->work_date }})')"
+                                        onclick="window.showDeleteModal('{{ route('timesheets.destroy', $row) }}', 'Timesheet {{ $row->employee->name ?? 'Karyawan' }}')"
                                         class="rounded p-1 text-slate-400 hover:bg-red-50 hover:text-[#DC2626] transition-colors"
                                         title="Hapus Timesheet">
                                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
@@ -85,8 +96,8 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6">
-                                <x-erp.empty-state message="Belum ada catatan timesheet pekerjaan." />
+                            <td colspan="7">
+                                <x-erp.empty-state message="Belum ada data timesheet pengerjaan project." />
                             </td>
                         </tr>
                     @endforelse
@@ -95,19 +106,9 @@
         </div>
     </div>
 
-    @if($items->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <div>
-                    Menampilkan <strong>{{ $items->firstItem() ?? 0 }}</strong> - <strong>{{ $items->lastItem() ?? 0 }}</strong> dari <strong>{{ $items->total() }}</strong> timesheet
-                </div>
-                <div>
-                    {{ $items->links() }}
-                </div>
-        </div>
-    @endif
+    {{-- Card 4 — Standalone Pagination --}}
+    <x-erp.pagination :paginator="$items" />
 </div>
 
 <x-erp.confirm-dialog />
-
-<x-erp.import-modal module="timesheets" title="Impor Data Timesheets" />
 @endsection

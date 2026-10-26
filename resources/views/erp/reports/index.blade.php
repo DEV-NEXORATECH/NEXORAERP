@@ -40,7 +40,6 @@
             </div>
         </div>
 
-        <x-erp.toolbar-actions module="reports" :can-create="false" />
     </div>
 
     {{-- Report Cards Grid --}}

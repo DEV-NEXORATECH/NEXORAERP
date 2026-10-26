@@ -75,11 +75,10 @@
 
         {{-- ── LEFT: Toggle + Context ──────────────────────────────────── --}}
         <div class="app-header-left">
-            <button type="button" class="hdr-toggle" data-sidebar-toggle title="Toggle sidebar" style="color:#0B2345 !important;">
-                <svg class="sidebar-toggle-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:24px !important;height:24px !important;display:block !important;color:#0B2345 !important;">
-                    <rect x="3.5" y="4" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/>
-                    <path d="M9 4v16" stroke="currentColor" stroke-width="1.8"/>
-                    <path d="m13 9 3 3-3 3M16 12h-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <button type="button" class="hdr-toggle" data-sidebar-toggle title="Toggle sidebar" style="color:#FFFFFF !important;">
+                <svg class="sidebar-toggle-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:24px !important;height:24px !important;display:block !important;color:#FFFFFF !important;">
+                    <path d="m9 6-6 6 6 6M3 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="m15 6 6 6-6 6M21 12H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
 

@@ -51,14 +51,14 @@
                 </div>
                 <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-[#0F172A]">ERP Modules</h1>
                 <p class="mt-0.5 text-xs text-[#475569]">Akses dan kelola seluruh modul bisnis dalam satu tempat.</p>
-             <x-erp.toolbar-actions module="all-menu" :can-create="false" /> </div>
+            </div>
         </div>
 
         <div class="flex flex-wrap items-center gap-3">
             {{-- Search Bar --}}
             <div class="relative w-full sm:w-64">
-                <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-[#475569]">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">
+                <span class="pointer-events-none absolute inset-y-0 left-0 z-10 flex w-9 items-center justify-center text-[#475569]">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4 shrink-0">
                         <circle cx="11" cy="11" r="8"/>
                         <path d="m21 21-4.3-4.3"/>
                     </svg>
@@ -67,6 +67,7 @@
                     type="text"
                     id="module-search-input"
                     placeholder="Cari modul..."
+                    style="padding-left:2.25rem !important;"
                     class="h-9 w-full rounded-md border border-[#E5E7EB] bg-white pl-9 pr-3 text-xs text-[#0F172A] placeholder:text-[#475569]/50 transition outline-none focus:border-[#002875] focus:ring-1 focus:ring-[#002875]/15"
                 >
             </div>
@@ -76,6 +77,8 @@
                 <span class="text-[#475569]">Total:</span>
                 <span class="font-bold text-[#002875]" id="module-count-badge">{{ $orderedMenus->count() }} Modul</span>
             </div>
+
+            <x-erp.toolbar-actions module="modules" :can-create="false" />
         </div>
     </div>
 

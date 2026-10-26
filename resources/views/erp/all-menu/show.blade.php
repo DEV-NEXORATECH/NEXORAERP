@@ -52,7 +52,7 @@
             >
                 <div>
                     <div class="flex items-center gap-3">
-                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#002875] text-white shadow-xs">
+                        <div class="menu-module-card-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#002875] text-white shadow-xs">
                             {!! $icon($item['icon']) !!}
                         </div>
                         <div class="min-w-0">

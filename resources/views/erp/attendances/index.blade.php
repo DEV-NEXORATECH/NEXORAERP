@@ -1,39 +1,51 @@
 @extends('layouts.erp', ['activePage' => 'attendances', 'pageTitle' => 'Presensi & Kehadiran Karyawan'])
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-4">
+    {{-- Card 1 — Page Header & Global Actions --}}
     <x-erp.page-header
         title="Presensi & Kehadiran Karyawan"
         subtitle="Pantau jam masuk, jam keluar, mode kerja (WFO / WFH / Remote), serta status kehadiran harian."
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'HRIS', 'url' => route('hris.index')], ['label' => 'Attendances']]"
     >
         <x-slot:actions>
-            <x-erp.toolbar-actions module="attendances" :create-route="route('attendances.create-page')" create-label="+ Catat Presensi" />
+            <x-erp.toolbar-actions module="attendances" :create-route="route('attendances.create-page')" create-label="Catat Presensi" />
         </x-slot:actions>
     </x-erp.page-header>
 
-    <div class="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
-        <x-erp.toolbar :resetUrl="route('attendances.index')">
-            <x-slot:filters>
-                <input type="date" name="date_from" value="{{ request('date_from') }}" placeholder="Dari tgl"
-                    class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                <input type="date" name="date_to" value="{{ request('date_to') }}" placeholder="Sampai tgl"
-                    class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                <select name="employee_id" class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                    <option value="">Semua Karyawan</option>
-                    @foreach($employees as $emp)
-                        <option value="{{ $emp->id }}" @selected(request('employee_id') == $emp->id)>{{ $emp->name }}</option>
-                    @endforeach
-                </select>
-                <select name="mode" class="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-700 focus:border-[#002875] focus:outline-none">
-                    <option value="">Semua Mode</option>
-                    <option value="office" @selected(request('mode') === 'office')>Office (WFO)</option>
-                    <option value="remote" @selected(request('mode') === 'remote')>Remote (WFH)</option>
-                    <option value="hybrid" @selected(request('mode') === 'hybrid')>Hybrid</option>
-                </select>
-            </x-slot:filters>
-        </x-erp.toolbar>
+    {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
+    <div class="filter-card">
+        <form method="get" action="{{ route('attendances.index') }}" class="filter-toolbar">
+            <input type="text" name="search" placeholder="Cari data..." value="{{ request('search') }}" class="filter-search">
+            <input type="date" name="date_from" value="{{ request('date_from') }}" class="filter-date">
+            <input type="date" name="date_to" value="{{ request('date_to') }}" class="filter-date">
+            <select name="employee_id" class="filter-select">
+                <option value="">Semua Karyawan</option>
+                @foreach($employees as $emp)
+                    <option value="{{ $emp->id }}" @selected(request('employee_id') == $emp->id)>{{ $emp->name }}</option>
+                @endforeach
+            </select>
+            <select name="mode" class="filter-select">
+                <option value="">Semua Mode</option>
+                <option value="office" @selected(request('mode') === 'office')>Office (WFO)</option>
+                <option value="remote" @selected(request('mode') === 'remote')>Remote (WFH)</option>
+                <option value="hybrid" @selected(request('mode') === 'hybrid')>Hybrid</option>
+            </select>
+            <div class="flex items-center gap-2">
+                <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#001B50] transition-colors">
+                    Filter
+                </button>
+                @if(request()->hasAny(['search', 'date_from', 'date_to', 'employee_id', 'mode']))
+                    <a href="{{ route('attendances.index') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                        Reset
+                    </a>
+                @endif
+            </div>
+        </form>
+    </div>
 
+    {{-- Card 3 — Workspace: Data Table --}}
+    <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
@@ -93,19 +105,9 @@
         </div>
     </div>
 
-    @if($items->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <div>
-                    Menampilkan <strong>{{ $items->firstItem() ?? 0 }}</strong> - <strong>{{ $items->lastItem() ?? 0 }}</strong> dari <strong>{{ $items->total() }}</strong> entri presensi
-                </div>
-                <div>
-                    {{ $items->links() }}
-                </div>
-        </div>
-    @endif
+    {{-- Card 4 — Standalone Pagination --}}
+    <x-erp.pagination :paginator="$items" />
 </div>
 
 <x-erp.confirm-dialog />
-
-<x-erp.import-modal module="attendances" title="Impor Data Attendances" />
 @endsection

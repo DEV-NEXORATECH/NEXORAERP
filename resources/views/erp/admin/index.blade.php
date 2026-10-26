@@ -19,7 +19,6 @@
             </div>
         </div>
 
-        <x-erp.toolbar-actions module="admin" :can-create="false" />
     </div>
 
     {{-- Sub Hub Cards Grid --}}

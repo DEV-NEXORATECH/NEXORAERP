@@ -46,7 +46,7 @@
                 <a href="{{ route($item['route']) }}" class="group flex min-h-[160px] flex-col justify-between rounded-lg border border-[#E5E7EB] bg-white p-5 no-underline shadow-xs transition-all duration-200 hover:border-[#002875] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002875]/20">
                     <div>
                         <div class="flex items-center justify-between gap-3">
-                            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#002875] text-white shadow-xs">
+                            <div class="menu-module-card-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#002875] text-white shadow-xs">
                                 {!! $icon($item['icon']) !!}
                             </div>
                             <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold {{ $item['count'] > 0 ? 'bg-[#FEF2F2] text-[#DC2626] border border-[#FCA5A5]' : 'bg-[#F0FDF4] text-[#16A34A] border border-[#86EFAC]' }}">
