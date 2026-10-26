@@ -150,7 +150,7 @@
                 <span class="side-label">Modules</span>
             </a>
 
-            <a class="{{ $isPage('approvals') ? 'active' : '' }}" href="{{ route('approvals.index') }}">
+            <a class="{{ $isPage('approvals') && ! request()->boolean('tasks_only') ? 'active' : '' }}" href="{{ route('approvals.index') }}">
                 <span class="side-icon">{!! $icon('audit') !!}</span>
                 <span class="side-label">Approval & Task</span>
             </a>

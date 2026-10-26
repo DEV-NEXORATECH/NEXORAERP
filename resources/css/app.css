@@ -3603,6 +3603,17 @@ textarea:focus {
     display: none !important;
 }
 
+/* Some legacy action buttons wrap their SVG; suppress the pseudo icon there too. */
+.shell form button:has(svg)::before,
+.shell form button:has(svg)::after,
+.shell table button:has(svg)::before,
+.shell table button:has(svg)::after {
+    content: none !important;
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
 /* Collapsed sidebar: keep the active item compact and readable. */
 .app-shell.sidebar-collapsed .side-nav a.active,
 .app-shell.sidebar-collapsed .side-nav .side-summary.active {
@@ -4178,6 +4189,42 @@ table.w-full td[colspan] {
 }
 
 @media (max-width: 767px) {
+    .app-shell,
+    .app-shell.sidebar-collapsed,
+    .app-shell.sidebar-open {
+        display: block !important;
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .app-shell .sidebar {
+        position: fixed !important;
+        inset: 0 auto 0 0 !important;
+        width: min(288px, 86vw) !important;
+        height: 100vh !important;
+        z-index: 50 !important;
+        transform: translateX(-105%) !important;
+        transition: transform 0.25s ease !important;
+    }
+
+    .app-shell.sidebar-open .sidebar {
+        transform: translateX(0) !important;
+    }
+
+    .app-shell .content,
+    .app-shell .content-body,
+    .app-shell .shell {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .app-shell .sidebar-backdrop {
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 40 !important;
+    }
+
     .app-header-card {
         overflow: visible !important;
     }
