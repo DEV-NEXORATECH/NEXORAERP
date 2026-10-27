@@ -6,7 +6,7 @@
     <style>
         @page {
             size: {{ $paperSize ?? 'A4 portrait' }};
-            margin: 15mm 15mm 15mm 15mm;
+            margin: 8mm 10mm 8mm 10mm;
         }
 
         body {
@@ -41,10 +41,21 @@
 
         .doc-header {
             width: 100%;
-            border-bottom: 2px solid #000000;
-            padding-bottom: 12px;
-            margin-bottom: 18px;
+            border: none;
+            padding: 0;
+            margin: 0 0 12mm 0;
         }
+
+        .letterhead-image,
+        .letter-footer-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .letterhead-image { margin: 0 0 8mm 0; }
+        .letter-footer-image { margin: 12mm 0 0 0; }
 
         .header-table {
             width: 100%;
@@ -226,31 +237,17 @@
 <body>
     <button class="no-print" onclick="window.print()">Print / Simpan PDF</button>
 
-    {{-- Document Header --}}
+    @php
+        $companySetting = $companySetting ?? \App\Models\CompanySetting::first();
+    @endphp
+
+    {{-- Nexora official letterhead --}}
     <header class="doc-header">
+        <img class="letterhead-image" src="{{ asset('images/pdf/nexora-letter-header.png') }}" alt="Nexora Technology letter header">
         <table class="header-table">
             <tr>
                 <td style="width: 55%;">
-                    @php
-                        $companySetting = $companySetting ?? \App\Models\CompanySetting::first();
-                    @endphp
-                    @if($companySetting && $companySetting->logo_path)
-                        <img class="company-logo" src="{{ asset('storage/'.$companySetting->logo_path) }}" alt="Logo">
-                    @else
-                        <div style="font-size: 13pt; font-weight: 800; color: #002875; margin-bottom: 4px;">NEXORA360 ERP</div>
-                    @endif
-                    <div class="company-name">{{ $companySetting?->company_name ?? 'PT. NEXORA ENTERPRISE INDONESIA' }}</div>
-                    <div class="company-meta">
-                        @if($companySetting && $companySetting->address)
-                            {{ $companySetting->address }}<br>
-                        @endif
-                        @if($companySetting && ($companySetting->email || $companySetting->phone))
-                            Telp: {{ $companySetting->phone ?? '-' }} | Email: {{ $companySetting->email ?? '-' }}<br>
-                        @endif
-                        @if($companySetting && $companySetting->npwp)
-                            NPWP: {{ $companySetting->npwp }}
-                        @endif
-                    </div>
+                    <div class="company-name">{{ $companySetting?->company_name ?? 'NEXORA TECHNOLOGY' }}</div>
                 </td>
                 <td class="doc-title-block" style="width: 45%;">
                     <div class="doc-type-title">{{ $docTitle ?? 'DOKUMEN' }}</div>
@@ -320,7 +317,8 @@
 
     {{-- Footer --}}
     <footer class="footer-note">
-        Dokumen ini diterbitkan secara sah melalui Sistem Terintegrasi NEXORA360 ERP pada {{ now()->translatedFormat('d F Y, H:i:s') }} WIB.
+        <img class="letter-footer-image" src="{{ asset('images/pdf/nexora-letter-footer.png') }}" alt="Nexora Technology letter footer">
+        <div>Dokumen ini diterbitkan melalui Sistem Terintegrasi NEXORA360 ERP pada {{ now()->translatedFormat('d F Y, H:i:s') }} WIB.</div>
     </footer>
 </body>
 </html>

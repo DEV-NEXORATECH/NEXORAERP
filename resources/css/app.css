@@ -4402,6 +4402,109 @@ button, a.btn, .btn { font-family: 'Poppins', ui-sans-serif, system-ui, sans-ser
     .pagination-card { align-items: stretch !important; flex-direction: column !important; }
     .pagination-card nav, .pagination-shell, .pagination-list { justify-content: center !important; flex-wrap: wrap !important; }
 }
+
+/* One action contract for every feature table. */
+.shell .erp-action-button,
+.shell .erp-action-button svg {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+.shell .erp-action-button {
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    border-radius: 8px !important;
+}
+.shell .erp-action-button svg {
+    width: 16px !important;
+    height: 16px !important;
+    flex: 0 0 16px !important;
+    stroke: currentColor !important;
+}
+.shell .erp-action-button[title*="Hapus"],
+.shell .erp-action-button[title*="Delete"],
+.shell form:has(input[name="_method"][value="delete"]) .erp-action-button {
+    color: #DC2626 !important;
+    background: #FEF2F2 !important;
+    border: 1px solid #FECACA !important;
+}
+.shell .erp-action-button[title*="Lihat"],
+.shell .erp-action-button[title*="Detail"] {
+    color: #0369A1 !important;
+    background: #F0F9FF !important;
+    border: 1px solid #BAE6FD !important;
+}
+.shell .erp-action-button[title*="Edit"] {
+    color: #2563EB !important;
+    background: #EFF6FF !important;
+    border: 1px solid #BFDBFE !important;
+}
+.shell .erp-action-button[title*="Cetak"],
+.shell .erp-action-button[title*="PDF"] {
+    color: #475569 !important;
+    background: #F8FAFC !important;
+    border: 1px solid #CBD5E1 !important;
+}
+
+/* Final shell contract: desktop always reserves the sidebar column. */
+@media (min-width: 769px) {
+    .app-shell,
+    .app-shell.sidebar-open {
+        display: grid !important;
+        grid-template-columns: 244px minmax(0, 1fr) !important;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .app-shell.sidebar-collapsed {
+        grid-template-columns: 68px minmax(0, 1fr) !important;
+    }
+
+    .app-shell > .sidebar {
+        display: flex !important;
+        position: sticky !important;
+        inset: 0 auto auto 0 !important;
+        width: 244px !important;
+        min-width: 244px !important;
+        height: 100vh !important;
+        transform: none !important;
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+    }
+
+    .app-shell.sidebar-collapsed > .sidebar {
+        width: 68px !important;
+        min-width: 68px !important;
+    }
+
+    .app-shell > .content {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .app-header,
+    .app-header-card,
+    .content-body,
+    .shell {
+        width: 100% !important;
+        min-width: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    .app-header-card {
+        border-radius: 0 !important;
+    }
+}
 .erp-filter-toolbar button[type="submit"],
 .erp-filter-toolbar .filter-btn,
 .erp-filter-toolbar .filter-button {
@@ -4489,3 +4592,15 @@ button, a.btn, .btn { font-family: 'Poppins', ui-sans-serif, system-ui, sans-ser
     .erp-form-page .form-actions > button,
     .erp-form-page .form-actions > a { flex: 1 1 160px !important; justify-content: center !important; }
 }
+
+/* Final action-button contract: icon visibility and semantic colors. */
+.shell .erp-action-button,
+.shell .erp-action-button svg { display: inline-flex !important; visibility: visible !important; opacity: 1 !important; }
+.shell .erp-action-button { align-items: center !important; justify-content: center !important; flex: 0 0 36px !important; width: 36px !important; height: 36px !important; min-width: 36px !important; min-height: 36px !important; padding: 0 !important; line-height: 1 !important; border-radius: 8px !important; }
+.shell .erp-action-button svg { width: 16px !important; height: 16px !important; flex: 0 0 16px !important; stroke: currentColor !important; }
+.shell .erp-action-button[title*="Hapus"], .shell .erp-action-button[title*="Delete"], .shell form:has(input[name="_method"][value="delete"]) .erp-action-button { color: #DC2626 !important; background: #FEF2F2 !important; border: 1px solid #FECACA !important; }
+.shell .erp-action-button[title*="Lihat"], .shell .erp-action-button[title*="Detail"] { color: #0369A1 !important; background: #F0F9FF !important; border: 1px solid #BAE6FD !important; }
+.shell .erp-action-button[title*="Edit"] { color: #2563EB !important; background: #EFF6FF !important; border: 1px solid #BFDBFE !important; }
+.shell .erp-action-button[title*="Cetak"], .shell .erp-action-button[title*="PDF"] { color: #475569 !important; background: #F8FAFC !important; border: 1px solid #CBD5E1 !important; }
+.shell .erp-action-button[data-action="approve"], .shell .erp-action-button[title="Approve"] { color: #15803D !important; background: #F0FDF4 !important; border: 1px solid #86EFAC !important; }
+.shell .erp-action-button[data-action="reject"], .shell .erp-action-button[title="Reject"] { color: #DC2626 !important; background: #FEF2F2 !important; border: 1px solid #FECACA !important; }

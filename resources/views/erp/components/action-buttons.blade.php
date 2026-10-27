@@ -20,7 +20,7 @@
 <div class="inline-flex items-center gap-1.5">
     {{-- Detail / Show --}}
     @if($showUrl)
-        <a href="{{ $showUrl }}" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE] transition shadow-2xs" title="Lihat Detail">
+        <a href="{{ $showUrl }}" data-action="view" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE] transition shadow-2xs" title="Lihat Detail">
             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
             <span class="sr-only">Lihat Detail</span>
         </a>
@@ -28,7 +28,7 @@
 
     {{-- Edit --}}
     @if($editUrl && $canEdit)
-        <a href="{{ $editUrl }}" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#D1D5DB] bg-[#F9FAFB] text-[#475569] hover:bg-[#F3F4F6] transition shadow-2xs" title="Edit">
+        <a href="{{ $editUrl }}" data-action="edit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#D1D5DB] bg-[#F9FAFB] text-[#475569] hover:bg-[#F3F4F6] transition shadow-2xs" title="Edit">
             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
             <span class="sr-only">Edit</span>
         </a>
@@ -38,7 +38,7 @@
     @if($approveUrl && $canApprove)
         <form method="POST" action="{{ $approveUrl }}" class="m-0 inline erp-action-form" data-confirm-type="default" data-confirm-title="Setujui {{ $recordName }}" data-confirm-text="Apakah Anda yakin ingin menyetujui {{ $recordName }}?">
             @csrf
-            <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#86EFAC] bg-[#F0FDF4] text-[#15803D] hover:bg-[#15803D] hover:text-white transition shadow-2xs cursor-pointer" title="Approve">
+            <button type="submit" data-action="approve" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#86EFAC] bg-[#F0FDF4] text-[#15803D] hover:bg-[#15803D] hover:text-white transition shadow-2xs cursor-pointer" title="Approve">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <span class="sr-only">Approve</span>
             </button>
@@ -49,7 +49,7 @@
     @if($rejectUrl && $canApprove)
         <form method="POST" action="{{ $rejectUrl }}" class="m-0 inline erp-action-form" data-confirm-type="delete" data-confirm-title="Tolak {{ $recordName }}" data-confirm-text="Apakah Anda yakin ingin menolak {{ $recordName }}?">
             @csrf
-            <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#DC2626] hover:text-white transition shadow-2xs cursor-pointer" title="Reject">
+            <button type="submit" data-action="reject" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#DC2626] hover:text-white transition shadow-2xs cursor-pointer" title="Reject">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
                 <span class="sr-only">Reject</span>
             </button>
@@ -58,7 +58,7 @@
 
     {{-- Print / PDF --}}
     @if($printUrl)
-        <a href="{{ $printUrl }}" target="_blank" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#D1D5DB] bg-[#F9FAFB] text-[#475569] hover:bg-[#F3F4F6] transition shadow-2xs" title="Cetak / PDF">
+        <a href="{{ $printUrl }}" data-action="print" target="_blank" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#D1D5DB] bg-[#F9FAFB] text-[#475569] hover:bg-[#F3F4F6] transition shadow-2xs" title="Cetak / PDF">
             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
             <span class="sr-only">Cetak / PDF</span>
         </a>
@@ -72,7 +72,7 @@
         <form method="POST" action="{{ $deleteUrl }}" class="m-0 inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus {{ $recordName }}" data-confirm-text="Apakah Anda yakin ingin menghapus {{ $recordName }}? Tindakan ini tidak dapat dibatalkan.">
             @csrf
             @method('DELETE')
-            <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2] transition shadow-2xs cursor-pointer" title="Hapus">
+            <button type="submit" data-action="delete" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2] transition shadow-2xs cursor-pointer" title="Hapus">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                 <span class="sr-only">Hapus</span>
             </button>
