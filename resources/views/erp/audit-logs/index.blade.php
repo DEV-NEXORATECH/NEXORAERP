@@ -20,7 +20,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('audit-logs.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('audit-logs.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             <div>
                 <input type="date" name="date_from" value="{{ request('date_from') }}"

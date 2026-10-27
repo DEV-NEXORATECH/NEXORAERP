@@ -76,11 +76,6 @@
         </div>
     </div>
 
-    @if($auditLogs->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span class="text-xs text-[#475569]">Menampilkan {{ $auditLogs->firstItem() }}–{{ $auditLogs->lastItem() }} dari {{ $auditLogs->total() }} entri</span>
-            <div>{{ $auditLogs->links() }}</div>
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$auditLogs" />
 </div>
 @endsection

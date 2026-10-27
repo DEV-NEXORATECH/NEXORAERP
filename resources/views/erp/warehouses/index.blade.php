@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('warehouses.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('warehouses.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             
         <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
@@ -61,7 +61,7 @@
                         <a href="{{ route('warehouses.edit-page', $warehouse) }}" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                         </a>
-                        <form method="post" action="{{ route('warehouses.destroy', $warehouse) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus gudang ini?">
+                        <form method="post" action="{{ route('warehouses.destroy', $warehouse) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus gudang ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -80,12 +80,7 @@
         </div>
     </div>
 
-    @if($warehouses->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{$warehouses->firstItem()}}-{{$warehouses->lastItem()}} dari {{$warehouses->total()}}</span>
-            {{$warehouses->links()}}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$warehouses" />
 </div>
 
 <x-erp.import-modal module="warehouses" title="Impor Data Warehouses" />

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales-targets.edit-page', 'pageTitle' => 'Edit Target Sales'])
 
 @section('content')
-<div class="space-y-5 max-w-3xl">
+<div class="erp-form-page space-y-5 max-w-3xl">
     <x-erp.page-header
         title="Edit Target Penjualan"
         subtitle="Perbarui target omset dan progres pencapaian sales: {{ $target->user->name ?? 'Sales' }} ({{ $target->period }})"

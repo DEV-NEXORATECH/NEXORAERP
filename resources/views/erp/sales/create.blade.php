@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales', 'pageTitle' => 'Buat Proposal Baru'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Buat Proposal Penawaran Harga"
         subtitle="Dokumen komersial resmi untuk proyek klien dengan rincian nilai penawaran, masa berlaku, dan scope pekerjaan."

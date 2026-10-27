@@ -26,7 +26,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('reimbursements.index-page') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('reimbursements.index-page') }}" class="filter-toolbar erp-filter-toolbar">
             <select name="status" class="text-xs">
                 <option value="">Semua Status</option>
                 <option value="pending" @selected(request('status')==='pending')>Pending</option>

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'employee-skills', 'pageTitle' => 'Edit Skill Karyawan'])
 
 @section('content')
-<div class="space-y-5 max-w-3xl">
+<div class="erp-form-page space-y-5 max-w-3xl">
     <x-erp.page-header
         title="Edit Kompetensi / Skill Karyawan"
         subtitle="Perbarui tingkat kompetensi dan catatan skill untuk: {{ $skill->employee->name }}"

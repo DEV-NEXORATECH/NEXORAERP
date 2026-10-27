@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('leave-requests.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('leave-requests.index') }}" class="filter-toolbar erp-filter-toolbar">
             <input type="text" name="search" placeholder="Cari data..." value="{{ request('search') }}" class="filter-search">
             <select name="status" class="filter-select">
                 <option value="">Semua Status</option>

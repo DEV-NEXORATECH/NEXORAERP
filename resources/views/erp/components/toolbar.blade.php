@@ -15,7 +15,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-    <form method="GET" action="{{ $action ?: url()->current() }}" class="filter-toolbar">
+    <form method="GET" action="{{ $action ?: url()->current() }}" class="filter-toolbar erp-filter-toolbar">
         {{-- Search Input --}}
         <input type="text" name="search" value="{{ $search }}" placeholder="{{ $placeholder }}" class="filter-search">
 

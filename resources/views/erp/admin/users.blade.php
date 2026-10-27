@@ -104,13 +104,13 @@
                                     <div class="inline-flex items-center gap-1.5 justify-end">
                                         <form method="post" action="{{ route('user-management.reset-password', $user) }}">
                                             @csrf @method('patch')
-                                            <button type="submit" class="btn btn-outline h-7 px-2.5 text-[11px] font-medium" title="Reset Password">
+                                            <button type="submit" class="erp-action-button btn btn-outline h-7 px-2.5 text-[11px] font-medium" title="Reset Password">
                                                 Reset PW
                                             </button>
                                         </form>
                                         <form method="post" action="{{ route('user-management.destroy', $user) }}">
                                             @csrf @method('delete')
-                                            <button type="submit" class="inline-flex h-7 items-center rounded-[6px] border border-[#FECACA] bg-[#FEF2F2] px-2.5 text-[11px] font-bold text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus User">
+                                            <button type="submit" class="erp-action-button inline-flex h-7 items-center rounded-[6px] border border-[#FECACA] bg-[#FEF2F2] px-2.5 text-[11px] font-bold text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus User">
                                                 Delete
                                             </button>
                                         </form>
@@ -127,12 +127,7 @@
                 </div>
     </div>
 
-    @if($users->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span class="text-xs text-[#475569]">Halaman {{ $users->currentPage() }} dari {{ $users->lastPage() }}</span>
-                    <div>{{ $users->links() }}</div>
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$users" />
         </div>
     </div>
 </div>

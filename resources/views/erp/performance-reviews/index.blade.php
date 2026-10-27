@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('performance-reviews.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('performance-reviews.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             
         <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
@@ -66,7 +66,7 @@
                         </a>
                             @endif
                             @if($can('admin'))
-                                <form method="post" action="{{ route('performance-reviews.destroy', $row) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus review ini?">
+                                <form method="post" action="{{ route('performance-reviews.destroy', $row) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus review ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -86,12 +86,7 @@
         </div>
     </div>
 
-    @if($items->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{$items->firstItem()}}-{{$items->lastItem()}} dari {{$items->total()}}</span>
-            {{$items->links()}}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$items" />
 </div>
 
 <x-erp.import-modal module="performance-reviews" title="Impor Data Performance Reviews" />

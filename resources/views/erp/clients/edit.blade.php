@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'clients', 'pageTitle' => 'Edit Klien'])
 
 @section('content')
-<div class="space-y-5 max-w-3xl">
+<div class="erp-form-page space-y-5 max-w-3xl">
     <x-erp.page-header
         title="Edit Profil Klien"
         subtitle="Perbarui data perusahaan, kontak person, dan alamat untuk: {{ $client->name }}"

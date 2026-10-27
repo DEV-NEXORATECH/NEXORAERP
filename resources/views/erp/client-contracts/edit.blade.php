@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'client-contracts.edit-page', 'pageTitle' => 'Edit Kontrak Klien'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Edit Kontrak Klien"
         subtitle="Perbarui masa berlaku, status operasional, dan nilai kontrak: {{ $contract->contract_number }} - {{ $contract->title }}"

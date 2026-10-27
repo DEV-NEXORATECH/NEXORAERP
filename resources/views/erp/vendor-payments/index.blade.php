@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('vendor-payments.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('vendor-payments.index') }}" class="filter-toolbar erp-filter-toolbar">
             <input type="text" name="search" placeholder="Cari referensi, nomor tagihan..." value="{{ request('search') }}" class="filter-search">
             <input type="date" name="date_from" value="{{ request('date_from') }}" class="filter-date">
             <input type="date" name="date_to" value="{{ request('date_to') }}" class="filter-date">
@@ -65,7 +65,7 @@
                                     <a href="{{ route('vendor-payments.pdf', $payment) }}" target="_blank" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Cetak Voucher PDF">
                                         <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
                                     </a>
-                                    <form method="post" action="{{ route('vendor-payments.destroy', $payment) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus pembayaran ini?">
+                                    <form method="post" action="{{ route('vendor-payments.destroy', $payment) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus pembayaran ini?">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'reimbursements', 'pageTitle' => 'Tambah Reimbursement'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Ajukan Reimbursement Baru"
         subtitle="Form pengajuan klaim penggantian biaya operasional, transport, makan, atau keperluan dinas."

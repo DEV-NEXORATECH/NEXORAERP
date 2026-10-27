@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales-inquiries.edit-page', 'pageTitle' => 'Edit Inquiry'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Edit Sales Inquiry"
         subtitle="Perbarui progres prospek dan status komunikasi untuk: {{ $inquiry->company_name }}"

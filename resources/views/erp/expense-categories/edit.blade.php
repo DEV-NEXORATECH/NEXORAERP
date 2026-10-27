@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'expense-categories', 'pageTitle' => 'Edit Kategori Biaya'])
 
 @section('content')
-<div class="space-y-5 max-w-2xl">
+<div class="erp-form-page space-y-5 max-w-2xl">
     <x-erp.page-header
         title="Edit Kategori Biaya"
         subtitle="Perbarui data klasifikasi pengeluaran: {{ $expenseCategory->name }}"

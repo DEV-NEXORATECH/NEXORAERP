@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'clients', 'pageTitle' => 'Tambah Klien Baru'])
 
 @section('content')
-<div class="space-y-5 max-w-3xl">
+<div class="erp-form-page space-y-5 max-w-3xl">
     <x-erp.page-header
         title="Tambah Klien Baru"
         subtitle="Registrasikan profil pelanggan/klien untuk kebutuhan penjualan, penawaran harga, dan kontrak proyek."

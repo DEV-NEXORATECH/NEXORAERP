@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'bank-accounts', 'pageTitle' => 'Edit Rekening Kas / Bank'])
 
 @section('content')
-<div class="space-y-5 max-w-2xl">
+<div class="erp-form-page space-y-5 max-w-2xl">
     <x-erp.page-header
         title="Edit Rekening Kas / Bank"
         subtitle="Perbarui informasi akun bank: {{ $bankAccount->name }}"

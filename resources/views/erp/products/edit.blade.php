@@ -16,14 +16,14 @@
 
     <!-- Form Container -->
     <div class="bg-white rounded-lg border border-[#D1D5DB] p-6 shadow-sm">
-        <form method="post" action="{{ route('products.update', $product) }}" class="grid max-w-2xl gap-4" class="space-y-4">
+        <form method="post" action="{{ route('products.update', $product) }}" class="grid max-w-2xl gap-4 space-y-4">
             
         @csrf
         @method('put')
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 Kode
-                <input name="code" placeholder="PRD-001" required value="{{ old('code', $product- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">code) }}">
+                <input name="code" placeholder="PRD-001" required value="{{ old('code', $product->code) }}">
             </label>
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 Tipe
@@ -35,7 +35,7 @@
         </div>
         <label class="grid gap-1 text-sm font-semibold text-slate-700">
             Nama
-            <input name="name" placeholder="Nama produk/jasa" required value="{{ old('name', $product- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">name) }}">
+            <input name="name" placeholder="Nama produk/jasa" required value="{{ old('name', $product->name) }}">
         </label>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
@@ -60,25 +60,25 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 SKU
-                <input name="sku" placeholder="SKU-001" value="{{ old('sku', $product- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">sku) }}">
+            <input name="sku" placeholder="SKU-001" value="{{ old('sku', $product->sku) }}">
             </label>
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 Barcode
-                <input name="barcode" placeholder="8990000000000" value="{{ old('barcode', $product- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">barcode) }}">
+            <input name="barcode" placeholder="8990000000000" value="{{ old('barcode', $product->barcode) }}">
             </label>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 Harga Pokok (Cost)
-                <input type="number" name="cost" step="0.01" min="0" required value="{{ old('cost', $product- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">cost) }}">
+            <input type="number" name="cost" step="0.01" min="0" required value="{{ old('cost', $product->cost) }}">
             </label>
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 Harga Jual
-                <input type="number" name="price" step="0.01" min="0" required value="{{ old('price', $product- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">price) }}">
+            <input type="number" name="price" step="0.01" min="0" required value="{{ old('price', $product->price) }}">
             </label>
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 Min. Stok
-                <input type="number" name="min_stock" step="0.0001" min="0" value="{{ old('min_stock', $product- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">min_stock) }}">
+            <input type="number" name="min_stock" step="0.0001" min="0" value="{{ old('min_stock', $product->min_stock) }}">
             </label>
         </div>
         <label class="grid gap-1 text-sm font-semibold text-slate-700">

@@ -19,7 +19,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('reports.project') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('reports.project') }}" class="filter-toolbar erp-filter-toolbar">
             <select name="project_id" class="filter-select">
                 <option value="">Semua Project</option>
                 @foreach($projects as $project)

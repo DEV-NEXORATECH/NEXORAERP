@@ -16,7 +16,7 @@
 
     <!-- Form Container -->
     <div class="bg-white rounded-lg border border-[#D1D5DB] p-6 shadow-sm">
-        <form method="post" action="{{ route('vendor-payments.store') }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2" class="space-y-4">
+        <form method="post" action="{{ route('vendor-payments.store') }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2 space-y-4">
             
             @csrf
             <div class="grid gap-1.5 md:col-span-2"><label>Vendor Bill</label><select name="vendor_bill_id" required class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">@foreach($unpaidVendorBills as $bill)<option value="{{ $bill->id }}">{{ $bill->bill_number }} - {{ $bill->vendor_name }} - sisa {{ $rp($bill->amount - $bill->paid_amount) }}</option>@endforeach</select></div>

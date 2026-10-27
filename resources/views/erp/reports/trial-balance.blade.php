@@ -19,7 +19,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('reports.trial-balance') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('reports.trial-balance') }}" class="filter-toolbar erp-filter-toolbar">
             <input name="date_from" type="date" value="{{ request('date_from') }}" class="filter-date">
             <input name="date_to" type="date" value="{{ request('date_to') }}" class="filter-date">
             <select name="type" class="filter-select">

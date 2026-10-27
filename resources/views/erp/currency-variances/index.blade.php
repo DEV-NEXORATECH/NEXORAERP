@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('currency-variances.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('currency-variances.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             
         <input type="date" name="date_from" value="{{ request('date_from') }}" class="px-2.5 py-1.5 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
@@ -61,7 +61,7 @@
                         </a>
                             @endif
                             @if($can('admin', 'finance'))
-                                <form method="post" action="{{ route('currency-variances.destroy', $row) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus variansi ini?">
+                                <form method="post" action="{{ route('currency-variances.destroy', $row) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus variansi ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -81,12 +81,7 @@
         </div>
     </div>
 
-    @if($variances->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{$variances->firstItem()}}-{{$variances->lastItem()}} dari {{$variances->total()}}</span>
-            {{$variances->links()}}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$variances" />
 </div>
 
 <x-erp.import-modal module="currency-variances" title="Impor Data Currency Variances" />

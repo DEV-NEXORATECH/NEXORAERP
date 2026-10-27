@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'departments', 'pageTitle' => 'Edit Departemen'])
 
 @section('content')
-<div class="space-y-5 max-w-2xl">
+<div class="erp-form-page space-y-5 max-w-2xl">
     <x-erp.page-header
         title="Edit Departemen"
         subtitle="Perbarui data unit organisasi: {{ $department->name }}"

@@ -28,7 +28,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('purchase-orders.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('purchase-orders.index') }}" class="filter-toolbar erp-filter-toolbar">
             <input type="text" name="search" placeholder="Cari PO..." value="{{ request('search') }}" class="filter-search !w-56 text-xs">
             @if(isset($vendors))
             <select name="vendor_id" class="text-xs">

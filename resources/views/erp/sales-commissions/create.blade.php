@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales-commissions.create-page', 'pageTitle' => 'Tambah Komisi Sales'])
 
 @section('content')
-<div class="space-y-5 max-w-3xl">
+<div class="erp-form-page space-y-5 max-w-3xl">
     <x-erp.page-header
         title="Hitung Komisi Sales Baru"
         subtitle="Alokasikan reward komisi penjualan berdasarkan persentase closing transaksi deal."

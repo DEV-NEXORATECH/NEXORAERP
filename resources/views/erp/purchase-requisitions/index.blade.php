@@ -20,7 +20,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('purchase-requisitions.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('purchase-requisitions.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             <div>
                 <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
@@ -120,12 +120,7 @@
         </div>
     </div>
 
-    @if($requisitions->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{ $requisitions->firstItem() }}-{{ $requisitions->lastItem() }} dari {{ $requisitions->total() }} requisition</span>
-                {{ $requisitions->links() }}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$requisitions" />
 </div>
 
 <x-erp.import-modal module="purchase-requisitions" title="Impor Data Purchase Requisitions" />

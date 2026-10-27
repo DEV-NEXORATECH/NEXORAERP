@@ -16,14 +16,14 @@
 
     <!-- Form Container -->
     <div class="bg-white rounded-lg border border-[#D1D5DB] p-6 shadow-sm">
-        <form method="post" action="{{ route('product-units.update', $unit) }}" class="grid max-w-2xl gap-4" class="space-y-4">
+        <form method="post" action="{{ route('product-units.update', $unit) }}" class="grid max-w-2xl gap-4 space-y-4">
             
         @csrf
         @method('put')
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 Kode
-                <input name="code" placeholder="PCS" required value="{{ old('code', $unit- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">code) }}">
+                <input name="code" placeholder="PCS" required value="{{ old('code', $unit->code) }}">
             </label>
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 Kategori
@@ -36,7 +36,7 @@
         </div>
         <label class="grid gap-1 text-sm font-semibold text-slate-700">
             Nama
-            <input name="name" placeholder="Pieces" required value="{{ old('name', $unit- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">name) }}">
+            <input name="name" placeholder="Pieces" required value="{{ old('name', $unit->name) }}">
         </label>
         <label class="flex items-center gap-2 text-sm font-semibold text-slate-700">
             <input type="checkbox" name="is_active" value="1" {{ $unit->is_active ? 'checked' : '' }} class="h-4 w-4">

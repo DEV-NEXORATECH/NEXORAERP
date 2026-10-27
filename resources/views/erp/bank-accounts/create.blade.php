@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'bank-accounts', 'pageTitle' => 'Tambah Rekening Kas / Bank'])
 
 @section('content')
-<div class="space-y-5 max-w-2xl">
+<div class="erp-form-page space-y-5 max-w-2xl">
     <x-erp.page-header
         title="Tambah Rekening Kas / Bank"
         subtitle="Daftarkan akun perbankan perusahaan, kas kecil, atau dompet digital untuk pencatatan transaksi cashflow."

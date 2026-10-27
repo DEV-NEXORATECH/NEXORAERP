@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'user-management', 'pageTitle' => 'Edit User'])
 
 @section('content')
-<div class="space-y-5 max-w-2xl">
+<div class="erp-form-page space-y-5 max-w-2xl">
     <x-erp.page-header
         title="Edit Pengguna Sistem"
         subtitle="Perbarui data akun, role akses, dan status login: {{ $user->name }}"

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales-orders.edit-page', 'pageTitle' => 'Edit Sales Order'])
 
 @section('content')
-<div class="space-y-5 max-w-5xl">
+<div class="erp-form-page space-y-5 max-w-5xl">
     <x-erp.page-header
         title="Edit Sales Order (SO)"
         subtitle="Perbarui data pesanan penjualan, status deliveri, dan rincian item produk: {{ $order->number }}"
@@ -125,7 +125,7 @@
                                     </td>
                                     <td class="px-3 py-2 text-right font-bold text-slate-900 item-subtotal">{{ number_format($item->subtotal, 0, ',', '.') }}</td>
                                     <td class="px-3 py-2 text-center">
-                                        <button type="button" class="btn-remove-row text-red-500 hover:text-red-700 font-bold text-base" title="Hapus baris">×</button>
+                                        <button type="button" class="erp-action-button btn-remove-row text-red-500 hover:text-red-700 font-bold text-base" title="Hapus baris">×</button>
                                     </td>
                                 </tr>
                             @empty
@@ -146,7 +146,7 @@
                                     </td>
                                     <td class="px-3 py-2 text-right font-bold text-slate-900 item-subtotal">0</td>
                                     <td class="px-3 py-2 text-center">
-                                        <button type="button" class="btn-remove-row text-red-500 hover:text-red-700 font-bold text-base" title="Hapus baris">×</button>
+                                        <button type="button" class="erp-action-button btn-remove-row text-red-500 hover:text-red-700 font-bold text-base" title="Hapus baris">×</button>
                                     </td>
                                 </tr>
                             @endforelse
@@ -218,7 +218,7 @@
             <td class="px-3 py-2"><input type="number" step="any" min="0" class="item-qty w-full rounded border border-[#D1D5DB] bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none" value="1"></td>
             <td class="px-3 py-2"><input type="number" step="any" min="0" class="item-price w-full rounded border border-[#D1D5DB] bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none"></td>
             <td class="px-3 py-2 text-right font-bold text-slate-900 item-subtotal">0</td>
-            <td class="px-3 py-2 text-center"><button type="button" class="btn-remove-row text-red-500 hover:text-red-700 font-bold text-base" title="Hapus baris">×</button></td>`;
+            <td class="px-3 py-2 text-center"><button type="button" class="erp-action-button btn-remove-row text-red-500 hover:text-red-700 font-bold text-base" title="Hapus baris">×</button></td>`;
         body.appendChild(tpl);
         reindex();
     }

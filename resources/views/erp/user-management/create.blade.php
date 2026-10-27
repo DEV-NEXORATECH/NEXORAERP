@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'user-management', 'pageTitle' => 'Tambah User'])
 
 @section('content')
-<div class="space-y-5 max-w-2xl">
+<div class="erp-form-page space-y-5 max-w-2xl">
     <x-erp.page-header
         title="Tambah Pengguna Sistem"
         subtitle="Buat akun pengguna baru dengan hak akses role dan otentikasi aman."

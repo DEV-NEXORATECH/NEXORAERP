@@ -16,18 +16,18 @@
 
     <!-- Form Container -->
     <div class="bg-white rounded-lg border border-[#D1D5DB] p-6 shadow-sm">
-        <form method="post" action="{{ route('warehouses.update', $warehouse) }}" class="grid max-w-2xl gap-4" class="space-y-4">
+        <form method="post" action="{{ route('warehouses.update', $warehouse) }}" class="grid max-w-2xl gap-4 space-y-4">
             
         @csrf
         @method('put')
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 Kode
-                <input name="code" placeholder="WH-MAIN" required value="{{ old('code', $warehouse- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">code) }}">
+                <input name="code" placeholder="WH-MAIN" required value="{{ old('code', $warehouse->code) }}">
             </label>
             <label class="grid gap-1 text-sm font-semibold text-slate-700">
                 Nama
-                <input name="name" placeholder="Main Warehouse" required value="{{ old('name', $warehouse- class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">name) }}">
+                <input name="name" placeholder="Main Warehouse" required value="{{ old('name', $warehouse->name) }}">
             </label>
         </div>
         <label class="grid gap-1 text-sm font-semibold text-slate-700">

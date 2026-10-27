@@ -50,7 +50,7 @@
     
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
     <div class="filter-panel">
-        <form method="get" action="{{ route('cashflows.index-page') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('cashflows.index-page') }}" class="filter-toolbar erp-filter-toolbar">
             
         <div class="filter-field xl:col-span-2">
             <label>Cari</label>
@@ -296,7 +296,7 @@
                         </a>
                             @endif
                             @if($can('admin'))
-                                <form method="post" action="{{ route('cashflows.destroy', $flow) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus transaksi ini?">
+                                <form method="post" action="{{ route('cashflows.destroy', $flow) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus transaksi ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -322,10 +322,7 @@
         </table>
     </div>
 
-    @if($cashflowPages->hasPages() || $cashflowPages->total() > 0)
-    <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3"><span>Menampilkan {{ $cashflowPages->firstItem() }}-{{ $cashflowPages->lastItem() }} dari {{ $cashflowPages->total() }} transaksi</span>
-        {{ $cashflowPages->links() }}</div>
-    @endif
+    <x-erp.pagination :paginator="$cashflowPages" />
 </section>
 
 

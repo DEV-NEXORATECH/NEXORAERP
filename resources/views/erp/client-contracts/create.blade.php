@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'client-contracts.create-page', 'pageTitle' => 'Tambah Kontrak Klien'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Catat Kontrak Klien Baru"
         subtitle="Daftarkan perjanjian kerja sama resmi, nilai kontrak, durasi efektif, dan tanggal pengingat (reminder) perpanjangan."

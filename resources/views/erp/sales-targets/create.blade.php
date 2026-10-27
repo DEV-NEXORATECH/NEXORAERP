@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales-targets.create-page', 'pageTitle' => 'Tambah Target Sales'])
 
 @section('content')
-<div class="space-y-5 max-w-3xl">
+<div class="erp-form-page space-y-5 max-w-3xl">
     <x-erp.page-header
         title="Tetapkan Target Penjualan Baru"
         subtitle="Alokasikan target omset penjualan per sales representative dan periode bulan/tahun."

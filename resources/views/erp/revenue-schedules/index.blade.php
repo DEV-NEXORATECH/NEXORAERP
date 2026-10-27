@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('revenue-schedules.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('revenue-schedules.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             
         @if(isset($projects))
@@ -72,7 +72,7 @@
                         </a>
                             @endif
                             @if($can('admin', 'finance'))
-                                <form method="post" action="{{ route('revenue-schedules.destroy', $row) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus revenue schedule ini?">
+                                <form method="post" action="{{ route('revenue-schedules.destroy', $row) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus revenue schedule ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -92,12 +92,7 @@
         </div>
     </div>
 
-    @if($schedules->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{$schedules->firstItem()}}-{{$schedules->lastItem()}} dari {{$schedules->total()}}</span>
-            {{$schedules->links()}}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$schedules" />
 </div>
 
 <x-erp.import-modal module="revenue-schedules" title="Impor Data Revenue Schedules" />

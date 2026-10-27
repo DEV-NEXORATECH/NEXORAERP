@@ -5,11 +5,12 @@
     <x-erp.page-header
         title="Keranjang Sampah & Pemulihan (Trash)"
         subtitle="Daftar entitas data yang telah dihapus sementara (soft-deleted). Anda dapat memulihkan (restore) data ke posisi semula."
-        :breadcrumbs="[['label' =>
+        :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Administration', 'url' => route('admin.index')], ['label' => 'Trash']]"
+    >
         <x-slot:actions>
             <x-erp.toolbar-actions module="trash" />
-        </x-slot:actions> 'Dashboard', 'url' => route('dashboard')], ['label' => 'Administration', 'url' => route('admin.index')], ['label' => 'Trash']]"
-    />
+        </x-slot:actions>
+    </x-erp.page-header>
 
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
     <div class="filter-panel">
@@ -19,7 +20,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('trash.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('trash.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             <div>
                 <select name="type" class="rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
@@ -68,7 +69,7 @@
                                         {{ $item->name ?? $item->title ?? $item->number ?? $item->code ?? ('ID #'.$item->id) }}
                                     </td>
                                     <td class="px-4 py-3 text-right">
-                                        <form method="post" action="{{ route('trash.restore', [$type, $item->id]) }}" class="inline" class="inline erp-action-form" data-confirm-type="default" data-confirm-title="Konfirmasi" data-confirm-text="Pulihkan data ini kembali ke sistem aktif?">
+                                        <form method="post" action="{{ route('trash.restore', [$type, $item->id]) }}" class="inline inline erp-action-form" data-confirm-type="default" data-confirm-title="Konfirmasi" data-confirm-text="Pulihkan data ini kembali ke sistem aktif?">
                                             @csrf
                                             @method('patch')
                                             <button type="submit" class="inline-flex items-center gap-1 rounded border border-[#002875] bg-white px-2.5 py-1 text-[11px] font-semibold text-[#002875] hover:bg-[#002875]/5 transition-colors">

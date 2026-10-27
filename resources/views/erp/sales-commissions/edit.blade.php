@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales-commissions.edit-page', 'pageTitle' => 'Edit Komisi Sales'])
 
 @section('content')
-<div class="space-y-5 max-w-3xl">
+<div class="erp-form-page space-y-5 max-w-3xl">
     <x-erp.page-header
         title="Edit Komisi Sales"
         subtitle="Perbarui basis nilai penjualan, persentase rate, dan status pembayaran: {{ $commission->user->name ?? 'Sales' }}"

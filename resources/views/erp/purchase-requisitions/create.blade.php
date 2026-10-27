@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'purchase-requisitions', 'pageTitle' => 'Buat Purchase Requisition'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Buat Purchase Requisition (PR) Baru"
         subtitle="Form permohonan pengadaan barang atau jasa internal untuk diverifikasi dan disetujui sebelum penerbitan PO."

@@ -19,7 +19,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <div class="filter-toolbar">
+        <div class="filter-toolbar erp-filter-toolbar">
             <span class="text-xs font-semibold text-[#475569] mr-1">Tipe:</span>
             <a class="px-3 py-1.5 text-xs font-semibold rounded-md transition {{ $type === 'ar' ? 'bg-[#002875] text-white' : 'bg-white text-[#334155] border border-[#D1D5DB] hover:bg-[#F8FAFC]' }}" href="{{ route('reports.aging', 'ar') }}">Aging AR (Piutang)</a>
             <a class="px-3 py-1.5 text-xs font-semibold rounded-md transition {{ $type === 'ap' ? 'bg-[#002875] text-white' : 'bg-white text-[#334155] border border-[#D1D5DB] hover:bg-[#F8FAFC]' }}" href="{{ route('reports.aging', 'ap') }}">Aging AP (Utang)</a>

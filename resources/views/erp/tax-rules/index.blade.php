@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('tax-rules.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('tax-rules.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             
         <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
@@ -72,7 +72,7 @@
                         </a>
                         @endif
                         @if($can('admin'))
-                            <form method="post" action="{{ route('tax-rules.destroy', $tax) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus aturan pajak ini?">
+                            <form method="post" action="{{ route('tax-rules.destroy', $tax) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus aturan pajak ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -92,12 +92,7 @@
         </div>
     </div>
 
-    @if($taxRules->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{$taxRules->firstItem()}}-{{$taxRules->lastItem()}} dari {{$taxRules->total()}}</span>
-            {{$taxRules->links()}}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$taxRules" />
 </div>
 
 <x-erp.import-modal module="tax-rules" title="Impor Data Tax Rules" />

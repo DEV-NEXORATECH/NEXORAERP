@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('stock-movements.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('stock-movements.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             
         <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
@@ -64,7 +64,7 @@
                 <td class="px-3 py-2 text-xs text-[#334155] text-left">{{ $movement->type === 'out' ? '-' : '' }}{{ rtrim(rtrim(number_format($movement->quantity, 4, '.', ''), '0'), '.') }}</td>
                 <td class="px-3 py-2 text-xs text-[#334155] text-left">{{ $movement->warehouse?->name ?? '-' }}</td>
                 <td class="px-3 py-2 text-xs text-right whitespace-nowrap">
-                    <form method="post" action="{{ route('stock-movements.destroy', $movement) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus pergerakan stok ini?">
+                    <form method="post" action="{{ route('stock-movements.destroy', $movement) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus pergerakan stok ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -82,12 +82,7 @@
         </div>
     </div>
 
-    @if($movements->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{$movements->firstItem()}}-{{$movements->lastItem()}} dari {{$movements->total()}}</span>
-            {{$movements->links()}}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$movements" />
 </div>
 
 <x-erp.import-modal module="stock-movements" title="Impor Data Stock Movements" />

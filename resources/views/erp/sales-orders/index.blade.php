@@ -20,7 +20,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('sales-orders.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('sales-orders.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             <div>
                 <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
@@ -116,7 +116,7 @@
                                         <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
                                     </a>
                                     @if($can('admin'))
-                                        <form method="post" action="{{ route('sales-orders.destroy', $row) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus sales order ini?">
+                                        <form method="post" action="{{ route('sales-orders.destroy', $row) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus sales order ini?">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -139,12 +139,7 @@
         </div>
     </div>
 
-    @if($items->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{ $items->firstItem() }}-{{ $items->lastItem() }} dari {{ $items->total() }} sales order</span>
-                {{ $items->links() }}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$items" />
 </div>
 
 <x-erp.import-modal module="sales-orders" title="Impor Data Sales Orders" />

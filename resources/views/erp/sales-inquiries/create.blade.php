@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales-inquiries.create-page', 'pageTitle' => 'Tambah Inquiry'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Catat Sales Inquiry Baru"
         subtitle="Registrasikan permintaan informasi produk, konsultasi awal, atau kebutuhan prospek bisnis."

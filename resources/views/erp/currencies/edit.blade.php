@@ -16,7 +16,7 @@
 
     <!-- Form Container -->
     <div class="bg-white rounded-lg border border-[#D1D5DB] p-6 shadow-sm">
-        <form method="post" action="{{ route('currencies.update', $currency) }}" class="grid max-w-2xl gap-4" class="space-y-4">
+        <form method="post" action="{{ route('currencies.update', $currency) }}" class="grid max-w-2xl gap-4 space-y-4">
             
         @csrf
         @method('put')

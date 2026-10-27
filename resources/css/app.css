@@ -3580,160 +3580,6 @@ textarea:focus {
     display: none !important;
 }
 
-.erp-action-button {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    min-width: 1.75rem !important;
-    min-height: 1.75rem !important;
-    line-height: 1 !important;
-}
-
-.erp-action-button svg {
-    display: block !important;
-    width: 0.875rem !important;
-    height: 0.875rem !important;
-    flex: 0 0 auto !important;
-    stroke: currentColor !important;
-}
-
-/* Single action-button contract for every ERP table.  This intentionally
-   comes last so legacy per-page Tailwind classes cannot change geometry. */
-.shell td:has(.erp-action-button),
-.shell td:has(> form button[title]),
-.shell td:has(> a[title]) {
-    text-align: right !important;
-    white-space: nowrap !important;
-    vertical-align: middle !important;
-}
-
-.shell td:has(.erp-action-button) > .inline-flex,
-.shell td:has(> form button[title]) > .inline-flex,
-.shell td:has(> a[title]) > .inline-flex {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    gap: 6px !important;
-}
-
-.shell td:last-child a[title]:has(> svg),
-.shell td:last-child button[title]:has(> svg),
-.shell td:has(.erp-action-button) .erp-action-button {
-    box-sizing: border-box !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 36px !important;
-    min-width: 36px !important;
-    height: 36px !important;
-    min-height: 36px !important;
-    padding: 0 !important;
-    border-radius: 8px !important;
-    font-size: 0 !important;
-    line-height: 1 !important;
-}
-
-.shell td:last-child a[title]:has(> svg) > svg,
-.shell td:last-child button[title]:has(> svg) > svg,
-.shell td:has(.erp-action-button) .erp-action-button > svg {
-    display: block !important;
-    width: 16px !important;
-    height: 16px !important;
-    min-width: 16px !important;
-    min-height: 16px !important;
-    margin: 0 !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-.shell td:last-child form.inline,
-.shell td:last-child form.m-0,
-.shell td:has(.erp-action-button) form {
-    display: inline-flex !important;
-    margin: 0 !important;
-    vertical-align: middle !important;
-}
-
-.shell td:last-child button[title*="Hapus"]:has(> svg),
-.shell td:has(.erp-action-button) button[title*="Hapus"] {
-    color: #DC2626 !important;
-    border-color: #FECACA !important;
-    background: #FEF2F2 !important;
-}
-
-/* Canonical actions for all feature tables, including legacy pages under
-   Modules, Approval & Task, Reports, CMS, and Settings. */
-.shell td:last-child a[title],
-.shell td:last-child button[title],
-.shell td:last-child form > button[type="submit"] {
-    box-sizing: border-box !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 36px !important;
-    min-width: 36px !important;
-    height: 36px !important;
-    min-height: 36px !important;
-    padding: 0 !important;
-    margin: 0 0 0 6px !important;
-    border-radius: 8px !important;
-    font-size: 0 !important;
-    line-height: 1 !important;
-    white-space: nowrap !important;
-}
-
-.shell td:last-child a[title] svg,
-.shell td:last-child button[title] svg,
-.shell td:last-child form > button[type="submit"] svg {
-    display: block !important;
-    width: 16px !important;
-    height: 16px !important;
-    min-width: 16px !important;
-    min-height: 16px !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-.shell td:last-child form {
-    display: inline-flex !important;
-    align-items: center !important;
-    margin: 0 !important;
-}
-
-.shell td:last-child button[title*="Hapus"],
-.shell td:last-child button[title*="Delete"],
-.shell td:last-child form:has(input[name="_method"][value="delete"]) > button {
-    color: #DC2626 !important;
-    background: #FEF2F2 !important;
-    border: 1px solid #FECACA !important;
-}
-
-/* Consistent table action buttons (28x28px) */
-.erp-action-button,
-a.button.mini.ghost,
-a.mini.ghost {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 1.75rem !important;
-    min-width: 1.75rem !important;
-    height: 1.75rem !important;
-    min-height: 1.75rem !important;
-    padding: 0 !important;
-    border-radius: 6px !important;
-    line-height: 1 !important;
-    cursor: pointer !important;
-    transition: all 0.15s ease-in-out !important;
-}
-
-.erp-action-button svg {
-    display: block !important;
-    width: 0.875rem !important;
-    height: 0.875rem !important;
-    flex: 0 0 auto !important;
-    stroke: currentColor !important;
-}
-
 /* Strictly suppress any pseudo-element injection so buttons never render double icons */
 .shell form button::before,
 .shell form button::after,
@@ -4403,7 +4249,7 @@ button, a.btn, .btn { font-family: 'Poppins', ui-sans-serif, system-ui, sans-ser
 .app-shell.sidebar-collapsed > .content { min-width: 0 !important; width: auto !important; }
 .app-shell.sidebar-collapsed .app-header { padding-left: 0 !important; }
 .app-shell.sidebar-collapsed .app-header-card { margin-left: 0 !important; }
-.content-body { padding-top: 24px !important; }
+.content-body { padding-top: 40px !important; }
 .content-body > .shell { margin-top: 0 !important; }
 .app-header .hdr-toggle { color: var(--jf-blue) !important; background: #F4F7FC !important; }
 .app-header .hdr-toggle svg,
@@ -4415,3 +4261,231 @@ button, a.btn, .btn { font-family: 'Poppins', ui-sans-serif, system-ui, sans-ser
     .app-shell.sidebar-collapsed .content { min-width: 0 !important; }
 }
 .eyebrow { font-size: 9px !important; font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 1.5px !important; color: #64748B !important; }
+
+/* Final visual contract: blue inspection/edit/print actions and red delete. */
+.shell td:last-child a[title]:has(> svg),
+.shell td:last-child button[title]:has(> svg),
+.shell td:last-child form > button[type="submit"]:has(> svg) {
+    color: #0369A1 !important;
+    background: #F0F9FF !important;
+    border: 1px solid #BAE6FD !important;
+}
+.shell td:last-child button[title*="Hapus"]:has(> svg),
+.shell td:last-child button[title*="Delete"]:has(> svg),
+.shell td:last-child form:has(input[name="_method"][value="delete"]) > button:has(> svg) {
+    color: #DC2626 !important;
+    background: #FEF2F2 !important;
+    border-color: #FECACA !important;
+}
+
+/* One filter contract for every list/report page. */
+.erp-filter-toolbar {
+    display: flex !important;
+    align-items: flex-end !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    width: 100% !important;
+}
+.erp-filter-toolbar > div:has(.filter-search),
+.erp-filter-toolbar > .filter-search,
+.erp-filter-toolbar > input[type="search"],
+.erp-filter-toolbar > input[name="search"] {
+    flex: 1 1 280px !important;
+    min-width: 240px !important;
+    margin-right: auto !important;
+}
+.erp-filter-toolbar .filter-search,
+.erp-filter-toolbar input[type="text"],
+.erp-filter-toolbar input[type="search"],
+.erp-filter-toolbar input[type="date"],
+.erp-filter-toolbar select {
+    box-sizing: border-box !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    border: 1px solid #D9E2EC !important;
+    border-radius: 9px !important;
+    background: #FFFFFF !important;
+    color: #0F1F3D !important;
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif !important;
+    font-size: 12px !important;
+    padding: 0 13px !important;
+}
+.erp-filter-toolbar .filter-search,
+.erp-filter-toolbar input[name="search"],
+.erp-filter-toolbar input[type="search"] { width: 100% !important; }
+.erp-filter-toolbar > select,
+.erp-filter-toolbar > input[type="date"],
+.erp-filter-toolbar > div:not(:has(.filter-search)) select,
+.erp-filter-toolbar > div:not(:has(.filter-search)) input[type="date"] {
+    flex: 0 1 210px !important;
+}
+.erp-filter-toolbar button,
+.erp-filter-toolbar a {
+    box-sizing: border-box !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    border-radius: 9px !important;
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    padding: 0 16px !important;
+    white-space: nowrap !important;
+}
+
+/* One pagination contract for every paginated list. */
+.pagination-card,
+.erp-pagination,
+.pagination-shell {
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif !important;
+}
+.pagination-card {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    width: 100% !important;
+    min-height: 58px !important;
+    margin-top: 16px !important;
+    padding: 10px 16px !important;
+    border: 1px solid #E1E7F1 !important;
+    border-radius: 12px !important;
+    background: #FFFFFF !important;
+    box-shadow: var(--jf-shadow) !important;
+    color: #64748B !important;
+    font-size: 12px !important;
+}
+.pagination-card nav,
+.pagination-shell,
+.pagination-list {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+.pagination-card nav a,
+.pagination-card nav span,
+.pagination-square,
+.pagination-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 34px !important;
+    height: 34px !important;
+    padding: 0 10px !important;
+    border: 1px solid #D9E2EC !important;
+    border-radius: 8px !important;
+    background: #FFFFFF !important;
+    color: #334155 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+}
+.pagination-card nav a:hover,
+.pagination-square:hover,
+.pagination-btn:hover {
+    border-color: #93C5FD !important;
+    background: #EFF6FF !important;
+    color: #1E3A8A !important;
+}
+.pagination-card nav span[aria-current],
+.pagination-square.active {
+    border-color: #1E3A8A !important;
+    background: #1E3A8A !important;
+    color: #FFFFFF !important;
+}
+.pagination-card nav span[aria-disabled],
+.pagination-square.disabled,
+.pagination-btn.disabled {
+    opacity: .45 !important;
+    cursor: not-allowed !important;
+}
+@media (max-width: 768px) {
+    .pagination-card { align-items: stretch !important; flex-direction: column !important; }
+    .pagination-card nav, .pagination-shell, .pagination-list { justify-content: center !important; flex-wrap: wrap !important; }
+}
+.erp-filter-toolbar button[type="submit"],
+.erp-filter-toolbar .filter-btn,
+.erp-filter-toolbar .filter-button {
+    background: #0F1F3D !important;
+    border: 1px solid #0F1F3D !important;
+    color: #FFFFFF !important;
+}
+.erp-filter-toolbar a:not(.filter-btn) {
+    background: #FFFFFF !important;
+    border: 1px solid #D9E2EC !important;
+    color: #334155 !important;
+}
+@media (max-width: 768px) {
+    .erp-filter-toolbar { align-items: stretch !important; flex-direction: column !important; }
+    .erp-filter-toolbar > *,
+    .erp-filter-toolbar > div,
+    .erp-filter-toolbar > div:has(.filter-search) { width: 100% !important; min-width: 0 !important; flex: 1 1 auto !important; margin-right: 0 !important; }
+    .erp-filter-toolbar button,
+    .erp-filter-toolbar a { width: 100% !important; justify-content: center !important; }
+}
+
+/* Shared create/edit form layout aligned with the sidebar content grid. */
+.erp-form-page {
+    width: 100% !important;
+    max-width: 1180px !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+.erp-form-page > .rounded-lg.border,
+.erp-form-page > .rounded-xl.border,
+.erp-form-page > .form-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-color: #E1E7F1 !important;
+    border-radius: 12px !important;
+    background: #FFFFFF !important;
+    box-shadow: var(--jf-shadow) !important;
+}
+.erp-form-page > .rounded-lg.border form,
+.erp-form-page > .rounded-xl.border form,
+.erp-form-page > .form-panel form {
+    width: 100% !important;
+}
+.erp-form-page label {
+    color: #475569 !important;
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+}
+.erp-form-page input:not([type="checkbox"]):not([type="radio"]),
+.erp-form-page select,
+.erp-form-page textarea {
+    min-height: 40px !important;
+    border: 1px solid #E1E7F1 !important;
+    border-radius: 8px !important;
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif !important;
+    font-size: 12px !important;
+}
+.erp-form-page input:focus,
+.erp-form-page select:focus,
+.erp-form-page textarea:focus {
+    border-color: #1E3A8A !important;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, .10) !important;
+    outline: none !important;
+}
+.erp-form-page form > div:last-child,
+.erp-form-page .form-actions {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding-top: 16px !important;
+    border-top: 1px solid #E1E7F1 !important;
+}
+@media (max-width: 768px) {
+    .erp-form-page { max-width: 100% !important; }
+    .erp-form-page > .rounded-lg.border,
+    .erp-form-page > .rounded-xl.border,
+    .erp-form-page > .form-panel { padding: 16px !important; }
+    .erp-form-page form > div:last-child,
+    .erp-form-page .form-actions { align-items: stretch !important; }
+    .erp-form-page form > div:last-child > button,
+    .erp-form-page form > div:last-child > a,
+    .erp-form-page .form-actions > button,
+    .erp-form-page .form-actions > a { flex: 1 1 160px !important; justify-content: center !important; }
+}

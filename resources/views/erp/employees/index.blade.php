@@ -29,7 +29,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('hr.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('hr.index') }}" class="filter-toolbar erp-filter-toolbar">
             <div class="relative w-64 flex-shrink-0">
                 <input type="text" name="search" placeholder="Cari nama karyawan..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5 text-[#9CA3AF]">

@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('payment-reminders.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('payment-reminders.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             
         <select name="status" class="px-2.5 py-1.5 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white">
@@ -70,7 +70,7 @@
                         </a>
                             @endif
                             @if($can('admin'))
-                                <form method="post" action="{{ route('payment-reminders.destroy', $row) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus reminder ini?">
+                                <form method="post" action="{{ route('payment-reminders.destroy', $row) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus reminder ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -90,12 +90,7 @@
         </div>
     </div>
 
-    @if($reminders->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{$reminders->firstItem()}}-{{$reminders->lastItem()}} dari {{$reminders->total()}}</span>
-            {{$reminders->links()}}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$reminders" />
 </div>
 
 <x-erp.import-modal module="payment-reminders" title="Impor Data Payment Reminders" />

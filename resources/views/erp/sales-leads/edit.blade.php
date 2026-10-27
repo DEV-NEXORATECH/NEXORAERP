@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales-leads.edit-page', 'pageTitle' => 'Edit Lead'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Edit Sales Lead / Opportunity"
         subtitle="Perbarui nilai kontrak, progres stage, dan probabilitas closing untuk: {{ $lead->title }}"

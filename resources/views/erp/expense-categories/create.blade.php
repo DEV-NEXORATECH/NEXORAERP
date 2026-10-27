@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'expense-categories', 'pageTitle' => 'Tambah Kategori Biaya'])
 
 @section('content')
-<div class="space-y-5 max-w-2xl">
+<div class="erp-form-page space-y-5 max-w-2xl">
     <x-erp.page-header
         title="Tambah Kategori Biaya / Expense"
         subtitle="Daftarkan klasifikasi biaya operasional atau penerimaan untuk laporan keuangan."

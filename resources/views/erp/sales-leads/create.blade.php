@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales-leads.create-page', 'pageTitle' => 'Tambah Lead'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Tambah Sales Lead / Opportunity"
         subtitle="Registrasikan peluang penjualan baru ke dalam pipeline dengan potensi nilai deal dan probabilitas closing."

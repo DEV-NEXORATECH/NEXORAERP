@@ -16,7 +16,7 @@
 
     <!-- Form Container -->
     <div class="bg-white rounded-lg border border-[#D1D5DB] p-6 shadow-sm">
-        <form method="post" action="{{ route('goods-receipts.update', $receipt) }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2" class="space-y-4">
+        <form method="post" action="{{ route('goods-receipts.update', $receipt) }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2 space-y-4">
             
             @csrf @method('put')
             <div class="grid gap-1.5 md:col-span-2"><label>Purchase Order</label>

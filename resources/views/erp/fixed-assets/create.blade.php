@@ -16,7 +16,7 @@
 
     <!-- Form Container -->
     <div class="bg-white rounded-lg border border-[#D1D5DB] p-6 shadow-sm">
-        <form method="post" action="{{ route('fixed-assets.store') }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2" class="space-y-4">
+        <form method="post" action="{{ route('fixed-assets.store') }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2 space-y-4">
             
             @csrf
             <div class="grid gap-1.5"><label>Nama Aset</label><input name="name" required class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]"></div>

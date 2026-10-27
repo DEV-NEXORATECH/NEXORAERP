@@ -113,11 +113,7 @@
                     </table>
                 </div>
             </div>
-            @if($inquiries->hasPages())
-                <div class="pt-3 border-t border-[#E5E7EB] mt-3">
-                    {{ $inquiries->links() }}
-                </div>
-            @endif
+            <x-erp.pagination :paginator="$inquiries" />
         </div>
 
         {{-- Card: Leads & Pipeline --}}
@@ -177,11 +173,7 @@
                     </table>
                 </div>
             </div>
-            @if($leads->hasPages())
-                <div class="pt-3 border-t border-[#E5E7EB] mt-3">
-                    {{ $leads->links() }}
-                </div>
-            @endif
+            <x-erp.pagination :paginator="$inquiries" />
         </div>
     </div>
 
@@ -227,11 +219,7 @@
                     @endforelse
                 </div>
             </div>
-            @if($orders->hasPages())
-                <div class="pt-2 border-t border-[#E5E7EB] mt-2">
-                    {{ $orders->links() }}
-                </div>
-            @endif
+            <x-erp.pagination :paginator="$inquiries" />
         </div>
 
         {{-- Card: Target & Komisi --}}
@@ -330,11 +318,7 @@
                     @endforelse
                 </div>
             </div>
-            @if($contracts->hasPages())
-                <div class="pt-2 border-t border-[#E5E7EB] mt-2">
-                    {{ $contracts->links() }}
-                </div>
-            @endif
+            <x-erp.pagination :paginator="$inquiries" />
         </div>
     </div>
 </div>

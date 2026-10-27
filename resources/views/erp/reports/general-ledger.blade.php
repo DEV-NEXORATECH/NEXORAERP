@@ -19,7 +19,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('reports.general-ledger') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('reports.general-ledger') }}" class="filter-toolbar erp-filter-toolbar">
             <select name="chart_account_id" class="filter-select">
                 <option value="">Semua Akun</option>
                 @foreach($accounts as $account)

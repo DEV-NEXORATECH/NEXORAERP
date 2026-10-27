@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'reimbursements', 'pageTitle' => 'Edit Reimbursement: ' . ($reimbursement->employee->name ?? 'Klaim')])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Edit Reimbursement: {{ $reimbursement->employee->name ?? 'Klaim' }}"
         subtitle="Perbarui data klaim pengeluaran karyawan, alokasi project, status persetujuan, dan bukti nota."

@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'job-positions', 'pageTitle' => 'Edit Jabatan'])
 
 @section('content')
-<div class="space-y-5 max-w-2xl">
+<div class="erp-form-page space-y-5 max-w-2xl">
     <x-erp.page-header
         title="Edit Posisi / Jabatan"
         subtitle="Perbarui nama posisi pekerjaan: {{ $jobPosition->name }}"

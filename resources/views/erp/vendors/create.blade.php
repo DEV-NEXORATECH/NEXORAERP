@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'vendors', 'pageTitle' => 'Tambah Vendor Baru'])
 
 @section('content')
-<div class="space-y-5 max-w-3xl">
+<div class="erp-form-page space-y-5 max-w-3xl">
     <x-erp.page-header
         title="Daftarkan Vendor / Supplier Baru"
         subtitle="Registrasikan profil pemasok barang, lisensi software, atau penyedia jasa untuk pengadaan barang (procurement)."

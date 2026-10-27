@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'vendors', 'pageTitle' => 'Edit Vendor'])
 
 @section('content')
-<div class="space-y-5 max-w-3xl">
+<div class="erp-form-page space-y-5 max-w-3xl">
     <x-erp.page-header
         title="Edit Profil Vendor / Supplier"
         subtitle="Perbarui data kontak, kategori pasokan, dan syarat pembayaran untuk: {{ $vendor->name }}"

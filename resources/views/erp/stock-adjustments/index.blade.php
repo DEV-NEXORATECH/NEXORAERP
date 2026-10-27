@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('stock-adjustments.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('stock-adjustments.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             
         <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
@@ -63,7 +63,7 @@
                 <td class="px-3 py-2 text-xs text-right whitespace-nowrap">
                     @if($adjustment->status !== 'posted')
                         <form method="post" action="{{ route('stock-adjustments.post', $adjustment) }}" class="inline">@csrf<button class="mini">Post</button></form>
-                        <form method="post" action="{{ route('stock-adjustments.destroy', $adjustment) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus penyesuaian stok ini?">
+                        <form method="post" action="{{ route('stock-adjustments.destroy', $adjustment) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus penyesuaian stok ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -84,12 +84,7 @@
         </div>
     </div>
 
-    @if($adjustments->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{$adjustments->firstItem()}}-{{$adjustments->lastItem()}} dari {{$adjustments->total()}}</span>
-            {{$adjustments->links()}}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$adjustments" />
 </div>
 
 <x-erp.import-modal module="stock-adjustments" title="Impor Data Stock Adjustments" />

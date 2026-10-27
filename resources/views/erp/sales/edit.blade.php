@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'sales', 'pageTitle' => 'Edit Proposal'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Edit Dokumen Proposal"
         subtitle="Perbarui nilai penawaran komersial, deliverables, dan status approval: {{ $proposal->number ?? $proposal->title }}"

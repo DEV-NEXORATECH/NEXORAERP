@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('vendor-bills.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('vendor-bills.index') }}" class="filter-toolbar erp-filter-toolbar">
             <input type="text" name="search" placeholder="Cari nomor tagihan, vendor..." value="{{ request('search') }}" class="filter-search">
             <select name="status" class="filter-select">
                 <option value="">Semua Status</option>
@@ -83,7 +83,7 @@
                                     <a href="{{ route('vendor-bills.pdf', $bill) }}" target="_blank" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Cetak PDF">
                                         <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
                                     </a>
-                                    <form method="post" action="{{ route('vendor-bills.destroy', $bill) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus tagihan ini?">
+                                    <form method="post" action="{{ route('vendor-bills.destroy', $bill) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus tagihan ini?">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">

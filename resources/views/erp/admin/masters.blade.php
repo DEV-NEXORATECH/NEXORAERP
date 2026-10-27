@@ -70,11 +70,7 @@
                     @endforelse
                 </div>
             </div>
-            @if($clients->hasPages())
-            <div class="pt-2 border-t border-[#E2E8F0] mt-2">
-                {{ $clients->links() }}
-            </div>
-            @endif
+            <x-erp.pagination :paginator="$clients" />
         </div>
 
         {{-- Card 2: HR Master --}}

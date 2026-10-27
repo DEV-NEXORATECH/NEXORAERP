@@ -25,7 +25,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('vendors.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('vendors.index') }}" class="filter-toolbar erp-filter-toolbar">
             <div class="relative w-64 flex-shrink-0">
                 <input type="text" name="search" placeholder="Cari nama vendor, PIC, email..." value="{{ request('search') }}"
                     class="filter-search pl-8 pr-3 text-xs">
@@ -101,7 +101,7 @@
                                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                                         </a>
                                         @if($can('admin'))
-                                            <form method="post" action="{{ route('vendors.destroy', $row) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus data vendor ini?">
+                                            <form method="post" action="{{ route('vendors.destroy', $row) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus data vendor ini?">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">

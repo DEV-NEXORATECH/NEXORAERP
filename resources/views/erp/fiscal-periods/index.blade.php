@@ -21,7 +21,7 @@
                 <h3>Filter & Pencarian</h3>
             </div>
         </div>
-        <form method="get" action="{{ route('fiscal-periods.index') }}" class="filter-toolbar">
+        <form method="get" action="{{ route('fiscal-periods.index') }}" class="filter-toolbar erp-filter-toolbar">
             
             
         <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
@@ -70,7 +70,7 @@
                             @csrf
                             <button class="inline-flex h-7 items-center rounded border border-[#E2E8F0] bg-white px-2 text-[11px] font-semibold text-[#002875] hover:bg-[#F3F4F6] transition" title="{{ $period->status === 'open' ? 'Close Periode' : 'Open Periode' }}">{{ $period->status === 'open' ? 'Close' : 'Open' }}</button>
                         </form>
-                        <form method="post" action="{{ route('fiscal-periods.destroy', $period) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus periode fiskal ini?">
+                        <form method="post" action="{{ route('fiscal-periods.destroy', $period) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus periode fiskal ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
@@ -89,12 +89,7 @@
         </div>
     </div>
 
-    @if($periods->hasPages())
-        <div class="pagination-card flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-xs text-[#475569] shadow-xs gap-3">
-            <span>Menampilkan {{$periods->firstItem()}}-{{$periods->lastItem()}} dari {{$periods->total()}}</span>
-            {{$periods->links()}}
-        </div>
-    @endif
+    <x-erp.pagination :paginator="$periods" />
 </div>
 
 <x-erp.import-modal module="fiscal-periods" title="Impor Data Fiscal Periods" />

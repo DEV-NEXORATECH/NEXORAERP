@@ -1,7 +1,7 @@
 @extends('layouts.erp', ['activePage' => 'purchase-requisitions', 'pageTitle' => 'Edit Purchase Requisition'])
 
 @section('content')
-<div class="space-y-5 max-w-4xl">
+<div class="erp-form-page space-y-5 max-w-4xl">
     <x-erp.page-header
         title="Edit Purchase Requisition (PR)"
         subtitle="Perbarui estimasi nilai pengadaan, tanggal kebutuhan, dan status permohonan: {{ $requisition->number }} - {{ $requisition->title }}"

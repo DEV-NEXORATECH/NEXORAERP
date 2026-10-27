@@ -16,7 +16,7 @@
 
     <!-- Form Container -->
     <div class="bg-white rounded-lg border border-[#D1D5DB] p-6 shadow-sm">
-        <form method="post" action="{{ route('cashflows.update', $cashflow) }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2" class="space-y-4">
+        <form method="post" action="{{ route('cashflows.update', $cashflow) }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2 space-y-4">
             
             @csrf @method('put')
             <div class="grid gap-1.5"><label>Project</label><select name="project_id" class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]"><option value="">Company</option>@foreach ($projects as $project)<option value="{{ $project->id }}" @selected($cashflow->project_id===$project->id)>{{ $project->code }}</option>@endforeach</select></div>
