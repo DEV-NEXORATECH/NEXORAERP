@@ -127,7 +127,7 @@
                                 </td>
                                 <td class="px-3 py-2.5 text-[#64748B]">{{ $post->published_at ? $post->published_at->format('d M Y') : '-' }}</td>
                                 <td class="px-3 py-2.5 text-right">
-                                    <a href="{{ route('cms.blog.edit', $post->id) }}" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
+                                    <a href="{{ route('cms.blog.edit', $post->id) }}" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                         </a>
                                 </td>
@@ -167,7 +167,7 @@
                                 </td>
                                 <td class="px-3 py-2.5 text-[#64748B]">{{ $sec->updated_at ? $sec->updated_at->diffForHumans() : '-' }}</td>
                                 <td class="px-3 py-2.5 text-right">
-                                    <a href="{{ route('cms.sections.edit', $sec->id) }}" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
+                                    <a href="{{ route('cms.sections.edit', $sec->id) }}" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                         </a>
                                 </td>

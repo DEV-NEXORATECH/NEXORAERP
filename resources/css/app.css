@@ -3597,6 +3597,117 @@ textarea:focus {
     stroke: currentColor !important;
 }
 
+/* Single action-button contract for every ERP table.  This intentionally
+   comes last so legacy per-page Tailwind classes cannot change geometry. */
+.shell td:has(.erp-action-button),
+.shell td:has(> form button[title]),
+.shell td:has(> a[title]) {
+    text-align: right !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+}
+
+.shell td:has(.erp-action-button) > .inline-flex,
+.shell td:has(> form button[title]) > .inline-flex,
+.shell td:has(> a[title]) > .inline-flex {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 6px !important;
+}
+
+.shell td:last-child a[title]:has(> svg),
+.shell td:last-child button[title]:has(> svg),
+.shell td:has(.erp-action-button) .erp-action-button {
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
+    font-size: 0 !important;
+    line-height: 1 !important;
+}
+
+.shell td:last-child a[title]:has(> svg) > svg,
+.shell td:last-child button[title]:has(> svg) > svg,
+.shell td:has(.erp-action-button) .erp-action-button > svg {
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.shell td:last-child form.inline,
+.shell td:last-child form.m-0,
+.shell td:has(.erp-action-button) form {
+    display: inline-flex !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+}
+
+.shell td:last-child button[title*="Hapus"]:has(> svg),
+.shell td:has(.erp-action-button) button[title*="Hapus"] {
+    color: #DC2626 !important;
+    border-color: #FECACA !important;
+    background: #FEF2F2 !important;
+}
+
+/* Canonical actions for all feature tables, including legacy pages under
+   Modules, Approval & Task, Reports, CMS, and Settings. */
+.shell td:last-child a[title],
+.shell td:last-child button[title],
+.shell td:last-child form > button[type="submit"] {
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+    margin: 0 0 0 6px !important;
+    border-radius: 8px !important;
+    font-size: 0 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+}
+
+.shell td:last-child a[title] svg,
+.shell td:last-child button[title] svg,
+.shell td:last-child form > button[type="submit"] svg {
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.shell td:last-child form {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+}
+
+.shell td:last-child button[title*="Hapus"],
+.shell td:last-child button[title*="Delete"],
+.shell td:last-child form:has(input[name="_method"][value="delete"]) > button {
+    color: #DC2626 !important;
+    background: #FEF2F2 !important;
+    border: 1px solid #FECACA !important;
+}
+
 /* Consistent table action buttons (28x28px) */
 .erp-action-button,
 a.button.mini.ghost,
@@ -4260,7 +4371,7 @@ body { background: var(--jf-bg) !important; color: var(--jf-text) !important; fo
 .side-nav a.active, .side-summary.active { background: #EEF2FF !important; color: var(--jf-blue) !important; font-weight: 600 !important; border: 1px solid #DCE3F3 !important; box-shadow: none !important; }
 .side-nav a.active .side-icon, .side-summary.active .side-icon, .side-nav a.active .side-icon svg, .side-summary.active .side-icon svg { color: var(--jf-blue) !important; stroke: currentColor !important; }
 .side-label { font-size: 11.5px !important; }
-.app-header { padding: 0 32px !important; }
+.app-header { padding: 0 !important; }
 .app-header-card { min-height: 74px !important; background: #FFFFFF !important; border: 1px solid #E6EBF3 !important; border-radius: 0 !important; box-shadow: none !important; }
 .hdr-toggle, .hdr-icon-btn { width: 40px !important; height: 40px !important; border-radius: 8px !important; background: #F4F7FC !important; border: 1px solid #E6EBF3 !important; color: var(--jf-text) !important; }
 .hdr-toggle svg, .hdr-icon-btn svg { width: 20px !important; height: 20px !important; }
@@ -4288,4 +4399,19 @@ button, a.btn, .btn { font-family: 'Poppins', ui-sans-serif, system-ui, sans-ser
 .app-shell.sidebar-collapsed .sidebar { width: 68px !important; }
 .app-shell.sidebar-collapsed .side-label, .app-shell.sidebar-collapsed .side-section { display: none !important; }
 .app-shell.sidebar-collapsed .side-nav a, .app-shell.sidebar-collapsed .side-summary { justify-content: center !important; padding: 0 !important; }
+.app-shell > .content,
+.app-shell.sidebar-collapsed > .content { min-width: 0 !important; width: auto !important; }
+.app-shell.sidebar-collapsed .app-header { padding-left: 0 !important; }
+.app-shell.sidebar-collapsed .app-header-card { margin-left: 0 !important; }
+.content-body { padding-top: 24px !important; }
+.content-body > .shell { margin-top: 0 !important; }
+.app-header .hdr-toggle { color: var(--jf-blue) !important; background: #F4F7FC !important; }
+.app-header .hdr-toggle svg,
+.app-header .hdr-toggle .sidebar-toggle-icon { width: 20px !important; height: 20px !important; color: var(--jf-blue) !important; stroke: currentColor !important; }
+@media (min-width: 769px) {
+    .app-shell { grid-template-columns: 244px minmax(0, 1fr) !important; }
+    .app-shell.sidebar-collapsed { grid-template-columns: 68px minmax(0, 1fr) !important; }
+    .app-shell.sidebar-collapsed .sidebar { width: 68px !important; min-width: 68px !important; }
+    .app-shell.sidebar-collapsed .content { min-width: 0 !important; }
+}
 .eyebrow { font-size: 9px !important; font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 1.5px !important; color: #64748B !important; }
