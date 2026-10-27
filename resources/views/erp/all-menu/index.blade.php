@@ -78,7 +78,7 @@
                 <span class="font-bold text-[#002875]" id="module-count-badge">{{ $orderedMenus->count() }} Modul</span>
             </div>
 
-            <x-erp.toolbar-actions module="modules" :can-create="false" />
+            {{-- Export/Import/PDF dihapus dari hub; tersedia di halaman fitur masing-masing --}}
         </div>
     </div>
 

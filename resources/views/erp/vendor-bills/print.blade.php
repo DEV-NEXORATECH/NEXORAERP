@@ -29,10 +29,10 @@
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Informasi Tagihan:</div>
             @if($vendorBill->project)
-                <div style="font-size: 9.5pt; font-weight: bold; margin-top: 2px;">Proyek: {{ $vendorBill->project->code }} — {{ $vendorBill->project->name }}</div>
+                <div style="font-size: 9.5pt; font-weight: bold; margin-top: 2px;">Proyek: {{ $vendorBill->project?->code }} — {{ $vendorBill->project?->name }}</div>
             @endif
             @if($vendorBill->paymentTerm)
-                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Termin: {{ $vendorBill->paymentTerm->name }} ({{ $vendorBill->paymentTerm->days }} hari)</div>
+                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Termin: {{ $vendorBill->paymentTerm?->name }} ({{ $vendorBill->paymentTerm?->days }} hari)</div>
             @endif
             <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Status Pembayaran: <strong style="text-transform: uppercase;">{{ $vendorBill->status }}</strong></div>
         </td>
@@ -83,3 +83,4 @@
     </tfoot>
 </table>
 @endsection
+

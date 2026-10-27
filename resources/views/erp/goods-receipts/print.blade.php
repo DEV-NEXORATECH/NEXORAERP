@@ -15,8 +15,8 @@
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Penerimaan Dari Vendor:</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $receipt->purchaseOrder->vendor->name ?? 'Vendor Terdaftar' }}</div>
-            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Ref. Purchase Order: {{ $receipt->purchaseOrder->number ?? '-' }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $receipt->purchaseOrder?->vendor?->name ?? 'Vendor Terdaftar' }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Ref. Purchase Order: {{ $receipt->purchaseOrder?->number ?? '-' }}</div>
         </td>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Keterangan / Kondisi Barang:</div>
@@ -38,17 +38,17 @@
         </tr>
     </thead>
     <tbody>
-        @if($receipt->purchaseOrder && $receipt->purchaseOrder->items->count())
-            @foreach($receipt->purchaseOrder->items as $idx => $item)
+        @if($receipt->purchaseOrder && $receipt->purchaseOrder?->items->count())
+            @foreach($receipt->purchaseOrder?->items as $idx => $item)
                 <tr>
                     <td class="text-center">{{ $idx + 1 }}</td>
                     <td>
-                        <div class="text-bold">{{ $item->product->name ?? 'Barang PO' }}</div>
-                        @if($item->product && $item->product->sku)
-                            <div style="font-size: 8pt; color: #555;">SKU: {{ $item->product->sku }}</div>
+                        <div class="text-bold">{{ $item->product?->name ?? 'Barang PO' }}</div>
+                        @if($item->product && $item->product?->sku)
+                            <div style="font-size: 8pt; color: #555;">SKU: {{ $item->product?->sku }}</div>
                         @endif
                     </td>
-                    <td class="text-center text-bold">{{ number_format($item->quantity, 0, ',', '.') }} {{ $item->product->unit ?? 'Unit' }}</td>
+                    <td class="text-center text-bold">{{ number_format($item->quantity, 0, ',', '.') }} {{ $item->product?->unit ?? 'Unit' }}</td>
                     <td class="text-center" style="color: #15803D; font-weight: bold;">Lengkap & Baik</td>
                 </tr>
             @endforeach
@@ -56,7 +56,7 @@
             <tr>
                 <td class="text-center">1</td>
                 <td>
-                    <div class="text-bold">Penerimaan Barang PO: {{ $receipt->purchaseOrder->number ?? '-' }}</div>
+                    <div class="text-bold">Penerimaan Barang PO: {{ $receipt->purchaseOrder?->number ?? '-' }}</div>
                 </td>
                 <td class="text-center text-bold">1 Lot</td>
                 <td class="text-center" style="color: #15803D; font-weight: bold;">Diterima Lengkap</td>
@@ -65,3 +65,4 @@
     </tbody>
 </table>
 @endsection
+

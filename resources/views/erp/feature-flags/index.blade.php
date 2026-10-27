@@ -2,10 +2,10 @@
 
 @section('content')
 <section class="space-y-5" id="feature-flags">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm">
         <div>
-            <h1 class="text-lg font-bold text-gray-900 tracking-tight">Pengaturan Fitur</h1>
-            <p class="text-xs text-gray-500">Kelola status aktif/nonaktif fitur ERP untuk kontrol modul sistem.</p>
+            <h1 class="text-lg font-bold text-[#0F172A] tracking-tight">Pengaturan Fitur</h1>
+            <p class="text-xs text-[#475569]">Kelola status aktif/nonaktif fitur ERP untuk kontrol modul sistem.</p>
         </div>
         <x-erp.toolbar-actions module="feature_flags" :create-route="route('feature-flags.create-page')" create-label="+ Tambah Fitur" />
     </div>
@@ -17,7 +17,7 @@
     <div class="space-y-6">
         @foreach($modules as $moduleKey => $moduleLabel)
             @php $moduleFlags = $flags->get($moduleKey, collect()); @endphp
-            <div class="rounded-lg border border-gray-200 bg-white shadow-sm p-4 sm:p-5">
+            <div class="rounded-lg border border-[#D1D5DB] bg-white shadow-sm p-4 sm:p-5">
                 <div class="mb-3 flex items-center justify-between">
                     <h3 class="text-sm font-bold uppercase tracking-wide text-[#002875]">{{ $moduleLabel }}</h3>
                     <span class="text-xs font-semibold text-slate-400">
@@ -27,7 +27,7 @@
 
                 <div class="grid grid-cols-1 gap-2">
                     @foreach($moduleFlags as $flag)
-                    <div class="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3">
+                    <div class="flex items-center justify-between gap-3 rounded-xl border border-[#D1D5DB] bg-[#F8FAFC]/50 px-4 py-3">
                         <div class="min-w-0">
                             <div class="flex items-center gap-2">
                                 <span class="truncate text-sm font-bold text-slate-800">{{ $flag->label }}</span>

@@ -22,20 +22,20 @@
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Ditagihkan Kepada (Bill To):</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $invoice->project->client ?? ($invoice->project->clientRecord->name ?? 'Pelanggan Umum') }}</div>
-            @if($invoice->project->clientRecord && $invoice->project->clientRecord->address)
-                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">{{ $invoice->project->clientRecord->address }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $invoice->project?->client ?? ($invoice->project?->clientRecord?->name ?? 'Pelanggan Umum') }}</div>
+            @if($invoice->project?->clientRecord && $invoice->project?->clientRecord->address)
+                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">{{ $invoice->project?->clientRecord->address }}</div>
             @endif
-            @if($invoice->project->clientRecord && ($invoice->project->clientRecord->email || $invoice->project->clientRecord->phone))
-                <div style="font-size: 8.5pt; color: #444;">{{ $invoice->project->clientRecord->email }} | {{ $invoice->project->clientRecord->phone }}</div>
+            @if($invoice->project?->clientRecord && ($invoice->project?->clientRecord->email || $invoice->project?->clientRecord->phone))
+                <div style="font-size: 8.5pt; color: #444;">{{ $invoice->project?->clientRecord->email }} | {{ $invoice->project?->clientRecord->phone }}</div>
             @endif
         </td>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Referensi Proyek:</div>
-            <div style="font-size: 10pt; font-weight: bold; margin-top: 2px;">{{ $invoice->project->code }} — {{ $invoice->project->name }}</div>
-            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Nilai Kontrak: Rp {{ number_format((float)$invoice->project->contract_value, 0, ',', '.') }}</div>
+            <div style="font-size: 10pt; font-weight: bold; margin-top: 2px;">{{ $invoice->project?->code }} — {{ $invoice->project?->name }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Nilai Kontrak: Rp {{ number_format((float)$invoice->project?->contract_value, 0, ',', '.') }}</div>
             @if($invoice->paymentTerm)
-                <div style="font-size: 8.5pt; color: #444;">Syarat Pembayaran: {{ $invoice->paymentTerm->name }} ({{ $invoice->paymentTerm->days }} hari)</div>
+                <div style="font-size: 8.5pt; color: #444;">Syarat Pembayaran: {{ $invoice->paymentTerm?->name }} ({{ $invoice->paymentTerm?->days }} hari)</div>
             @endif
         </td>
     </tr>
@@ -55,7 +55,7 @@
         <tr>
             <td class="text-center">1</td>
             <td>
-                <div class="text-bold">{{ $invoice->project->name }} (Tahap Tagihan Invoice {{ $invoice->number }})</div>
+                <div class="text-bold">{{ $invoice->project?->name }} (Tahap Tagihan Invoice {{ $invoice->number }})</div>
                 @if($invoice->notes)
                     <div style="font-size: 8pt; color: #444; margin-top: 3px;">Catatan: {{ $invoice->notes }}</div>
                 @endif
@@ -94,7 +94,7 @@
 
 {{-- Payment Instructions --}}
 @php
-    $bank = $companySetting->defaultBankAccount ?? \App\Models\BankAccount::first();
+    $bank = $companySetting?->defaultBankAccount ?? \App\Models\BankAccount::first();
 @endphp
 @if($bank)
     <div style="margin-top: 18px; padding: 10px 14px; border: 1px solid #777; background-color: #FAFAFA; font-size: 8.5pt;">
@@ -105,3 +105,4 @@
 @endif
 
 @endsection
+

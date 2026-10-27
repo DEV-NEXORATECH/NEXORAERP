@@ -4,42 +4,42 @@
 
 {{-- ═══════════════════════ KPI Summary ═══════════════════════ --}}
 <div class="report-summary-grid section">
-    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">
+    <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm">
+        <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm-label">
             <svg class="inline-block h-4 w-4 mr-1 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
             Total Income
         </div>
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric good">{{ $rp($summary['income']) }}</div>
+        <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm-metric good">{{ $rp($summary['income']) }}</div>
         <div class="muted text-xs mt-1">pemasukan keseluruhan</div>
     </div>
-    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">
+    <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm">
+        <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm-label">
             <svg class="inline-block h-4 w-4 mr-1 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
             Total Expense
         </div>
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric bad">{{ $rp($summary['expense']) }}</div>
+        <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm-metric bad">{{ $rp($summary['expense']) }}</div>
         <div class="muted text-xs mt-1">pengeluaran keseluruhan</div>
     </div>
-    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">
+    <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm">
+        <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm-label">
             <svg class="inline-block h-4 w-4 mr-1 {{ $summary['balance'] >= 0 ? 'text-emerald-500' : 'text-red-500' }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
             Net Balance
         </div>
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric {{ $summary['balance'] >= 0 ? 'good' : 'bad' }}">{{ $rp($summary['balance']) }}</div>
+        <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm-metric {{ $summary['balance'] >= 0 ? 'good' : 'bad' }}">{{ $rp($summary['balance']) }}</div>
         <div class="muted text-xs mt-1">{{ $summary['balance'] >= 0 ? 'Surplus' : 'Defisit' }}</div>
     </div>
-    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-label">
+    <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm">
+        <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm-label">
             <svg class="inline-block h-4 w-4 mr-1 text-[#002875]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
             Transaksi
         </div>
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm-metric">{{ number_format($summary['count']) }}</div>
+        <div class="bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm-metric">{{ number_format($summary['count']) }}</div>
         <div class="muted text-xs mt-1">total entries</div>
     </div>
 </div>
 
 {{-- ═══════════════════════ Filter Panel ═══════════════════════ --}}
-<section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mb-4">
+<section class="bg-white rounded-lg border border-[#D1D5DB] p-4 shadow-sm mb-4">
     <div class="filter-panel-header">
         <div class="filter-panel-icon">{!! $icon('cashflow') !!}</div>
         <div>
@@ -49,7 +49,7 @@
     </div>
     
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
         <form method="get" action="{{ route('cashflows.index-page') }}" class="filter-toolbar">
             
         <div class="filter-field xl:col-span-2">
@@ -296,7 +296,7 @@
                         </a>
                             @endif
                             @if($can('admin'))
-                                <form method="post" action="{{ route('cashflows.destroy', $flow) }}" class="inline" onsubmit="return confirm('Hapus transaksi ini?');">
+                                <form method="post" action="{{ route('cashflows.destroy', $flow) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus transaksi ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">

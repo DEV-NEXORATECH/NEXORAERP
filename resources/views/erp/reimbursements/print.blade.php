@@ -5,7 +5,7 @@
     'docDueDate'     => '—',
     'docStatus'      => $reimbursement->status,
     'companySetting' => $companySetting ?? null,
-    'preparedBy'     => $reimbursement->employee->name ?? auth()->user()->name ?? 'Karyawan',
+    'preparedBy'     => $reimbursement->employee?->name ?? auth()->user()->name ?? 'Karyawan',
     'reviewedBy'     => 'HR / Finance Manager',
     'approvedBy'     => 'Direktur Operasional',
 ])
@@ -15,15 +15,15 @@
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Karyawan Pemohon (Klaim):</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $reimbursement->employee->name ?? 'Karyawan' }}</div>
-            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">NIK/Kode: {{ $reimbursement->employee->employee_code ?? '-' }}</div>
-            <div style="font-size: 8.5pt; color: #444;">Divisi / Jabatan: {{ $reimbursement->employee->department->name ?? '-' }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $reimbursement->employee?->name ?? 'Karyawan' }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">NIK/Kode: {{ $reimbursement->employee?->employee_code ?? '-' }}</div>
+            <div style="font-size: 8.5pt; color: #444;">Divisi / Jabatan: {{ $reimbursement->employee?->departmentRecord->name ?? '-' }}</div>
         </td>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Informasi Pengeluaran:</div>
             <div style="font-size: 9.5pt; font-weight: bold; margin-top: 2px;">Kategori: {{ $reimbursement->category }}</div>
             @if($reimbursement->project)
-                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Beban Proyek: {{ $reimbursement->project->code }} — {{ $reimbursement->project->name }}</div>
+                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Beban Proyek: {{ $reimbursement->project?->code }} — {{ $reimbursement->project?->name }}</div>
             @endif
             <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Status Klaim: <strong style="text-transform: uppercase;">{{ $reimbursement->status }}</strong></div>
         </td>
@@ -60,3 +60,4 @@
     </tfoot>
 </table>
 @endsection
+

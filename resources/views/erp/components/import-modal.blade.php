@@ -18,7 +18,7 @@
                         <p class="text-[11px] text-[#64748B]">Unggah file CSV sesuai format template</p>
                     </div>
                 </div>
-                <button type="button" onclick="document.getElementById('import-modal-{{ $module }}').classList.add('hidden')" class="text-gray-400 hover:text-gray-600">
+                <button type="button" onclick="document.getElementById('import-modal-{{ $module }}').classList.add('hidden')" class="text-[#94A3B8] hover:text-[#475569]">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
                 </button>
             </div>

@@ -71,7 +71,7 @@
                         <h2 class="text-sm font-bold text-[#0F172A]">Inquiry Masuk</h2>
                         <p class="text-xs text-[#475569]">Permintaan prospek dari website dan referral</p>
                     </div>
-        <x-erp.toolbar-actions module="sales-crm" :create-route="route('sales-leads.create-page')" create-label="+ Lead Baru" />
+        <a href="{{ route('sales-leads.create-page') }}" class="inline-flex h-8 items-center rounded-md bg-[#002875] px-3 text-xs font-semibold text-white hover:bg-[#001B50]">+ Lead Baru</a>
     </div>
 
                 <div class="overflow-x-auto">
@@ -86,7 +86,7 @@
                         </thead>
                         <tbody class="divide-y divide-[#E5E7EB]">
                             @forelse($inquiries as $row)
-                                <tr class="hover:bg-slate-50 transition">
+                                <tr class="hover:bg-[#F3F4F6] transition">
                                     <td class="p-2.5">
                                         <p class="font-bold text-[#0F172A]">{{ $row->company_name }}</p>
                                         <p class="text-[11px] text-[#64748B]">{{ $row->contact_name ?: '-' }}</p>
@@ -150,7 +150,7 @@
                         </thead>
                         <tbody class="divide-y divide-[#E5E7EB]">
                             @forelse($leads as $row)
-                                <tr class="hover:bg-slate-50 transition">
+                                <tr class="hover:bg-[#F3F4F6] transition">
                                     <td class="p-2.5">
                                         <p class="font-bold text-[#0F172A]">{{ $row->title }}</p>
                                         <p class="text-[11px] text-[#64748B]">{{ $row->probability }}% probabilitas</p>

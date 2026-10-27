@@ -8,7 +8,7 @@
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Reimbursements', 'url' => route('reimbursements.index-page')], ['label' => 'Tambah Klaim']]"
     />
 
-    <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="rounded-lg border border-[#D1D5DB] bg-white p-6 shadow-sm">
         <form method="post" action="{{ route('reimbursements.store') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
@@ -18,7 +18,7 @@
                         Karyawan Pemohon <span class="text-red-500">*</span>
                     </label>
                     <select name="employee_id" required
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
                         <option value="">-- Pilih Karyawan --</option>
                         @foreach ($employees as $employee)
                             <option value="{{ $employee->id }}" @selected(old('employee_id')==$employee->id)>
@@ -33,7 +33,7 @@
                         Alokasi Proyek Terkait
                     </label>
                     <select name="project_id"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
                         <option value="">-- Non-Project (Biaya Operasional Umum) --</option>
                         @foreach ($projects as $project)
                             <option value="{{ $project->id }}" @selected(old('project_id')==$project->id)>
@@ -48,7 +48,7 @@
                         Kategori Pengeluaran <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="category" value="{{ old('category') }}" required placeholder="Contoh: Transportasi, Akomodasi, Meals, ATK"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
                 </div>
 
                 <div>
@@ -56,7 +56,7 @@
                         Status Pengajuan <span class="text-red-500">*</span>
                     </label>
                     <select name="status" required
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
                         <option value="pending" @selected(old('status')==='pending')>Pending Review</option>
                         <option value="approved" @selected(old('status')==='approved')>Approved</option>
                         <option value="paid" @selected(old('status')==='paid')>Paid (Sudah Ditransfer)</option>
@@ -69,7 +69,7 @@
                         Nominal Klaim (Rp) <span class="text-red-500">*</span>
                     </label>
                     <input type="number" name="amount" min="0" value="{{ old('amount', 0) }}" required
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
                 </div>
 
                 <div>
@@ -77,7 +77,7 @@
                         Tanggal Pengeluaran <span class="text-red-500">*</span>
                     </label>
                     <input type="date" name="expense_date" value="{{ old('expense_date', now()->toDateString()) }}" required
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">
                 </div>
 
                 <div class="md:col-span-2">
@@ -93,12 +93,12 @@
                         Keterangan / Deskripsi Keperluan
                     </label>
                     <textarea name="description" rows="3" placeholder="Jelaskan rincian pengeluaran untuk keperluan dinas apa..."
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">{{ old('description') }}</textarea>
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875] transition-colors">{{ old('description') }}</textarea>
                 </div>
             </div>
 
-            <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
-                <a href="{{ route('reimbursements.index-page') }}" class="rounded-md border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors">
+            <div class="pt-4 border-t border-[#D1D5DB] flex items-center justify-end gap-3">
+                <a href="{{ route('reimbursements.index-page') }}" class="rounded-md border border-[#D1D5DB] bg-white px-4 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:bg-[#F3F4F6] transition-colors">
                     Batal
                 </a>
                 <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#001B50] focus:outline-none focus:ring-2 focus:ring-[#002875] transition-colors">

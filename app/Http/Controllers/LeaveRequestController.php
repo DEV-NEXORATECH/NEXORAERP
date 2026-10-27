@@ -70,7 +70,7 @@ class LeaveRequestController extends Controller
 
     public function pdf(LeaveRequest $leave): View
     {
-        $leave->load(['employee.department']);
+        $leave->load(['employee.departmentRecord']);
         $companySetting = \App\Models\CompanySetting::first();
         return view('erp.leave-requests.print', compact('leave', 'companySetting'));
     }

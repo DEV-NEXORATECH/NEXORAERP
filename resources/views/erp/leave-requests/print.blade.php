@@ -5,7 +5,7 @@
     'docDueDate'     => '—',
     'docStatus'      => $leave->status,
     'companySetting' => $companySetting ?? null,
-    'preparedBy'     => $leave->employee->name ?? auth()->user()->name ?? 'Karyawan',
+    'preparedBy'     => $leave->employee?->name ?? auth()->user()->name ?? 'Karyawan',
     'reviewedBy'     => 'Atasan Langsung',
     'approvedBy'     => 'HRD Manager',
 ])
@@ -15,8 +15,8 @@
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Identitas Karyawan:</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $leave->employee->name ?? 'Karyawan' }}</div>
-            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Divisi: {{ $leave->employee->department->name ?? '-' }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $leave->employee?->name ?? 'Karyawan' }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Divisi: {{ $leave->employee?->departmentRecord->name ?? '-' }}</div>
             <div style="font-size: 8.5pt; color: #444;">Jenis Pengajuan: <strong style="text-transform: capitalize;">{{ $leave->type }}</strong></div>
         </td>
         <td style="width: 50%;">
@@ -47,3 +47,4 @@
     </tbody>
 </table>
 @endsection
+

@@ -7,17 +7,18 @@
     'companySetting' => $companySetting ?? null,
     'preparedBy'     => 'Sales & Business Dept',
     'reviewedBy'     => 'Commercial Lead',
-    'approvedBy'     => $proposal->project->client ?? 'Client PIC',
+    'approvedBy'     => $proposal->project?->client ?? 'Client PIC',
 ])
 
 @section('content')
+@php($project = $proposal->project)
 {{-- Metadata Table --}}
 <table class="table-folk doc-table" style="margin-top: 0; margin-bottom: 16px;">
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Ditujukan Kepada:</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $proposal->project->client }}</div>
-            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Proyek: {{ $proposal->project->code }} — {{ $proposal->project->name }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $project?->client ?? $project?->clientRecord?->name ?? 'Client' }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Proyek: {{ $project?->code ?? '-' }} — {{ $project?->name ?? 'Proposal Project' }}</div>
         </td>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Rincian Penawaran:</div>

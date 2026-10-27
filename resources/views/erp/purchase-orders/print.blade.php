@@ -18,18 +18,18 @@
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Vendor / Supplier:</div>
             <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $order->vendor?->name ?? 'Vendor Umum' }}</div>
             @if($order->vendor?->address)
-                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">{{ $order->vendor->address }}</div>
+                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">{{ $order->vendor?->address }}</div>
             @endif
             @if($order->vendor?->email || $order->vendor?->phone)
-                <div style="font-size: 8.5pt; color: #444;">{{ $order->vendor->email }} | {{ $order->vendor->phone }}</div>
+                <div style="font-size: 8.5pt; color: #444;">{{ $order->vendor?->email }} | {{ $order->vendor?->phone }}</div>
             @endif
         </td>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Informasi Pengiriman & Termin:</div>
             <div style="font-size: 10pt; font-weight: bold; margin-top: 2px;">Gudang Utama Nexora360</div>
             <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Syarat Pembayaran: {{ $order->vendor?->payment_terms ?? 'Net 30 Days' }}</div>
-            @if($order->purchaseRequisition)
-                <div style="font-size: 8.5pt; color: #444;">Referensi PR: {{ $order->purchaseRequisition->number }}</div>
+            @if($order->requisition)
+                <div style="font-size: 8.5pt; color: #444;">Referensi PR: {{ $order->requisition?->number }}</div>
             @endif
         </td>
     </tr>
@@ -85,3 +85,4 @@
     </div>
 @endif
 @endsection
+

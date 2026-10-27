@@ -5,7 +5,7 @@
     'docDueDate'     => $requisition->required_date ? \Carbon\Carbon::parse($requisition->required_date)->format('d F Y') : '—',
     'docStatus'      => $requisition->status,
     'companySetting' => $companySetting ?? null,
-    'preparedBy'     => $requisition->requester->name ?? auth()->user()->name ?? 'Pemohon',
+    'preparedBy'     => $requisition->requester?->name ?? auth()->user()->name ?? 'Pemohon',
     'reviewedBy'     => 'Kepala Divisi',
     'approvedBy'     => 'Manajer Pengadaan',
 ])
@@ -15,8 +15,8 @@
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Pemohon Pengadaan:</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $requisition->requester->name ?? 'Karyawan' }}</div>
-            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Divisi: {{ $requisition->department->name ?? 'Umum' }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $requisition->requester?->name ?? 'Karyawan' }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Divisi: {{ $requisition->department?->name ?? 'Umum' }}</div>
         </td>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Kebutuhan & Jadwal:</div>
@@ -53,3 +53,4 @@
     </tfoot>
 </table>
 @endsection
+

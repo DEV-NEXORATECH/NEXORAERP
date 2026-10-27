@@ -23,7 +23,7 @@
     @endif
 
     {{-- Temporary Password Toast --}}
-    @if (session('temporary_password'))
+    @if (session('temporary_password') && !session('status') && !session('success'))
         <div class="erp-toast-item pointer-events-auto flex items-start gap-3 rounded-xl border border-blue-200 bg-white p-3.5 shadow-xl shadow-slate-900/10 transition-all duration-300 ease-out" role="status">
             <div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 border border-blue-200 text-[#002875] mt-0.5">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -32,7 +32,7 @@
             </div>
             <div class="flex-1 min-w-0 pr-1">
                 <div class="text-xs font-bold text-[#0F172A]">Password Sementara</div>
-                <div class="text-xs text-[#475569] leading-snug mt-0.5 font-mono bg-slate-50 p-1.5 rounded border border-slate-200 break-all">{{ session('temporary_password') }}</div>
+                <div class="text-xs text-[#475569] leading-snug mt-0.5 font-mono bg-slate-50 p-1.5 rounded border border-[#D1D5DB] break-all">{{ session('temporary_password') }}</div>
             </div>
             <button type="button" onclick="dismissErpToast(this)" class="shrink-0 text-[#94A3B8] hover:text-[#0F172A] p-0.5 rounded transition cursor-pointer" title="Tutup">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -41,7 +41,7 @@
     @endif
 
     {{-- Warning Toast --}}
-    @if (session('warning'))
+    @if (session('warning') && !session('status') && !session('success') && !session('temporary_password'))
         <div class="erp-toast-item pointer-events-auto flex items-start gap-3 rounded-xl border border-amber-200 bg-white p-3.5 shadow-xl shadow-slate-900/10 transition-all duration-300 ease-out" role="status">
             <div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-50 border border-amber-200 text-amber-600 mt-0.5">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -59,7 +59,7 @@
     @endif
 
     {{-- Error Toast --}}
-    @if (session('error') || session('danger') || $errors->any())
+    @if ((session('error') || session('danger') || $errors->any()) && !session('status') && !session('success') && !session('temporary_password') && !session('warning'))
         <div class="erp-toast-item pointer-events-auto flex items-start gap-3 rounded-xl border border-red-200 bg-white p-3.5 shadow-xl shadow-slate-900/10 transition-all duration-300 ease-out" role="alert">
             <div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-50 border border-red-200 text-red-600 mt-0.5">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">

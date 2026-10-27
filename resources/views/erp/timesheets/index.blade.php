@@ -14,7 +14,13 @@
     </x-erp.page-header>
 
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('timesheets.index') }}" class="filter-toolbar">
             <input type="text" name="search" placeholder="Cari task / aktivitas..." value="{{ request('search') }}" class="filter-search">
             <select name="project_id" class="filter-select">
@@ -34,7 +40,7 @@
                     Filter
                 </button>
                 @if(request()->hasAny(['search', 'project_id', 'employee_id']))
-                    <a href="{{ route('timesheets.index') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                    <a href="{{ route('timesheets.index') }}" class="inline-flex items-center rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-[#F3F4F6] transition-colors">
                         Reset
                     </a>
                 @endif
@@ -43,11 +49,11 @@
     </div>
 
     {{-- Card 3 — Workspace: Data Table --}}
-    <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+    <div class="workspace-card rounded-lg border border-[#D1D5DB] bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
-                    <tr class="border-y border-slate-200 bg-slate-50/75 text-[11px] font-semibold text-slate-600 uppercase tracking-wider">
+                    <tr class="border-y border-[#D1D5DB] bg-slate-50/75 text-[11px] font-semibold text-slate-600 uppercase tracking-wider">
                         <th class="py-3 px-4">Karyawan</th>
                         <th class="py-3 px-4">Proyek / Task</th>
                         <th class="py-3 px-4 text-center">Tanggal</th>
@@ -59,7 +65,7 @@
                 </thead>
                 <tbody class="divide-y divide-slate-200 text-slate-800">
                     @forelse($items as $row)
-                        <tr class="hover:bg-slate-50/60 transition-colors">
+                        <tr class="hover:bg-[#F3F4F6]/60 transition-colors">
                             <td class="py-3 px-4 font-bold text-slate-900">{{ $row->employee->name ?? '-' }}</td>
                             <td class="py-3 px-4">
                                 <div class="font-semibold text-slate-900">{{ $row->project->name ?? '-' }}</div>

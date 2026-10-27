@@ -15,12 +15,12 @@
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Pihak Klien / Mitra:</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $contract->client->name ?? 'Klien' }}</div>
-            @if($contract->client && $contract->client->address)
-                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">{{ $contract->client->address }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $contract->client?->name ?? 'Klien' }}</div>
+            @if($contract->client && $contract->client?->address)
+                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">{{ $contract->client?->address }}</div>
             @endif
-            @if($contract->client && $contract->client->email)
-                <div style="font-size: 8pt; color: #666; margin-top: 1px;">Email: {{ $contract->client->email }}</div>
+            @if($contract->client && $contract->client?->email)
+                <div style="font-size: 8pt; color: #666; margin-top: 1px;">Email: {{ $contract->client?->email }}</div>
             @endif
         </td>
         <td style="width: 50%;">
@@ -65,3 +65,4 @@
     </tfoot>
 </table>
 @endsection
+

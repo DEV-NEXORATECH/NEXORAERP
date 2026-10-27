@@ -8,7 +8,7 @@
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Sales & CRM', 'url' => route('sales-crm.index')], ['label' => 'Proposals', 'url' => route('sales.index')], ['label' => 'Edit']]"
     />
 
-    <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-xs">
+    <div class="rounded-lg border border-[#D1D5DB] bg-white p-6 shadow-xs">
         <form method="post" action="{{ route('proposals.update', $proposal) }}" enctype="multipart/form-data" class="space-y-5">
             @csrf
             @method('put')
@@ -18,7 +18,7 @@
                         Nomor Dokumen Proposal
                     </label>
                     <input type="text" name="number" value="{{ old('number', $proposal->number) }}"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                 </div>
 
                 <div>
@@ -26,7 +26,7 @@
                         Proyek Terkait <span class="text-red-500">*</span>
                     </label>
                     <select name="project_id" required
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                         @foreach ($projects as $project)
                             <option value="{{ $project->id }}" @selected($proposal->project_id === $project->id)>
                                 {{ $project->code }} - {{ $project->name }} ({{ $project->client?->name ?? 'Internal' }})
@@ -40,7 +40,7 @@
                         Judul Proposal <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="title" value="{{ old('title', $proposal->title) }}" required autofocus
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                     @error('title')
                         <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                     @enderror
@@ -51,7 +51,7 @@
                         Total Nilai Penawaran (Rp) <span class="text-red-500">*</span>
                     </label>
                     <input type="number" name="amount" value="{{ old('amount', $proposal->amount) }}" min="0" step="1" required
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                 </div>
 
                 <div>
@@ -59,7 +59,7 @@
                         Status Proposal <span class="text-red-500">*</span>
                     </label>
                     <select name="status" required
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                         <option value="draft" @selected($proposal->status === 'draft')>Draft (Penyusunan)</option>
                         <option value="sent" @selected($proposal->status === 'sent')>Sent (Terkirim ke Klien)</option>
                         <option value="approved" @selected($proposal->status === 'approved')>Approved (Disetujui Klien)</option>
@@ -72,7 +72,7 @@
                         Masa Berlaku Penawaran (Valid Until)
                     </label>
                     <input type="date" name="valid_until" value="{{ old('valid_until', $proposal->valid_until ? \Carbon\Carbon::parse($proposal->valid_until)->format('Y-m-d') : '') }}"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                 </div>
 
                 <div>
@@ -80,7 +80,7 @@
                         Unggah Dokumen Ditandatangani Baru (Signed PDF)
                     </label>
                     <input type="file" name="signed_file" accept=".pdf,.png,.jpg,.jpeg"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-slate-100 file:font-semibold">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-slate-100 file:font-semibold">
                 </div>
 
                 <div class="md:col-span-2">
@@ -88,7 +88,7 @@
                         Ruang Lingkup Pekerjaan (Scope of Work)
                     </label>
                     <textarea name="scope" rows="3"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">{{ old('scope', $proposal->scope) }}</textarea>
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">{{ old('scope', $proposal->scope) }}</textarea>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
                     Perbarui Dokumen Proposal
                 </button>
-                <a href="{{ route('sales.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                <a href="{{ route('sales.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#D1D5DB] bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-[#F3F4F6] transition-colors">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                     Batal
                 </a>

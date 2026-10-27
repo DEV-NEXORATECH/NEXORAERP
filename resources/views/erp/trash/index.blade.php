@@ -12,11 +12,17 @@
     />
 
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('trash.index') }}" class="filter-toolbar">
             
             <div>
-                <select name="type" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                <select name="type" class="rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                     <option value="">Semua Tipe Data</option>
                     <option value="projects" @selected(request('type')==='projects')>Projects</option>
                     <option value="proposals" @selected(request('type')==='proposals')>Proposals</option>
@@ -29,7 +35,7 @@
                     Filter
                 </button>
                 @if(request('type'))
-                    <a href="{{ route('trash.index') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                    <a href="{{ route('trash.index') }}" class="inline-flex items-center rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-[#F3F4F6] transition-colors">
                         Reset
                     </a>
                 @endif
@@ -38,11 +44,11 @@
         </form>
     </div>
 
-    <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+    <div class="rounded-lg border border-[#D1D5DB] bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
-                    <tr class="bg-slate-50 border-b border-slate-200">
+                    <tr class="bg-slate-50 border-b border-[#D1D5DB]">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Modul / Tipe</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Identifier / Nama Record</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider text-right">Aksi</th>
@@ -52,9 +58,9 @@
                     @if($hasTrash)
                         @foreach($trash as $type => $items)
                             @foreach($items as $item)
-                                <tr class="hover:bg-slate-50/70 transition-colors">
+                                <tr class="hover:bg-[#F3F4F6]/70 transition-colors">
                                     <td class="px-4 py-3">
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold border bg-slate-50 text-slate-700 border-slate-200 uppercase">
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold border bg-slate-50 text-slate-700 border-[#D1D5DB] uppercase">
                                             {{ $type }}
                                         </span>
                                     </td>
@@ -62,7 +68,7 @@
                                         {{ $item->name ?? $item->title ?? $item->number ?? $item->code ?? ('ID #'.$item->id) }}
                                     </td>
                                     <td class="px-4 py-3 text-right">
-                                        <form method="post" action="{{ route('trash.restore', [$type, $item->id]) }}" class="inline" onsubmit="return confirm('Pulihkan data ini kembali ke sistem aktif?');">
+                                        <form method="post" action="{{ route('trash.restore', [$type, $item->id]) }}" class="inline" class="inline erp-action-form" data-confirm-type="default" data-confirm-title="Konfirmasi" data-confirm-text="Pulihkan data ini kembali ke sistem aktif?">
                                             @csrf
                                             @method('patch')
                                             <button type="submit" class="inline-flex items-center gap-1 rounded border border-[#002875] bg-white px-2.5 py-1 text-[11px] font-semibold text-[#002875] hover:bg-[#002875]/5 transition-colors">

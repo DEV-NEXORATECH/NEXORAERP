@@ -75,8 +75,8 @@
 
         {{-- ── LEFT: Toggle + Context ──────────────────────────────────── --}}
         <div class="app-header-left">
-            <button type="button" class="hdr-toggle" data-sidebar-toggle title="Toggle sidebar" style="color:#FFFFFF !important;">
-                <svg class="sidebar-toggle-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:24px !important;height:24px !important;display:block !important;color:#FFFFFF !important;">
+            <button type="button" class="hdr-toggle" data-sidebar-toggle title="Toggle sidebar">
+                <svg class="sidebar-toggle-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="m9 6-6 6 6 6M3 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="m15 6 6 6-6 6M21 12H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -93,7 +93,7 @@
                     <div class="hdr-page-path hidden sm:flex items-center gap-1.5">
                         <span>NEXORA360</span>
                         <span class="opacity-40">/</span>
-                        <span class="text-white/80 font-medium">{{ $pageSection }}</span>
+                        <span class="text-[#0F1F3D] font-medium">{{ $pageSection }}</span>
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@
             @endif
 
             {{-- Notification bell --}}
-            <button type="button" class="hdr-icon-btn" title="Notifications">
+            <a href="{{ route('approvals.index') }}" class="hdr-icon-btn" title="Notifications" aria-label="Buka notifikasi dan approval">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
                     <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
@@ -130,7 +130,7 @@
                 @if($notifCount > 0)
                 <span class="hdr-notif-badge">{{ $notifCount }}</span>
                 @endif
-            </button>
+            </a>
 
             {{-- User dropdown --}}
             <details class="hdr-user-chip relative">
@@ -150,7 +150,7 @@
                         <strong>{{ auth()->user()->name }}</strong>
                         <span>{{ auth()->user()->email }}</span>
                     </div>
-                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-[#0B2345] hover:bg-slate-50">
+                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-[#0B2345] hover:bg-[#F3F4F6]">
                         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
                         View Account
                     </a>

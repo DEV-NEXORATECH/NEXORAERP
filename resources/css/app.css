@@ -7,49 +7,49 @@
 @source '../../routes/**/*.php';
 
 @theme {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-inter: 'Inter', sans-serif;
+    --font-inter: 'Poppins', sans-serif;
 }
 
 @layer base {
     * {
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     body {
         @apply bg-[#F4F7FB] text-[#0F172A] text-sm leading-normal antialiased;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
         font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     }
 
     /* Page title: besar, tegas */
     h1 {
         @apply text-2xl sm:text-3xl font-bold tracking-tight text-[#0F172A];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* Section title: medium, semibold/bold */
     h2 {
         @apply mb-3 text-lg sm:text-xl font-semibold tracking-tight text-[#0F172A];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* Subsection / card title */
     h3 {
         @apply mb-2 text-sm sm:text-base font-semibold text-[#0F172A];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     h4 {
         @apply text-xs sm:text-sm font-semibold text-[#0F172A];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* Form labels: jelas, rapi, terbaca nyaman */
     label {
         @apply mb-1.5 block text-xs font-semibold text-[#475569] tracking-normal;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* Helper and error text: kecil tapi tajam dan terbaca */
@@ -68,7 +68,7 @@
     select,
     textarea {
         @apply min-h-10 w-full rounded-[10px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-sm text-[#0F172A] outline-none transition focus:border-[#0B2345] focus:ring-2 focus:ring-[#0B2345]/10;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     textarea {
@@ -92,7 +92,7 @@
         font-size: 0.75rem;
         border-collapse: collapse !important;
         border-spacing: 0 !important;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     th {
@@ -103,7 +103,7 @@
         font-size: 0.75rem !important;
         font-weight: 600 !important;
         color: #475569 !important;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
         vertical-align: middle;
         white-space: nowrap;
     }
@@ -114,30 +114,45 @@
         padding: 0.625rem 0.875rem !important;
         color: #0F172A !important;
         vertical-align: middle;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 }
 
 @layer components {
     .app-shell {
-        @apply grid min-h-screen grid-cols-[220px_minmax(0,1fr)] bg-[#F4F7FB];
+        @apply grid min-h-screen grid-cols-[244px_minmax(0,1fr)] bg-[#F4F7FB];
     }
 
     .app-shell.sidebar-collapsed {
-        @apply grid-cols-[64px_minmax(0,1fr)];
+        @apply grid-cols-[68px_minmax(0,1fr)];
     }
 
     /* ── Sidebar shell (Clean White Enterprise) ───────────────────── */
     .sidebar {
         @apply sticky top-0 flex h-screen flex-col overflow-hidden bg-white text-[#0F172A];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
         border-right: 1px solid #D9E2EC;
         box-shadow: 1px 0 2px rgba(15, 23, 42, 0.03);
     }
 
     /* ── Sidebar head (fixed top, clean enterprise brand) ──────────── */
     .sidebar-head {
-        @apply flex shrink-0 items-center gap-2.5 border-b border-[#D9E2EC] px-3 py-3 bg-white;
+        @apply flex shrink-0 items-center justify-center border-b border-[#E6EBF3] px-4 py-4 bg-white;
+        min-height: 78px;
+    }
+
+    .sidebar-brand {
+        @apply flex items-center justify-center w-full;
+    }
+
+    .sidebar-brand img,
+    .sidebar .brand-img {
+        height: 46px;
+        width: auto;
+        max-width: 180px;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
     }
 
     .sidebar-brand {
@@ -151,7 +166,7 @@
 
     .sidebar-title {
         @apply text-[12px] font-bold leading-tight tracking-tight text-[#0B2345];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .sidebar-subtitle {
@@ -181,7 +196,7 @@
     /* ── Nav section headers & links ─────────────────────────────── */
     .side-section {
         @apply mb-1.5 mt-4 px-2.5 text-[10px] font-bold uppercase tracking-wider text-[#475569]/70;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .side-section:first-child {
@@ -195,31 +210,46 @@
     .side-nav a,
     .side-nav button,
     .side-summary {
-        @apply flex w-full items-center justify-start gap-2 rounded-[10px] border border-transparent px-2.5 py-2 text-xs font-semibold text-[#475569] no-underline transition-all hover:bg-[#F4F7FB] hover:text-[#0B2345];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        @apply flex w-full items-center justify-start gap-2 rounded-[8px] border border-transparent px-2.5 py-2 text-xs font-semibold text-[#475569] no-underline transition-all hover:bg-[#F4F7FB] hover:text-[#0F1F3D];
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+        min-height: 40px;
     }
 
     .side-nav a.active,
     .side-summary.active {
-        @apply border-[#0B2345]/10 bg-[#0B2345] text-white font-semibold shadow-xs;
+        @apply border-transparent bg-[#F0F4FA] text-[#0F1F3D] font-semibold;
+        position: relative;
+    }
+
+    .side-nav a.active::before,
+    .side-summary.active::before {
+        content: '';
+        position: absolute;
+        left: -3px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 19px;
+        width: 3px;
+        background: #0F1F3D;
+        border-radius: 8px;
     }
 
     .side-icon {
-        @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[#475569];
+        @apply inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center text-[#8A9AB3];
     }
 
     .side-icon svg {
-        @apply h-4 w-4;
+        @apply h-[18px] w-[18px];
     }
 
     .side-nav a:hover .side-icon,
     .side-summary:hover .side-icon {
-        @apply text-[#0B2345];
+        @apply text-[#0F1F3D];
     }
 
     .side-nav a.active .side-icon,
     .side-summary.active .side-icon {
-        @apply text-white;
+        @apply text-[#0F1F3D];
     }
 
     .side-label {
@@ -260,7 +290,7 @@
     }
 
     .side-summary.active .side-chevron {
-        @apply text-white;
+        @apply text-[#0F1F3D];
     }
 
     .side-subs {
@@ -305,6 +335,13 @@
         @apply justify-center;
     }
 
+    .app-shell.sidebar-collapsed .brand-img {
+        max-width: 44px !important;
+        max-height: 34px !important;
+        height: auto !important;
+        width: auto !important;
+    }
+
     .app-shell.sidebar-collapsed .sidebar-title,
     .app-shell.sidebar-collapsed .sidebar-subtitle,
     .app-shell.sidebar-collapsed .side-section,
@@ -333,14 +370,16 @@
 
     /* ── Global App Header (Enterprise Solid Navy) ───────────────── */
     .app-header {
-        @apply sticky top-0 z-20 px-0 pb-3 pt-0;
+        @apply sticky top-0 z-20 px-0 pb-0 pt-0;
+        height: 74px;
     }
 
     .app-header-card {
-        @apply flex items-center justify-between gap-3 rounded-none px-4 py-2.5;
-        background: linear-gradient(135deg, #0B2345 0%, #123A6B 55%, #0B2345 100%);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 2px 8px rgba(11, 35, 69, 0.15);
+        @apply flex items-center justify-between gap-3 rounded-none px-4 py-2.5 bg-white;
+        background: #FFFFFF;
+        border: 1px solid #E6EBF3;
+        border-bottom: 1px solid #E6EBF3;
+        box-shadow: none;
     }
 
     .app-header-left,
@@ -354,12 +393,15 @@
 
     .hdr-toggle,
     .hdr-icon-btn {
-        @apply relative flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-white/10 bg-white/10 text-white transition hover:bg-white/20 active:scale-95;
+        @apply relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] border-0 bg-transparent text-[#64748B] transition hover:bg-[#F1F5F9] hover:text-[#0F1F3D] active:scale-95 active:bg-[#E2E8F0];
+        pointer-events: auto;
+        text-decoration: none;
+        cursor: pointer;
     }
 
     .hdr-toggle svg,
     .hdr-icon-btn svg {
-        @apply h-5 w-5;
+        @apply h-[21px] w-[21px];
     }
 
     .sidebar-toggle-icon {
@@ -367,7 +409,7 @@
     }
 
     .hdr-sep {
-        @apply h-5 w-px shrink-0 bg-white/15;
+        @apply h-5 w-px shrink-0 bg-[#E6EBF3];
     }
 
     .hdr-context {
@@ -375,11 +417,11 @@
     }
 
     .hdr-page-icon {
-        @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-white/10 text-white;
+        @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] bg-[#F0F4FA] text-[#0F1F3D];
     }
 
     .hdr-page-icon svg {
-        @apply h-5 w-5 text-white;
+        @apply h-5 w-5 text-[#0F1F3D];
     }
 
     .hdr-page-meta {
@@ -387,20 +429,20 @@
     }
 
     .hdr-page-title {
-        @apply truncate text-sm font-bold text-white;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        @apply truncate text-sm font-bold text-[#0F1F3D];
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .hdr-page-path {
-        @apply text-[10px] font-semibold text-white/60 tracking-wider;
+        @apply text-[10px] font-semibold text-[#8490A5] tracking-wider;
     }
 
     .hdr-date {
-        @apply hidden items-center gap-1.5 rounded-[10px] border border-white/10 bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-white/80 md:flex;
+        @apply hidden items-center gap-1.5 rounded-[8px] border border-[#E6EBF3] bg-[#F8FAFC] px-2.5 py-1.5 text-[11px] font-medium text-[#64748B] md:flex;
     }
 
     .hdr-date svg {
-        @apply h-3.5 w-3.5 text-white/70;
+        @apply h-3.5 w-3.5 text-[#8490A5];
     }
 
     .hdr-action-btn {
@@ -416,19 +458,19 @@
     }
 
     .hdr-notif-badge {
-        @apply absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D97706] px-1 text-[9px] font-bold text-white shadow-xs;
+        @apply absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#F97316] px-1 text-[10px] font-bold text-white shadow-xs;
     }
 
     .hdr-user-chip {
-        @apply flex items-center gap-2 rounded-[10px] border border-white/10 bg-white/5 py-1 pl-1 pr-2 transition hover:bg-white/10;
+        @apply flex items-center gap-2 rounded-[10px] border border-[#E6EBF3] bg-white py-1 pl-1 pr-2 transition hover:bg-[#F8FAFC];
     }
 
     .hdr-user-summary {
-        @apply flex cursor-pointer list-none items-center gap-2 rounded-[10px] py-1 pl-1 pr-2 text-white;
+        @apply flex cursor-pointer list-none items-center gap-2 rounded-[10px] py-1 pl-1 pr-2 text-[#0F1F3D];
     }
 
     .hdr-user-avatar {
-        @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/20 text-[10px] font-bold text-white;
+        @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-[#F0F4FA] text-[11px] font-bold text-[#0F1F3D];
     }
 
     .hdr-user-meta {
@@ -436,7 +478,7 @@
     }
 
     .hdr-user-name {
-        @apply text-xs font-bold text-white;
+        @apply text-xs font-bold text-[#0F1F3D];
         max-width: 110px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -444,11 +486,11 @@
     }
 
     .hdr-user-role {
-        @apply mt-0.5 text-[9px] font-medium uppercase tracking-wider text-white/50;
+        @apply mt-0.5 text-[9px] font-medium uppercase tracking-wider text-[#8490A5];
     }
 
     .hdr-user-chevron {
-        @apply h-3.5 w-3.5 text-white/50 transition-transform;
+        @apply h-3.5 w-3.5 text-[#8490A5] transition-transform;
     }
 
 
@@ -830,7 +872,7 @@
     /* ── Standardized Enterprise Filter Bar ──────────────────────────── */
     .filter-panel {
         @apply rounded-[12px] border border-[#D9E2EC] bg-white p-4 shadow-xs;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .filter-panel-header {
@@ -843,7 +885,7 @@
 
     .filter-panel-title h3 {
         @apply mb-0 text-xs font-bold uppercase tracking-wider text-[#0F172A];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .filter-panel-icon {
@@ -864,13 +906,13 @@
 
     .filter-field label {
         @apply mb-0 text-[11px] font-semibold text-[#475569];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .filter-field input,
     .filter-field select {
         @apply min-h-9 rounded-[8px] border border-[#D9E2EC] bg-white px-3 py-1.5 text-xs text-[#0F172A] outline-none transition focus:border-[#0B2345] focus:ring-1 focus:ring-[#0B2345]/15;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .filter-actions {
@@ -887,23 +929,23 @@
 
     .filter-btn-apply {
         @apply inline-flex items-center justify-center gap-1.5 rounded-[8px] bg-[#0B2345] px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition hover:bg-[#123A6B] active:scale-[0.99] cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .filter-btn-reset {
         @apply inline-flex items-center justify-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#475569] transition hover:border-[#0B2345] hover:bg-[#F4F7FB] hover:text-[#0B2345] active:scale-[0.99] cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .filter-btn-export {
         @apply inline-flex items-center justify-center gap-1.5 rounded-[8px] border border-[#D9E2EC] bg-white px-3 py-1.5 text-xs font-semibold text-[#0B2345] transition hover:border-[#0B2345] hover:bg-[#F4F7FB] active:scale-[0.99] cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* ── Standardized Enterprise Pagination ───────────────────────────── */
     .pagination-shell {
         @apply mt-4 w-full;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .pagination-mobile {
@@ -912,7 +954,7 @@
 
     .pagination-desktop {
         @apply hidden items-center justify-between gap-4 rounded-[12px] border border-[#D9E2EC] bg-white px-4 py-2.5 shadow-xs sm:flex;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .pagination-meta {
@@ -931,7 +973,7 @@
     .pagination-btn,
     .pagination-square {
         @apply inline-flex min-h-8 items-center justify-center rounded-[6px] border border-[#D1D5DB] bg-white px-3 text-xs font-semibold text-[#0F172A] no-underline transition-all hover:border-[#002875] hover:text-[#002875] hover:bg-[#F8FAFC];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .pagination-square {
@@ -1048,7 +1090,7 @@
     .dashboard-hero h1,
     .report-hero h1 {
         @apply text-3xl font-black text-[#0B2345] sm:text-4xl;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .dashboard-hero p,
@@ -1113,7 +1155,7 @@
 
     .report-filter .filter-panel-header h3 {
         @apply text-base;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .report-filter .filter-actions {
@@ -1204,13 +1246,7 @@
     }
 
     /* ── Header & Navigation interactive menus ────────────────────────── */
-    .side-summary::after {
-        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='rgba(100,116,139,0.65)' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
-    }
-
-    .side-summary.active::after {
-        display: none;
-    }
+    /* chevron is rendered as real SVG in blade; no pseudo-element icon */
 
     .hdr-user-summary::-webkit-details-marker,
     .hdr-user-summary::marker {
@@ -1264,7 +1300,7 @@
 
     label {
         @apply mb-0 text-xs font-semibold text-[#475569] tracking-normal flex items-center gap-1;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     label .required,
@@ -1278,7 +1314,7 @@
     select,
     textarea {
         @apply min-h-10 w-full rounded-[10px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-xs sm:text-sm text-[#0F172A] placeholder:text-[#475569]/40 outline-none transition-all;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     input:focus,
@@ -1373,7 +1409,7 @@
 
     table {
         @apply w-full border-separate border-spacing-0 text-left text-xs;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     thead {
@@ -1382,12 +1418,12 @@
 
     th {
         @apply sticky top-0 z-10 border-b border-[#D9E2EC] bg-[#F8FAFC] px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-[#475569];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     td {
         @apply border-b border-[#D9E2EC] px-4 py-3.5 text-xs text-[#0F172A] align-middle;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     tbody tr {
@@ -1480,7 +1516,7 @@
 
     .process-hub-heading h1 {
         @apply text-3xl font-black tracking-tight text-white sm:text-5xl;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .process-hub-heading p {
@@ -1493,7 +1529,7 @@
 
     .process-hub-count strong {
         @apply text-2xl font-black leading-none text-white;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .process-hub-count span {
@@ -1536,7 +1572,7 @@
 
     .process-center strong {
         @apply text-xl font-black leading-tight text-slate-900 xl:text-2xl;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .process-center small {
@@ -1562,7 +1598,7 @@
 
     .process-node-card h3 {
         @apply mb-0 text-base font-black leading-tight text-white;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .process-node-card p {
@@ -1636,7 +1672,7 @@
 
     .module-count strong {
         @apply font-bold text-[#0B2345];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .module-count span {
@@ -1645,7 +1681,7 @@
 
     .module-detail-hero h1 {
         @apply text-xl sm:text-2xl font-bold tracking-tight text-[#0F172A];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .module-detail-hero p {
@@ -1679,7 +1715,7 @@
 
     .module-sub-card h3 {
         @apply mb-1 text-base font-black text-[#0B2345];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .module-sub-card p {
@@ -1835,7 +1871,7 @@
     .cms-panel *,
     .cms-section-card,
     .cms-section-card * {
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .cms-page .module-detail-hero {
@@ -1852,7 +1888,7 @@
 
     .cms-page .module-detail-hero h1 {
         @apply text-2xl font-extrabold sm:text-3xl;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .cms-page .module-detail-hero p {
@@ -1889,7 +1925,7 @@
 
     .cms-section-card-body h3 {
         @apply mb-2 text-base font-bold leading-snug text-slate-900;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .cms-section-card-body p {
@@ -1930,7 +1966,7 @@
 
     .approval-hero h1 {
         @apply text-2xl font-black text-white sm:text-4xl;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .approval-hero p {
@@ -1983,7 +2019,7 @@
 
     .approval-card-body h3 {
         @apply mb-2 text-base font-black text-[#0B2345];
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .approval-card-body p {
@@ -2045,7 +2081,7 @@
 
     .task-column-head h3 {
         @apply mb-0 text-base font-black text-slate-900;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .task-column-head span {
@@ -2557,7 +2593,7 @@
     .btn:not(.btn-outline):not(.ghost):not(.danger):not(.btn-danger):not(.btn-mini),
     .btn-primary {
         @apply min-h-10 inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#0B2345] px-4 py-2 text-xs font-semibold text-white shadow-xs transition-all hover:bg-[#123A6B] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* Secondary / Outline Button: White Background, Navy Border & Text */
@@ -2566,7 +2602,7 @@
     button.btn-outline,
     .button.btn-outline {
         @apply min-h-10 inline-flex items-center justify-center gap-2 rounded-[10px] border border-[#0B2345] bg-white px-4 py-2 text-xs font-semibold text-[#0B2345] shadow-xs transition-all hover:bg-[#F4F7FB] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* Danger Button: Red Solid, White Text */
@@ -2575,7 +2611,7 @@
     button.danger,
     .button.danger {
         @apply min-h-10 inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#DC2626] px-4 py-2 text-xs font-semibold text-white shadow-xs transition-all hover:bg-[#B91C1C] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* Success Button: Green Solid, White Text */
@@ -2584,7 +2620,7 @@
     button.success,
     .button.success {
         @apply min-h-10 inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#16A34A] px-4 py-2 text-xs font-semibold text-white shadow-xs transition-all hover:bg-[#15803D] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* Ghost / Tertiary Button: Minimalist for secondary actions */
@@ -2593,7 +2629,7 @@
     button.ghost,
     .button.ghost {
         @apply min-h-10 inline-flex items-center justify-center gap-2 rounded-[10px] border border-transparent bg-transparent px-3 py-2 text-xs font-medium text-[#475569] shadow-none transition-all hover:border-[#D9E2EC] hover:bg-white hover:text-[#0B2345] active:scale-[0.99] cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* ── Standardized Enterprise Modal & Dialog System (Attio × Linear) ── */
@@ -2633,7 +2669,7 @@
         border-radius: 0.75rem !important;
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
         overflow: hidden !important;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif !important;
         text-align: left !important;
         display: flex !important;
         flex-direction: column !important;
@@ -2847,22 +2883,22 @@
     /* ── Unified Enterprise Component Standards ───────────────────────── */
     .btn {
         @apply inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#0B2345] px-4 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-[#123A6B] active:scale-[0.99] cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .btn-outline {
         @apply inline-flex items-center justify-center gap-2 rounded-[10px] border border-[#D9E2EC] bg-white px-4 py-2 text-xs font-semibold text-[#0B2345] transition hover:border-[#0B2345] hover:bg-[#F4F7FB] active:scale-[0.99] cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .btn-danger {
         @apply inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#DC2626] px-4 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-[#B91C1C] active:scale-[0.99] cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .btn-success {
         @apply inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#16A34A] px-4 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-[#15803D] active:scale-[0.99] cursor-pointer;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .btn-mini {
@@ -2871,7 +2907,7 @@
 
     .field-input {
         @apply min-h-10 w-full rounded-[10px] border border-[#D9E2EC] bg-white px-3.5 py-2 text-sm font-normal text-[#0F172A] placeholder:text-[#475569]/50 transition focus:border-[#0B2345] focus:ring-2 focus:ring-[#0B2345]/10 focus:outline-none;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     /* ── Tabs Standard ─────────────────────────────────────────────────── */
@@ -2962,7 +2998,7 @@
     /* ── Standardized Feedback, Toast, & Error Architecture ──────────── */
     .alert {
         @apply flex items-start gap-3 rounded-[10px] border p-3.5 text-xs font-normal;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .alert-icon {
@@ -3009,7 +3045,7 @@
 
     .toast {
         @apply pointer-events-auto flex items-start gap-3 rounded-[10px] border border-[#D9E2EC] bg-white p-4 shadow-lg transition-all;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .toast-icon {
@@ -3036,7 +3072,7 @@
     /* Exception & Error Pages (404, 403, 500) */
     .error-page-card {
         @apply flex flex-col items-center justify-center max-w-lg mx-auto rounded-[12px] border border-[#D9E2EC] bg-white p-8 sm:p-12 text-center shadow-xs;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     }
 
     .error-page-code {
@@ -3153,7 +3189,7 @@
     }
 
     .app-shell.sidebar-collapsed {
-        grid-template-columns: 96px minmax(0, 1fr) !important;
+        grid-template-columns: 68px minmax(0, 1fr) !important;
     }
 
     .sidebar {
@@ -3181,7 +3217,7 @@
         left: 0;
         top: 0;
         z-index: 50;
-        width: 288px;
+        width: min(280px, 86vw) !important;
         height: 100vh;
         transform: translateX(-100%) !important;
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -3506,13 +3542,13 @@ textarea:focus {
 .side-nav a.active .side-icon,
 .side-nav .side-summary.active .side-icon {
     background: transparent !important;
-    color: #0B2345 !important;
+    color: #FFFFFF !important;
     box-shadow: none !important;
 }
 
 .side-nav a.active .side-icon svg,
 .side-nav .side-summary.active .side-icon svg {
-    color: #0B2345 !important;
+    color: #FFFFFF !important;
     stroke: currentColor !important;
 }
 
@@ -4196,3 +4232,60 @@ table.w-full td[colspan] {
         min-height: 40px !important;
     }
 }
+/* =========================================================
+   JOB FINANCE DESIGN SYSTEM OVERRIDE (GLOBAL)
+   ========================================================= */
+:root {
+    --jf-bg: #F4F7FC;
+    --jf-surface: #FFFFFF;
+    --jf-text: #0F1F3D;
+    --jf-text-secondary: #64748B;
+    --jf-border: #E1E7F1;
+    --jf-navy: #0F1F3D;
+    --jf-blue: #1E3A8A;
+    --jf-danger: #DC2626;
+    --jf-success: #16A34A;
+    --jf-warning: #D97706;
+    --jf-shadow: 0 4px 16px rgba(38, 62, 101, 0.06);
+    --jf-shadow-hover: 0 8px 24px rgba(38, 62, 101, 0.10);
+}
+body { background: var(--jf-bg) !important; color: var(--jf-text) !important; font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif !important; font-size: 13px !important; line-height: 1.5 !important; }
+.app-shell { grid-template-columns: 244px minmax(0, 1fr) !important; background: var(--jf-bg) !important; }
+.sidebar { width: 244px !important; background: #FFFFFF !important; border-right: 1px solid #E6EBF3 !important; }
+.sidebar-scroll { padding: 12px 16px !important; }
+.side-nav { gap: 3px !important; }
+.side-nav a, .side-nav button, .side-summary { min-height: 40px !important; padding: 0 12px !important; border-radius: 8px !important; font-size: 11.5px !important; font-weight: 500 !important; color: #64748B !important; gap: 12px !important; }
+.side-icon { width: 18px !important; height: 18px !important; min-width: 18px !important; }
+.side-icon svg { width: 18px !important; height: 18px !important; }
+.side-nav a.active, .side-summary.active { background: #EEF2FF !important; color: var(--jf-blue) !important; font-weight: 600 !important; border: 1px solid #DCE3F3 !important; box-shadow: none !important; }
+.side-nav a.active .side-icon, .side-summary.active .side-icon, .side-nav a.active .side-icon svg, .side-summary.active .side-icon svg { color: var(--jf-blue) !important; stroke: currentColor !important; }
+.side-label { font-size: 11.5px !important; }
+.app-header { padding: 0 32px !important; }
+.app-header-card { min-height: 74px !important; background: #FFFFFF !important; border: 1px solid #E6EBF3 !important; border-radius: 0 !important; box-shadow: none !important; }
+.hdr-toggle, .hdr-icon-btn { width: 40px !important; height: 40px !important; border-radius: 8px !important; background: #F4F7FC !important; border: 1px solid #E6EBF3 !important; color: var(--jf-text) !important; }
+.hdr-toggle svg, .hdr-icon-btn svg { width: 20px !important; height: 20px !important; }
+.hdr-user-chip, .hdr-user-summary { min-height: 48px !important; }
+.hdr-user-avatar { width: 36px !important; height: 36px !important; border-radius: 8px !important; }
+.shell h1 { font-size: 28px !important; font-weight: 700 !important; color: var(--jf-text) !important; }
+.workspace-card, .card, .stat-card, .filter-card { background: #FFFFFF !important; border: 1px solid #E1E7F1 !important; border-radius: 12px !important; box-shadow: var(--jf-shadow) !important; padding: 20px 24px !important; }
+.workspace-card:hover, .card:hover { border-color: #DCE3F3 !important; box-shadow: var(--jf-shadow-hover) !important; }
+.filter-card { padding: 12px 16px !important; }
+.filter-toolbar input[type="text"], .filter-toolbar input[type="search"], .filter-toolbar select, .filter-search, .filter-card input, .filter-card select { height: 40px !important; min-height: 40px !important; border-radius: 8px !important; border: 1px solid #E1E7F1 !important; font-size: 12px !important; padding: 0 12px !important; }
+.filter-toolbar button, .filter-card button, .filter-toolbar a { height: 40px !important; min-height: 40px !important; border-radius: 8px !important; font-size: 11.5px !important; font-weight: 600 !important; padding: 0 14px !important; }
+button, a.btn, .btn { font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif !important; font-size: 11.5px !important; font-weight: 600 !important; border-radius: 8px !important; min-height: 36px !important; }
+.btn-primary { background: var(--jf-navy) !important; color: #FFFFFF !important; border: 1px solid var(--jf-navy) !important; }
+.erp-action-button { width: 36px !important; height: 36px !important; min-width: 36px !important; min-height: 36px !important; border-radius: 8px !important; }
+.erp-action-button svg { width: 16px !important; height: 16px !important; }
+.table-folk { font-size: 12px !important; }
+.table-folk thead th { background: #F8FAFC !important; font-size: 9.5px !important; font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 0.8px !important; color: #64748B !important; padding: 12px 16px !important; border-bottom: 1px solid #E1E7F1 !important; }
+.table-folk tbody td { padding: 12px 16px !important; font-size: 12px !important; border-bottom: 1px solid #F1F5F9 !important; }
+.table-folk tbody tr:hover td { background: #EEF2FF !important; }
+.erp-toast-item { border-radius: 14px !important; box-shadow: 0 18px 38px rgba(15, 31, 61, 0.14) !important; }
+.empty-state { border-radius: 12px !important; }
+.status-badge { font-size: 10px !important; font-weight: 600 !important; padding: 2px 8px !important; border-radius: 999px !important; }
+@media (max-width: 768px) { .app-shell { grid-template-columns: 1fr !important; } .sidebar { transform: translateX(-100%) !important; } .app-shell.sidebar-open .sidebar { transform: translateX(0) !important; } }
+.app-shell.sidebar-collapsed { grid-template-columns: 68px minmax(0, 1fr) !important; }
+.app-shell.sidebar-collapsed .sidebar { width: 68px !important; }
+.app-shell.sidebar-collapsed .side-label, .app-shell.sidebar-collapsed .side-section { display: none !important; }
+.app-shell.sidebar-collapsed .side-nav a, .app-shell.sidebar-collapsed .side-summary { justify-content: center !important; padding: 0 !important; }
+.eyebrow { font-size: 9px !important; font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 1.5px !important; color: #64748B !important; }

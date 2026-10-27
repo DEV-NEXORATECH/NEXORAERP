@@ -10,7 +10,7 @@
     </div>
     <div class="grid three">
         @forelse ($projectReports as $report)
-            <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm overflow-x-auto">
+            <div class="bg-white rounded-lg border border-[#D1D5DB] p-4 shadow-sm overflow-x-auto">
                 <div class="mb-4 flex items-start justify-between gap-3">
                     <div>
                         <h3 class="mb-0.5">
@@ -40,7 +40,7 @@
 </section>
 
 {{-- Projects Table --}}
-<section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm mt-4">
+<section class="bg-white rounded-lg border border-[#D1D5DB] p-5 shadow-sm mt-4">
     <div class="section-head">
         <h2>Daftar Projects</h2>
         @if($can('admin', 'sales'))
@@ -49,7 +49,13 @@
     </div>
     
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('projects.index') }}" class="filter-toolbar">
             
         <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
@@ -82,26 +88,15 @@
                         <div class="font-bold">{{ $rp($project->contract_value) }}</div>
                         <div class="muted">Budget {{ $rp($project->budget) }}</div>
                     </td>
-                    <td class="actions">
-                        <div class="inline-flex items-center gap-1.5">
-                            <a href="{{ route('projects.show', $project) }}" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Lihat Detail">
-                            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                        </a>
-                            @if($can('admin', 'sales'))
-                                <a href="{{ route('projects.edit-page', $project) }}" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
-                            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-                        </a>
-                            @endif
-                            @if($can('admin'))
-                                <form method="post" action="{{ route('projects.destroy', $project) }}" class="inline" onsubmit="return confirm('Hapus project ini?');">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
-                                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-                            </button>
-                        </form>
-                            @endif
-                        </div>
+                    <td class="text-right">
+                        <x-erp.action-buttons
+                            :show-url="route('projects.show', $project)"
+                            :edit-url="$can('admin', 'sales') ? route('projects.edit-page', $project) : null"
+                            :delete-url="$can('admin') ? route('projects.destroy', $project) : null"
+                            :record-name="'project ' . $project->code"
+                            :can-edit="$can('admin', 'sales')"
+                            :can-delete="$can('admin')"
+                        />
                     </td>
                 </tr>
             @empty

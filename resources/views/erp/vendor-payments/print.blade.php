@@ -15,13 +15,13 @@
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Dibayarkan Kepada (Vendor):</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $vendorPayment->vendorBill->vendor_name ?? 'Vendor' }}</div>
-            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Nomor Tagihan: {{ $vendorPayment->vendorBill->bill_number ?? '-' }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $vendorPayment->vendorBill?->vendor_name ?? 'Vendor' }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Nomor Tagihan: {{ $vendorPayment->vendorBill?->bill_number ?? '-' }}</div>
         </td>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Rincian Pembayaran:</div>
             <div style="font-size: 9.5pt; font-weight: bold; margin-top: 2px;">Metode: Transfer Bank</div>
-            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Rekening Asal: {{ $vendorPayment->bankAccount->name ?? 'Kas / Bank Utama' }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Rekening Asal: {{ $vendorPayment->bankAccount?->name ?? 'Kas / Bank Utama' }}</div>
             @if($vendorPayment->reference)
                 <div style="font-size: 8.5pt; color: #444;">No. Referensi Bank: {{ $vendorPayment->reference }}</div>
             @endif
@@ -41,9 +41,9 @@
         <tr>
             <td class="text-center">1</td>
             <td>
-                <div class="text-bold">Pelunasan Tagihan: {{ $vendorPayment->vendorBill->bill_number ?? 'Tagihan Vendor' }}</div>
-                @if($vendorPayment->vendorBill && $vendorPayment->vendorBill->project)
-                    <div style="font-size: 8pt; color: #444;">Proyek: {{ $vendorPayment->vendorBill->project->code }} — {{ $vendorPayment->vendorBill->project->name }}</div>
+                <div class="text-bold">Pelunasan Tagihan: {{ $vendorPayment->vendorBill?->bill_number ?? 'Tagihan Vendor' }}</div>
+                @if($vendorPayment->vendorBill && $vendorPayment->vendorBill?->project)
+                    <div style="font-size: 8pt; color: #444;">Proyek: {{ $vendorPayment->vendorBill?->project?->code }} - {{ $vendorPayment->vendorBill?->project?->name }}</div>
                 @endif
             </td>
             <td class="text-right text-bold" style="font-size: 11pt;">Rp {{ number_format($vendorPayment->amount, 0, ',', '.') }}</td>
@@ -57,3 +57,4 @@
     </tfoot>
 </table>
 @endsection
+

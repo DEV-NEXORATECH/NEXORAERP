@@ -143,7 +143,7 @@ public function edit(Reimbursement $reimbursement): View
 
     public function pdf(Reimbursement $reimbursement): View
     {
-        $reimbursement->load(['employee.department', 'project', 'cashflow']);
+        $reimbursement->load(['employee.departmentRecord', 'project', 'cashflow']);
         $companySetting = \App\Models\CompanySetting::first();
         return view('erp.reimbursements.print', compact('reimbursement', 'companySetting'));
     }

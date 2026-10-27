@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="utf-8">
-    <title>{{ $docTitle ?? 'Dokumen' }} — {{ $companySetting->company_name ?? 'NEXORA360 ERP' }}</title>
+    <title>{{ $docTitle ?? 'Dokumen' }} — {{ $companySetting?->company_name ?? 'NEXORA360 ERP' }}</title>
     <style>
         @page {
             size: {{ $paperSize ?? 'A4 portrait' }};
@@ -239,7 +239,7 @@
                     @else
                         <div style="font-size: 13pt; font-weight: 800; color: #002875; margin-bottom: 4px;">NEXORA360 ERP</div>
                     @endif
-                    <div class="company-name">{{ $companySetting->company_name ?? 'PT. NEXORA ENTERPRISE INDONESIA' }}</div>
+                    <div class="company-name">{{ $companySetting?->company_name ?? 'PT. NEXORA ENTERPRISE INDONESIA' }}</div>
                     <div class="company-meta">
                         @if($companySetting && $companySetting->address)
                             {{ $companySetting->address }}<br>
@@ -287,7 +287,7 @@
 
     {{-- Main Document Content --}}
     <main>
-        {{ $slot }}
+        @yield('content')
     </main>
 
     {{-- Signature Block --}}

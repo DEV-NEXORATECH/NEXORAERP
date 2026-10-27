@@ -15,19 +15,19 @@
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Pemesan / Customer:</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $order->client->name ?? 'Pelanggan Umum' }}</div>
-            @if($order->client && $order->client->address)
-                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">{{ $order->client->address }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $order->client?->name ?? 'Pelanggan Umum' }}</div>
+            @if($order->client && $order->client?->address)
+                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">{{ $order->client?->address }}</div>
             @endif
-            @if($order->client && ($order->client->email || $order->client->phone))
-                <div style="font-size: 8.5pt; color: #444;">{{ $order->client->email }} | {{ $order->client->phone }}</div>
+            @if($order->client && ($order->client?->email || $order->client?->phone))
+                <div style="font-size: 8.5pt; color: #444;">{{ $order->client?->email }} | {{ $order->client?->phone }}</div>
             @endif
         </td>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Informasi Pesanan:</div>
             <div style="font-size: 10pt; font-weight: bold; margin-top: 2px;">{{ $order->title }}</div>
             @if($order->proposal)
-                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Ref. Proposal: {{ $order->proposal->number ?? '-' }}</div>
+                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Ref. Proposal: {{ $order->proposal?->number ?? '-' }}</div>
             @endif
             @if($order->notes)
                 <div style="font-size: 8.5pt; color: #444;">Catatan: {{ $order->notes }}</div>
@@ -52,7 +52,7 @@
             <tr>
                 <td class="text-center">{{ $idx + 1 }}</td>
                 <td>
-                    <div class="text-bold">{{ $item->product->name ?? 'Item Produk' }}</div>
+                    <div class="text-bold">{{ $item->product?->name ?? 'Item Produk' }}</div>
                     @if($item->notes)
                         <div style="font-size: 8pt; color: #444;">{{ $item->notes }}</div>
                     @endif
@@ -81,3 +81,4 @@
     </tfoot>
 </table>
 @endsection
+

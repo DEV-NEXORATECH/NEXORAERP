@@ -18,7 +18,13 @@
     </x-erp.page-header>
 
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('vendors.index') }}" class="filter-toolbar">
             <div class="relative w-64 flex-shrink-0">
                 <input type="text" name="search" placeholder="Cari nama vendor, PIC, email..." value="{{ request('search') }}"
@@ -37,7 +43,7 @@
                 Filter
             </button>
             @if(request('search') || request('status'))
-                <a href="{{ route('vendors.index') }}" class="inline-flex h-[34px] items-center rounded-md border border-slate-300 bg-white px-3 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors flex-shrink-0">
+                <a href="{{ route('vendors.index') }}" class="inline-flex h-[34px] items-center rounded-md border border-[#D1D5DB] bg-white px-3 text-xs font-semibold text-slate-700 hover:bg-[#F3F4F6] transition-colors flex-shrink-0">
                     Reset
                 </a>
             @endif
@@ -45,11 +51,11 @@
     </div>
 
     {{-- Card 3 — Workspace: Data Table + Pagination --}}
-    <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+    <div class="workspace-card rounded-lg border border-[#D1D5DB] bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
-                    <tr class="bg-slate-50 border-b border-slate-200">
+                    <tr class="bg-slate-50 border-b border-[#D1D5DB]">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Perusahaan Vendor</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">PIC & Kontak</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Payment Terms</th>
@@ -59,7 +65,7 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @forelse($vendors as $row)
-                        <tr class="hover:bg-slate-50/70 transition-colors">
+                        <tr class="hover:bg-[#F3F4F6]/70 transition-colors">
                             <td class="px-4 py-3 text-slate-900">
                                 <div class="font-bold text-slate-900">{{ $row->name }}</div>
                                 <div class="text-[11px] text-slate-500 mt-0.5">{{ $row->category ?: 'General Supplier' }}</div>
@@ -78,7 +84,7 @@
                                     $vBadge = match(strtolower($row->status)) {
                                         'active' => 'bg-emerald-50 text-emerald-700 border-emerald-200',
                                         'blacklisted' => 'bg-red-50 text-red-700 border-red-200',
-                                        default => 'bg-slate-100 text-slate-700 border-slate-200'
+                                        default => 'bg-slate-100 text-slate-700 border-[#D1D5DB]'
                                     };
                                 @endphp
                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold border {{ $vBadge }}">
@@ -95,7 +101,7 @@
                                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                                         </a>
                                         @if($can('admin'))
-                                            <form method="post" action="{{ route('vendors.destroy', $row) }}" class="inline" onsubmit="return confirm('Hapus data vendor ini?');">
+                                            <form method="post" action="{{ route('vendors.destroy', $row) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus data vendor ini?">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">

@@ -13,14 +13,20 @@
     </x-erp.page-header>
 
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('client-contracts.index') }}" class="filter-toolbar">
             
             <div>
                 <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
             </div>
             <div>
-                <select name="status" class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                <select name="status" class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                     <option value="">Semua Status</option>
                     <option value="draft" @selected(request('status') === 'draft')>Draft</option>
                     <option value="active" @selected(request('status') === 'active')>Active</option>
@@ -29,7 +35,7 @@
                 </select>
             </div>
             <div>
-                <select name="client_id" class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                <select name="client_id" class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                     <option value="">Semua Klien</option>
                     @foreach($clients as $c)
                         <option value="{{ $c->id }}" @selected(request('client_id') == $c->id)>{{ $c->name }}</option>
@@ -40,7 +46,7 @@
                 <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#001B50] transition-colors">
                     Filter
                 </button>
-                <a href="{{ route('client-contracts.index') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                <a href="{{ route('client-contracts.index') }}" class="inline-flex items-center rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-[#F3F4F6] transition-colors">
                     Reset
                 </a>
             </div>
@@ -48,11 +54,11 @@
         </form>
     </div>
 
-    <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+    <div class="rounded-lg border border-[#D1D5DB] bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
-                    <tr class="bg-slate-50 border-b border-slate-200">
+                    <tr class="bg-slate-50 border-b border-[#D1D5DB]">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Judul Kontrak</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Nomor Dokumen</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Klien</th>
@@ -64,7 +70,7 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @forelse($items as $row)
-                        <tr class="hover:bg-slate-50/70 transition-colors">
+                        <tr class="hover:bg-[#F3F4F6]/70 transition-colors">
                             <td class="px-4 py-3 text-slate-900 font-semibold">
                                 {{ $row->title }}
                             </td>
@@ -84,7 +90,7 @@
                                 @php
                                     $contractBadge = match(strtolower($row->status)) {
                                         'active' => 'bg-emerald-50 text-emerald-700 border-emerald-200',
-                                        'expired' => 'bg-slate-100 text-slate-600 border-slate-200',
+                                        'expired' => 'bg-slate-100 text-slate-600 border-[#D1D5DB]',
                                         'terminated' => 'bg-red-50 text-red-700 border-red-200',
                                         default => 'bg-amber-50 text-amber-700 border-amber-200'
                                     };
@@ -102,7 +108,7 @@
                                         <a href="{{ route('client-contracts.edit-page', $row) }}" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
                                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
                                         </a>
-                                        <form method="post" action="{{ route('client-contracts.destroy', $row) }}" class="inline" onsubmit="return confirm('Hapus data kontrak ini?');">
+                                        <form method="post" action="{{ route('client-contracts.destroy', $row) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus data kontrak ini?">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">

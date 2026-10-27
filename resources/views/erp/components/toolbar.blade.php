@@ -8,7 +8,13 @@
     'canCreate'    => true,
 ])
 
-<div class="filter-card">
+<div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
     <form method="GET" action="{{ $action ?: url()->current() }}" class="filter-toolbar">
         {{-- Search Input --}}
         <input type="text" name="search" value="{{ $search }}" placeholder="{{ $placeholder }}" class="filter-search">

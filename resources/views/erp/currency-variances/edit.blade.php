@@ -3,34 +3,34 @@
 @section('content')
 <div class="max-w-4xl mx-auto space-y-4">
     <!-- Header -->
-    <div class="flex items-center justify-between bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+    <div class="flex items-center justify-between bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm">
         <div>
-            <h1 class="text-lg font-bold text-gray-900 tracking-tight">Edit Selisih Kurs (Currency Variance)</h1>
-            <p class="text-xs text-gray-500">Lengkapi formulir di bawah ini dengan data yang valid</p>
+            <h1 class="text-lg font-bold text-[#0F172A] tracking-tight">Edit Selisih Kurs (Currency Variance)</h1>
+            <p class="text-xs text-[#475569]">Lengkapi formulir di bawah ini dengan data yang valid</p>
         </div>
-        <a href="{{ route('currency-variances.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition shadow-sm">
+        <a href="{{ route('currency-variances.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#475569] bg-white border border-[#D1D5DB] rounded-md hover:bg-[#F8FAFC] transition shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
             Kembali
         </a>
     </div>
 
     <!-- Form Container -->
-    <div class="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+    <div class="bg-white rounded-lg border border-[#D1D5DB] p-6 shadow-sm">
         <form method="post" action="{{ route('currency-variances.update', $variance) }}" class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2" class="space-y-4">
             
             @csrf @method('put')
             <div class="grid gap-1.5"><label>Rate</label>
-                <select name="rate_id" required class="w-full px-3 py-2 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-gray-900">
+                <select name="rate_id" required class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">
                     <option value="">—</option>
                     @foreach($rates as $rate)
                         <option value="{{ $rate->id }}" @selected($variance->rate_id === $rate->id)>{{ $rate->from_currency }}→{{ $rate->to_currency }} ({{ $rate->rate_date }})</option>
                     @endforeach
                 </select>
             </div>
-            <div class="grid gap-1.5"><label>Variance %</label><input name="variance_percent" type="number" step="0.01" value="{{ $variance->variance_percent }}" class="w-full px-3 py-2 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-gray-900"></div>
-            <div class="grid gap-1.5"><label>Variance Amount</label><input name="variance_amount" type="number" step="0.01" value="{{ $variance->variance_amount }}" class="w-full px-3 py-2 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-gray-900"></div>
-            <div class="grid gap-1.5"><label>Periode</label><input name="period" value="{{ $variance->period }}" placeholder="2026-06" class="w-full px-3 py-2 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-gray-900"></div>
-            <div class="grid gap-1.5 md:col-span-2"><label>Notes</label><textarea name="notes" rows="3" class="w-full px-3 py-2 text-xs border border-gray-300 rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-gray-900">{{ $variance->notes }}</textarea></div>
+            <div class="grid gap-1.5"><label>Variance %</label><input name="variance_percent" type="number" step="0.01" value="{{ $variance->variance_percent }}" class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]"></div>
+            <div class="grid gap-1.5"><label>Variance Amount</label><input name="variance_amount" type="number" step="0.01" value="{{ $variance->variance_amount }}" class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]"></div>
+            <div class="grid gap-1.5"><label>Periode</label><input name="period" value="{{ $variance->period }}" placeholder="2026-06" class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]"></div>
+            <div class="grid gap-1.5 md:col-span-2"><label>Notes</label><textarea name="notes" rows="3" class="w-full px-3 py-2 text-xs border border-[#D1D5DB] rounded-md focus:ring-1 focus:ring-[#002875] focus:border-[#002875] bg-white text-[#0F172A]">{{ $variance->notes }}</textarea></div>
             <div class="mt-4 flex items-center gap-3 md:col-span-2">
                 <button class="btn">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Update Variance
@@ -40,8 +40,8 @@
                 </a>
             </div>
         
-            <div class="pt-4 border-t border-gray-200 flex items-center justify-end gap-2">
-                <a href="{{ route('currency-variances.index') }}" class="px-3.5 py-2 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition">Batal</a>
+            <div class="pt-4 border-t border-[#D1D5DB] flex items-center justify-end gap-2">
+                <a href="{{ route('currency-variances.index') }}" class="px-3.5 py-2 text-xs font-medium text-[#475569] bg-white border border-[#D1D5DB] rounded-md hover:bg-[#F8FAFC] transition">Batal</a>
                 <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition shadow-sm">Update Variance</button>
             </div>
         </form>

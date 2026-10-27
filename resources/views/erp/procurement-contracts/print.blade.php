@@ -15,9 +15,9 @@
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Penyedia / Rekanan (Vendor):</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $contract->vendor->name ?? 'Vendor' }}</div>
-            @if($contract->vendor && $contract->vendor->address)
-                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">{{ $contract->vendor->address }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $contract->vendor?->name ?? 'Vendor' }}</div>
+            @if($contract->vendor && $contract->vendor?->address)
+                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">{{ $contract->vendor?->address }}</div>
             @endif
         </td>
         <td style="width: 50%;">
@@ -56,3 +56,4 @@
     </tfoot>
 </table>
 @endsection
+

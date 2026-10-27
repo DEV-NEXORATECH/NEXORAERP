@@ -13,14 +13,20 @@
     </x-erp.page-header>
 
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('expense-categories.index') }}" class="filter-toolbar">
             
             <div class="relative flex-1 min-w-[200px]">
                 <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
             </div>
             <div>
-                <select name="type" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                <select name="type" class="rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                     <option value="">Semua Tipe</option>
                     <option value="expense" @selected(request('type') == 'expense')>Expense (Pengeluaran)</option>
                     <option value="income" @selected(request('type') == 'income')>Income (Pemasukan)</option>
@@ -31,7 +37,7 @@
                     Filter
                 </button>
                 @if(request('search') || request('type'))
-                    <a href="{{ route('expense-categories.index') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                    <a href="{{ route('expense-categories.index') }}" class="inline-flex items-center rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-[#F3F4F6] transition-colors">
                         Reset
                     </a>
                 @endif
@@ -40,11 +46,11 @@
         </form>
     </div>
 
-    <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+    <div class="rounded-lg border border-[#D1D5DB] bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
-                    <tr class="bg-slate-50 border-b border-slate-200">
+                    <tr class="bg-slate-50 border-b border-[#D1D5DB]">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Nama Kategori</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Tipe</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider text-right">Aksi</th>
@@ -52,7 +58,7 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @forelse($expenseCategories as $category)
-                        <tr class="hover:bg-slate-50/70 transition-colors">
+                        <tr class="hover:bg-[#F3F4F6]/70 transition-colors">
                             <td class="px-4 py-3 text-slate-900 font-semibold">
                                 {{ $category->name }}
                             </td>
@@ -64,12 +70,12 @@
                             <td class="px-4 py-3 text-right">
                                 <div class="inline-flex items-center gap-1.5">
                                     @if($can('admin', 'finance'))
-                                        <a href="{{ route('expense-categories.edit-page', $category) }}" class="inline-flex items-center gap-1 rounded border border-slate-300 bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-slate-50 hover:text-[#002875] transition-colors" title="Edit">
+                                        <a href="{{ route('expense-categories.edit-page', $category) }}" class="inline-flex items-center gap-1 rounded border border-[#D1D5DB] bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-[#F3F4F6] hover:text-[#002875] transition-colors" title="Edit">
                                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
                                             Edit
                                         </a>
                                         @if($can('admin'))
-                                            <form method="post" action="{{ route('expense-categories.destroy', $category) }}" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
+                                            <form method="post" action="{{ route('expense-categories.destroy', $category) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Apakah Anda yakin ingin menghapus kategori ini?">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="inline-flex items-center gap-1 rounded border border-red-200 bg-white px-2 py-1 text-[11px] font-medium text-red-600 hover:bg-red-50 transition-colors" title="Hapus">

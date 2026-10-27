@@ -19,7 +19,13 @@
     </x-erp.page-header>
 
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('reimbursements.index-page') }}" class="filter-toolbar">
             <select name="status" class="text-xs">
                 <option value="">Semua Status</option>
@@ -38,17 +44,17 @@
             <input type="date" name="date_to" value="{{ request('date_to') }}" class="text-xs" title="Sampai Tanggal">
             <button type="submit" class="inline-flex h-[34px] items-center px-3.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition flex-shrink-0 cursor-pointer">Filter</button>
             @if(request()->hasAny(['status', 'employee_id', 'date_from', 'date_to']))
-                <a href="{{ route('reimbursements.index-page') }}" class="inline-flex h-[34px] items-center px-3 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition flex-shrink-0">Reset</a>
+                <a href="{{ route('reimbursements.index-page') }}" class="inline-flex h-[34px] items-center px-3 text-xs font-medium text-[#475569] bg-white border border-[#D1D5DB] rounded-md hover:bg-[#F8FAFC] transition flex-shrink-0">Reset</a>
             @endif
         </form>
     </div>
 
     {{-- Card 3 — Main Table Card --}}
-    <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
+    <div class="workspace-card rounded-lg border border-[#D1D5DB] bg-white shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
-                    <tr class="border-y border-slate-200 bg-slate-50/75 text-[11px] font-semibold text-slate-600 uppercase tracking-wider">
+                    <tr class="border-y border-[#D1D5DB] bg-slate-50/75 text-[11px] font-semibold text-slate-600 uppercase tracking-wider">
                         <th class="py-3 px-4">Karyawan</th>
                         <th class="py-3 px-4">Proyek Terkait</th>
                         <th class="py-3 px-4">Kategori & Keterangan</th>
@@ -60,7 +66,7 @@
                 </thead>
                 <tbody class="divide-y divide-slate-200 text-slate-800">
                     @forelse($reimbursementsPage as $reimbursement)
-                        <tr class="hover:bg-slate-50/60 transition-colors">
+                        <tr class="hover:bg-[#F3F4F6]/60 transition-colors">
                             <td class="py-3 px-4">
                                 <div class="font-bold text-slate-900">{{ $reimbursement->employee->name ?? '-' }}</div>
                                 <div class="text-[10px] text-slate-400">{{ $reimbursement->expense_date ? \Carbon\Carbon::parse($reimbursement->expense_date)->format('d/m/Y') : '-' }}</div>

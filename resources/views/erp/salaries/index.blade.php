@@ -8,7 +8,7 @@
             <div class="flex items-center gap-2 mb-1">
                 <span class="text-xs font-semibold uppercase tracking-wider text-[#002875]">HR & Payroll</span>
                 <span class="text-gray-300">/</span>
-                <span class="text-xs font-semibold text-gray-700">Penggajian</span>
+                <span class="text-xs font-semibold text-[#334155]">Penggajian</span>
             </div>
             <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-[#0F172A]">Penggajian (Salaries & Payroll)</h1>
             <p class="mt-0.5 text-xs text-[#64748B]">Kelola data slip gaji, tunjangan, potongan, dan status pembayaran gaji karyawan.</p>
@@ -22,7 +22,13 @@
     </div>
 
     {{-- Filter Toolbar Directly Under Header (1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('salaries.index-page') }}" class="filter-toolbar">
             <select name="status" class="h-9 rounded-md border border-[#D1D5DB] bg-white px-3 text-xs text-[#0F172A] focus:border-[#002875] focus:ring-1 focus:ring-[#002875]">
                 <option value="">Semua Status</option>
@@ -67,7 +73,7 @@
                 </thead>
                 <tbody class="divide-y divide-[#E5E7EB]">
                     @forelse($salariesPage as $salary)
-                        <tr class="hover:bg-slate-50 transition">
+                        <tr class="hover:bg-[#F3F4F6] transition">
                             <td class="px-4 py-3">
                                 <a href="{{ route('salaries.show', $salary) }}" class="font-bold text-[#002875] hover:underline">
                                     {{ $salary->employee->name ?? 'Karyawan' }}
@@ -103,7 +109,7 @@
 
                                     {{-- Delete --}}
                                     @if($can('admin'))
-                                        <form method="post" action="{{ route('salaries.destroy', $salary) }}" class="inline" onsubmit="return confirm('Hapus slip gaji ini?');">
+                                        <form method="post" action="{{ route('salaries.destroy', $salary) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus slip gaji ini?">
                                             @csrf @method('delete')
                                             <button type="submit" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">
                                                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>

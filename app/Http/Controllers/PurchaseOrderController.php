@@ -149,7 +149,7 @@ public function edit(PurchaseOrder $order): View
 
     public function pdf(PurchaseOrder $order): View
     {
-        $order->load(['vendor', 'items.product', 'purchaseRequisition']);
+        $order->load(['vendor', 'items.product', 'requisition']);
         $companySetting = \App\Models\CompanySetting::first();
         return view('erp.purchase-orders.print', [
             'order' => $order,

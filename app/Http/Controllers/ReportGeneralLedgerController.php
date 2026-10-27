@@ -57,6 +57,7 @@ class ReportGeneralLedgerController extends Controller
                 'account_name'  => $account->name,
                 'date'          => $line->journalEntry?->entry_date,
                 'number'        => $line->journalEntry?->number,
+                'journal_code'  => $line->journalEntry?->journal?->code ?? $line->journalEntry?->number,
                 'journal'       => $line->journalEntry?->journal?->name,
                 'reference'     => $line->journalEntry?->reference,
                 'description'   => $line->description ?? $line->journalEntry?->memo,

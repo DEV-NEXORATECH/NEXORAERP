@@ -13,14 +13,20 @@
     </x-erp.page-header>
 
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('sales-targets.index') }}" class="filter-toolbar">
             
             <div class="relative flex-1 min-w-[200px]">
                 <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}" class="filter-search pl-8 pr-3 text-xs">
             </div>
             <div>
-                <select name="user_id" class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                <select name="user_id" class="rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                     <option value="">Semua Sales</option>
                     @foreach($users as $u)
                         <option value="{{ $u->id }}" @selected(request('user_id') == $u->id)>{{ $u->name }}</option>
@@ -32,7 +38,7 @@
                     Filter
                 </button>
                 @if(request('search') || request('user_id'))
-                    <a href="{{ route('sales-targets.index') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                    <a href="{{ route('sales-targets.index') }}" class="inline-flex items-center rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-[#F3F4F6] transition-colors">
                         Reset
                     </a>
                 @endif
@@ -41,11 +47,11 @@
         </form>
     </div>
 
-    <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+    <div class="rounded-lg border border-[#D1D5DB] bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
-                    <tr class="bg-slate-50 border-b border-slate-200">
+                    <tr class="bg-slate-50 border-b border-[#D1D5DB]">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Sales Representative</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Periode</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider text-right">Target Penjualan</th>
@@ -62,7 +68,7 @@
                             $pct = $targetVal > 0 ? round(($achievedVal / $targetVal) * 100, 1) : 0;
                             $pctBadge = $pct >= 100 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : ($pct >= 70 ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-amber-50 text-amber-700 border-amber-200');
                         @endphp
-                        <tr class="hover:bg-slate-50/70 transition-colors">
+                        <tr class="hover:bg-[#F3F4F6]/70 transition-colors">
                             <td class="px-4 py-3 text-slate-900 font-semibold">
                                 {{ $row->user->name ?? '-' }}
                             </td>
@@ -83,11 +89,11 @@
                             <td class="px-4 py-3 text-right">
                                 <div class="inline-flex items-center gap-1.5">
                                     @if($can('admin', 'sales'))
-                                        <a href="{{ route('sales-targets.edit-page', $row) }}" class="inline-flex items-center gap-1 rounded border border-slate-300 bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-slate-50 hover:text-[#002875] transition-colors" title="Edit">
+                                        <a href="{{ route('sales-targets.edit-page', $row) }}" class="inline-flex items-center gap-1 rounded border border-[#D1D5DB] bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-[#F3F4F6] hover:text-[#002875] transition-colors" title="Edit">
                                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
                                             Edit
                                         </a>
-                                        <form method="post" action="{{ route('sales-targets.destroy', $row) }}" class="inline" onsubmit="return confirm('Hapus data target ini?');">
+                                        <form method="post" action="{{ route('sales-targets.destroy', $row) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus data target ini?">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="inline-flex items-center gap-1 rounded border border-red-200 bg-white px-2 py-1 text-[11px] font-medium text-red-600 hover:bg-red-50 transition-colors" title="Hapus">

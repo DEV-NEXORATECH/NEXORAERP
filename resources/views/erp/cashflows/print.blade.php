@@ -18,7 +18,7 @@
                 {{ $cashflow->type === 'income' ? 'Diterima Dari:' : 'Dibayarkan Kepada:' }}
             </div>
             <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">
-                {{ $cashflow->vendor ?: ($cashflow->project->client ?? 'Pihak Terkait') }}
+                {{ $cashflow->vendor ?: ($cashflow->project?->client ?? 'Pihak Terkait') }}
             </div>
             <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Kategori: {{ $cashflow->category }}</div>
             @if($cashflow->cost_type)
@@ -27,9 +27,9 @@
         </td>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Informasi Rekening & Proyek:</div>
-            <div style="font-size: 9.5pt; font-weight: bold; margin-top: 2px;">Bank / Kas: {{ $cashflow->bankAccount->name ?? 'Kas Utama' }}</div>
+            <div style="font-size: 9.5pt; font-weight: bold; margin-top: 2px;">Bank / Kas: {{ $cashflow->bankAccount?->name ?? 'Kas Utama' }}</div>
             @if($cashflow->project)
-                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Proyek: {{ $cashflow->project->code }} — {{ $cashflow->project->name }}</div>
+                <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Proyek: {{ $cashflow->project?->code }} — {{ $cashflow->project?->name }}</div>
             @endif
         </td>
     </tr>
@@ -64,3 +64,4 @@
     </tfoot>
 </table>
 @endsection
+

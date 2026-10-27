@@ -8,7 +8,7 @@
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Sales & CRM', 'url' => route('sales-crm.index')], ['label' => 'Sales Orders', 'url' => route('sales-orders.index')], ['label' => 'Tambah Order']]"
     />
 
-    <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-xs">
+    <div class="rounded-lg border border-[#D1D5DB] bg-white p-6 shadow-xs">
         <form method="post" action="{{ route('sales-orders.store') }}" class="space-y-6">
             @csrf
 
@@ -18,7 +18,7 @@
                         Judul Sales Order <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="title" value="{{ old('title') }}" placeholder="Contoh: Pengadaan Perangkat Jaringan dan Server Q3" required autofocus
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                     @error('title')
                         <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                     @enderror
@@ -29,7 +29,7 @@
                         Tanggal Order <span class="text-red-500">*</span>
                     </label>
                     <input type="date" name="order_date" value="{{ old('order_date', date('Y-m-d')) }}" required
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                 </div>
 
                 <div>
@@ -37,7 +37,7 @@
                         Status Dokumen Order <span class="text-red-500">*</span>
                     </label>
                     <select name="status" required
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                         <option value="draft" @selected(old('status') === 'draft')>Draft</option>
                         <option value="confirmed" @selected(old('status') === 'confirmed')>Confirmed</option>
                         <option value="delivered" @selected(old('status') === 'delivered')>Delivered</option>
@@ -50,7 +50,7 @@
                         Sumber Proposal Penawaran
                     </label>
                     <select name="proposal_id"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                         <option value="">-- Pilih Proposal (Opsional) --</option>
                         @foreach($proposals as $proposal)
                             <option value="{{ $proposal->id }}" @selected(old('proposal_id') == $proposal->id)>
@@ -65,7 +65,7 @@
                         Klien / Pemesan
                     </label>
                     <select name="client_id"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                         <option value="">-- Pilih Klien --</option>
                         @foreach($clients as $client)
                             <option value="{{ $client->id }}" @selected(old('client_id') == $client->id)>
@@ -80,12 +80,12 @@
                         Catatan / Syarat Deliveri
                     </label>
                     <textarea name="notes" rows="2" placeholder="Termin pengiriman, PIC penerima barang..."
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">{{ old('notes') }}</textarea>
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">{{ old('notes') }}</textarea>
                 </div>
             </div>
 
             {{-- Line Items Table --}}
-            <div class="border-t border-slate-200 pt-4">
+            <div class="border-t border-[#D1D5DB] pt-4">
                 <div class="flex items-center justify-between mb-2">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-[#002875]">Rincian Item Produk Pesanan</h3>
                     <button type="button" id="btn-add-row" class="inline-flex items-center gap-1 rounded bg-slate-100 px-2.5 py-1 text-xs font-semibold text-[#002875] hover:bg-slate-200 transition-colors">
@@ -94,9 +94,9 @@
                     </button>
                 </div>
 
-                <div class="border border-slate-200 rounded-md overflow-hidden">
+                <div class="border border-[#D1D5DB] rounded-md overflow-hidden">
                     <table class="table-folk w-full text-left text-xs" id="items-table">
-                        <thead class="bg-slate-50 border-b border-slate-200">
+                        <thead class="bg-slate-50 border-b border-[#D1D5DB]">
                             <tr>
                                 <th class="px-3 py-2.5 font-semibold text-slate-600 uppercase">Item Produk</th>
                                 <th class="px-3 py-2.5 font-semibold text-slate-600 uppercase w-28">Kuantitas</th>
@@ -108,7 +108,7 @@
                         <tbody id="items-body" class="divide-y divide-slate-100">
                             <tr class="item-row">
                                 <td class="px-3 py-2">
-                                    <select name="items[0][product_id]" class="item-product w-full rounded border border-slate-300 bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none">
+                                    <select name="items[0][product_id]" class="item-product w-full rounded border border-[#D1D5DB] bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none">
                                         <option value="">-- Pilih produk --</option>
                                         @foreach($products as $product)
                                             <option value="{{ $product->id }}" data-price="{{ $product->price }}">{{ $product->code }} - {{ $product->name }}</option>
@@ -116,10 +116,10 @@
                                     </select>
                                 </td>
                                 <td class="px-3 py-2">
-                                    <input type="number" step="any" min="0" class="item-qty w-full rounded border border-slate-300 bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none" name="items[0][quantity]" value="1">
+                                    <input type="number" step="any" min="0" class="item-qty w-full rounded border border-[#D1D5DB] bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none" name="items[0][quantity]" value="1">
                                 </td>
                                 <td class="px-3 py-2">
-                                    <input type="number" step="any" min="0" class="item-price w-full rounded border border-slate-300 bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none" name="items[0][unit_price]">
+                                    <input type="number" step="any" min="0" class="item-price w-full rounded border border-[#D1D5DB] bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none" name="items[0][unit_price]">
                                 </td>
                                 <td class="px-3 py-2 text-right font-bold text-slate-900 item-subtotal">0</td>
                                 <td class="px-3 py-2 text-center">
@@ -130,7 +130,7 @@
                     </table>
                 </div>
 
-                <div class="mt-3 flex items-center justify-between p-3 rounded-md bg-slate-50 border border-slate-200">
+                <div class="mt-3 flex items-center justify-between p-3 rounded-md bg-slate-50 border border-[#D1D5DB]">
                     <span class="text-xs font-semibold text-slate-600">Total Nilai Order:</span>
                     <div class="text-base font-bold text-[#002875]">
                         Rp <span id="items-total">0</span>
@@ -139,12 +139,12 @@
                 <input type="hidden" name="amount" value="{{ old('amount', 0) }}" required>
             </div>
 
-            <div class="flex items-center gap-3 pt-4 border-t border-slate-200">
+            <div class="flex items-center gap-3 pt-4 border-t border-[#D1D5DB]">
                 <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-[#001B50] transition-colors">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
                     Simpan Sales Order
                 </button>
-                <a href="{{ route('sales-orders.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                <a href="{{ route('sales-orders.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#D1D5DB] bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-[#F3F4F6] transition-colors">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                     Batal
                 </a>
@@ -187,12 +187,12 @@
         const tpl = document.createElement('tr');
         tpl.className = 'item-row';
         tpl.innerHTML = `
-            <td class="px-3 py-2"><select class="item-product w-full rounded border border-slate-300 bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none">
+            <td class="px-3 py-2"><select class="item-product w-full rounded border border-[#D1D5DB] bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none">
                 <option value="">-- Pilih produk --</option>
                 ${productOptions.map(p => `<option value="${p.id}" data-price="${p.price}">${p.code} - ${p.name}</option>`).join('')}
             </select></td>
-            <td class="px-3 py-2"><input type="number" step="any" min="0" class="item-qty w-full rounded border border-slate-300 bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none" value="1"></td>
-            <td class="px-3 py-2"><input type="number" step="any" min="0" class="item-price w-full rounded border border-slate-300 bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none"></td>
+            <td class="px-3 py-2"><input type="number" step="any" min="0" class="item-qty w-full rounded border border-[#D1D5DB] bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none" value="1"></td>
+            <td class="px-3 py-2"><input type="number" step="any" min="0" class="item-price w-full rounded border border-[#D1D5DB] bg-white px-2 py-1 text-xs text-slate-900 focus:border-[#002875] focus:outline-none"></td>
             <td class="px-3 py-2 text-right font-bold text-slate-900 item-subtotal">0</td>
             <td class="px-3 py-2 text-center"><button type="button" class="btn-remove-row text-red-500 hover:text-red-700 font-bold text-base" title="Hapus baris">×</button></td>`;
         body.appendChild(tpl);

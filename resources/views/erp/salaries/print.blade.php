@@ -6,7 +6,7 @@
     'companySetting' => $companySetting ?? null,
     'preparedBy'     => 'HR & Payroll Dept',
     'reviewedBy'     => 'Finance Manager',
-    'approvedBy'     => $salary->employee->name ?? 'Penerima Gaji',
+    'approvedBy'     => $salary->employee?->name ?? 'Penerima Gaji',
 ])
 
 @section('content')
@@ -15,15 +15,15 @@
     <tr>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Identitas Karyawan:</div>
-            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $salary->employee->name }}</div>
-            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">ID Karyawan: {{ $salary->employee->employee_id ?? ('EMP-'.$salary->employee->id) }}</div>
-            <div style="font-size: 8.5pt; color: #444;">Jabatan: {{ $salary->employee->jobPosition?->name ?? 'Staff' }}</div>
-            <div style="font-size: 8.5pt; color: #444;">Departemen: {{ $salary->employee->departmentRecord?->name ?? 'General' }}</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 2px;">{{ $salary->employee?->name }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">ID Karyawan: {{ $salary->employee?->employee_id ?? ('EMP-'.$salary->employee?->id) }}</div>
+            <div style="font-size: 8.5pt; color: #444;">Jabatan: {{ $salary->employee?->jobPosition?->name ?? 'Staff' }}</div>
+            <div style="font-size: 8.5pt; color: #444;">Departemen: {{ $salary->employee?->departmentRecord?->name ?? 'General' }}</div>
         </td>
         <td style="width: 50%;">
             <div style="font-size: 8pt; color: #555; text-transform: uppercase; font-weight: bold;">Rincian Penggajian:</div>
             <div style="font-size: 10pt; font-weight: bold; margin-top: 2px;">Periode: {{ $salary->period }}</div>
-            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Alokasi Project: {{ $salary->project?->code ? ($salary->project->code . ' — ' . $salary->project->name) : 'Operasional Umum' }}</div>
+            <div style="font-size: 8.5pt; color: #444; margin-top: 2px;">Alokasi Project: {{ $salary->project?->code ? ($salary->project?->code . ' — ' . $salary->project?->name) : 'Operasional Umum' }}</div>
             <div style="font-size: 8.5pt; color: #444;">Tanggal Pembayaran: {{ $salary->paid_at ? \Carbon\Carbon::parse($salary->paid_at)->format('d/m/Y') : 'Menunggu Pencairan' }}</div>
             <div style="font-size: 8.5pt; color: #444;">Status Persetujuan: <strong>{{ strtoupper($salary->status) }}</strong></div>
         </td>
@@ -105,3 +105,4 @@
 @endif
 
 @endsection
+

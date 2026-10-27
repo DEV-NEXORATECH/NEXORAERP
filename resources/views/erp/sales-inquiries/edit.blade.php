@@ -8,7 +8,7 @@
         :breadcrumbs="[['label' => 'Dashboard', 'url' => route('dashboard')], ['label' => 'Sales & CRM', 'url' => route('sales-crm.index')], ['label' => 'Sales Inquiries', 'url' => route('sales-inquiries.index')], ['label' => 'Edit']]"
     />
 
-    <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-xs">
+    <div class="rounded-lg border border-[#D1D5DB] bg-white p-6 shadow-xs">
         <form method="post" action="{{ route('sales-inquiries.update', $inquiry) }}" class="space-y-5">
             @csrf
             @method('put')
@@ -18,7 +18,7 @@
                         Nama Perusahaan / Organisasi <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="company_name" value="{{ old('company_name', $inquiry->company_name) }}" required
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                     @error('company_name')
                         <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                     @enderror
@@ -29,7 +29,7 @@
                         Nama Kontak / PIC
                     </label>
                     <input type="text" name="contact_name" value="{{ old('contact_name', $inquiry->contact_name) }}"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                 </div>
 
                 <div>
@@ -37,7 +37,7 @@
                         Email Kontak
                     </label>
                     <input type="email" name="email" value="{{ old('email', $inquiry->email) }}"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                 </div>
 
                 <div>
@@ -45,7 +45,7 @@
                         Nomor Telepon / WhatsApp
                     </label>
                     <input type="text" name="phone" value="{{ old('phone', $inquiry->phone) }}"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                 </div>
 
                 <div>
@@ -53,7 +53,7 @@
                         Sumber Prospek (Lead Source)
                     </label>
                     <input type="text" name="source" value="{{ old('source', $inquiry->source) }}"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                 </div>
 
                 <div>
@@ -61,7 +61,7 @@
                         Ringkasan Kebutuhan
                     </label>
                     <input type="text" name="need" value="{{ old('need', $inquiry->need) }}"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                 </div>
 
                 <div>
@@ -69,7 +69,7 @@
                         Status Inquiry
                     </label>
                     <select name="status"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                         <option value="new" @selected($inquiry->status === 'new')>New (Baru Masuk)</option>
                         <option value="contacted" @selected($inquiry->status === 'contacted')>Contacted (Sudah Dihubungi)</option>
                         <option value="qualified" @selected($inquiry->status === 'qualified')>Qualified (Prospek Layak)</option>
@@ -82,7 +82,7 @@
                         PIC Sales / Penanggung Jawab
                     </label>
                     <select name="owner_id"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                         <option value="">-- Pilih Sales Representative --</option>
                         @foreach($users as $user)
                             <option value="{{ $user->id }}" @selected($inquiry->owner_id === $user->id)>{{ $user->name }}</option>
@@ -95,7 +95,7 @@
                         Catatan Diskusi / Riwayat Interaksi
                     </label>
                     <textarea name="notes" rows="3"
-                        class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">{{ old('notes', $inquiry->notes) }}</textarea>
+                        class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">{{ old('notes', $inquiry->notes) }}</textarea>
                 </div>
             </div>
 
@@ -104,7 +104,7 @@
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
                     Perbarui Inquiry
                 </button>
-                <a href="{{ route('sales-inquiries.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                <a href="{{ route('sales-inquiries.index') }}" class="inline-flex items-center gap-1.5 rounded-md border border-[#D1D5DB] bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-[#F3F4F6] transition-colors">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                     Batal
                 </a>

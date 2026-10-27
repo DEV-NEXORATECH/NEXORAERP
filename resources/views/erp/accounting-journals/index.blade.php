@@ -3,10 +3,10 @@
 @section('content')
 <div class="space-y-4">
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-lg border border-[#D1D5DB] shadow-sm">
         <div>
-            <h1 class="text-lg font-bold text-gray-900 tracking-tight">Buku Jurnal Akuntansi</h1>
-            <p class="text-xs text-gray-500">Kelola master data dan transaksi Buku Jurnal Akuntansi</p>
+            <h1 class="text-lg font-bold text-[#0F172A] tracking-tight">Buku Jurnal Akuntansi</h1>
+            <p class="text-xs text-[#475569]">Kelola master data dan transaksi Buku Jurnal Akuntansi</p>
         </div>
         <x-erp.toolbar-actions module="accounting-journals" :create-route="route('accounting-journals.create-page')" create-label="+ Tambah Jurnal" />
     </div>
@@ -14,7 +14,13 @@
     <!-- Table Card -->
     
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('accounting-journals.index') }}" class="filter-toolbar">
             
             
@@ -27,7 +33,7 @@
         </select>
         <div class="flex gap-2 items-end">
             <button class="px-3 py-1.5 text-xs font-semibold text-white bg-[#002875] hover:bg-[#001B50] rounded-md transition">Filter</button>
-            <a href="{{ route('accounting-journals.index') }}" class="px-3 py-1.5 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition">Reset</a>
+            <a href="{{ route('accounting-journals.index') }}" class="px-3 py-1.5 text-xs font-medium text-[#475569] bg-white border border-[#D1D5DB] rounded-md hover:bg-[#F8FAFC] transition">Reset</a>
         </div>
     
         
@@ -35,22 +41,22 @@
     </div>
 
     {{-- Card 3 — Workspace: Data Table --}}
-    <div class="workspace-card rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+    <div class="workspace-card rounded-lg border border-[#D1D5DB] bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
-                <thead class="bg-gray-50 border-b border-gray-200">
+                <thead class="bg-[#F8FAFC] border-b border-[#D1D5DB]">
                     <tr>
-                        <th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Kode</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Nama</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Tipe</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Status</th><th class="px-3 py-2.5 text-[11px] font-semibold text-gray-600 uppercase tracking-wider text-left">Aksi</th>
+                        <th class="px-3 py-2.5 text-[11px] font-semibold text-[#475569] uppercase tracking-wider text-left">Kode</th><th class="px-3 py-2.5 text-[11px] font-semibold text-[#475569] uppercase tracking-wider text-left">Nama</th><th class="px-3 py-2.5 text-[11px] font-semibold text-[#475569] uppercase tracking-wider text-left">Tipe</th><th class="px-3 py-2.5 text-[11px] font-semibold text-[#475569] uppercase tracking-wider text-left">Status</th><th class="px-3 py-2.5 text-[11px] font-semibold text-[#475569] uppercase tracking-wider text-left">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     
             @forelse($journals as $journal)
             <tr>
-                <td class="px-3 py-2 text-xs text-gray-700 text-left">{{ $journal->code }}</td>
-                <td class="px-3 py-2 text-xs text-gray-700 text-left">{{ $journal->name }}</td>
-                <td class="px-3 py-2 text-xs text-gray-700 text-left">{{ $journal->type }}</td>
-                <td class="px-3 py-2 text-xs text-gray-700 text-left">
+                <td class="px-3 py-2 text-xs text-[#334155] text-left">{{ $journal->code }}</td>
+                <td class="px-3 py-2 text-xs text-[#334155] text-left">{{ $journal->name }}</td>
+                <td class="px-3 py-2 text-xs text-[#334155] text-left">{{ $journal->type }}</td>
+                <td class="px-3 py-2 text-xs text-[#334155] text-left">
                     <span class="rounded-full px-2 py-0.5 text-xs font-bold {{ $journal->is_active ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500' }}">
                         {{ $journal->is_active ? 'Aktif' : 'Nonaktif' }}
                     </span>
@@ -60,7 +66,7 @@
                         <a href="{{ route('accounting-journals.edit-page', $journal) }}" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                         </a>
-                        <form method="post" action="{{ route('accounting-journals.destroy', $journal) }}" class="inline" onsubmit="return confirm('Hapus jurnal ini?');">
+                        <form method="post" action="{{ route('accounting-journals.destroy', $journal) }}" class="inline" class="inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus jurnal ini?">
                             @csrf
                             @method('delete')
                             <button type="submit" class="inline-flex h-7 w-7 items-center justify-center rounded border border-[#FECACA] bg-[#FEF2F2] text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus">

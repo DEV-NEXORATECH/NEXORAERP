@@ -13,19 +13,25 @@
     </x-erp.page-header>
 
     {{-- Card 2 — Filter Toolbar (Terpisah & Tepat 1 Baris) --}}
-    <div class="filter-card">
+    <div class="filter-panel">
+        <div class="filter-panel-header">
+            <div class="filter-panel-title">
+                <div class="filter-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <h3>Filter & Pencarian</h3>
+            </div>
+        </div>
         <form method="get" action="{{ route('audit-logs.index') }}" class="filter-toolbar">
             
             <div>
                 <input type="date" name="date_from" value="{{ request('date_from') }}"
-                    class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                    class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
             </div>
             <div>
                 <input type="date" name="date_to" value="{{ request('date_to') }}"
-                    class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                    class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
             </div>
             <div>
-                <select name="user_id" class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                <select name="user_id" class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
                     <option value="">Semua User</option>
                     @foreach($users as $user)
                         <option value="{{ $user->id }}" @selected(request('user_id')==$user->id)>{{ $user->name }}</option>
@@ -34,13 +40,13 @@
             </div>
             <div>
                 <input type="text" name="action" placeholder="Cari action..." value="{{ request('action') }}"
-                    class="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
+                    class="w-full rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#002875] focus:outline-none focus:ring-1 focus:ring-[#002875]">
             </div>
             <div class="flex items-center gap-2">
                 <button type="submit" class="inline-flex items-center gap-1.5 rounded-md bg-[#002875] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#001B50] transition-colors">
                     Filter
                 </button>
-                <a href="{{ route('audit-logs.index') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                <a href="{{ route('audit-logs.index') }}" class="inline-flex items-center rounded-md border border-[#D1D5DB] bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-[#F3F4F6] transition-colors">
                     Reset
                 </a>
             </div>
@@ -48,11 +54,11 @@
         </form>
     </div>
 
-    <div class="rounded-lg border border-slate-200 bg-white shadow-xs overflow-hidden">
+    <div class="rounded-lg border border-[#D1D5DB] bg-white shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table-folk w-full text-left border-collapse text-xs">
                 <thead>
-                    <tr class="bg-slate-50 border-b border-slate-200">
+                    <tr class="bg-slate-50 border-b border-[#D1D5DB]">
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Waktu Kejadian</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Pelaku (User)</th>
                         <th class="px-4 py-3 font-semibold text-slate-600 uppercase tracking-wider">Aksi (Action)</th>
@@ -62,7 +68,7 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @forelse($auditLogs as $log)
-                        <tr class="hover:bg-slate-50/70 transition-colors">
+                        <tr class="hover:bg-[#F3F4F6]/70 transition-colors">
                             <td class="px-4 py-3 text-slate-500 font-mono text-[11px] whitespace-nowrap">
                                 {{ $log->created_at->format('d M Y H:i:s') }}
                             </td>
@@ -70,7 +76,7 @@
                                 {{ $log->user?->name ?? 'System Automated' }}
                             </td>
                             <td class="px-4 py-3">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold border bg-slate-100 text-slate-800 border-slate-200 uppercase">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold border bg-slate-100 text-slate-800 border-[#D1D5DB] uppercase">
                                     {{ $log->action }}
                                 </span>
                             </td>
