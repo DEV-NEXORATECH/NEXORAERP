@@ -110,7 +110,7 @@
                                         </form>
                                         <form method="post" action="{{ route('user-management.destroy', $user) }}">
                                             @csrf @method('delete')
-                                            <button data-action="delete" type="submit" class="erp-action-button inline-flex h-7 items-center rounded-[6px] border border-[#FECACA] bg-[#FEF2F2] px-2.5 text-[11px] font-bold text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus User">
+                                            <button style="color:#DC2626!important;background:#FEF2F2!important;border-color:#FECACA!important" data-action="delete" type="submit" class="erp-action-button inline-flex h-7 items-center rounded-[6px] border border-[#FECACA] bg-[#FEF2F2] px-2.5 text-[11px] font-bold text-[#DC2626] hover:bg-[#FEE2E2]" title="Hapus User">
                                                 Delete
                                             </button>
                                         </form>

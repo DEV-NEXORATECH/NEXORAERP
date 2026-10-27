@@ -4262,22 +4262,6 @@ button, a.btn, .btn { font-family: 'Poppins', ui-sans-serif, system-ui, sans-ser
 }
 .eyebrow { font-size: 9px !important; font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 1.5px !important; color: #64748B !important; }
 
-/* Final visual contract: blue inspection/edit/print actions and red delete. */
-.shell td:last-child a[title]:has(> svg),
-.shell td:last-child button[title]:has(> svg),
-.shell td:last-child form > button[type="submit"]:has(> svg) {
-    color: #0369A1 !important;
-    background: #F0F9FF !important;
-    border: 1px solid #BAE6FD !important;
-}
-.shell td:last-child button[title*="Hapus"]:has(> svg),
-.shell td:last-child button[title*="Delete"]:has(> svg),
-.shell td:last-child form:has(input[name="_method"][value="delete"]) > button:has(> svg) {
-    color: #DC2626 !important;
-    background: #FEF2F2 !important;
-    border-color: #FECACA !important;
-}
-
 /* One filter contract for every list/report page. */
 .erp-filter-toolbar {
     display: flex !important;
@@ -4401,56 +4385,6 @@ button, a.btn, .btn { font-family: 'Poppins', ui-sans-serif, system-ui, sans-ser
 @media (max-width: 768px) {
     .pagination-card { align-items: stretch !important; flex-direction: column !important; }
     .pagination-card nav, .pagination-shell, .pagination-list { justify-content: center !important; flex-wrap: wrap !important; }
-}
-
-/* One action contract for every feature table. */
-.shell .erp-action-button,
-.shell .erp-action-button svg {
-    display: inline-flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-.shell .erp-action-button {
-    align-items: center !important;
-    justify-content: center !important;
-    flex: 0 0 36px !important;
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    min-height: 36px !important;
-    padding: 0 !important;
-    line-height: 1 !important;
-    border-radius: 8px !important;
-}
-.shell .erp-action-button svg {
-    width: 16px !important;
-    height: 16px !important;
-    flex: 0 0 16px !important;
-    stroke: currentColor !important;
-}
-.shell .erp-action-button[title*="Hapus"],
-.shell .erp-action-button[title*="Delete"],
-.shell form:has(input[name="_method"][value="delete"]) .erp-action-button {
-    color: #DC2626 !important;
-    background: #FEF2F2 !important;
-    border: 1px solid #FECACA !important;
-}
-.shell .erp-action-button[title*="Lihat"],
-.shell .erp-action-button[title*="Detail"] {
-    color: #0369A1 !important;
-    background: #F0F9FF !important;
-    border: 1px solid #BAE6FD !important;
-}
-.shell .erp-action-button[title*="Edit"] {
-    color: #2563EB !important;
-    background: #EFF6FF !important;
-    border: 1px solid #BFDBFE !important;
-}
-.shell .erp-action-button[title*="Cetak"],
-.shell .erp-action-button[title*="PDF"] {
-    color: #475569 !important;
-    background: #F8FAFC !important;
-    border: 1px solid #CBD5E1 !important;
 }
 
 /* Final shell contract: desktop always reserves the sidebar column. */

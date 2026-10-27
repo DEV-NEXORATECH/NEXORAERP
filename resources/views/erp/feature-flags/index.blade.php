@@ -38,7 +38,7 @@
                             @endif
                         </div>
                         <div class="flex shrink-0 items-center gap-2">
-                            <a data-action="edit" href="{{ route('feature-flags.edit-page', $flag) }}" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#DDD6FE] bg-[#F5F3FF] text-[#7C3AED] hover:bg-[#EDE9FE]" title="Edit">
+                            <a style="color:#7C3AED!important;background:#F5F3FF!important;border-color:#DDD6FE!important" data-action="edit" href="{{ route('feature-flags.edit-page', $flag) }}" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#DDD6FE] bg-[#F5F3FF] text-[#7C3AED] hover:bg-[#EDE9FE]" title="Edit">
                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                         </a>
                             <form method="post" action="{{ route('feature-flags.toggle') }}">

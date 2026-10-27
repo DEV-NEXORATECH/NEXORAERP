@@ -69,7 +69,7 @@
                             <td class="px-4 py-3 text-right">
                                 <div class="inline-flex items-center gap-1.5">
                                     @if($can('admin', 'finance'))
-                                        <a data-action="edit" href="{{ route('bank-accounts.edit-page', $bank) }}" class="erp-action-button inline-flex items-center gap-1 rounded border border-[#DDD6FE] bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-[#EDE9FE] hover:text-[#002875] transition-colors" title="Edit">
+                                        <a style="color:#7C3AED!important;background:#F5F3FF!important;border-color:#DDD6FE!important" data-action="edit" href="{{ route('bank-accounts.edit-page', $bank) }}" class="erp-action-button inline-flex items-center gap-1 rounded border border-[#DDD6FE] bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-[#EDE9FE] hover:text-[#002875] transition-colors" title="Edit">
                                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
                                             Edit
                                         </a>
@@ -77,7 +77,7 @@
                                             <form method="post" action="{{ route('bank-accounts.destroy', $bank) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Apakah Anda yakin ingin menghapus rekening bank ini?">
                                                 @csrf
                                                 @method('delete')
-                                                <button data-action="delete" type="submit" class="erp-action-button inline-flex items-center gap-1 rounded border border-red-200 bg-white px-2 py-1 text-[11px] font-medium text-red-600 hover:bg-red-50 transition-colors" title="Hapus">
+                                                <button style="color:#DC2626!important;background:#FEF2F2!important;border-color:#FECACA!important" data-action="delete" type="submit" class="erp-action-button inline-flex items-center gap-1 rounded border border-red-200 bg-white px-2 py-1 text-[11px] font-medium text-red-600 hover:bg-red-50 transition-colors" title="Hapus">
                                                     <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></svg>
                                                     Hapus
                                                 </button>
