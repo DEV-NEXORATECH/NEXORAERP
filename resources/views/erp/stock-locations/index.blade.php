@@ -58,7 +58,7 @@
                 </td>
                 <td class="px-3 py-2 text-xs text-right whitespace-nowrap">
                     <div class="inline-flex items-center gap-1.5">
-                        <a data-action="edit" href="{{ route('stock-locations.edit-page', $location) }}" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Edit">
+                        <a data-action="edit" href="{{ route('stock-locations.edit-page', $location) }}" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#DDD6FE] bg-[#F5F3FF] text-[#7C3AED] hover:bg-[#EDE9FE]" title="Edit">
                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                         </a>
                         <form method="post" action="{{ route('stock-locations.destroy', $location) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus lokasi stok ini?">

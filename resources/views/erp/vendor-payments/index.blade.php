@@ -62,7 +62,7 @@
                             <td class="py-3 px-4 text-slate-500 font-mono text-[11px]">{{ $payment->reference ?? '-' }}</td>
                             <td class="py-3 px-4 text-center whitespace-nowrap">
                                 <div class="inline-flex items-center gap-1.5">
-                                    <a data-action="print" href="{{ route('vendor-payments.pdf', $payment) }}" target="_blank" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE]" title="Cetak Voucher PDF">
+                                    <a data-action="print" href="{{ route('vendor-payments.pdf', $payment) }}" target="_blank" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#CBD5E1] bg-[#F8FAFC] text-[#475569] hover:bg-[#F1F5F9]" title="Cetak Voucher PDF">
                                         <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
                                     </a>
                                     <form method="post" action="{{ route('vendor-payments.destroy', $payment) }}" class="inline inline erp-action-form" data-confirm-type="delete" data-confirm-title="Hapus data" data-confirm-text="Hapus pembayaran ini?">

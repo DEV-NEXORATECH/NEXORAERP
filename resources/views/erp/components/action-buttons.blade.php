@@ -20,7 +20,7 @@
 <div class="inline-flex items-center gap-1.5">
     {{-- Detail / Show --}}
     @if($showUrl)
-        <a href="{{ $showUrl }}" data-action="view" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#BAE6FD] bg-[#F0F9FF] text-[#0369A1] hover:bg-[#E0F2FE] transition shadow-2xs" title="Lihat Detail">
+        <a href="{{ $showUrl }}" data-action="view" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#99F6E4] bg-[#F0FDFA] text-[#0F766E] hover:bg-[#CCFBF1] transition shadow-2xs" title="Lihat Detail">
             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
             <span class="sr-only">Lihat Detail</span>
         </a>
@@ -28,7 +28,7 @@
 
     {{-- Edit --}}
     @if($editUrl && $canEdit)
-        <a href="{{ $editUrl }}" data-action="edit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#D1D5DB] bg-[#F9FAFB] text-[#475569] hover:bg-[#F3F4F6] transition shadow-2xs" title="Edit">
+        <a href="{{ $editUrl }}" data-action="edit" class="erp-action-button inline-flex h-7 w-7 items-center justify-center rounded border border-[#DDD6FE] bg-[#F5F3FF] text-[#7C3AED] hover:bg-[#EDE9FE] transition shadow-2xs" title="Edit">
             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
             <span class="sr-only">Edit</span>
         </a>

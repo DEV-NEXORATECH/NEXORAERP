@@ -101,7 +101,7 @@
                             <td class="px-4 py-3 text-right">
                                 <div class="inline-flex items-center gap-1.5">
                                     @if($can('admin', 'sales'))
-                                        <a data-action="edit" href="{{ route('sales-leads.edit-page', $row) }}" class="erp-action-button inline-flex items-center gap-1 rounded border border-[#D1D5DB] bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-[#F3F4F6] hover:text-[#002875] transition-colors" title="Edit">
+                                        <a data-action="edit" href="{{ route('sales-leads.edit-page', $row) }}" class="erp-action-button inline-flex items-center gap-1 rounded border border-[#DDD6FE] bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-[#EDE9FE] hover:text-[#002875] transition-colors" title="Edit">
                                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
                                             Edit
                                         </a>
