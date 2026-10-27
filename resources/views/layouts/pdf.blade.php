@@ -19,6 +19,7 @@
             padding: 0;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+            padding-bottom: 34mm;
         }
 
         .no-print {
@@ -55,7 +56,7 @@
         }
 
         .letterhead-image { margin: 0 0 8mm 0; }
-        .letter-footer-image { margin: 12mm 0 0 0; }
+        .letter-footer-image { margin: 0; }
 
         .header-table {
             width: 100%;
@@ -67,6 +68,8 @@
             border: none;
             padding: 0;
         }
+
+        .document-info-table { margin-top: 0; }
 
         .company-logo {
             max-height: 55px;
@@ -225,13 +228,19 @@
         }
 
         .footer-note {
-            margin-top: 25px;
-            border-top: 1px solid #CCCCCC;
-            padding-top: 8px;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0;
+            padding: 0;
             font-size: 7.5pt;
             color: #666666;
             text-align: center;
+            background: #FFFFFF;
         }
+
+        .footer-note > div { padding-top: 2mm; }
     </style>
 </head>
 <body>
@@ -244,11 +253,9 @@
     {{-- Nexora official letterhead --}}
     <header class="doc-header">
         <img class="letterhead-image" src="{{ asset('images/pdf/nexora-letter-header.png') }}" alt="Nexora Technology letter header">
-        <table class="header-table">
+        <table class="header-table document-info-table">
             <tr>
-                <td style="width: 55%;">
-                    <div class="company-name">{{ $companySetting?->company_name ?? 'NEXORA TECHNOLOGY' }}</div>
-                </td>
+                <td style="width: 55%;"></td>
                 <td class="doc-title-block" style="width: 45%;">
                     <div class="doc-type-title">{{ $docTitle ?? 'DOKUMEN' }}</div>
                     <table class="doc-meta-table">
